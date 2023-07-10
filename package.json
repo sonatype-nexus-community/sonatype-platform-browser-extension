@@ -63,6 +63,7 @@
         "html-webpack-plugin": "^5.5.0",
         "isomorphic-fetch": "^3.0.0",
         "jest": "^27.0.0",
+        "jest-chrome": "^0.8.0",
         "jest-css-modules-transform": "^4.3.0",
         "jest-svg-transformer": "^1.0.0",
         "jest-transform-stub": "^2.0.0",
