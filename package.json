@@ -10,7 +10,7 @@
         "sca",
         "software composition analysis"
     ],
-    "homepage": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
+    "homepage": "https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/",
     "bugs": {
         "url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues"
     },

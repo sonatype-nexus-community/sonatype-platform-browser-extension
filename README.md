@@ -75,7 +75,7 @@ _Notes:_
 
 Some public registires are hosted on instances of Sonatype Nexus Repository and jFrog Artifactory. You might also have private instances.
 
-[Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/mjehedmoboadebjmbmobpedkdgenmlhd) has support for both of these types, but this has yet to be ported to this new extension.
+[Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag) has support for both of these types, but this has yet to be ported to this new extension.
 
 ### Missing or unsupported Registry?
 
@@ -85,7 +85,7 @@ Missing format or ecosystem? Why not raise an Issue to request?
 
 ### Installation on Chrome
 
-Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/mjehedmoboadebjmbmobpedkdgenmlhd) to add to Chrome.
+Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag) to add to Chrome.
 
 ## Configuration
 
