@@ -24,6 +24,9 @@ import {
     NxFontAwesomeIcon,
     NxFormSelect,
     NxButton,
+    nxFormSelectStateHelpers,
+    NxStatefulInfoAlert,
+    NxTextInput
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -51,6 +54,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
 
+    
     /**
      * Hook to check whether we already have permissions to IQ Server Host
      */
@@ -174,10 +178,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
                     <div className='nx-form-row'>
                         <NxFormGroup label={`URL`} isRequired>
-                            <NxStatefulTextInput
-                                defaultValue={extensionSettings.host}
+                            <NxTextInput
+                                isPristine={extensionSettings.host === undefined}
+                                value={extensionSettings.host as string}
+                                validatable={true}
                                 placeholder='https://your-iq-server-url'
-                                validator={nonEmptyValidator}
+                                // validator={nonEmptyValidator}
                                 onChange={handleIqHostChange}
                             />
                         </NxFormGroup>
@@ -231,6 +237,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
                                     onChange={handleIqApplicationChange}
                                     disabled={!iqAuthenticated}>
+                                    <option value="">-- Select an Application --</option>
                                     {iqServerApplicationList.map((app: ApiApplicationDTO) => {
                                         return (
                                             <option key={app.id} value={`${app.id}|${app.publicId}`}>
@@ -243,13 +250,18 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         </React.Fragment>
                     )}
 
-                    {iqAuthenticated === true && (
+                    {iqAuthenticated === true && extensionSettings.iqApplicationInternalId != undefined && extensionSettings.iqApplicationPublidId != undefined && (
                         <NxStatefulSuccessAlert>
-                            Congratulations! You successfully authenticated with your Sonatype IQ Server!
+                            Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected!  You may close this browser tab to continue.
                         </NxStatefulSuccessAlert>
                     )}
+                    {extensionSettings.iqApplicationInternalId === undefined && extensionSettings.iqApplicationPublidId === undefined && iqAuthenticated === true &&(
+                        <NxStatefulInfoAlert>
+                            Please select an application from the list above.
+                        </NxStatefulInfoAlert>
+                    )}
                     {iqAuthenticated === false && (
-                        <NxStatefulErrorAlert>There was an error signing in, it looks like</NxStatefulErrorAlert>
+                        <NxStatefulErrorAlert>There was an error signing in.</NxStatefulErrorAlert>
                     )}
                 </section>
             </NxGrid.Row>
