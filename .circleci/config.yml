@@ -73,10 +73,6 @@ jobs:
             - run:
                   name: Semantic Release
                   command: npx semantic-release
-            - run:
-                  # See https://circleci.com/blog/continuously-deploy-a-chrome-extension/
-                  name: Publish to Chrome Store
-                  command: echo 'Coming soon...'
 
 workflows:
     ci:
