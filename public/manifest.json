@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Sonatype Platform Browser Extension",
-    "version": "2.0.0.0001",
+    "version": "0.0.0",
     "description": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
     "icons": {
         "16": "images/sonatype-lifecycle-icon-16x16.png",
@@ -36,7 +36,7 @@
             "run_at": "document_end"
         }
     ],
-    "homepage_url": "https://github.com/sonatype-nexus-community/nexus-iq-chrome-extension/",
+    "homepage_url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
     "minimum_chrome_version": "93",
     "offline_enabled": false,
     "options_page": "options.html",

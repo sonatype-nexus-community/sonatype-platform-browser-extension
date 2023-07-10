@@ -33,7 +33,7 @@ export default function Help() {
                         We have detailed documentation for the Sonatype Platform Browser Extension available&nbsp;
                         <NxTextLink
                             external
-                            href='https://sonatype-nexus-community.github.io/nexus-iq-chrome-extension/'>
+                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/'>
                             here
                         </NxTextLink>
                         &nbsp;.
@@ -51,7 +51,7 @@ export default function Help() {
                         We greatly value feedback. You can open a &nbsp;
                         <NxTextLink
                             external
-                            href='https://sonatype-nexus-community.github.io/nexus-iq-chrome-extension/issues'>
+                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/issues'>
                             GitHub Issue
                         </NxTextLink>
                         &nbsp; with your idea or question or reach out to your dedicated Customer Success
@@ -70,7 +70,7 @@ export default function Help() {
                         We greatly value feedback. If you believe you have found a bug, please open a &nbsp;
                         <NxTextLink
                             external
-                            href='https://sonatype-nexus-community.github.io/nexus-iq-chrome-extension/issues'>
+                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/issues'>
                             GitHub Issue
                         </NxTextLink>
                         &nbsp; and provide as much information as you can including:

@@ -32,8 +32,6 @@ SAVETEXT.txt
 .yarn
 .yarnrc
 
-yarn.lock
-
 # Sonatype IQ Config
 .sonatype-config
 
