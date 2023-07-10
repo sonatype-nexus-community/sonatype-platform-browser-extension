@@ -7,10 +7,11 @@
     "@semantic-release/release-notes-generator", 
     ["semantic-release-chrome", {
       "extensionId": "kahnhlonadjlllgnilndafpajaiepdag",
-      "asset": "my-extension.zip"
+      "asset": "sonatype-platform-browser-extension.zip",
+      "distFolder": "build"
     }],
     ["@semantic-release/github", {
-      "assets": "dist/*.tgz"
+      "assets": "build/*.tgz"
     }]
   ]
 }
