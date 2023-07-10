@@ -40,12 +40,11 @@
     "minimum_chrome_version": "93",
     "offline_enabled": false,
     "options_page": "options.html",
-    "permissions": ["activeTab", "declarativeContent", "background", "sidePanel", "storage", "tabs"],
+    "permissions": ["activeTab", "declarativeContent", "background", "storage", "tabs"],
     "short_name": "Sonatype",
     "background": {
         "service_worker": "extension_service_worker.js"
     },
-    "host_permissions": [],
     "action": {
         "default_popup": "popup.html",
         "default_title": "View the details of this Component",
