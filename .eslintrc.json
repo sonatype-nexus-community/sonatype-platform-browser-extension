@@ -1,0 +1,53 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { 
+    "project": ["./tsconfig.json", "./tsconfig.service-worker.json"],
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-hooks",
+      "eslint-plugin-import",
+      "prettier"
+  ],
+  "rules": {
+      "@typescript-eslint/strict-boolean-expressions": [
+          2
+          // {
+          //     "allowString" : false,
+          //     "allowNumber" : false
+          // }
+      ],
+      "react/jsx-filename-extension": [
+        "warn",
+        {
+          "extensions": [
+            ".jsx",
+            ".tsx"
+          ]
+        }
+      ],
+      "react/prop-types": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+  },
+  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"],
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

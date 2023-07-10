@@ -1,0 +1,96 @@
+{
+    "manifest_version": 3,
+    "name": "Sonatype Platform Browser Extension",
+    "version": "0.0.0",
+    "description": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
+    "icons": {
+        "16": "images/sonatype-lifecycle-icon-16x16.png",
+        "32": "images/sonatype-lifecycle-icon-32x32.png",
+        "48": "images/sonatype-lifecycle-icon-48x48.png",
+        "128": "images/sonatype-lifecycle-icon-128x128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://pkgs.alpinelinux.org/package/*",
+                "https://anaconda.org/*",
+                "https://cocoapods.org/*",
+                "https://conan.io/center/*",
+                "https://anaconda.org/conda-forge/*",
+                "https://cran.r-project.org/*",
+                "https://crates.io/*",
+                "https://pkg.go.dev/*",
+                "https://central.sonatype.com/*",
+                "https://repo.maven.apache.org/*",
+                "https://repo1.maven.org/*",
+                "https://search.maven.org/*",
+                "https://mvnrepository.com/*",
+                "https://www.npmjs.com/*",
+                "https://www.nuget.org/*",
+                "https://packagist.org/*",
+                "https://pypi.org/*",
+                "https://rubygems.org/*"
+            ],
+            "css": ["/css/pagestyle.css"],
+            "js": ["/static/js/content.js"],
+            "run_at": "document_end"
+        }
+    ],
+    "homepage_url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
+    "minimum_chrome_version": "93",
+    "offline_enabled": false,
+    "options_page": "options.html",
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "cookies",
+        "background",
+        "sidePanel",
+        "storage",
+        "tabs",
+        "notifications"
+    ],
+    "short_name": "Sonatype",
+    "background": {
+        "service_worker": "extension_service_worker.js"
+    },
+    "host_permissions": [
+        "https://ossindex.sonatype.org/",
+        "https://pkgs.alpinelinux.org/",
+        "https://anaconda.org/",
+        "https://cocoapods.org/",
+        "https://conan.io/",
+        "https://cran.r-project.org/",
+        "https://crates.io/",
+        "https://pkg.go.dev/",
+        "https://central.sonatype.com/",
+        "https://repo.maven.apache.org/",
+        "https://repo1.maven.org/",
+        "https://search.maven.org/",
+        "https://mvnrepository.com/",
+        "https://www.npmjs.com/",
+        "https://www.nuget.org/",
+        "https://packagist.org/",
+        "https://pypi.org/",
+        "https://rubygems.org/"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "View the details of this Component",
+        "default_icon": {
+            "16": "images/sonatype-lifecycle-icon-16x16.png",
+            "32": "images/sonatype-lifecycle-icon-32x32.png"
+        }
+    },
+    "content_security_policy": {
+        "script-src": "self",
+        "object-src": "self"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["images/*", "static/*", "css/*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+    "optional_host_permissions": ["<all_urls>"]
+}
