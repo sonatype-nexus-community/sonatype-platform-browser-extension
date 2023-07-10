@@ -6,7 +6,7 @@
     "@semantic-release/commit-analyzer", 
     "@semantic-release/release-notes-generator", 
     ["semantic-release-chrome", {
-      "extensionId": "mjehedmoboadebjmbmobpedkdgenmlhd",
+      "extensionId": "kahnhlonadjlllgnilndafpajaiepdag",
       "asset": "my-extension.zip"
     }],
     ["@semantic-release/github", {
