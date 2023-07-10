@@ -6,13 +6,13 @@
 [![GitHub forks](https://img.shields.io/github/forks/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/network)
 [![GitHub stars](https://img.shields.io/github/stars/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/stargazers)
 
-[![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/mjehedmoboadebjmbmobpedkdgenmlhd)
+[![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag)
 
-The Sonatype Platform Browser Extension supercedes the [Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/mjehedmoboadebjmbmobpedkdgenmlhd), and allows Developers to get insight from the Sonatype Platform for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
+The Sonatype Platform Browser Extension supercedes the [Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag), and allows Developers to get insight from the Sonatype Platform for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
 
 **Contents**
 
--   [Format \& Ecosystem Support](#format--ecosystem-support)
+-   [Format Support](#format-support)
     -   [Public Registries](#public-registries)
     -   [Private Hosted Registries](#private-hosted-registries)
     -   [Missing or unsupported Registry?](#missing-or-unsupported-registry)
@@ -38,7 +38,7 @@ The Sonatype Platform Browser Extension supercedes the [Sonatype Nexus IQ Evalua
 -   Some public registry formats have not yet been ported - see table below
 -   Support for repositories on Sonatype Nexus Repository and jFrog Artifactory has not yet been ported - coming soon -->
 
-## Format & Ecosystem Support
+## Format Support
 
 ### Public Registries
 
