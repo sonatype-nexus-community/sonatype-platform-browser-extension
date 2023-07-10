@@ -179,8 +179,8 @@ function IqComponentInfo() {
                     )}
                     <div className='nx-grid-row'>
                         <div className='nx-grid-col'>
-                            <NxDescriptionList>
-                                {popupContext.iq?.componentDetails.integrityRating != null && (
+                            {popupContext.iq?.componentDetails.integrityRating != null && (
+                                <NxDescriptionList emptyMessage={''}>
                                     <NxDescriptionList.Item>
                                         <NxDescriptionList.Term>
                                             <NxTextLink
@@ -193,8 +193,9 @@ function IqComponentInfo() {
                                             {popupContext.iq?.componentDetails.integrityRating}
                                         </NxDescriptionList.Description>
                                     </NxDescriptionList.Item>
-                                )}
-                                {popupContext.iq?.componentDetails.catalogDate != null && (
+                                </NxDescriptionList>
+                            )}
+                            {/* {popupContext.iq?.componentDetails.catalogDate != null && (
                                     <NxDescriptionList.Item>
                                         <Tooltip title='The date this component was initially evaluated by Sonatype.'>
                                             <NxDescriptionList.Term>Catalog Date</NxDescriptionList.Term>
@@ -203,27 +204,23 @@ function IqComponentInfo() {
                                             {formatDate(popupContext.iq?.componentDetails.catalogDate as Date)}
                                         </NxDescriptionList.Description>
                                     </NxDescriptionList.Item>
-                                )}
-                            </NxDescriptionList>
+                                )} */}
                         </div>
                     </div>
                 </div>
 
                 {popupContext.iq?.componentDetails.projectData &&
                     (popupContext.iq?.componentDetails.projectData.lastReleaseDate ||
-                        popupContext.iq?.componentDetails.projectData.firstReleaseDate) && (
+                        popupContext.iq?.componentDetails.projectData.firstReleaseDate ||
+                        popupContext.iq?.componentDetails.catalogDate) && (
                         <>
                             <div className='nx-grid-col nx-grid-col--33'>
                                 <dl>
-                                    {popupContext.iq?.componentDetails.projectData.lastReleaseDate && (
+                                    {popupContext.iq?.componentDetails.catalogDate && (
                                         <div className='nx-read-only__item'>
-                                            <dt className='nx-read-only__label'>Last Release Date</dt>
+                                            <dt className='nx-read-only__label'>Catalog Date</dt>
                                             <dd className='nx-read-only__data'>
-                                                {formatDate(
-                                                    new Date(
-                                                        popupContext.iq?.componentDetails.projectData?.lastReleaseDate
-                                                    )
-                                                )}
+                                                {formatDate(new Date(popupContext.iq?.componentDetails.catalogDate))}
                                             </dd>
                                         </div>
                                     )}
@@ -234,6 +231,18 @@ function IqComponentInfo() {
                                                 {formatDate(
                                                     new Date(
                                                         popupContext.iq?.componentDetails.projectData?.firstReleaseDate
+                                                    )
+                                                )}
+                                            </dd>
+                                        </div>
+                                    )}
+                                    {popupContext.iq?.componentDetails.projectData.lastReleaseDate && (
+                                        <div className='nx-read-only__item'>
+                                            <dt className='nx-read-only__label'>Last Release Date</dt>
+                                            <dd className='nx-read-only__data'>
+                                                {formatDate(
+                                                    new Date(
+                                                        popupContext.iq?.componentDetails.projectData?.lastReleaseDate
                                                     )
                                                 )}
                                             </dd>

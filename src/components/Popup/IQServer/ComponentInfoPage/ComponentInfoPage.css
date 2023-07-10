@@ -32,8 +32,12 @@
     margin-top: 0px !important;
 }
 
-#first-release-date {
-    margin-top: 20px !important;
+.nx-read-only__label {
+    margin-bottom: 0px !important;
+}
+
+.nx-read-only__data {
+    margin-bottom: 10px !important;
 }
 
 .nx-list-in-cell:first-child {
@@ -47,4 +51,12 @@
 
 #code-url {
     font-size: 12px;
+}
+
+.nx-card__footer {
+    padding-top: 5px !important;
+}
+
+.nx-card__content {
+    margin-bottom: 5px !important;
 }
