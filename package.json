@@ -1,6 +1,6 @@
 {
     "name": "sonatype-platform-browser-extension",
-    "version": "0.0.0",
+    "version": "2.0.0",
     "description": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
     "keywords": [
         "sonatype",
