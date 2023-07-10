@@ -224,30 +224,6 @@ function IqComponentInfo() {
                                             </dd>
                                         </div>
                                     )}
-                                    {popupContext.iq?.componentDetails.projectData.firstReleaseDate && (
-                                        <div className='nx-read-only__item' id='first-release-date'>
-                                            <dt className='nx-read-only__label'>First Release Date</dt>
-                                            <dd className='nx-read-only__data'>
-                                                {formatDate(
-                                                    new Date(
-                                                        popupContext.iq?.componentDetails.projectData?.firstReleaseDate
-                                                    )
-                                                )}
-                                            </dd>
-                                        </div>
-                                    )}
-                                    {popupContext.iq?.componentDetails.projectData.lastReleaseDate && (
-                                        <div className='nx-read-only__item'>
-                                            <dt className='nx-read-only__label'>Last Release Date</dt>
-                                            <dd className='nx-read-only__data'>
-                                                {formatDate(
-                                                    new Date(
-                                                        popupContext.iq?.componentDetails.projectData?.lastReleaseDate
-                                                    )
-                                                )}
-                                            </dd>
-                                        </div>
-                                    )}
                                 </dl>
                             </div>
                         </>

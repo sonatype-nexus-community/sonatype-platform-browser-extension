@@ -24,7 +24,6 @@ import {
     NxFontAwesomeIcon,
     NxFormSelect,
     NxButton,
-    nxFormSelectStateHelpers,
     NxStatefulInfoAlert,
     NxTextInput
 } from '@sonatype/react-shared-components'
