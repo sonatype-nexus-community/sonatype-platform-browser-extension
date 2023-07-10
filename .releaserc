@@ -1,0 +1,16 @@
+{
+  "branches": [
+    "main"
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer", 
+    "@semantic-release/release-notes-generator", 
+    ["semantic-release-chrome", {
+      "extensionId": "mjehedmoboadebjmbmobpedkdgenmlhd",
+      "asset": "my-extension.zip"
+    }],
+    ["@semantic-release/github", {
+      "assets": "dist/*.tgz"
+    }]
+  ]
+}
