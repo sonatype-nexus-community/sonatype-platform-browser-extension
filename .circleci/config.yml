@@ -89,6 +89,8 @@ workflows:
     release:
         jobs:
             - release_build:
+                  context:
+                      - sonatype-browser-extension
                   filters:
                       branches:
                           only: main
