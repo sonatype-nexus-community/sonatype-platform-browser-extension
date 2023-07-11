@@ -113,7 +113,7 @@ function IqAllVersionDetails() {
                                                         {`Age: ${calculateAge(version.catalogDate)} Year(s)`}
                                                     </React.Fragment>
                                                 }>
-                                                {/* // title={`Policy Violation Count: ${version.policyData.policyViolations?.length}<br/>Security Vulnerabilities: ${version.securityData?.securityIssues?.length}`}> */}
+                                                <div>
                                                 <NxPolicyViolationIndicator
                                                     style={{ marginBottom: '16px !important' }}
                                                     policyThreatLevel={
@@ -123,12 +123,14 @@ function IqAllVersionDetails() {
                                                     }>
                                                     {versionPurl.version}
                                                 </NxPolicyViolationIndicator>
+                                                </div>
                                             </VersionTooltip>
                                         )}
                                     </NxGrid.Column>
                                     {version.relativePopularity !== undefined && (
                                         <NxGrid.Column className='nx-grid-col-50'>
                                             <Tooltip title={`Popularity: ${version.relativePopularity}`}>
+                                            <div>
                                                 <NxMeter
                                                     value={version.relativePopularity as number}
                                                     max={100}
@@ -138,6 +140,7 @@ function IqAllVersionDetails() {
                                                         // marginTop: '0px',
                                                     }}
                                                 />
+                                              </div>
                                             </Tooltip>
                                         </NxGrid.Column>
                                     )}

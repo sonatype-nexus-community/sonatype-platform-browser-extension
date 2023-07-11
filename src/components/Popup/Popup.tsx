@@ -24,7 +24,7 @@ import {
     NxTile,
     NxButton,
 } from '@sonatype/react-shared-components'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ExtensionPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE } from '../../utils/Constants'
@@ -43,7 +43,6 @@ function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [activeTabId, setActiveTabId] = useState(0)
-    const containerElement = useRef()
 
     const versionsCount = 
         popupContext.iq?.allVersions &&
@@ -81,9 +80,10 @@ function IqPopup() {
                         width: '800px !important',
                     }}
                     productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
-                        <Tooltip
-                title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
+                        <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
+                            <div>
                     <NxButton
+                        title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
                         variant='icon-only'
                         onClick={() => {
                             chrome.tabs.update({
@@ -93,10 +93,12 @@ function IqPopup() {
                         }}>
                         <img id='iq-server-button' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
                     </NxButton>
+                    </div>
                     </Tooltip>
-                    <Tooltip
-                title={`Extension Options`}>
-                    <NxButton variant='icon-only'>
+                    <Tooltip title={`Extension Options`}>
+                        <div>
+                    <NxButton variant='icon-only'
+                    title={`Extension Options`}>
                         <NxFontAwesomeIcon
                             icon={faGear as IconDefinition}
                             onClick={() => {
@@ -107,6 +109,7 @@ function IqPopup() {
                             }}
                         />
                     </NxButton>
+                    </div>
                     </Tooltip>
                 </NxPageHeader>
 
@@ -118,7 +121,6 @@ function IqPopup() {
                             // margin: '0px !important',
                         }}>
                         <NxTile
-                            ref={containerElement}
                             className='nx-tile'
                             style={{
                                 padding: '0px !important',
@@ -142,6 +144,7 @@ function IqPopup() {
                                     
                                     <Tooltip
                                             title={`Number of versions: ${versionsCount}`}>
+                                                <div>
                                     <NxTab>
                                         {policyViolations.length > 0
                                             ? 'Remediation'
@@ -150,27 +153,32 @@ function IqPopup() {
                                         {versionsCount > 0 && (
                                             <span className={'nx-counter'}>{versionsCount}</span>    
                                         )}
-                                        </NxTab></Tooltip>
+                                        </NxTab>
+                                        </div>
+                                        </Tooltip>
                                     
                                     {policyViolations.length > 0 && (
                                         <Tooltip
                                         title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
-                                        placement="bottom"
-                                        PopperProps={{container: containerElement.current}}>
+                                        placement="bottom">
+                                            <div>
                                         <NxTab>
                                             Policy
                                             <span className={'nx-counter'}>{policyViolations.length}</span>
                                         </NxTab>
+                                        </div>
                                         </Tooltip>
                                     )}
                                     {securityIssues.length > 0 && (
                                         <Tooltip
                                         title={`Security Issues cataloged against this component.`}
                                         placement="bottom">
+                                            <div>
                                         <NxTab>
                                             Security
                                             <span className={'nx-counter'}>{securityIssues.length}</span>
                                         </NxTab>
+                                        </div>
                                         </Tooltip>
                                     )}
                                     {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
