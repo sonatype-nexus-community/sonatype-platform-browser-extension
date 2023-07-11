@@ -24,7 +24,7 @@ import {
     NxTile,
     NxButton,
 } from '@sonatype/react-shared-components'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { ExtensionPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE } from '../../utils/Constants'
@@ -43,6 +43,11 @@ function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [activeTabId, setActiveTabId] = useState(0)
+    const containerElement = useRef()
+
+    const versionsCount = 
+        popupContext.iq?.allVersions &&
+        popupContext.iq?.allVersions.length > 0 ? popupContext.iq?.allVersions.length : 0
 
     const effectiveLicenses =
         popupContext.iq &&
@@ -113,6 +118,7 @@ function IqPopup() {
                             // margin: '0px !important',
                         }}>
                         <NxTile
+                            ref={containerElement}
                             className='nx-tile'
                             style={{
                                 padding: '0px !important',
@@ -133,23 +139,39 @@ function IqPopup() {
                                         height: '600px !important',
                                     }}>
                                     <NxTab>Info</NxTab>
+                                    
+                                    <Tooltip
+                                            title={`Number of versions: ${versionsCount}`}>
                                     <NxTab>
                                         {policyViolations.length > 0
                                             ? 'Remediation'
                                             : 'Versions'}
-                                    </NxTab>
-
+                                        
+                                        {versionsCount > 0 && (
+                                            <span className={'nx-counter'}>{versionsCount}</span>    
+                                        )}
+                                        </NxTab></Tooltip>
+                                    
                                     {policyViolations.length > 0 && (
+                                        <Tooltip
+                                        title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
+                                        placement="bottom"
+                                        PopperProps={{container: containerElement.current}}>
                                         <NxTab>
                                             Policy
                                             <span className={'nx-counter'}>{policyViolations.length}</span>
                                         </NxTab>
+                                        </Tooltip>
                                     )}
                                     {securityIssues.length > 0 && (
+                                        <Tooltip
+                                        title={`Security Issues cataloged against this component.`}
+                                        placement="bottom">
                                         <NxTab>
                                             Security
                                             <span className={'nx-counter'}>{securityIssues.length}</span>
                                         </NxTab>
+                                        </Tooltip>
                                     )}
                                     {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
                                 </NxTabList>
