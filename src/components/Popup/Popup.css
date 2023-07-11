@@ -81,3 +81,8 @@
     min-width: none !important;
     vertical-align: text-top;
 }
+
+#iq-server-button {
+    vertical-align: middle !important;
+    padding-bottom: 2.5px !important;
+}

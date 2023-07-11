@@ -86,7 +86,7 @@ function IqPopup() {
                             })
                             window.close()
                         }}>
-                        IQ
+                        <img id='iq-server-button' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
                     </NxButton>
                     </Tooltip>
                     <Tooltip
