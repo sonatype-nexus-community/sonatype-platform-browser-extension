@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Fixes
+
+- Fix for #10
+
 ## 2.0.0
 
 Initial Release!
