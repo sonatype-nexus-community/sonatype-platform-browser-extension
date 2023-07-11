@@ -24,8 +24,7 @@ import {
     NxFontAwesomeIcon,
     NxFormSelect,
     NxButton,
-    NxStatefulInfoAlert,
-    NxTextInput
+    NxStatefulInfoAlert
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -101,13 +100,15 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             )
         }
     }
+    
 
     /**
      * Field onChange Handlers
      */
     function handleIqHostChange(e) {
         const newExtensionSettings = extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
-        newExtensionSettings.host = (e as string).endsWith('/') ? e : `${e}/`
+        const host = e.target.value
+        newExtensionSettings.host = (host as string).endsWith('/') ? host : `${host}/`
         setExtensionConfig(newExtensionSettings)
         hasOriginPermission()
     }
@@ -177,13 +178,14 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
                     <div className='nx-form-row'>
                         <NxFormGroup label={`URL`} isRequired>
-                            <NxTextInput
-                                isPristine={extensionSettings.host === undefined}
-                                value={extensionSettings.host as string}
-                                validatable={true}
+                            <NxStatefulTextInput
+                                // isPristine={extensionSettings.host === undefined}
+                                value={extensionSettings?.host as string}
+                                // validatable={true}
                                 placeholder='https://your-iq-server-url'
-                                // validator={nonEmptyValidator}
-                                onChange={handleIqHostChange}
+                                validator={nonEmptyValidator}
+                                // onChange={handleIqHostChange}
+                                onBlur={handleIqHostChange}
                             />
                         </NxFormGroup>
                         {!hasPermissions && (
