@@ -16,7 +16,6 @@
 import {
     NxDescriptionList,
     NxFontAwesomeIcon,
-    NxFooter,
     NxLoadingSpinner,
     NxPolicyViolationIndicator,
     NxTextLink,

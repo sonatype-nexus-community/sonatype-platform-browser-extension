@@ -135,7 +135,7 @@ function IqPopup() {
                                     }}>
                                     <NxTab>Info</NxTab>
                                     <NxTab>
-                                        {popupContext.iq.componentDetails.policyData?.policyViolations
+                                        {policyViolations.length > 0
                                             ? 'Remediation'
                                             : 'Versions'}
                                     </NxTab>
