@@ -65,14 +65,17 @@ export async function requestComponentEvaluationByPurls(request: MessageRequest)
                     }
 
                     return apiClient
-                        .evaluateComponents({
-                            applicationId: applicationId,
-                            apiComponentEvaluationRequestDTOV2: {
-                                components: purls.map((purl) => {
-                                    return { packageUrl: purl }
-                                }),
+                        .evaluateComponents(
+                            {
+                                applicationId: applicationId,
+                                apiComponentEvaluationRequestDTOV2: {
+                                    components: purls.map((purl) => {
+                                        return { packageUrl: purl }
+                                    }),
+                                },
                             },
-                        })
+                            { credentials: 'omit' }
+                        )
                         .then((evaluateRequestResponse) => {
                             logger.logMessage(
                                 'Response from evaluateComponents',
@@ -112,10 +115,13 @@ export function pollForComponentEvaluationResult(applicationId: string, resultId
             try {
                 const apiConfig = await _get_iq_api_configuration()
                 const apiClient = new EvaluationApi(apiConfig)
-                const result = await apiClient.getComponentEvaluation({
-                    applicationId: applicationId,
-                    resultId: resultId,
-                })
+                const result = await apiClient.getComponentEvaluation(
+                    {
+                        applicationId: applicationId,
+                        resultId: resultId,
+                    },
+                    { credentials: 'omit' }
+                )
 
                 if (polling && result.results) {
                     polling = false
@@ -154,13 +160,16 @@ export async function getAllComponentVersions(request: MessageRequest): Promise<
             const apiClient = new ComponentsApi(apiConfig)
 
             return apiClient
-                .getComponentVersions({
-                    apiComponentOrPurlIdentifierDTOV2: {
-                        packageUrl: (request.params !== undefined && 'purl' in request.params
-                            ? request.params.purl
-                            : '') as string,
+                .getComponentVersions(
+                    {
+                        apiComponentOrPurlIdentifierDTOV2: {
+                            packageUrl: (request.params !== undefined && 'purl' in request.params
+                                ? request.params.purl
+                                : '') as string,
+                        },
                     },
-                })
+                    { credentials: 'omit' }
+                )
                 .then((componentVersions) => {
                     return {
                         status: MESSAGE_RESPONSE_STATUS.SUCCESS,
@@ -216,13 +225,16 @@ export async function getComponentDetails(request: MessageRequest): Promise<Mess
             }
 
             return apiClient
-                .getComponentDetails({
-                    apiComponentDetailsRequestDTOV2: {
-                        components: purls.map((purl) => {
-                            return { packageUrl: purl }
-                        }),
+                .getComponentDetails(
+                    {
+                        apiComponentDetailsRequestDTOV2: {
+                            components: purls.map((purl) => {
+                                return { packageUrl: purl }
+                            }),
+                        },
                     },
-                })
+                    { credentials: 'omit' }
+                )
                 .then((componentDetailsResponse) => {
                     logger.logMessage('getComponentDetails response', LogLevel.DEBUG, componentDetailsResponse)
                     return {
@@ -256,16 +268,19 @@ export async function getComponentLegalDetails(request: MessageRequest): Promise
                     const apiClient = new LicenseLegalMetadataApi(apiConfig)
 
                     return apiClient
-                        .getLicenseLegalComponentReport({
-                            ownerType: GetLicenseLegalComponentReportOwnerTypeEnum.Application,
-                            ownerId:
-                                extensionConfig.iqApplicationPublidId !== undefined
-                                    ? extensionConfig.iqApplicationPublidId
-                                    : '',
-                            packageUrl: (request.params !== undefined && 'purl' in request.params
-                                ? request.params.purl
-                                : '') as string,
-                        })
+                        .getLicenseLegalComponentReport(
+                            {
+                                ownerType: GetLicenseLegalComponentReportOwnerTypeEnum.Application,
+                                ownerId:
+                                    extensionConfig.iqApplicationPublidId !== undefined
+                                        ? extensionConfig.iqApplicationPublidId
+                                        : '',
+                                packageUrl: (request.params !== undefined && 'purl' in request.params
+                                    ? request.params.purl
+                                    : '') as string,
+                            },
+                            { credentials: 'omit' }
+                        )
                         .then((componentLegalDetailsResponse) => {
                             logger.logMessage(
                                 'getComponentLegalDetails response',
@@ -306,18 +321,21 @@ export async function getRemediationDetailsForComponent(request: MessageRequest)
                     const apiClient = new ComponentsApi(apiConfig)
 
                     return apiClient
-                        .getSuggestedRemediationForComponent({
-                            ownerType: GetSuggestedRemediationForComponentOwnerTypeEnum.Application,
-                            ownerId:
-                                extensionConfig.iqApplicationInternalId !== undefined
-                                    ? extensionConfig.iqApplicationInternalId
-                                    : '',
-                            apiComponentDTOV2: {
-                                packageUrl: (request.params !== undefined && 'purl' in request.params
-                                    ? request.params.purl
-                                    : '') as string,
+                        .getSuggestedRemediationForComponent(
+                            {
+                                ownerType: GetSuggestedRemediationForComponentOwnerTypeEnum.Application,
+                                ownerId:
+                                    extensionConfig.iqApplicationInternalId !== undefined
+                                        ? extensionConfig.iqApplicationInternalId
+                                        : '',
+                                apiComponentDTOV2: {
+                                    packageUrl: (request.params !== undefined && 'purl' in request.params
+                                        ? request.params.purl
+                                        : '') as string,
+                                },
                             },
-                        })
+                            { credentials: 'omit' }
+                        )
                         .then((remediationDetailsResponse) => {
                             logger.logMessage(
                                 'getSuggestedRemediationForComponent response',
