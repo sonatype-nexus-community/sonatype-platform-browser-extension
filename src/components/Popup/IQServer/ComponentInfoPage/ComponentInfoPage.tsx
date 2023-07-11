@@ -16,6 +16,7 @@
 import {
     NxDescriptionList,
     NxFontAwesomeIcon,
+    NxFooter,
     NxLoadingSpinner,
     NxPolicyViolationIndicator,
     NxTextLink,
@@ -129,7 +130,7 @@ function IqComponentInfo() {
                     <h3 className='nx-h2'>{popupContext.iq?.componentDetails?.component?.displayName}</h3>
                 </div>
             </header>
-            <div className='nx-grid-row'>
+            <div className='nx-grid-row' id='first-componentinfo-row'>
                 <div className='nx-grid-col nx-grid-col--67'>
                     {popupContext.iq?.componentDetails?.component?.hash != null && (
                         <div className='nx-read-only__item'>
@@ -228,12 +229,11 @@ function IqComponentInfo() {
                             </div>
                         </>
                     )}
-            </div>
-            {/* </section> */}
-            {popupContext.iq.componentDetails.policyData &&
+                {popupContext.iq.componentDetails.policyData &&
                 popupContext.iq.componentDetails.policyData.policyViolations &&
                 popupContext.iq.componentDetails.policyData.policyViolations.length > 0 && (
                     <React.Fragment>
+                        <div id='highest-policy-threat-levels'>
                         <hr className='nx-grid-h-keyline' />
                         <header className='nx-grid-header' id='max-policy-header'>
                             <h4 className='nx-h3 nx-grid-header__title'>Highest Policy Threat Levels</h4>
@@ -258,8 +258,13 @@ function IqComponentInfo() {
                                 />
                             </div>
                         </div>
+                        </div>
                     </React.Fragment>
-                )}
+                )}  
+            </div>
+            
+            {/* </section> */}
+            
         </React.Fragment>
     )
 }

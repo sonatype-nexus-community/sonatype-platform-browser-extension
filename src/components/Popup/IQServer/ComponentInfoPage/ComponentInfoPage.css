@@ -60,3 +60,12 @@
 .nx-card__content {
     margin-bottom: 5px !important;
 }
+
+#highest-policy-threat-levels {
+    position: absolute;
+    bottom: 0;
+}
+
+#first-componentinfo-row {
+    margin-top: 40px !important;
+}

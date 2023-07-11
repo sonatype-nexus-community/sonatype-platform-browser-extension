@@ -37,6 +37,7 @@ import SecurityPage from './IQServer/SecurityPage/SecurityPage'
 import { Puff } from '@agney/react-loading'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { Tooltip } from '@material-ui/core'
 
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -75,6 +76,8 @@ function IqPopup() {
                         width: '800px !important',
                     }}
                     productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
+                        <Tooltip
+                title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
                     <NxButton
                         variant='icon-only'
                         title='Sonatype Lifecycle'
@@ -86,6 +89,9 @@ function IqPopup() {
                         }}>
                         IQ
                     </NxButton>
+                    </Tooltip>
+                    <Tooltip
+                title={`Extension Options`}>
                     <NxButton variant='icon-only' title='Options'>
                         <NxFontAwesomeIcon
                             icon={faGear as IconDefinition}
@@ -97,6 +103,7 @@ function IqPopup() {
                             }}
                         />
                     </NxButton>
+                    </Tooltip>
                 </NxPageHeader>
 
                 <div className='nx-page-content'>
