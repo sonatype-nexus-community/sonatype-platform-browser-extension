@@ -6,9 +6,9 @@
 [![GitHub forks](https://img.shields.io/github/forks/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/network)
 [![GitHub stars](https://img.shields.io/github/stars/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/stargazers)
 
-[![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag)
+[![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag)
 
-The Sonatype Platform Browser Extension supercedes the [Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag), and allows Developers to get insight from the Sonatype Platform for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
+The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/mjehedmoboadebjmbmobpedkdgenmlhd?authuser=0&hl=en-GB), and allows Developers to get insight from the Sonatype Platform for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
 
 **Contents**
 
@@ -75,7 +75,7 @@ _Notes:_
 
 Some public registires are hosted on instances of Sonatype Nexus Repository and jFrog Artifactory. You might also have private instances.
 
-[Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag) has support for both of these types, but this has yet to be ported to this new extension.
+[Sonatype Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/mjehedmoboadebjmbmobpedkdgenmlhd) has support for both of these types, but this has yet to be ported to this extension.
 
 ### Missing or unsupported Registry?
 
@@ -85,7 +85,7 @@ Missing format or ecosystem? Why not raise an Issue to request?
 
 ### Installation on Chrome
 
-Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-nexus-iq-evaluat/kahnhlonadjlllgnilndafpajaiepdag) to add to Chrome.
+Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag) to add to Chrome.
 
 ## Configuration
 
