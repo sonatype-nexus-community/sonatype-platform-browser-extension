@@ -16,11 +16,15 @@
       "asset": "sonatype-platform-browser-extension.zip",
       "distFolder": "build"
     }],
+    ["@semantic-release/exec", {
+      "verifyConditionsCmd": "node ./scripts/scripts/edge-webstore.js verify",
+      "publishCmd": "node ./scripts/scripts/edge-webstore.js publish"
+    }],
     ["@semantic-release/github", {
       "assets": "build/*.tgz"
     }],
     ["@semantic-release/git", {
-        "assets": ["CHANGELOG.md"]
+        "assets": ["CHANGELOG.md", "package.json"]
     }]
   ]
 }
