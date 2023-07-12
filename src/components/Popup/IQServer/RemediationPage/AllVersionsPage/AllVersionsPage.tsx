@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxFontAwesomeIcon, NxH3 } from '@sonatype/react-shared-components'
+import { NxH3 } from '@sonatype/react-shared-components'
 import React, { useContext } from 'react'
 import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import AllVersionsDetails from './AllVersionsDetails/AllVersionsDetails'
 import { DATA_SOURCE } from '../../../../../utils/Constants'
-import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 function IqRemediationPageAllVersion() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -31,10 +29,6 @@ function IqRemediationPageAllVersion() {
                 <NxH3>
                     All Versions <span className={'nx-counter'}>{popupContext?.iq?.allVersions.length}</span>
                 </NxH3>
-                <NxFontAwesomeIcon icon={faAddressCard as IconDefinition} title="Address Card" />
-                <NxFontAwesomeIcon icon={faAddressCard as IconDefinition} title="Address Card" />
-                <NxFontAwesomeIcon icon={faAddressCard as IconDefinition} title="Address Card" />
-                <NxFontAwesomeIcon icon={faAddressCard as IconDefinition} title="Address Card" />
                 <AllVersionsDetails />
             </React.Fragment>
         )
