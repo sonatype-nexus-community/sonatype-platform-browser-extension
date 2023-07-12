@@ -18,6 +18,9 @@
     }],
     ["@semantic-release/github", {
       "assets": "build/*.tgz"
+    }],
+    ["@semantic-release/git", {
+        "assets": ["CHANGELOG.md"]
     }]
   ]
 }
