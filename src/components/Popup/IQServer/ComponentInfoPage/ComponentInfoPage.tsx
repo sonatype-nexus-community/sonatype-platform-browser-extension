@@ -92,12 +92,7 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
                 <section className='nx-card nx-card--equal' aria-label={policyTypeLabel}>
                     <div className='nx-card__content'>
                         <div className='nx-card__call-out'>
-                            <NxPolicyViolationIndicator
-                                style={{
-                                    width: '10px !important',
-                                    margin: 'none !important',
-                                }}
-                                policyThreatLevel={0}>
+                            <NxPolicyViolationIndicator>
                                 None
                             </NxPolicyViolationIndicator>
                         </div>

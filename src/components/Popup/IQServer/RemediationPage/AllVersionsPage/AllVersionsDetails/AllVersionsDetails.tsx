@@ -18,7 +18,7 @@ import {
     NxList,
     NxLoadingSpinner,
     NxMeter,
-    NxPolicyViolationIndicator,
+    NxThreatIndicator,
     ThreatLevelNumber,
 } from '@sonatype/react-shared-components'
 import { PackageURL } from 'packageurl-js'
@@ -27,9 +27,10 @@ import { ExtensionPopupContext } from '../../../../../../context/ExtensionPopupC
 import { ExtensionConfigurationContext } from '../../../../../../context/ExtensionConfigurationContext'
 import './AllVersionsDetails.css'
 import { DATA_SOURCE } from '../../../../../../utils/Constants'
-import { ApiComponentPolicyViolationListDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { getNewUrlandGo } from '../../../../../../utils/Helpers'
-import { Tooltip, withStyles } from '@material-ui/core'
+import { Tooltip } from '@material-ui/core'
+import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
 
 function IqAllVersionDetails() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -37,16 +38,16 @@ function IqAllVersionDetails() {
     const currentPurl = popupContext.currentPurl
     const currentVersionRef = useRef<HTMLElement>(null)
 
-    function getMaxViolation(policyData: ApiComponentPolicyViolationListDTOV2) {
-        if (policyData.policyViolations && policyData.policyViolations.length > 0) {
-            return Math.max(
-                ...policyData.policyViolations.map((violation) =>
-                    violation.threatLevel != undefined ? violation.threatLevel : 0
-                )
-            )
-        }
-        return 0
-    }
+    // function getMaxViolation(policyData: ApiComponentPolicyViolationListDTOV2) {
+    //     if (policyData.policyViolations && policyData.policyViolations.length > 0) {
+    //         return Math.max(
+    //             ...policyData.policyViolations.map((violation) =>
+    //                 violation.threatLevel != undefined ? violation.threatLevel : 0
+    //             )
+    //         )
+    //     }
+    //     return 0
+    // }
 
     useEffect(() => {
         if (currentVersionRef.current) {
@@ -58,20 +59,75 @@ function IqAllVersionDetails() {
         }
     }, [allVersions])
 
-    const VersionTooltip = withStyles((theme) => ({
-        tooltip: {
-            backgroundColor: theme.palette.common.white,
-            color: 'black',
-            boxShadow: theme.shadows[1],
-            fontSize: 12,
-        },
-    }))(Tooltip)
+    const formatDate = (date: Date | undefined | null): string => {
+        if (date) {
+            const dateTime = new Date(date)
+            const noTime = dateTime.toUTCString().split(' ').slice(0, 4).join(' ')
+            return noTime
+        }
+        return 'N/A'
+    }
+
+    // const VersionTooltip = withStyles((theme) => ({
+    //     tooltip: {
+    //         backgroundColor: theme.palette.common.white,
+    //         color: 'black',
+    //         boxShadow: theme.shadows[1],
+    //         fontSize: 12,
+    //     },
+    // }))(Tooltip)
 
     function calculateAge(catalogDate) {
         // birthday is a date
         const ageDifMs = Date.now() - catalogDate
         const ageDate = new Date(ageDifMs) // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970)
+    }
+
+    function GetPolicyViolationsIndicator({ policyData, policyType }) {
+        // const extConfigContext = useContext(ExtensionConfigurationContext)
+        let filteredPolicies: ApiPolicyViolationDTOV2[] | undefined = []
+        const policyTypes = ['Security', 'License', 'Architecture']
+    
+        if (policyType === 'All Policies') {
+            filteredPolicies = policyData.policyViolations
+        } else if (policyType === 'Other') {
+            filteredPolicies = policyData.policyViolations?.filter(
+                (policy) => !policyTypes.some((excludeItem) => policy.policyName.includes(excludeItem))
+            )
+        } else {
+            filteredPolicies = policyData.policyViolations?.filter((policy) => policy.policyName?.includes(policyType))
+        }
+    
+        const policyTypeLabel = policyType === 'Architecture' ? 'Quality' : policyType
+    
+        if (filteredPolicies !== undefined && filteredPolicies.length > 0) {
+            const maxPolicyThreatLevel = Math.round(
+                getMaxThreatLevelForPolicyViolations(filteredPolicies)
+            ) as ThreatLevelNumber
+            return (
+                <React.Fragment>
+                <Tooltip
+                    arrow
+                    title={`The highest ${policyTypeLabel} policy threat level: ${maxPolicyThreatLevel}`}>
+                        <span>
+                    <NxThreatIndicator policyThreatLevel={maxPolicyThreatLevel}/>
+                    </span>
+                    </Tooltip>
+                    
+                </React.Fragment>
+            )
+        }
+        return (
+            <React.Fragment>
+                <Tooltip
+                    arrow
+                    title={`No ${policyTypeLabel} policy violations`}>
+                        <span>
+                <NxThreatIndicator />
+                </span></Tooltip>
+            </React.Fragment>
+        )
     }
 
     if (allVersions) {
@@ -101,30 +157,29 @@ function IqAllVersionDetails() {
                                         marginBottom: '0px',
                                     }}>
                                     <NxGrid.Column className='nx-grid-col-50'>
+                                        <NxGrid.Header><strong>{versionPurl.version}</strong>
+                                        <Tooltip
+                    title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                        <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span></Tooltip></NxGrid.Header>
                                         {version.policyData != undefined && (
-                                            <VersionTooltip
-                                                title={
-                                                    <React.Fragment>
-                                                        {/* <Typography color='inherit'>Tooltip with HTML</Typography> */}
-                                                        {`Total Policy Violation Count: ${version.policyData.policyViolations?.length}`}
-                                                        <br />
-                                                        {`Security Vulnerabilities (CVE): ${version.securityData?.securityIssues?.length}`}
-                                                        <br />
-                                                        {`Age: ${calculateAge(version.catalogDate)} Year(s)`}
-                                                    </React.Fragment>
-                                                }>
-                                                <div>
-                                                <NxPolicyViolationIndicator
-                                                    style={{ marginBottom: '16px !important' }}
-                                                    policyThreatLevel={
-                                                        Math.round(
-                                                            getMaxViolation(version.policyData)
-                                                        ) as ThreatLevelNumber
-                                                    }>
-                                                    {versionPurl.version}
-                                                </NxPolicyViolationIndicator>
-                                                </div>
-                                            </VersionTooltip>
+                                            <React.Fragment>
+                                        <GetPolicyViolationsIndicator
+                                            policyData={version.policyData}
+                                            policyType={'Security'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={version.policyData}
+                                            policyType={'License'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={version.policyData}
+                                            policyType={'Architecture'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={version.policyData}
+                                            policyType={'Other'}
+                                        />
+                                        </React.Fragment>
                                         )}
                                     </NxGrid.Column>
                                     {version.relativePopularity !== undefined && (
