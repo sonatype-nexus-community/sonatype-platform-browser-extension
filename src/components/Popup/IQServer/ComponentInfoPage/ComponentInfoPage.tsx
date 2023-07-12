@@ -36,7 +36,6 @@ const formatDate = (date: Date | undefined | null): string => {
     if (date) {
         const dateTime = new Date(date)
         const noTime = dateTime.toUTCString().split(' ').slice(0, 4).join(' ')
-        // const noTime = dateTime.toLocaleString().split(' ').slice(0, 4).join(' ')
         return noTime
     }
     return 'N/A'
@@ -56,18 +55,13 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
     } else {
         filteredPolicies = policyData.policyViolations?.filter((policy) => policy.policyName?.includes(policyType))
     }
-    // logger.logMessage(`filtered policies for type: ${policyType}`, LogLevel.DEBUG, filteredPolicies)
 
     const policyTypeLabel = policyType === 'Architecture' ? 'Quality' : policyType
-
-    // logger.logMessage(`GetPolicyViolationsIndicator for type: ${policyType} (${policyTypeLabel})`, LogLevel.DEBUG)
 
     if (filteredPolicies !== undefined && filteredPolicies.length > 0) {
         const maxPolicyThreatLevel = Math.round(
             getMaxThreatLevelForPolicyViolations(filteredPolicies)
         ) as ThreatLevelNumber
-        // const policyCount: string = filteredPolicies.length.toString()
-        // const label = `${maxPolicyThreatLevel.toString()} ${policyTypeLabel}`
         return (
             <React.Fragment>
                 <Tooltip
@@ -123,13 +117,12 @@ function IqComponentInfo() {
     }
     return (
         <React.Fragment>
-            {/* <section className='nx-tile'> */}
             <header className='nx-tile-header'>
                 <div className='nx-tile-header__title'>
                     <h3 className='nx-h2'>{popupContext.iq?.componentDetails?.component?.displayName}</h3>
                 </div>
             </header>
-            <div className='nx-grid-row'>
+            <div className='nx-grid-row' id='first-componentinfo-row'>
                 <div className='nx-grid-col nx-grid-col--67'>
                     {popupContext.iq?.componentDetails?.component?.hash != null && (
                         <div className='nx-read-only__item'>
@@ -195,16 +188,6 @@ function IqComponentInfo() {
                                     </NxDescriptionList.Item>
                                 </NxDescriptionList>
                             )}
-                            {/* {popupContext.iq?.componentDetails.catalogDate != null && (
-                                    <NxDescriptionList.Item>
-                                        <Tooltip title='The date this component was initially evaluated by Sonatype.'>
-                                            <NxDescriptionList.Term>Catalog Date</NxDescriptionList.Term>
-                                        </Tooltip>
-                                        <NxDescriptionList.Description>
-                                            {formatDate(popupContext.iq?.componentDetails.catalogDate as Date)}
-                                        </NxDescriptionList.Description>
-                                    </NxDescriptionList.Item>
-                                )} */}
                         </div>
                     </div>
                 </div>
@@ -224,66 +207,43 @@ function IqComponentInfo() {
                                             </dd>
                                         </div>
                                     )}
-                                    {popupContext.iq?.componentDetails.projectData.firstReleaseDate && (
-                                        <div className='nx-read-only__item' id='first-release-date'>
-                                            <dt className='nx-read-only__label'>First Release Date</dt>
-                                            <dd className='nx-read-only__data'>
-                                                {formatDate(
-                                                    new Date(
-                                                        popupContext.iq?.componentDetails.projectData?.firstReleaseDate
-                                                    )
-                                                )}
-                                            </dd>
-                                        </div>
-                                    )}
-                                    {popupContext.iq?.componentDetails.projectData.lastReleaseDate && (
-                                        <div className='nx-read-only__item'>
-                                            <dt className='nx-read-only__label'>Last Release Date</dt>
-                                            <dd className='nx-read-only__data'>
-                                                {formatDate(
-                                                    new Date(
-                                                        popupContext.iq?.componentDetails.projectData?.lastReleaseDate
-                                                    )
-                                                )}
-                                            </dd>
-                                        </div>
-                                    )}
                                 </dl>
                             </div>
                         </>
                     )}
-            </div>
-            {/* </section> */}
-            {popupContext.iq.componentDetails.policyData &&
-                popupContext.iq.componentDetails.policyData.policyViolations &&
-                popupContext.iq.componentDetails.policyData.policyViolations.length > 0 && (
-                    <React.Fragment>
-                        <hr className='nx-grid-h-keyline' />
-                        <header className='nx-grid-header' id='max-policy-header'>
-                            <h4 className='nx-h3 nx-grid-header__title'>Highest Policy Threat Levels</h4>
-                        </header>
-                        <div className='nx-grid-row popup-content-row' id='max-policy-content'>
-                            <div className='nx-card-container'>
-                                <GetPolicyViolationsIndicator
-                                    policyData={popupContext.iq.componentDetails.policyData}
-                                    policyType={'Security'}
-                                />
-                                <GetPolicyViolationsIndicator
-                                    policyData={popupContext.iq.componentDetails.policyData}
-                                    policyType={'License'}
-                                />
-                                <GetPolicyViolationsIndicator
-                                    policyData={popupContext.iq.componentDetails.policyData}
-                                    policyType={'Architecture'}
-                                />
-                                <GetPolicyViolationsIndicator
-                                    policyData={popupContext.iq.componentDetails.policyData}
-                                    policyType={'Other'}
-                                />
+                {popupContext.iq.componentDetails.policyData &&
+                    popupContext.iq.componentDetails.policyData.policyViolations &&
+                    popupContext.iq.componentDetails.policyData.policyViolations.length > 0 && (
+                        <React.Fragment>
+                            <div id='highest-policy-threat-levels'>
+                                <hr className='nx-grid-h-keyline' />
+                                <header className='nx-grid-header' id='max-policy-header'>
+                                    <h4 className='nx-h3 nx-grid-header__title'>Highest Policy Threat Levels</h4>
+                                </header>
+                                <div className='nx-grid-row popup-content-row' id='max-policy-content'>
+                                    <div className='nx-card-container'>
+                                        <GetPolicyViolationsIndicator
+                                            policyData={popupContext.iq.componentDetails.policyData}
+                                            policyType={'Security'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={popupContext.iq.componentDetails.policyData}
+                                            policyType={'License'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={popupContext.iq.componentDetails.policyData}
+                                            policyType={'Architecture'}
+                                        />
+                                        <GetPolicyViolationsIndicator
+                                            policyData={popupContext.iq.componentDetails.policyData}
+                                            policyType={'Other'}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </React.Fragment>
-                )}
+                        </React.Fragment>
+                    )}
+            </div>
         </React.Fragment>
     )
 }
