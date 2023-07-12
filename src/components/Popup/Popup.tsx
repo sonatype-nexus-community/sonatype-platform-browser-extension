@@ -84,7 +84,7 @@ function IqPopup() {
                     style={{
                         width: '800px !important',
                     }}
-                    productInfo={{ name: extension.name, version: extension.version }}>
+                    productInfo={{ name: extension.name.replace('Sonatype ', ''), version: extension.version }}>
                     <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
                         <div>
                             <NxButton
