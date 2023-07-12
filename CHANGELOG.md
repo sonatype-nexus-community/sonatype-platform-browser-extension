@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.0...v2.1.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* handle `repo.maven.apache.org` when no version is known [#16](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/16) ([e5bcb29](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/e5bcb294aeb7d00bd92f7b87bad9cbbad4d407d0))
+
 # Changelog
 
 ## 2.1.0
