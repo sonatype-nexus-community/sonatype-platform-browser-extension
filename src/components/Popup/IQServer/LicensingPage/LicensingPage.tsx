@@ -22,8 +22,7 @@ import {
     ThreatLevelNumber,
     NxPolicyViolationIndicator,
     NxFontAwesomeIcon,
-    NxButton,
-    NxTooltip,
+    NxButton
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
 import { ExtensionPopupContext } from '../../../../context/ExtensionPopupContext'
@@ -35,6 +34,10 @@ import { ApiLicenseLegalMetadataDTO } from '@sonatype/nexus-iq-api-client'
 import { Puff } from '@agney/react-loading'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { Tooltip } from '@material-ui/core'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
 
 function IqLicensePage() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -84,19 +87,19 @@ function IqLicensePage() {
                         }}>
                         {effectiveLicenses && effectiveLicenses.length > 0 && (
                             <NxTab className='nx-tab-ext'>
-                                Effective
+                                {_browser.i18n.getMessage('LEGAL_EFFECTIVE_LICENSE')}
                                 <span className={'nx-counter'}>{effectiveLicenses?.length}</span>
                             </NxTab>
                         )}
                         {observedLicenses && observedLicenses.length > 0 && (
                             <NxTab className='nx-tab-ext'>
-                                Observed
+                                {_browser.i18n.getMessage('LEGAL_OBSERVED_LICENSE')}
                                 <span className={'nx-counter'}>{observedLicenses?.length}</span>
                             </NxTab>
                         )}
                         {declaredLicenses && declaredLicenses.length > 0 && (
                             <NxTab className='nx-tab-ext'>
-                                Declared
+                                {_browser.i18n.getMessage('LEGAL_DECLARED_LICENSE')}
                                 <span className={'nx-counter'}>{declaredLicenses?.length}</span>
                             </NxTab>
                         )}
@@ -113,9 +116,9 @@ function IqLicensePage() {
                             <NxTable className='nx-table' id='license-table'>
                                 <NxTable.Head>
                                     <NxTable.Row className='nx-table-row nx-table-row--header'>
-                                        <NxTable.Cell>Threat Group</NxTable.Cell>
-                                        <NxTable.Cell>License</NxTable.Cell>
-                                        <NxTable.Cell hasIcon>Copy Text</NxTable.Cell>
+                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_THREAT_GROUP')}</NxTable.Cell>
+                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
+                                        <NxTable.Cell hasIcon>{_browser.i18n.getMessage('LEGAL_TABLE_COPY_TEXT')}</NxTable.Cell>
                                     </NxTable.Row>
                                 </NxTable.Head>
                                 <NxTable.Body
@@ -147,7 +150,8 @@ function IqLicensePage() {
                                                             </NxTable.Cell>
                                                             <NxTable.Cell hasIcon>
                                                                 {licenseLegalMetadata.licenseText !== undefined && (
-                                                                    <NxTooltip title='Copy License Text'>
+                                                                    <Tooltip title={_browser.i18n.getMessage('LEGAL_COPY_TEXT_TOOLTIP')}>
+                                                                        <span>
                                                                         <NxButton
                                                                             variant='icon-only'
                                                                             onClick={(event) =>
@@ -160,7 +164,8 @@ function IqLicensePage() {
                                                                                 icon={faCopy as IconDefinition}
                                                                             />
                                                                         </NxButton>
-                                                                    </NxTooltip>
+                                                                        </span>
+                                                                    </Tooltip>
                                                                 )}
                                                             </NxTable.Cell>
                                                         </React.Fragment>
@@ -181,7 +186,7 @@ function IqLicensePage() {
                                 }}>
                                 <NxTable.Head>
                                     <NxTable.Row className='nx-table-row nx-table-row--header'>
-                                        <NxTable.Cell>License</NxTable.Cell>
+                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
                                     </NxTable.Row>
                                 </NxTable.Head>
                                 <NxTable.Body
@@ -212,7 +217,7 @@ function IqLicensePage() {
                                 }}>
                                 <NxTable.Head>
                                     <NxTable.Row className='nx-table-row nx-table-row--header'>
-                                        <NxTable.Cell>License</NxTable.Cell>
+                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
                                     </NxTable.Row>
                                 </NxTable.Head>
                                 <NxTable.Body

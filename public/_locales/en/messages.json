@@ -17,6 +17,14 @@
             }
         }
     },
+    "ALL_VERSIONS": {
+        "message": "All Versions",
+        "description": "The list of all the available component versions"
+    },
+    "CATALOG_DATE": {
+        "message": "Catalog Date",
+        "description": "The date this component version was add to the Sonatype data catalog"
+    },
     "SONATYPE_IQ_SERVER": {
         "message": "Sonatype IQ Server",
         "description": "Branded product name for Sonatype IQ Server"
@@ -109,10 +117,6 @@
         "message": "The actual (unexpected) behaviour",
         "description": "Fifth item of detail we request when raising a Bug"
     },
-    "CATALOG_DATE": {
-        "message": "Catalog Date",
-        "description": "The date this component version was add to the Sonatype data catalog"
-    },
     "HIGHEST_POLICY_THREAT_LEVELS": {
         "message": "Highest Policy Threat Levels",
         "description": "Header when displaying the highest threat levels by policy"
@@ -130,6 +134,34 @@
                 "example": "sample-application"
             }
         }
+    },
+    "LEGAL_EFFECTIVE_LICENSE": {
+        "message": "Effective",
+        "description": "The effective license of the component"
+    },
+    "LEGAL_OBSERVED_LICENSE": {
+        "message": "Observed",
+        "description": "The observed license of the component"
+    },
+    "LEGAL_DECLARED_LICENSE": {
+        "message": "Declared",
+        "description": "The declared license of the component"
+    },
+    "LEGAL_TABLE_THREAT_GROUP": {
+        "message": "Threat Group",
+        "description": "The column header in the security table for threat group"
+    },
+    "LEGAL_TABLE_LICENSE": {
+        "message": "License",
+        "description": "The column header in the security table for license"
+    },
+    "LEGAL_TABLE_COPY_TEXT": {
+        "message": "Copy Text",
+        "description": "The column header in the security table for copy text"
+    },
+    "LEGAL_COPY_TEXT_TOOLTIP": {
+        "message": "Copy License Text",
+        "description": "Tooltip for the copy license text button"
     },
     "OPTIONS_PAGE_TITLE": {
         "message": "Extension Options",
@@ -215,6 +247,10 @@
         "message": "Info",
         "description": "Component Information top-level tab in Popup "
     },
+    "POPUP_TAB_INFO_TOOLTIP": {
+        "message": "Component Information",
+        "description": "Component Information top-level tab in Popup "
+    },
     "POPUP_TAB_POLICY": {
         "message": "Policy",
         "description": "Policy violations top-level tab in Popup. All policy violations for this component."
@@ -225,10 +261,10 @@
     },
     "POPUP_TAB_VERSIONS": {
         "message": "Versions",
-        "description": "List of all versions available if there are no policy violations."
+        "description": "List of all versions available if there are no policy violations"
     },
-    "POPUP_TAB_REMEDIATION_TOOLIP": {
-        "message": "Remediation and version info for $VERSION_COUNT$ versions.",
+    "POPUP_TAB_REMEDIATION_TOOLTIP": {
+        "message": "Remediation and version info for $VERSION_COUNT$ versions",
         "description": "Toolip for the POPUP_TAB_REMEDIATION",
         "placeholders": {
             "VERSION_COUNT": {
@@ -249,7 +285,7 @@
     },
     "POPUP_TAB_SECURITY": {
         "message": "Security",
-        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component."
+        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
     },
     "POPUP_TAB_SECURITY_TOOLTIP": {
         "message": "Security Issues cataloged against this component",
@@ -257,15 +293,11 @@
     },
     "POPUP_TAB_LEGAL": {
         "message": "Legal",
-        "description": "Legal/License top-level tab in Popup. List of licenses for this component."
+        "description": "Legal/License top-level tab in Popup. List of licenses for this component"
     },
     "RECOMMENDED_VERSIONS": {
         "message": "Recommended Versions",
         "description": "The list of the recommended version from Lifecycle"
-    },
-    "ALL_VERSIONS": {
-        "message": "All Versions",
-        "description": "The list of all the available component versions"
     },
     "SECURITY_TABLE_CVSS": {
         "message": "CVSS",

@@ -41,6 +41,7 @@ import { Tooltip } from '@material-ui/core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -83,34 +84,36 @@ function IqPopup() {
                     style={{
                         width: '800px !important',
                     }}
-                    productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
+                    productInfo={{ name: extension.name.replace('Sonatype ', ''), version: extension.version }}>
                     <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
-                        <span className='nx-pull-right'>
+                        <span>
                             <NxButton
                                 id='iq-server-button'
-                                title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
+                                title='IQ'
                                 variant='icon-only'
                                 onClick={() => {
-                                    chrome.tabs.update({
+                                    _browser.tabs.update({
                                         url: extensionConfigContext.host,
                                     })
                                     window.close()
                                 }}>
                                 <img
-                                    id='iq-server-button-icon'
+                                    id='iq-server-button'
                                     src='/images/sonatype-lifecycle-icon-32x32.png'
                                     height={'20'}
                                     width={'20'}></img>
                             </NxButton>
                         </span>
                     </Tooltip>
-                    <Tooltip title={`Extension Options`}>
-                        <span className='nx-pull-right'>
-                            <NxButton id='options-button' variant='icon-only' title={`Extension Options`}>
+                    <Tooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}>
+                        <span>
+                            <NxButton variant='icon-only'
+                                title='OPTIONS'
+                                id='options-button'>
                                 <NxFontAwesomeIcon
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
-                                        chrome.tabs.update({
+                                        _browser.tabs.update({
                                             url: 'options.html',
                                         })
                                         window.close()
@@ -148,16 +151,20 @@ function IqPopup() {
                                         margin: '0px !important',
                                         height: '600px !important',
                                     }}>
-                                    <NxTab>{_browser.i18n.getMessage('POPUP_TAB_INFO')}</NxTab>
+                                        <Tooltip title={_browser.i18n.getMessage('POPUP_TAB_INFO_TOOLTIP', [versionsCount])}>
+                                            <span>
+                                                <NxTab>
+                                                    {_browser.i18n.getMessage('POPUP_TAB_INFO')}
+                                                </NxTab>
+                                            </span>
+                                        </Tooltip>
 
-                                    <Tooltip
-                                        title={_browser.i18n.getMessage(
-                                            'POPUP_TAB_REMEDICATION_TOOLIP',
-                                            versionsCount
-                                        )}>
+                                    <Tooltip title={_browser.i18n.getMessage('POPUP_TAB_REMEDIATION_TOOLTIP', [versionsCount])}>
                                         <span>
                                             <NxTab>
-                                                {policyViolations.length > 0 ? 'Remediation' : 'Versions'}
+                                                {policyViolations.length > 0 ? 
+                                                    _browser.i18n.getMessage('POPUP_TAB_REMEDIATION') : 
+                                                    _browser.i18n.getMessage('POPUP_TAB_VERSIONS')}
 
                                                 {versionsCount > 0 && (
                                                     <span className={'nx-counter'}>{versionsCount}</span>
@@ -168,10 +175,7 @@ function IqPopup() {
 
                                     {policyViolations.length > 0 && (
                                         <Tooltip
-                                            title={_browser.i18n.getMessage(
-                                                'POPUP_TAB_POLICY_TOOLIP',
-                                                extensionConfigContext.iqApplicationPublidId
-                                            )}
+                                            title={_browser.i18n.getMessage('POPUP_TAB_POLICY_TOOLIP', [extensionConfigContext.iqApplicationPublidId])}
                                             placement='bottom'>
                                             <span>
                                                 <NxTab>
