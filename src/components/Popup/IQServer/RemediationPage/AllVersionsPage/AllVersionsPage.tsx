@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxH3 } from '@sonatype/react-shared-components'
+import { NxFontAwesomeIcon, NxH3 } from '@sonatype/react-shared-components'
 import React, { useContext } from 'react'
 import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import AllVersionsDetails from './AllVersionsDetails/AllVersionsDetails'
 import { DATA_SOURCE } from '../../../../../utils/Constants'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 function IqRemediationPageAllVersion() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -27,7 +29,12 @@ function IqRemediationPageAllVersion() {
         return (
             <React.Fragment>
                 <NxH3>
-                    All Versions <span className={'nx-counter'}>{popupContext?.iq?.allVersions.length}</span>
+                    All Versions 
+                    {popupContext?.iq?.allVersions.length > 0 ? (
+                        <span className={'nx-counter'}>{popupContext?.iq?.allVersions.length}</span>
+                    ): (
+                        <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
+                    )}
                 </NxH3>
                 <AllVersionsDetails />
             </React.Fragment>

@@ -33,3 +33,7 @@
     overscroll-behavior: contain;
     overflow: auto;
 }
+
+.nx-threat-indicator--unspecified {
+    color: lightslategray !important;
+}

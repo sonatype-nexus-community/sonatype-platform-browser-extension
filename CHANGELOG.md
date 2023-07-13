@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.2...v2.2.0) (2023-07-13)
+
+
+### Features
+
+* implement histogram type view for policy violation types on all versions ([c528f17](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/c528f1729755243ef0e50e5f32a54c036734cebb))
+
 ## [2.1.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.1...v2.1.2) (2023-07-13)
 
 
