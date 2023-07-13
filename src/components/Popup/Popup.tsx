@@ -35,13 +35,12 @@ import RemediationPage from './IQServer/RemediationPage/RemediationPage'
 import LicensePage from './IQServer/LicensingPage/LicensingPage'
 import SecurityPage from './IQServer/SecurityPage/SecurityPage'
 import { Puff } from '@agney/react-loading'
-import { faGear, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Tooltip } from '@material-ui/core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
-const extension = _browser.runtime.getManifest()
 
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
