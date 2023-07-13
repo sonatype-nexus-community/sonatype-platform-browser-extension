@@ -6,5 +6,31 @@
     "EXTENSION_DESCRIPTION": {
         "message": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
         "description": "Description of this browser extension."
+    },
+    "SIDEBAR_LINK_GETTING_STARTED": {
+        "message": "Getting Started",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_HELP": {
+        "message": "Help",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_OPTIONS": {
+        "message": "Options",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
+        "message": "Request Support",
+        "description": "Sidebar Footer Link in Options Page"
+    },
+    "RELEASE_VERSION": {
+        "message": "Release $VERSION$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
     }
 }
