@@ -22,7 +22,6 @@ import {
     ApiComponentRemediationDTO,
     ApiLicenseLegalMetadataDTO,
 } from '@sonatype/nexus-iq-api-client'
-import { ComponentReport } from '@sonatype/ossindex-api-client'
 
 export interface IqPopupContext {
     allVersions?: Array<ApiComponentDetailsDTOV2>
@@ -31,15 +30,10 @@ export interface IqPopupContext {
     remediationDetails?: ApiComponentRemediationDTO
 }
 
-export interface OssIndexPopupContext {
-    componentDetails?: ComponentReport
-}
-
 export interface ExtensionPopupContext {
     currentPurl: PackageURL | undefined
     currentTab?: chrome.tabs.Tab | browser.tabs.Tab | undefined
     iq?: IqPopupContext
-    ossindex?: OssIndexPopupContext
     supportsLicensing: boolean
     supportsPolicy: boolean
 }
@@ -52,9 +46,8 @@ const DEFAULT_IQ_EXTENSION_POPUP_CONTEXT_DATA = {
     supportsPolicy: true,
 }
 
-const DEFAULT_OSSINDEX_EXTENSION_POPUP_CONTEXT_DATA = {
+const DEFAULT_UNKNOWN_EXTENSION_POPUP_CONTEXT_DATA = {
     currentPurl: undefined,
-    ossindex: {},
     supportsLicensing: false,
     supportsPolicy: false,
 }
@@ -65,6 +58,6 @@ export function getDefaultPopupContext(dataSource: DATA_SOURCE): ExtensionPopupC
     if (dataSource == DATA_SOURCE.NEXUSIQ) {
         return DEFAULT_IQ_EXTENSION_POPUP_CONTEXT_DATA
     } else {
-        return DEFAULT_OSSINDEX_EXTENSION_POPUP_CONTEXT_DATA
+        return DEFAULT_UNKNOWN_EXTENSION_POPUP_CONTEXT_DATA
     }
 }

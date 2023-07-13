@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const extension = chrome.runtime.getManifest()
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 export class UserAgentHelper {
     public static getUserAgent(): string {

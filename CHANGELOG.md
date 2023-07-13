@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.1...v2.1.2) (2023-07-13)
+
+
+### Bug Fixes
+
+* Obtain version of this extension from the manifest ([a89c48c](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/a89c48cc010b608a4cbc50206b7d2a6b5ffbfd6c))
+
 ## [2.1.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.0...v2.1.1) (2023-07-12)
 
 

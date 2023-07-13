@@ -25,7 +25,6 @@ import {
 } from '@sonatype/react-shared-components'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { homepage as packageHomepage, version as packageVersion } from '../package.json'
 import { NexusOptionsContainer } from './NexusOptionsContainer'
 import { logger, LogLevel } from './logger/Logger'
 import { MESSAGE_REQUEST_TYPE } from './types/Message'
@@ -33,6 +32,7 @@ import { readExtensionConfiguration } from './messages/SettingsMessages'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 const container = document.getElementById('ui')
 const root = ReactDOM.createRoot(container)
@@ -49,8 +49,7 @@ root.render(
             toggleOpenIcon={faArrowLeft as IconDefinition}
             logoImg='images/sonatype-lifecycle-logo-nav-white.svg'
             logoAltText='Sonatype Browser Extension'
-            logoLink='#'
-        >
+            logoLink='#'>
             <NxGlobalSidebarNavigation>
                 <NxGlobalSidebarNavigationLink
                     icon={faPlay as IconDefinition}
@@ -66,9 +65,9 @@ root.render(
             </NxGlobalSidebarNavigation>
             <NxGlobalSidebarFooter
                 supportText={`Request Support`}
-                supportLink={packageHomepage}
-                releaseText={`Release ${packageVersion}`}
-                productTagLine='Powered by Sonatype IQ Server & Sonatype OSS Index'
+                supportLink={extension.homepage_url}
+                releaseText={`Release ${extension.version}`}
+                productTagLine='Powered by Sonatype'
                 showCreatedBy={true}
             />
         </NxStatefulGlobalSidebar>

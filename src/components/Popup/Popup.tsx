@@ -39,14 +39,19 @@ import { faGear, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Tooltip } from '@material-ui/core'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
+
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [activeTabId, setActiveTabId] = useState(0)
 
-    const versionsCount = 
-        popupContext.iq?.allVersions &&
-        popupContext.iq?.allVersions.length > 0 ? popupContext.iq?.allVersions.length : 0
+    const versionsCount =
+        popupContext.iq?.allVersions && popupContext.iq?.allVersions.length > 0
+            ? popupContext.iq?.allVersions.length
+            : 0
 
     const effectiveLicenses =
         popupContext.iq &&
@@ -104,6 +109,7 @@ function IqPopup() {
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
                                         chrome.tabs.update({
+
                                             url: 'options.html',
                                         })
                                         window.close()
@@ -111,6 +117,7 @@ function IqPopup() {
                                 />
                             </NxButton>
                         </span>
+
                     </Tooltip>
                 </NxPageHeader>
 
@@ -157,31 +164,32 @@ function IqPopup() {
                                             <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
                                         )}
                                         </NxTab>
+
                                         </div>
-                                        </Tooltip>
-                                    
+                                    </Tooltip>
+
                                     {policyViolations.length > 0 && (
                                         <Tooltip
-                                        title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
-                                        placement="bottom">
+                                            title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
+                                            placement='bottom'>
                                             <div>
-                                        <NxTab>
-                                            Policy
-                                            <span className={'nx-counter'}>{policyViolations.length}</span>
-                                        </NxTab>
-                                        </div>
+                                                <NxTab>
+                                                    Policy
+                                                    <span className={'nx-counter'}>{policyViolations.length}</span>
+                                                </NxTab>
+                                            </div>
                                         </Tooltip>
                                     )}
                                     {securityIssues.length > 0 && (
                                         <Tooltip
-                                        title={`Security Issues cataloged against this component.`}
-                                        placement="bottom">
+                                            title={`Security Issues cataloged against this component.`}
+                                            placement='bottom'>
                                             <div>
-                                        <NxTab>
-                                            Security
-                                            <span className={'nx-counter'}>{securityIssues.length}</span>
-                                        </NxTab>
-                                        </div>
+                                                <NxTab>
+                                                    Security
+                                                    <span className={'nx-counter'}>{securityIssues.length}</span>
+                                                </NxTab>
+                                            </div>
                                         </Tooltip>
                                     )}
                                     {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
