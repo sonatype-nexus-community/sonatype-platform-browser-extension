@@ -35,7 +35,7 @@ import RemediationPage from './IQServer/RemediationPage/RemediationPage'
 import LicensePage from './IQServer/LicensingPage/LicensingPage'
 import SecurityPage from './IQServer/SecurityPage/SecurityPage'
 import { Puff } from '@agney/react-loading'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Tooltip } from '@material-ui/core'
 
@@ -150,8 +150,10 @@ function IqPopup() {
                                             ? 'Remediation'
                                             : 'Versions'}
                                         
-                                        {versionsCount > 0 && (
+                                        {versionsCount > 0 ? (
                                             <span className={'nx-counter'}>{versionsCount}</span>    
+                                        ):(
+                                            <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
                                         )}
                                         </NxTab>
                                         </div>
