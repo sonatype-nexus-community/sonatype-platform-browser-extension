@@ -118,7 +118,6 @@ function handle_message_received_propogate_component_state(request: MessageReque
 
 const removeClasses = (element) => {
     logger.logMessage(`Remving Sonatype added classes`, LogLevel.DEBUG, element)
-
     element.removeClass('sonatype-iq-extension-vuln')
     element.removeClass('sonatype-iq-extension-vuln-severe')
     element.removeClass('sonatype-iq-extension-vuln-high')

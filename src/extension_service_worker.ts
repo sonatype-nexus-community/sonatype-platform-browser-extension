@@ -19,7 +19,6 @@ import 'node-window-polyfill/register' // New line ensures this Polyfill is firs
 
 import { logger, LogLevel } from './logger/Logger'
 import { findRepoType } from './utils/UrlParsing'
-
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { propogateCurrentComponentState } from './messages/ComponentStateMessages'
 import {
