@@ -21,6 +21,9 @@ import AllVersionsDetails from './AllVersionsPage/AllVersionsDetails/AllVersions
 import RemediationDetails from './RemediationDetails/RemediationDetails'
 import { DATA_SOURCE } from '../../../../utils/Constants'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 function IqRemediationPage() {
     const popupContext = useContext(ExtensionPopupContext)
     const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
@@ -29,11 +32,15 @@ function IqRemediationPage() {
         <React.Fragment>
             <div className='nx-grid-row'>
                 <section className='nx-grid-col nx-grid-col--33 nx-scrollable'>
-                    {versionChanges && versionChanges.length > 0 && <NxH3>Recommended Versions</NxH3>}
+                    {versionChanges && versionChanges.length > 0 && <NxH3>
+                        {_browser.i18n.getMessage('RECOMMENDED_VERSIONS')}
+                        </NxH3>}
                     <RemediationDetails />
                 </section>
                 <section className='nx-grid-col nx-grid-col--67 nx-scrollable'>
-                    <NxH3>All Versions ({popupContext.iq?.allVersions?.length})</NxH3>
+                    <NxH3>
+                        {_browser.i18n.getMessage('ALL_VERSIONS')} ({popupContext.iq?.allVersions?.length})
+                    </NxH3>
                     <AllVersionsDetails />
                 </section>
             </div>

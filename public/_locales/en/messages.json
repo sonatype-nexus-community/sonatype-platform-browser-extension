@@ -195,6 +195,22 @@
         "message": "There was an error signing in.",
         "description": "Error message showed if Sonatype IQ credentials are incorrect"
     },
+    "POLICY_TABLE_THREAT": {
+        "message": "THREAT",
+        "description": "THe column header in the policy table for threat"
+    },
+    "POLICY_TABLE_POLICY": {
+        "message": "POLICY",
+        "description": "THe column header in the policy table for policy"
+    },
+    "POLICY_TABLE_CONSTRAINT": {
+        "message": "CONSTRAINT",
+        "description": "THe column header in the policy table for constraint name"
+    },
+    "POLICY_TABLE_CONDITION": {
+        "message": "CONDITION",
+        "description": "THe column header in the policy table for condition"
+    },
     "POPUP_TAB_INFO": {
         "message": "Info",
         "description": "Component Information top-level tab in Popup "
@@ -242,6 +258,14 @@
     "POPUP_TAB_LEGAL": {
         "message": "Legal",
         "description": "Legal/License top-level tab in Popup. List of licenses for this component."
+    },
+    "RECOMMENDED_VERSIONS": {
+        "message": "Recommended Versions",
+        "description": "The list of the recommended version from Lifecycle"
+    },
+    "ALL_VERSIONS": {
+        "message": "All Versions",
+        "description": "The list of all the available component versions"
     },
     "SIDEBAR_LINK_GETTING_STARTED": {
         "message": "Getting Started",
