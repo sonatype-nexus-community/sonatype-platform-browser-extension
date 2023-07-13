@@ -7,6 +7,32 @@
         "message": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
         "description": "Description of this browser extension."
     },
+    "RELEASE_VERSION": {
+        "message": "Release $VERSION$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
+    },
+    "OPTIONS_PAGE_TITLE": {
+        "message": "Extension Options",
+        "description": "Page Title for Options page"
+    },
+    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+        "message": "&#127881; Thanks for installing the Sonatype Platform Browser Extension &#127881;",
+        "description": "Page Title for Options page upon first installation"
+    },
+    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
+        "message": "Getting Started",
+        "description": "Sub Heading on Options Page in Install Mode"
+    },
+    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
+        "message": "Please now follow the steps below to connect this extension to your Sonatype IQ Server.",
+        "description": "Description paragraph on Options Page in Install Mode"
+    },
     "SIDEBAR_LINK_GETTING_STARTED": {
         "message": "Getting Started",
         "description": "Sidebar Navigation Link in Options Page"
@@ -22,15 +48,5 @@
     "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
         "message": "Request Support",
         "description": "Sidebar Footer Link in Options Page"
-    },
-    "RELEASE_VERSION": {
-        "message": "Release $VERSION$",
-        "description": "The release version of this browser extension",
-        "placeholders": {
-            "VERSION": {
-                "content": "$1",
-                "example": "2.0.0"
-            }
-        }
     }
 }

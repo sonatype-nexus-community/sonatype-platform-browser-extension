@@ -35,6 +35,9 @@ import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/
 import { readExtensionConfiguration, updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 export default function Options() {
     const [activeTabId, setActiveTabId] = useState(0)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
@@ -80,7 +83,7 @@ export default function Options() {
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
             <React.Fragment>
                 <h1>
-                    <NxPageTitle>Extension Options</NxPageTitle>
+                    <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}</NxPageTitle>
                 </h1>
 
                 <NxTile>
