@@ -295,6 +295,10 @@
         "message": "Legal",
         "description": "Legal/License top-level tab in Popup. List of licenses for this component"
     },
+    "POPUP_TAB_LEGAL_TOOLTIP": {
+        "message": "License information for component",
+        "description": "Legal/License top-level tab in Popup tooltip"
+    },
     "RECOMMENDED_VERSIONS": {
         "message": "Recommended Versions",
         "description": "The list of the recommended version from Lifecycle"

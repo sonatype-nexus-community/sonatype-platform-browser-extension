@@ -187,8 +187,7 @@ function IqPopup() {
                                     )}
                                     {securityIssues.length > 0 && (
                                         <Tooltip
-                                            title={_browser.i18n.getMessage('POPUP_TAB_SECURITY_TOOLTIP')}
-                                            placement='bottom'>
+                                            title={_browser.i18n.getMessage('POPUP_TAB_SECURITY_TOOLTIP')}>
                                             <span>
                                                 <NxTab>
                                                     {_browser.i18n.getMessage('POPUP_TAB_SECURITY')}
@@ -198,7 +197,15 @@ function IqPopup() {
                                         </Tooltip>
                                     )}
                                     {effectiveLicenses.length > 0 && (
-                                        <NxTab>{_browser.i18n.getMessage('POPUP_TAB_LEGAL')}</NxTab>
+                                        
+                                        <Tooltip
+                                            title={_browser.i18n.getMessage('POPUP_TAB_LEGAL_TOOLTIP')}>
+                                            <span>
+                                                <NxTab>
+                                                    {_browser.i18n.getMessage('POPUP_TAB_LEGAL')}
+                                                </NxTab>
+                                            </span>
+                                        </Tooltip>
                                     )}
                                 </NxTabList>
                                 <NxTabPanel>
