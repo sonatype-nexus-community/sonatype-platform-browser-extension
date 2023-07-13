@@ -53,6 +53,54 @@
         "message": "General Options",
         "description": "Options Tab name for General Configuration"
     },
+    "POPUP_TAB_INFO": {
+        "message": "Info",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_POLICY": {
+        "message": "Policy",
+        "description": "Policy violations top-level tab in Popup. All policy violations for this component."
+    },
+    "POPUP_TAB_REMEDIATION": {
+        "message": "Remediation",
+        "description": "List of recommended version as well as a complete list of the versions available."
+    },
+    "POPUP_TAB_VERSIONS": {
+        "message": "Versions",
+        "description": "List of all versions available if there are no policy violations."
+    },
+    "POPUP_TAB_REMEDIATION_TOOLIP": {
+        "message": "Remediation and version info for $VERSION_COUNT$ versions.",
+        "description": "Toolip for the POPUP_TAB_REMEDIATION",
+        "placeholders": {
+            "VERSION_COUNT": {
+                "content": "$1",
+                "example": "0"
+            }
+        }
+    },
+    "POPUP_TAB_POLICY_TOOLIP": {
+        "message": "Sonatype Lifecycle Appliation Evaluation Policy Violations: $APPNAME$",
+        "description": "Toolip for the POPUP_TAB_POLICY",
+        "placeholders": {
+            "APPNAME": {
+                "content": "$1",
+                "example": "sandbox-application"
+            }
+        }
+    },
+    "POPUP_TAB_SECURITY": {
+        "message": "Security",
+        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component."
+    },
+    "POPUP_TAB_SECURITY_TOOLTIP": {
+        "message": "Security Issues cataloged against this component",
+        "description": "Tooltip for POPUP_TAB_SECURITY"
+    },
+    "POPUP_TAB_LEGAL": {
+        "message": "Legal",
+        "description": "Legal/License top-level tab in Popup. List of licenses for this component."
+    },
     "SIDEBAR_LINK_GETTING_STARTED": {
         "message": "Getting Started",
         "description": "Sidebar Navigation Link in Options Page"

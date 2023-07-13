@@ -148,10 +148,10 @@ function IqPopup() {
                                         margin: '0px !important',
                                         height: '600px !important',
                                     }}>
-                                    <NxTab>Info</NxTab>
+                                    <NxTab>{_browser.i18n.getMessage('POPUP_TAB_INFO')}</NxTab>
 
-                                    <Tooltip title={`Number of versions: ${versionsCount}`}>
-                                        <div>
+                                    <Tooltip title={_browser.i18n.getMessage('POPUP_TAB_REMEDICATION_TOOLIP', versionsCount)}>
+                                        <span>
                                             <NxTab>
                                                 {policyViolations.length > 0 ? 'Remediation' : 'Versions'}
 
@@ -159,34 +159,36 @@ function IqPopup() {
                                                     <span className={'nx-counter'}>{versionsCount}</span>
                                                 )}
                                             </NxTab>
-                                        </div>
+                                        </span>
                                     </Tooltip>
 
                                     {policyViolations.length > 0 && (
                                         <Tooltip
-                                            title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
+                                            title={_browser.i18n.getMessage('POPUP_TAB_POLICY_TOOLIP', extensionConfigContext.iqApplicationPublidId)}
                                             placement='bottom'>
-                                            <div>
+                                            <span>
                                                 <NxTab>
-                                                    Policy
+                                                    {_browser.i18n.getMessage('POPUP_TAB_POLICY')}
                                                     <span className={'nx-counter'}>{policyViolations.length}</span>
                                                 </NxTab>
-                                            </div>
+                                            </span>
                                         </Tooltip>
                                     )}
                                     {securityIssues.length > 0 && (
                                         <Tooltip
-                                            title={`Security Issues cataloged against this component.`}
+                                            title={_browser.i18n.getMessage('POPUP_TAB_SECURITY_TOOLTIP')}
                                             placement='bottom'>
-                                            <div>
+                                            <span>
                                                 <NxTab>
-                                                    Security
+                                                    {_browser.i18n.getMessage('POPUP_TAB_SECURITY')}
                                                     <span className={'nx-counter'}>{securityIssues.length}</span>
                                                 </NxTab>
-                                            </div>
+                                            </span>
                                         </Tooltip>
                                     )}
-                                    {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
+                                    {effectiveLicenses.length > 0 && (
+                                        <NxTab>{_browser.i18n.getMessage('POPUP_TAB_LEGAL')}</NxTab>
+                                    )}
                                 </NxTabList>
                                 <NxTabPanel>
                                     <ComponentInfoPage />
