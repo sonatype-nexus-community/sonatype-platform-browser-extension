@@ -67,7 +67,7 @@ root.render(
                 supportText={`Request Support`}
                 supportLink={extension.homepage_url}
                 releaseText={`Release ${extension.version}`}
-                productTagLine='Powered by Sonatype IQ Server & Sonatype OSS Index'
+                productTagLine='Powered by Sonatype'
                 showCreatedBy={true}
             />
         </NxStatefulGlobalSidebar>
