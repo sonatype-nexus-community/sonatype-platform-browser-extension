@@ -25,6 +25,28 @@
         "message": "Close",
         "description": "Close button text"
     },
+    "CATALOG_DATE": {
+        "message": "Catalog Date",
+        "description": "The date this component version was add to the Sonatype data catalog"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS": {
+        "message": "Highest Policy Threat Levels",
+        "description": "Header when displaying the highest threat levels by policy"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
+        "message": "The highest $POLICY_TYPE_LABEL$ policy threat level for application: $APP_NAME$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "POLICY_TYPE_LABEL": {
+                "content": "$1",
+                "example": "Security, Architecture, License, Other"
+            },
+            "APP_NAME": {
+                "content": "$2",
+                "example": "sample-application"
+            }
+        }
+    },
     "OPTIONS_PAGE_TITLE": {
         "message": "Extension Options",
         "description": "Page Title for Options page"
