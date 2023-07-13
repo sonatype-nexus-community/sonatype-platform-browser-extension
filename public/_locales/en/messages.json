@@ -29,6 +29,22 @@
         "message": "GitHub Issue",
         "description": "GitHub Issue"
     },
+    "LABEL_USERNAME": {
+        "message": "Username",
+        "description": "Username label"
+    },
+    "LABEL_PASSWORD": {
+        "message": "Password or User Token",
+        "description": "Password label"
+    },
+    "LABEL_SONATYPE_APPLICATION": {
+        "message": "Sonatype Lifecycle Application",
+        "description": "Application label"
+    },
+    "LABEL_SELECT_AN_APPLICATION": {
+        "message": "-- Select an Application --",
+        "description": "Default option in Application List"
+    },
     "LINK_BUG_REPORT": {
         "message": "Report a Bug",
         "description": "Link text used for reporting a bug."
@@ -138,6 +154,42 @@
     "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
         "message": "General Options",
         "description": "Options Tab name for General Configuration"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_1": {
+        "message": "Enter the URL for your Sonatype IQ Server and then grant the permissions needed for this extension to communicate with your Sonatype IQ Server.",
+        "description": "First point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+        "message": "Grant Permissions to your Sonatype IQ Server",
+        "description": "Button text for 'Grant Permission' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_2": {
+        "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications.",
+        "description": "Second point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+        "message": "Connect",
+        "description": "Button text for 'Connect' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_3": {
+        "message": "Select an Application from the list available on your Sonatype IQ Server.",
+        "description": "Third point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
+        "message": "The application policies that components will be evaluated against.",
+        "description": "Tooltip as to why an Application is to be selected"
+    },
+    "OPTIONS_SUCCESS_MESSAGE": {
+        "message": "Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected! You may close this browser tab to continue.",
+        "description": "Success message to display once Sonatype IQ has been configured"
+    },
+    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+        "message": "Please select an application from the list above.",
+        "description": "Info message to direct to choose an Application"
+    },
+    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+        "message": "There was an error signing in.",
+        "description": "Error message showed if Sonatype IQ credentials are incorrect"
     },
     "POPUP_TAB_INFO": {
         "message": "Info",

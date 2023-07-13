@@ -170,8 +170,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             <NxGrid.Row>
                 <section className='nx-grid-col nx-grid-col--100'>
                     <p className='nx-p'>
-                        <strong>1)</strong> Enter the URL for your Sonatype IQ Server and then grant the permissions
-                        needed for this extension to communicate with your Sonatype IQ Server.
+                        <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
                     </p>
 
                     <div className='nx-form-row'>
@@ -185,7 +184,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         </NxFormGroup>
                         {!hasPermissions && (
                             <button className='nx-btn grant-permissions' onClick={askForPermissions}>
-                                Grant Permissions to your Sonatype IQ Server
+                                {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS')}
                             </button>
                         )}
                     </div>
@@ -193,18 +192,17 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     {hasPermissions && (
                         <div>
                             <p className='nx-p'>
-                                <strong>2)</strong> Provide your username and token for your Sonatype IQ Server. Then
-                                connect to retrieve the list of available applications.
+                                <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                             </p>
                             <div className='nx-form-row'>
-                                <NxFormGroup label={`Username`} isRequired>
+                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
                                     <NxStatefulTextInput
                                         defaultValue={extensionSettings?.user}
                                         validator={nonEmptyValidator}
                                         onChange={handleIqUserChange}
                                     />
                                 </NxFormGroup>
-                                <NxFormGroup label={`Token`} isRequired>
+                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
                                     <NxStatefulTextInput
                                         defaultValue={extensionSettings?.token}
                                         validator={nonEmptyValidator}
@@ -213,7 +211,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     />
                                 </NxFormGroup>
                                 <NxButton variant='primary' onClick={handleLoginCheck}>
-                                    Connect
+                                    {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
                                 </NxButton>
                             </div>
                         </div>
@@ -221,19 +219,18 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     {iqAuthenticated === true && iqServerApplicationList.length > 0 && (
                         <React.Fragment>
                             <p className='nx-p'>
-                                <strong>3)</strong> Select an Application from the list available on your Sonatype IQ
-                                Server.
-                                <NxTooltip title='The application policies that components will be evaluated against.'>
+                                <strong>3)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
+                                <NxTooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
                                     <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
                                 </NxTooltip>
                             </p>
 
-                            <NxFormGroup label={`Sonatype Lifecycle Application`} isRequired>
+                            <NxFormGroup label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')} isRequired>
                                 <NxFormSelect
                                     defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
                                     onChange={handleIqApplicationChange}
                                     disabled={!iqAuthenticated}>
-                                    <option value=''>-- Select an Application --</option>
+                                    <option value=''>{_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}</option>
                                     {iqServerApplicationList.map((app: ApiApplicationDTO) => {
                                         return (
                                             <option key={app.id} value={`${app.id}|${app.publicId}`}>
@@ -250,17 +247,20 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         extensionSettings.iqApplicationInternalId != undefined &&
                         extensionSettings.iqApplicationPublidId != undefined && (
                             <NxStatefulSuccessAlert>
-                                Congratulations! You successfully authenticated with your Sonatype IQ Server and have an
-                                application selected! You may close this browser tab to continue.
+                                {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
                             </NxStatefulSuccessAlert>
                         )}
                     {extensionSettings.iqApplicationInternalId === undefined &&
                         extensionSettings.iqApplicationPublidId === undefined &&
                         iqAuthenticated === true && (
-                            <NxStatefulInfoAlert>Please select an application from the list above.</NxStatefulInfoAlert>
+                            <NxStatefulInfoAlert>
+                                {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}
+                            </NxStatefulInfoAlert>
                         )}
                     {iqAuthenticated === false && (
-                        <NxStatefulErrorAlert>There was an error signing in.</NxStatefulErrorAlert>
+                        <NxStatefulErrorAlert>
+                            {_browser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
+                        </NxStatefulErrorAlert>
                     )}
                 </section>
             </NxGrid.Row>
