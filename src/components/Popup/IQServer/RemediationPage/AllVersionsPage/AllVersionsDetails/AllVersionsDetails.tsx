@@ -18,6 +18,7 @@ import {
     NxList,
     NxLoadingSpinner,
     NxMeter,
+    NxPolicyViolationIndicator,
     NxThreatIndicator,
     ThreatLevelNumber,
 } from '@sonatype/react-shared-components'
@@ -27,7 +28,7 @@ import { ExtensionPopupContext } from '../../../../../../context/ExtensionPopupC
 import { ExtensionConfigurationContext } from '../../../../../../context/ExtensionConfigurationContext'
 import './AllVersionsDetails.css'
 import { DATA_SOURCE } from '../../../../../../utils/Constants'
-import { ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { getNewUrlandGo } from '../../../../../../utils/Helpers'
 import { Tooltip } from '@material-ui/core'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
@@ -55,6 +56,17 @@ function IqAllVersionDetails() {
             return noTime
         }
         return 'N/A'
+    }
+
+    function getMaxViolation(policyData: ApiComponentPolicyViolationListDTOV2) {
+        if (policyData.policyViolations && policyData.policyViolations.length > 0) {
+            return Math.max(
+                ...policyData.policyViolations.map((violation) =>
+                    violation.threatLevel != undefined ? violation.threatLevel : 0
+                )
+            )
+        }
+        return 0
     }
 
     function calculateAge(catalogDate) {
@@ -134,7 +146,18 @@ function IqAllVersionDetails() {
                                         marginBottom: '0px',
                                     }}>
                                     <NxGrid.Column className='nx-grid-col-50'>
-                                        <NxGrid.Header><strong>{versionPurl.version}</strong>
+                                        <NxGrid.Header>
+                                            {/* <strong>{versionPurl.version}</strong> */}
+                                            <NxPolicyViolationIndicator
+                                                    style={{ marginBottom: '16px !important' }}
+                                                    policyThreatLevel={
+                                                        Math.round(
+                                                            getMaxViolation(version.policyData as ApiComponentPolicyViolationListDTOV2)
+                                                        ) as ThreatLevelNumber
+                                                    }>
+                                                    {versionPurl.version}
+                                                </NxPolicyViolationIndicator>
+
                                             <Tooltip
                                                 title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
                                                 <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span>
