@@ -35,13 +35,11 @@ import RemediationPage from './IQServer/RemediationPage/RemediationPage'
 import LicensePage from './IQServer/LicensingPage/LicensingPage'
 import SecurityPage from './IQServer/SecurityPage/SecurityPage'
 import { Puff } from '@agney/react-loading'
-import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Tooltip } from '@material-ui/core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
-const extension = _browser.runtime.getManifest()
 
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -84,40 +82,40 @@ function IqPopup() {
                     style={{
                         width: '800px !important',
                     }}
-                    productInfo={{ name: extension.name.replace('Sonatype ', ''), version: extension.version }}>
+                    productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
                     <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
-                        <div>
+                        <span className='nx-pull-right'>
                             <NxButton
+                                id='iq-server-button'
                                 title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
                                 variant='icon-only'
                                 onClick={() => {
-                                    _browser.tabs.update({
+                                    chrome.tabs.update({
                                         url: extensionConfigContext.host,
                                     })
                                     window.close()
                                 }}>
-                                <img
-                                    id='iq-server-button'
-                                    src='/images/sonatype-lifecycle-icon-32x32.png'
-                                    height={'20'}
-                                    width={'20'}></img>
+                                <img id='iq-server-button-icon' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
                             </NxButton>
-                        </div>
+                        </span>
                     </Tooltip>
                     <Tooltip title={`Extension Options`}>
-                        <div>
-                            <NxButton variant='icon-only' title={`Extension Options`}>
+                        <span className='nx-pull-right'>
+                            <NxButton id='options-button' variant='icon-only'
+                            title={`Extension Options`}>
                                 <NxFontAwesomeIcon
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
-                                        _browser.tabs.update({
+                                        chrome.tabs.update({
+
                                             url: 'options.html',
                                         })
                                         window.close()
                                     }}
                                 />
                             </NxButton>
-                        </div>
+                        </span>
+
                     </Tooltip>
                 </NxPageHeader>
 
@@ -149,16 +147,22 @@ function IqPopup() {
                                         height: '600px !important',
                                     }}>
                                     <NxTab>Info</NxTab>
+                                    
+                                    <Tooltip
+                                            title={`Number of versions: ${versionsCount}`}>
+                                                <div>
+                                    <NxTab>
+                                        {policyViolations.length > 0
+                                            ? 'Remediation'
+                                            : 'Versions'}
+                                        
+                                        {versionsCount > 0 ? (
+                                            <span className={'nx-counter'}>{versionsCount}</span>    
+                                        ):(
+                                            <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
+                                        )}
+                                        </NxTab>
 
-                                    <Tooltip title={`Number of versions: ${versionsCount}`}>
-                                        <div>
-                                            <NxTab>
-                                                {policyViolations.length > 0 ? 'Remediation' : 'Versions'}
-
-                                                {versionsCount > 0 && (
-                                                    <span className={'nx-counter'}>{versionsCount}</span>
-                                                )}
-                                            </NxTab>
                                         </div>
                                     </Tooltip>
 
