@@ -90,7 +90,11 @@ export default function Options() {
                     <NxTile.Content>
                         <div className='nx-grid-row'>
                             <section className='nx-grid-col nx-grid-col--66'>
-                                <NxFieldset label={`Current Connection Type: ${extensionConfig.dataSource}`} isRequired>
+                                <NxFieldset
+                                    label={`${_browser.i18n.getMessage('OPTIONS_CURRENT_CONNECTION')}: ${
+                                        extensionConfig.dataSource
+                                    }`}
+                                    isRequired>
                                     <NxRadio
                                         defaultChecked={true}
                                         name='scanType'
@@ -98,14 +102,14 @@ export default function Options() {
                                         onChange={handleDataSourceChange}
                                         isChecked={extensionConfig.dataSource === DATA_SOURCE.NEXUSIQ}
                                         radioId='scanType-IQ-Server'>
-                                        Sonatype IQ Server
+                                        {_browser.i18n.getMessage('SONATYPE_IQ_SERVER')}
                                     </NxRadio>
                                 </NxFieldset>
                             </section>
                             <section className='nx-grid-col nx-grid-col--33'>
                                 <NxButtonBar>
                                     <NxButton onClick={handleSaveClose}>
-                                        <span>Close</span>
+                                        <span>{_browser.i18n.getMessage('BUTTON_CLOSE')}</span>
                                     </NxButton>
                                 </NxButtonBar>
                             </section>
@@ -113,8 +117,12 @@ export default function Options() {
 
                         <NxTabs activeTab={activeTabId} onTabSelect={setActiveTabId}>
                             <NxTabList>
-                                <NxTab key={`DATA_SOURCE`}>Sonatype Configuration</NxTab>
-                                <NxTab key={`GENERAL`}>General Options</NxTab>
+                                <NxTab key={`DATA_SOURCE`}>
+                                    {_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
+                                </NxTab>
+                                <NxTab key={`GENERAL`}>
+                                    {_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
+                                </NxTab>
                             </NxTabList>
                             <NxTabPanel>
                                 {extensionConfig.dataSource === DATA_SOURCE.NEXUSIQ && (

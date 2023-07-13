@@ -17,6 +17,14 @@
             }
         }
     },
+    "SONATYPE_IQ_SERVER": {
+        "message": "Sonatype IQ Server",
+        "description": "Branded product name for Sonatype IQ Server"
+    },
+    "BUTTON_CLOSE": {
+        "message": "Close",
+        "description": "Close button text"
+    },
     "OPTIONS_PAGE_TITLE": {
         "message": "Extension Options",
         "description": "Page Title for Options page"
@@ -32,6 +40,18 @@
     "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
         "message": "Please now follow the steps below to connect this extension to your Sonatype IQ Server.",
         "description": "Description paragraph on Options Page in Install Mode"
+    },
+    "OPTIONS_CURRENT_CONNECTION": {
+        "message": "Current Connection Type",
+        "description": "Current Connection Type prompt"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
+        "message": "Sonatype Configuration",
+        "description": "Options Tab name for Sonatype Configuration"
+    },
+    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+        "message": "General Options",
+        "description": "Options Tab name for General Configuration"
     },
     "SIDEBAR_LINK_GETTING_STARTED": {
         "message": "Getting Started",
