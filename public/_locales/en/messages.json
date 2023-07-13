@@ -197,19 +197,19 @@
     },
     "POLICY_TABLE_THREAT": {
         "message": "THREAT",
-        "description": "THe column header in the policy table for threat"
+        "description": "The column header in the policy table for threat"
     },
     "POLICY_TABLE_POLICY": {
         "message": "POLICY",
-        "description": "THe column header in the policy table for policy"
+        "description": "The column header in the policy table for policy"
     },
     "POLICY_TABLE_CONSTRAINT": {
         "message": "CONSTRAINT",
-        "description": "THe column header in the policy table for constraint name"
+        "description": "The column header in the policy table for constraint name"
     },
     "POLICY_TABLE_CONDITION": {
         "message": "CONDITION",
-        "description": "THe column header in the policy table for condition"
+        "description": "The column header in the policy table for condition"
     },
     "POPUP_TAB_INFO": {
         "message": "Info",
@@ -266,6 +266,14 @@
     "ALL_VERSIONS": {
         "message": "All Versions",
         "description": "The list of all the available component versions"
+    },
+    "SECURITY_TABLE_CVSS": {
+        "message": "CVSS",
+        "description": "The column header in the security table for cvss"
+    },
+    "SECURITY_TABLE_ISSUE": {
+        "message": "ISSUE",
+        "description": "The column header in the security table for issue"
     },
     "SIDEBAR_LINK_GETTING_STARTED": {
         "message": "Getting Started",
