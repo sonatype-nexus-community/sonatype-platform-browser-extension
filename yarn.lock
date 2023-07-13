@@ -1576,11 +1576,6 @@
   resolved "https://registry.npmjs.org/@sonatype/nexus-iq-api-client/-/nexus-iq-api-client-0.156.5.tgz#a01fd017caadebf76bcb58e65564cd94d6a90366"
   integrity sha512-ta4hLU3ToJG/x+m0sgE6GSaTNH/tADKWWrwEAU4+AIYZCyjG9R526sbB5MlSG5bHBFO3Hk8mryvUZJ5TMpx46A==
 
-"@sonatype/ossindex-api-client@^2023.5.2":
-  version "2023.5.2"
-  resolved "https://registry.npmjs.org/@sonatype/ossindex-api-client/-/ossindex-api-client-2023.5.2.tgz#4d919faa1da4a42d2d606c6c094eca4819da3bd5"
-  integrity sha512-kTj76pHH3TGNHCEwTH3BHUDckhEEmbdi2rq4s9b5NtaT9gKwqi/FFwpS6zqza0np6tpdBh19koT1PVV9LOMQNw==
-
 "@sonatype/react-commonmark@^3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@sonatype/react-commonmark/-/react-commonmark-3.0.1.tgz#a78851614c63b5b10106b7e01b925e67b243ae60"

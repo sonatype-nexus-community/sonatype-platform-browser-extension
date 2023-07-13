@@ -39,15 +39,4 @@ describe('<SecurityThreat />', () => {
         const tree = comp.toJSON()
         expect(tree).toMatchSnapshot()
     })
-
-    test.skip('renders properly when provided OSS Index like context', () => {
-        const comp = renderer.create(
-            <ExtensionPopupContext.Provider value={getDefaultPopupContext(DATA_SOURCE.OSSINDEX)}>
-                <SecurityThreat />
-            </ExtensionPopupContext.Provider>
-        )
-
-        const tree = comp.toJSON()
-        expect(tree).toMatchSnapshot()
-    })
 })
