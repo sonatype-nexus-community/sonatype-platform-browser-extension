@@ -20,6 +20,9 @@ import { ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { LogLevel } from '../../../logger/Logger'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 export default function GeneralOptionsPage({
     setExtensionConfig,
 }: {
@@ -35,7 +38,7 @@ export default function GeneralOptionsPage({
 
     return (
         <form className='nx-form'>
-            <NxFormGroup label={`Extension Log Level`} isRequired>
+            <NxFormGroup label={_browser.i18n.getMessage('LABEL_LOG_LEVEL')} isRequired>
                 <NxFormSelect defaultValue={extensionSettings.logLevel} onChange={handleLogLevelChange}>
                     {Object.keys(LogLevel)
                         .filter((key) => !isNaN(Number(LogLevel[key])))

@@ -45,6 +45,10 @@
         "message": "-- Select an Application --",
         "description": "Default option in Application List"
     },
+    "LABEL_LOG_LEVEL": {
+        "message": "Extension Log Level",
+        "description": "Label for Log Level option"
+    },
     "LINK_BUG_REPORT": {
         "message": "Report a Bug",
         "description": "Link text used for reporting a bug."
