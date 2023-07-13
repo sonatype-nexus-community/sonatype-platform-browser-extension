@@ -31,7 +31,6 @@ import { DATA_SOURCE } from '../../utils/Constants'
 import { MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import GeneralOptionsPage from './General/GeneralOptionsPage'
 import IQServerOptionsPage from './IQServer/IQServerOptionsPage'
-import OSSIndexOptionsPage from './OSSIndex/OSSIndexOptionsPage'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
 import { readExtensionConfiguration, updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
@@ -98,14 +97,6 @@ export default function Options() {
                                         radioId='scanType-IQ-Server'>
                                         Sonatype IQ Server
                                     </NxRadio>
-                                    {/* <NxRadio
-                                        name='scanType'
-                                        value={DATA_SOURCE.OSSINDEX}
-                                        onChange={handleDataSourceChange}
-                                        isChecked={extensionConfig.dataSource === DATA_SOURCE.OSSINDEX}
-                                        radioId='scanType-OSS-Index'>
-                                        Sonatype OSS Index
-                                    </NxRadio> */}
                                 </NxFieldset>
                             </section>
                             <section className='nx-grid-col nx-grid-col--33'>
@@ -125,9 +116,6 @@ export default function Options() {
                             <NxTabPanel>
                                 {extensionConfig.dataSource === DATA_SOURCE.NEXUSIQ && (
                                     <IQServerOptionsPage setExtensionConfig={handleNewExtensionConfig} />
-                                )}
-                                {extensionConfig.dataSource === DATA_SOURCE.OSSINDEX && (
-                                    <OSSIndexOptionsPage setExtensionConfig={handleNewExtensionConfig} />
                                 )}
                             </NxTabPanel>
                             <NxTabPanel>
