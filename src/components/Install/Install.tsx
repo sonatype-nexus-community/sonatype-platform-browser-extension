@@ -42,7 +42,9 @@ export default function Install() {
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
             <React.Fragment>
                 <h1>
-                    <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')}</NxPageTitle>
+                    <NxPageTitle>
+                        &#127881; {_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')} &#127881;
+                    </NxPageTitle>
                 </h1>
                 <NxTile>
                     <NxTile.Header>

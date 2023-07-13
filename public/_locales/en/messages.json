@@ -25,12 +25,76 @@
         "message": "Close",
         "description": "Close button text"
     },
+    "GITHUB_ISSUE": {
+        "message": "GitHub Issue",
+        "description": "GitHub Issue"
+    },
+    "LINK_BUG_REPORT": {
+        "message": "Report a Bug",
+        "description": "Link text used for reporting a bug."
+    },
+    "LINK_FEATURE_REQUEST": {
+        "message": "Make a feature request",
+        "description": "Link text used for making a feature request."
+    },
+    "LINK_TEXT_HERE": {
+        "message": "here",
+        "description": "Link text used for generic link to somehting [here]."
+    },
+    "HELP_PAGE_TITLE": {
+        "message": "Help",
+        "description": "Page Title for Options page"
+    },
+    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+        "message": "Where do I go to get help?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available ",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_FEATURE_REQUEST": {
+        "message": "How can I make a Feature Request?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available below. We greatly value feedback. You can open a GitHub Issue with your idea or question or reach out to your dedicated Customer Success representative.",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_RAISE_BUG": {
+        "message": "I think I found a bug - who do I tell?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_RAISE_BUG": {
+        "message": "We greatly value feedback. If you believe you have found a bug, please open an Issue and provide as much information as you can including:",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+        "message": "Details of your Web Browser (name and version)",
+        "description": "First item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+        "message": "Version of the Sonatype Platform Browser Extension you have installed",
+        "description": "Second item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+        "message": "The action(s) you performed",
+        "description": "Third item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+        "message": "The expected behaviour",
+        "description": "Fourth item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+        "message": "The actual (unexpected) behaviour",
+        "description": "Fifth item of detail we request when raising a Bug"
+    },
     "OPTIONS_PAGE_TITLE": {
         "message": "Extension Options",
         "description": "Page Title for Options page"
     },
     "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-        "message": "&#127881; Thanks for installing the Sonatype Platform Browser Extension &#127881;",
+        "message": "Thanks for installing the Sonatype Platform Browser Extension",
         "description": "Page Title for Options page upon first installation"
     },
     "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
