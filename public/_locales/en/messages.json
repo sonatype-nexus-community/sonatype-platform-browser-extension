@@ -258,5 +258,14 @@
     "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
         "message": "Request Support",
         "description": "Sidebar Footer Link in Options Page"
+    },
+    "GITHUB_STARS": {
+        "message": "Stars",
+        "description": "The number of GitHub stars for the project"
+    }
+    ,
+    "GITHUB_FORKS": {
+        "message": "Forks",
+        "description": "The number of GitHub forks for the project"
     }
 }

@@ -136,8 +136,8 @@ function IqComponentInfo() {
                                     undefined && (
                                     <>
                                         <span className='nx-pull-right'>
-                                            <NxFontAwesomeIcon icon={faCodeFork as IconDefinition} title='Forks' />
-                                            Forks:
+                                            <NxFontAwesomeIcon icon={faCodeFork as IconDefinition} title={_browser.i18n.getMessage('GITHUB_FORKS')} />
+                                            {_browser.i18n.getMessage('GITHUB_FORKS')}:
                                             <span className='nx-counter'>
                                                 {
                                                     popupContext.iq?.componentDetails.projectData
@@ -146,8 +146,8 @@ function IqComponentInfo() {
                                             </span>
                                         </span>
                                         <span className='nx-pull-right'>
-                                            <NxFontAwesomeIcon icon={faStar as IconDefinition} title='Stars' />
-                                            Stars:
+                                            <NxFontAwesomeIcon icon={faStar as IconDefinition} title={_browser.i18n.getMessage('GITHUB_STARS')} />
+                                            {_browser.i18n.getMessage('GITHUB_STARS')}:
                                             <span className='nx-counter'>
                                                 {
                                                     popupContext.iq?.componentDetails.projectData
