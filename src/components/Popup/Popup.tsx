@@ -80,36 +80,37 @@ function IqPopup() {
                         width: '800px !important',
                     }}
                     productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
-                        <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
-                            <div>
-                    <NxButton
-                        title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
-                        variant='icon-only'
-                        onClick={() => {
-                            chrome.tabs.update({
-                                url: extensionConfigContext.host,
-                            })
-                            window.close()
-                        }}>
-                        <img id='iq-server-button' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
-                    </NxButton>
-                    </div>
+                    <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
+                        <span className='nx-pull-right'>
+                            <NxButton
+                                id='iq-server-button'
+                                title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
+                                variant='icon-only'
+                                onClick={() => {
+                                    chrome.tabs.update({
+                                        url: extensionConfigContext.host,
+                                    })
+                                    window.close()
+                                }}>
+                                <img id='iq-server-button-icon' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
+                            </NxButton>
+                        </span>
                     </Tooltip>
                     <Tooltip title={`Extension Options`}>
-                        <div>
-                    <NxButton variant='icon-only'
-                    title={`Extension Options`}>
-                        <NxFontAwesomeIcon
-                            icon={faGear as IconDefinition}
-                            onClick={() => {
-                                chrome.tabs.update({
-                                    url: 'options.html',
-                                })
-                                window.close()
-                            }}
-                        />
-                    </NxButton>
-                    </div>
+                        <span className='nx-pull-right'>
+                            <NxButton id='options-button' variant='icon-only'
+                            title={`Extension Options`}>
+                                <NxFontAwesomeIcon
+                                    icon={faGear as IconDefinition}
+                                    onClick={() => {
+                                        chrome.tabs.update({
+                                            url: 'options.html',
+                                        })
+                                        window.close()
+                                    }}
+                                />
+                            </NxButton>
+                        </span>
                     </Tooltip>
                 </NxPageHeader>
 

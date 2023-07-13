@@ -82,7 +82,17 @@
     vertical-align: text-top;
 }
 
-#iq-server-button {
+#iq-server-button-icon {
     vertical-align: middle !important;
     padding-bottom: 2.5px !important;
+}
+
+#options-button {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+#iq-server-button {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
 }
