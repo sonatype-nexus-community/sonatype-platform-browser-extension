@@ -38,17 +38,6 @@ function IqAllVersionDetails() {
     const currentPurl = popupContext.currentPurl
     const currentVersionRef = useRef<HTMLElement>(null)
 
-    // function getMaxViolation(policyData: ApiComponentPolicyViolationListDTOV2) {
-    //     if (policyData.policyViolations && policyData.policyViolations.length > 0) {
-    //         return Math.max(
-    //             ...policyData.policyViolations.map((violation) =>
-    //                 violation.threatLevel != undefined ? violation.threatLevel : 0
-    //             )
-    //         )
-    //     }
-    //     return 0
-    // }
-
     useEffect(() => {
         if (currentVersionRef.current) {
             currentVersionRef.current.scrollIntoView({
@@ -68,24 +57,13 @@ function IqAllVersionDetails() {
         return 'N/A'
     }
 
-    // const VersionTooltip = withStyles((theme) => ({
-    //     tooltip: {
-    //         backgroundColor: theme.palette.common.white,
-    //         color: 'black',
-    //         boxShadow: theme.shadows[1],
-    //         fontSize: 12,
-    //     },
-    // }))(Tooltip)
-
     function calculateAge(catalogDate) {
-        // birthday is a date
         const ageDifMs = Date.now() - catalogDate
         const ageDate = new Date(ageDifMs) // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970)
     }
 
     function GetPolicyViolationsIndicator({ policyData, policyType }) {
-        // const extConfigContext = useContext(ExtensionConfigurationContext)
         let filteredPolicies: ApiPolicyViolationDTOV2[] | undefined = []
         const policyTypes = ['Security', 'License', 'Architecture']
     
@@ -131,7 +109,6 @@ function IqAllVersionDetails() {
     }
 
     if (allVersions) {
-        // if (allVersions && currentPurl) {
         return (
             <NxList id='all-versions-list'>
                 {allVersions.map((version) => {
@@ -158,28 +135,30 @@ function IqAllVersionDetails() {
                                     }}>
                                     <NxGrid.Column className='nx-grid-col-50'>
                                         <NxGrid.Header><strong>{versionPurl.version}</strong>
-                                        <Tooltip
-                    title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
-                        <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span></Tooltip></NxGrid.Header>
+                                            <Tooltip
+                                                title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                                                <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span>
+                                            </Tooltip>
+                                        </NxGrid.Header>
                                         {version.policyData != undefined && (
                                             <React.Fragment>
-                                        <GetPolicyViolationsIndicator
-                                            policyData={version.policyData}
-                                            policyType={'Security'}
-                                        />
-                                        <GetPolicyViolationsIndicator
-                                            policyData={version.policyData}
-                                            policyType={'License'}
-                                        />
-                                        <GetPolicyViolationsIndicator
-                                            policyData={version.policyData}
-                                            policyType={'Architecture'}
-                                        />
-                                        <GetPolicyViolationsIndicator
-                                            policyData={version.policyData}
-                                            policyType={'Other'}
-                                        />
-                                        </React.Fragment>
+                                                <GetPolicyViolationsIndicator
+                                                    policyData={version.policyData}
+                                                    policyType={'Security'}
+                                                />
+                                                <GetPolicyViolationsIndicator
+                                                    policyData={version.policyData}
+                                                    policyType={'License'}
+                                                />
+                                                <GetPolicyViolationsIndicator
+                                                    policyData={version.policyData}
+                                                    policyType={'Architecture'}
+                                                />
+                                                <GetPolicyViolationsIndicator
+                                                    policyData={version.policyData}
+                                                    policyType={'Other'}
+                                                />
+                                            </React.Fragment>
                                         )}
                                     </NxGrid.Column>
                                     {version.relativePopularity !== undefined && (
@@ -192,7 +171,6 @@ function IqAllVersionDetails() {
                                                     children={''}
                                                     style={{
                                                         color: 'rgb(139, 199, 62) !important',
-                                                        // marginTop: '0px',
                                                     }}
                                                 />
                                               </div>
@@ -207,7 +185,6 @@ function IqAllVersionDetails() {
             </NxList>
         )
     } else {
-        // return <>{/* <span>{currentPurl?.name}</span> */}</>
         return <NxLoadingSpinner />
     }
 }
