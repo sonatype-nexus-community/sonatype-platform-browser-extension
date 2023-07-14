@@ -107,6 +107,12 @@ function handle_message_received_propogate_component_state(request: MessageReque
                 case ComponentState.EVALUATING:
                     vulnClass = 'sonatype-iq-extension-vuln-evaluating'
                     break
+                // case ComponentState.UNKNOWN:
+                //     vulnClass = 'sonatype-iq-extension-vuln-unknown'
+                //     break
+                // case ComponentState.NONE:
+                //     vulnClass = 'sonatype-iq-extension-vuln-none'
+                //     break
             }
 
             const domElement = $(repoType.titleSelector)
@@ -125,6 +131,7 @@ const removeClasses = (element) => {
     element.removeClass('sonatype-iq-extension-vuln')
     element.removeClass('sonatype-iq-extension-vuln-severe')
     element.removeClass('sonatype-iq-extension-vuln-high')
+    element.removeClass('sonatype-iq-extension-vuln-med')
     element.removeClass('sonatype-iq-extension-vuln-low')
     element.removeClass('sonatype-iq-extension-vuln-none')
     element.removeClass('sonatype-iq-extension-vuln-evaluating')
