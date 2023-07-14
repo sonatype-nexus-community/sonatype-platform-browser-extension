@@ -185,91 +185,102 @@ export default function ExtensionPopup() {
      * Obtain All Versions of the Component
      */
     useEffect(() => {
-        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState != 'unknown') {
-            /**
-             * Load all known versions of the current Component
-             */
-            getAllComponentVersions({
-                type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_VERSIONS,
-                params: {
-                    purl: purl.toString(),
-                },
-            }).then((allVersionsResponse) => {
-                if (allVersionsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                    logger.logMessage('Got Response to getAllComponentVersions', LogLevel.DEBUG, allVersionsResponse)
-                    if (allVersionsResponse.data !== undefined) {
-                        const allVersions =
-                            'versions' in allVersionsResponse.data
-                                ? (allVersionsResponse.data.versions as Array<string>)
-                                : []
+        if (purl !== undefined) {
+            if (
+                popupContext.iq &&
+                popupContext.iq.componentDetails &&
+                popupContext.iq.componentDetails.matchState != 'unknown'
+            ) {
+                /**
+                 * Load all known versions of the current Component
+                 */
+                getAllComponentVersions({
+                    type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_VERSIONS,
+                    params: {
+                        purl: purl.toString(),
+                    },
+                }).then((allVersionsResponse) => {
+                    if (allVersionsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                        logger.logMessage(
+                            'Got Response to getAllComponentVersions',
+                            LogLevel.DEBUG,
+                            allVersionsResponse
+                        )
+                        if (allVersionsResponse.data !== undefined) {
+                            const allVersions =
+                                'versions' in allVersionsResponse.data
+                                    ? (allVersionsResponse.data.versions as Array<string>)
+                                    : []
 
-                        if (allVersions.length == 0) {
-                            logger.logMessage(`No versions known for ${purl.toString()}`, LogLevel.INFO)
-                            return
-                        }
-
-                        const allVersionsPurl: string[] = []
-                        allVersions.map((version) => {
-                            const versionPurl = PackageURL.fromString(purl.toString())
-                            versionPurl.version = version
-                            allVersionsPurl.push(versionPurl.toString())
-                        })
-                        logger.logMessage('Created list of all versions by purl', LogLevel.DEBUG, allVersionsPurl)
-
-                        requestComponentEvaluationByPurls({
-                            type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
-                            params: {
-                                purls: allVersionsPurl,
-                            },
-                        }).then((r2) => {
-                            if (chrome.runtime.lastError) {
-                                logger.logMessage('Error handling Eval Comp Purl', LogLevel.ERROR)
+                            if (allVersions.length == 0) {
+                                logger.logMessage(`No versions known for ${purl.toString()}`, LogLevel.INFO)
+                                return
                             }
 
-                            const evaluateRequestTicketResponse = r2.data as ApiComponentEvaluationTicketDTOV2
-                            logger.logMessage(
-                                `evaluateRequestTicketResponse in get all versions`,
-                                LogLevel.DEBUG,
-                                evaluateRequestTicketResponse
-                            )
+                            const allVersionsPurl: string[] = []
+                            allVersions.map((version) => {
+                                const versionPurl = PackageURL.fromString(purl.toString())
+                                versionPurl.version = version
+                                allVersionsPurl.push(versionPurl.toString())
+                            })
+                            logger.logMessage('Created list of all versions by purl', LogLevel.DEBUG, allVersionsPurl)
 
-                            const { promise, stopPolling } = pollForComponentEvaluationResult(
-                                evaluateRequestTicketResponse.applicationId === undefined
-                                    ? ''
-                                    : evaluateRequestTicketResponse.applicationId,
-                                evaluateRequestTicketResponse.resultId === undefined
-                                    ? ''
-                                    : evaluateRequestTicketResponse.resultId,
-                                1000
-                            )
+                            requestComponentEvaluationByPurls({
+                                type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
+                                params: {
+                                    purls: allVersionsPurl,
+                                },
+                            }).then((r2) => {
+                                if (chrome.runtime.lastError) {
+                                    logger.logMessage('Error handling Eval Comp Purl', LogLevel.ERROR)
+                                }
 
-                            promise
-                                .then((evalResponse) => {
-                                    const newPopupContextAllVersions = {
-                                        iq: {
-                                            allVersions: (evalResponse as ApiComponentEvaluationResultDTOV2).results,
-                                        },
-                                    }
-                                    logger.logMessage(
-                                        `Updating PopUp Context with All Component Versions`,
-                                        LogLevel.DEBUG,
-                                        newPopupContextAllVersions
-                                    )
-                                    setPopupContext((c) => merge(c, newPopupContextAllVersions))
-                                })
-                                .catch((err) => {
-                                    logger.logMessage(`Error in Poll: ${err}`, LogLevel.ERROR)
-                                })
-                                .finally(() => {
-                                    logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
-                                    stopPolling()
-                                })
-                        })
+                                const evaluateRequestTicketResponse = r2.data as ApiComponentEvaluationTicketDTOV2
+                                logger.logMessage(
+                                    `evaluateRequestTicketResponse in get all versions`,
+                                    LogLevel.DEBUG,
+                                    evaluateRequestTicketResponse
+                                )
+
+                                const { promise, stopPolling } = pollForComponentEvaluationResult(
+                                    evaluateRequestTicketResponse.applicationId === undefined
+                                        ? ''
+                                        : evaluateRequestTicketResponse.applicationId,
+                                    evaluateRequestTicketResponse.resultId === undefined
+                                        ? ''
+                                        : evaluateRequestTicketResponse.resultId,
+                                    1000
+                                )
+
+                                promise
+                                    .then((evalResponse) => {
+                                        const newPopupContextAllVersions = {
+                                            iq: {
+                                                allVersions: (evalResponse as ApiComponentEvaluationResultDTOV2)
+                                                    .results,
+                                            },
+                                        }
+                                        logger.logMessage(
+                                            `Updating PopUp Context with All Component Versions`,
+                                            LogLevel.DEBUG,
+                                            newPopupContextAllVersions
+                                        )
+                                        setPopupContext((c) => merge(c, newPopupContextAllVersions))
+                                    })
+                                    .catch((err) => {
+                                        logger.logMessage(`Error in Poll: ${err}`, LogLevel.ERROR)
+                                    })
+                                    .finally(() => {
+                                        logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
+                                        stopPolling()
+                                    })
+                            })
+                        }
                     }
-                }
-            })
+                })
+            }
         }
-    }, [popupContext.iq?.componentDetails?.matchState, purl])
+    }, [popupContext.iq, purl])
 
     /**
      * Separate effect for readability trigger when the PURL changes.
@@ -277,89 +288,95 @@ export default function ExtensionPopup() {
      * Obtain Component Legal Details and Remediation
      */
     useEffect(() => {
-        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState != 'unknown') {
-            /**
-             * Get Legal Details for this Component
-             *
-             */
-            getComponentLegalDetails({
-                type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_LEGAL_DETAILS,
-                params: {
-                    purl: purl.toString(),
-                },
-            }).then((componentLegalDetailsResponse) => {
-                if (componentLegalDetailsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                    logger.logMessage(
-                        'Got Response to GetComponentLegalDetails',
-                        LogLevel.DEBUG,
-                        componentLegalDetailsResponse
-                    )
-                    if (
-                        componentLegalDetailsResponse.data !== undefined &&
-                        'componentLegalDetails' in componentLegalDetailsResponse.data
-                    ) {
-                        const componentLegalDetails = componentLegalDetailsResponse.data
-                            .componentLegalDetails as ApiLicenseLegalComponentReportDTO
-                        const newPopupContextLegalDetails = {
+        if (purl !== undefined) {
+            if (
+                popupContext.iq &&
+                popupContext.iq.componentDetails &&
+                popupContext.iq.componentDetails.matchState != 'unknown'
+            ) {
+                /**
+                 * Get Legal Details for this Component
+                 *
+                 */
+                getComponentLegalDetails({
+                    type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_LEGAL_DETAILS,
+                    params: {
+                        purl: purl.toString(),
+                    },
+                }).then((componentLegalDetailsResponse) => {
+                    if (componentLegalDetailsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                        logger.logMessage(
+                            'Got Response to GetComponentLegalDetails',
+                            LogLevel.DEBUG,
+                            componentLegalDetailsResponse
+                        )
+                        if (
+                            componentLegalDetailsResponse.data !== undefined &&
+                            'componentLegalDetails' in componentLegalDetailsResponse.data
+                        ) {
+                            const componentLegalDetails = componentLegalDetailsResponse.data
+                                .componentLegalDetails as ApiLicenseLegalComponentReportDTO
+                            const newPopupContextLegalDetails = {
+                                iq: {
+                                    componentLegalDetails: componentLegalDetails.licenseLegalMetadata,
+                                },
+                            }
+                            logger.logMessage(
+                                `Updating PopUp Context with Legal Details`,
+                                LogLevel.DEBUG,
+                                newPopupContextLegalDetails
+                            )
+                            setPopupContext((c) => merge(c, newPopupContextLegalDetails))
+                        }
+                    } else {
+                        logger.logMessage(
+                            'Unable to get response to getComponentLegalDetails',
+                            LogLevel.ERROR,
+                            componentLegalDetailsResponse.status_detail
+                        )
+                    }
+                })
+
+                /**
+                 * Request Remediation Details for the current PURL
+                 */
+                getRemediationDetailsForComponent({
+                    type: MESSAGE_REQUEST_TYPE.GET_REMEDIATION_DETAILS_FOR_COMPONENT,
+                    params: {
+                        purl: purl.toString(),
+                    },
+                }).then((remediationResponse) => {
+                    if (remediationResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                        logger.logMessage(
+                            'Got Response to getRemediationDetailsForComponent',
+                            LogLevel.DEBUG,
+                            remediationResponse
+                        )
+                        const newPopupContextRemediationDetails = {
                             iq: {
-                                componentLegalDetails: componentLegalDetails.licenseLegalMetadata,
+                                remediationDetails:
+                                    'remediation' in (remediationResponse.data as ApiComponentRemediationDTO)
+                                        ? (remediationResponse.data as ApiComponentRemediationDTO)
+                                        : undefined,
                             },
                         }
                         logger.logMessage(
-                            `Updating PopUp Context with Legal Details`,
+                            `Updating PopUp Context wtih Remediation`,
                             LogLevel.DEBUG,
-                            newPopupContextLegalDetails
+                            newPopupContextRemediationDetails
                         )
-                        setPopupContext((c) => merge(c, newPopupContextLegalDetails))
+                        setPopupContext((c) => merge(c, newPopupContextRemediationDetails))
+                    } else {
+                        logger.logMessage(
+                            'Unable to get response to getRemediationDetailsForComponent',
+                            LogLevel.ERROR,
+                            remediationResponse.status
+                        )
                     }
-                } else {
-                    logger.logMessage(
-                        'Unable to get response to getComponentLegalDetails',
-                        LogLevel.ERROR,
-                        componentLegalDetailsResponse.status_detail
-                    )
-                }
-            })
-
-            /**
-             * Request Remediation Details for the current PURL
-             */
-            getRemediationDetailsForComponent({
-                type: MESSAGE_REQUEST_TYPE.GET_REMEDIATION_DETAILS_FOR_COMPONENT,
-                params: {
-                    purl: purl.toString(),
-                },
-            }).then((remediationResponse) => {
-                if (remediationResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                    logger.logMessage(
-                        'Got Response to getRemediationDetailsForComponent',
-                        LogLevel.DEBUG,
-                        remediationResponse
-                    )
-                    const newPopupContextRemediationDetails = {
-                        iq: {
-                            remediationDetails:
-                                'remediation' in (remediationResponse.data as ApiComponentRemediationDTO)
-                                    ? (remediationResponse.data as ApiComponentRemediationDTO)
-                                    : undefined,
-                        },
-                    }
-                    logger.logMessage(
-                        `Updating PopUp Context wtih Remediation`,
-                        LogLevel.DEBUG,
-                        newPopupContextRemediationDetails
-                    )
-                    setPopupContext((c) => merge(c, newPopupContextRemediationDetails))
-                } else {
-                    logger.logMessage(
-                        'Unable to get response to getRemediationDetailsForComponent',
-                        LogLevel.ERROR,
-                        remediationResponse.status
-                    )
-                }
-            })
+                })
+            }
         }
-    }, [popupContext.iq?.componentDetails?.matchState, purl])
+    }, [popupContext.iq, purl])
 
     return (
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
