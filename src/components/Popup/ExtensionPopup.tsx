@@ -127,7 +127,7 @@ export default function ExtensionPopup() {
                 )
                 setPopupContext((c) => merge(c, newPopupContextWithComponentDetails))
 
-                if (response.componentDetails?.matchState !== 'unknown') {
+                if (response.componentDetails?.matchState != 'unknown') {
                     /**
                      * Get additional detail about this Component Version
                      *
@@ -185,7 +185,7 @@ export default function ExtensionPopup() {
      * Obtain All Versions of the Component
      */
     useEffect(() => {
-        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState !== 'unknown') {
+        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState != 'unknown') {
             /**
              * Load all known versions of the current Component
              */
@@ -277,7 +277,7 @@ export default function ExtensionPopup() {
      * Obtain Component Legal Details and Remediation
      */
     useEffect(() => {
-        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState !== 'unknown') {
+        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState != 'unknown') {
             /**
              * Get Legal Details for this Component
              *
