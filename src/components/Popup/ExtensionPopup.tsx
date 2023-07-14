@@ -15,7 +15,7 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import { getDefaultPopupContext, ExtensionPopupContext } from '../../context/ExtensionPopupContext'
+import { getDefaultPopupContext, ExtensionPopupContext, IqPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import Popup from './Popup'
 import { logger, LogLevel } from '../../logger/Logger'
@@ -116,7 +116,7 @@ export default function ExtensionPopup() {
                 ...newPopupContextWithPurl,
             }))
 
-            _browser.storage.local.get('componentDetails').then((response) => {
+            _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
                 const newPopupContextWithComponentDetails = {
                     iq: response,
                 }
@@ -127,52 +127,54 @@ export default function ExtensionPopup() {
                 )
                 setPopupContext((c) => merge(c, newPopupContextWithComponentDetails))
 
-                /**
-                 * Get additional detail about this Component Version
-                 *
-                 * projectData is not populated in the Evaluation Response :-(
-                 */
-                getComponentDetails({
-                    type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_DETAILS,
-                    params: {
-                        purls: [purl.toString()],
-                    },
-                }).then((componentDetailsResponse) => {
-                    if (componentDetailsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                        logger.logMessage(
-                            'Got Response to GetComponentDetails',
-                            LogLevel.DEBUG,
-                            componentDetailsResponse
-                        )
-                        if (
-                            componentDetailsResponse.data !== undefined &&
-                            'componentDetails' in componentDetailsResponse.data
-                        ) {
-                            const componentDetails = (
-                                componentDetailsResponse.data.componentDetails as Array<ApiComponentDetailsDTOV2>
-                            ).pop()
-                            if (componentDetails) {
-                                const newPopupContextWithMoreComponentDetails = {
-                                    iq: {
-                                        componentDetails: {
-                                            catalogDate: componentDetails.catalogDate,
-                                            integrityRating: componentDetails.integrityRating,
-                                            hygieneRating: componentDetails.hygieneRating,
-                                            projectData: componentDetails.projectData,
+                if (response.componentDetails?.matchState !== 'unknown') {
+                    /**
+                     * Get additional detail about this Component Version
+                     *
+                     * projectData is not populated in the Evaluation Response :-(
+                     */
+                    getComponentDetails({
+                        type: MESSAGE_REQUEST_TYPE.GET_COMPONENT_DETAILS,
+                        params: {
+                            purls: [purl.toString()],
+                        },
+                    }).then((componentDetailsResponse) => {
+                        if (componentDetailsResponse.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                            logger.logMessage(
+                                'Got Response to GetComponentDetails',
+                                LogLevel.DEBUG,
+                                componentDetailsResponse
+                            )
+                            if (
+                                componentDetailsResponse.data !== undefined &&
+                                'componentDetails' in componentDetailsResponse.data
+                            ) {
+                                const componentDetails = (
+                                    componentDetailsResponse.data.componentDetails as Array<ApiComponentDetailsDTOV2>
+                                ).pop()
+                                if (componentDetails) {
+                                    const newPopupContextWithMoreComponentDetails = {
+                                        iq: {
+                                            componentDetails: {
+                                                catalogDate: componentDetails.catalogDate,
+                                                integrityRating: componentDetails.integrityRating,
+                                                hygieneRating: componentDetails.hygieneRating,
+                                                projectData: componentDetails.projectData,
+                                            },
                                         },
-                                    },
-                                }
+                                    }
 
-                                logger.logMessage(
-                                    `Updating PopUp Context with additional Component Details`,
-                                    LogLevel.DEBUG,
-                                    newPopupContextWithMoreComponentDetails
-                                )
-                                setPopupContext((c) => merge(c, newPopupContextWithMoreComponentDetails))
+                                    logger.logMessage(
+                                        `Updating PopUp Context with additional Component Details`,
+                                        LogLevel.DEBUG,
+                                        newPopupContextWithMoreComponentDetails
+                                    )
+                                    setPopupContext((c) => merge(c, newPopupContextWithMoreComponentDetails))
+                                }
                             }
                         }
-                    }
-                })
+                    })
+                }
             })
         }
     }, [purl])
@@ -183,7 +185,7 @@ export default function ExtensionPopup() {
      * Obtain All Versions of the Component
      */
     useEffect(() => {
-        if (purl !== undefined) {
+        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState !== 'unknown') {
             /**
              * Load all known versions of the current Component
              */
@@ -267,7 +269,7 @@ export default function ExtensionPopup() {
                 }
             })
         }
-    }, [purl])
+    }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     /**
      * Separate effect for readability trigger when the PURL changes.
@@ -275,7 +277,7 @@ export default function ExtensionPopup() {
      * Obtain Component Legal Details and Remediation
      */
     useEffect(() => {
-        if (purl !== undefined) {
+        if (purl !== undefined && popupContext.iq?.componentDetails?.matchState !== 'unknown') {
             /**
              * Get Legal Details for this Component
              *
@@ -357,7 +359,7 @@ export default function ExtensionPopup() {
                 }
             })
         }
-    }, [purl])
+    }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
