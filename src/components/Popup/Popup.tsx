@@ -23,9 +23,7 @@ import {
     NxPageHeader,
     NxTile,
     NxButton,
-    NxDivider,
     NxCopyToClipboard,
-    NxFooter,
     NxWarningAlert,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
