@@ -22,6 +22,9 @@ import { MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import { updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 export default function Install() {
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
 
@@ -40,16 +43,16 @@ export default function Install() {
             <React.Fragment>
                 <h1>
                     <NxPageTitle>
-                        &#127881; Thanks for installing the Sonatype Platform Browser Extension &#127881;
+                        &#127881; {_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')} &#127881;
                     </NxPageTitle>
                 </h1>
                 <NxTile>
                     <NxTile.Header>
-                        <NxH2>Getting Started</NxH2>
+                        <NxH2>{_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED')}</NxH2>
                     </NxTile.Header>
                     <NxTile.Content>
                         <p className='nx-p nx-page-content--full-width'>
-                            Please now follow the steps below to connect this extension to your Sonatype IQ Server.
+                            {_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_P_GETTING_STARTED')}
                         </p>
                         <IQServerOptionsPage setExtensionConfig={handleNewExtensionConfig} />
                     </NxTile.Content>

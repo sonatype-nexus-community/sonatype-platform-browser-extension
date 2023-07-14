@@ -48,26 +48,29 @@ root.render(
             toggleCloseIcon={faArrowRight as IconDefinition}
             toggleOpenIcon={faArrowLeft as IconDefinition}
             logoImg='images/sonatype-lifecycle-logo-nav-white.svg'
-            logoAltText='Sonatype Browser Extension'
+            logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
             logoLink='#'>
             <NxGlobalSidebarNavigation>
                 <NxGlobalSidebarNavigationLink
                     icon={faPlay as IconDefinition}
-                    text='Getting Started'
+                    text={_browser.i18n.getMessage('SIDEBAR_LINK_GETTING_STARTED')}
                     href='options.html?install'
                 />
                 <NxGlobalSidebarNavigationLink
                     icon={faQuestionCircle as IconDefinition}
-                    text='Help'
+                    text={_browser.i18n.getMessage('SIDEBAR_LINK_HELP')}
                     href='options.html?help'
                 />
-                <NxGlobalSidebarNavigationLink icon={faCog as IconDefinition} text='Options' href='options.html' />
+                <NxGlobalSidebarNavigationLink
+                    icon={faCog as IconDefinition}
+                    text={_browser.i18n.getMessage('SIDEBAR_LINK_OPTIONS')}
+                    href='options.html'
+                />
             </NxGlobalSidebarNavigation>
             <NxGlobalSidebarFooter
-                supportText={`Request Support`}
+                supportText={_browser.i18n.getMessage('SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT')}
                 supportLink={extension.homepage_url}
-                releaseText={`Release ${extension.version}`}
-                productTagLine='Powered by Sonatype'
+                releaseText={_browser.i18n.getMessage('RELEASE_VERSION', extension.version)}
                 showCreatedBy={true}
             />
         </NxStatefulGlobalSidebar>
@@ -80,14 +83,10 @@ root.render(
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 _browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     logger.logMessage('Options Request received', LogLevel.INFO, request)
-    console.info('OptionsMessage received: ', request)
 
     switch (request.type) {
         case MESSAGE_REQUEST_TYPE.GET_SETTINGS:
             readExtensionConfiguration().then((response) => {
-                response.status_detail = {
-                    message: 'Proving this is where the response comes from Options!',
-                }
                 sendResponse(response)
             })
             break

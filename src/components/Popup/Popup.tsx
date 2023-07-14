@@ -42,6 +42,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Tooltip } from '@material-ui/core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 function IqPopup() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -84,15 +86,15 @@ function IqPopup() {
                     style={{
                         width: '800px !important',
                     }}
-                    productInfo={{ name: 'Platform Extension', version: '2.0.0' }}>
+                    productInfo={{ name: extension.name.replace('Sonatype ', ''), version: extension.version }}>
                     <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
-                        <span className='nx-pull-right'>
+                        <span>
                             <NxButton
                                 id='iq-server-button'
-                                title={`Sonatype IQ Server: ${extensionConfigContext.host}`}
+                                title='IQ'
                                 variant='icon-only'
                                 onClick={() => {
-                                    chrome.tabs.update({
+                                    _browser.tabs.update({
                                         url: extensionConfigContext.host,
                                     })
                                     window.close()
@@ -105,13 +107,16 @@ function IqPopup() {
                             </NxButton>
                         </span>
                     </Tooltip>
-                    <Tooltip title={`Extension Options`}>
-                        <span className='nx-pull-right'>
-                            <NxButton id='options-button' variant='icon-only' title={`Extension Options`}>
+                    <Tooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}>
+                        <span>
+                            <NxButton
+                                variant='icon-only'
+                                title={_browser.i18n.getMessage('SIDEBAR_LINK_OPTIONS')}
+                                id='options-button'>
                                 <NxFontAwesomeIcon
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
-                                        chrome.tabs.update({
+                                        _browser.tabs.update({
                                             url: 'options.html',
                                         })
                                         window.close()
@@ -127,15 +132,12 @@ function IqPopup() {
                         className='nx-page-main'
                         style={{
                             padding: '0px !important',
-                            // margin: '0px !important',
                         }}>
                         {popupContext.iq.componentDetails.matchState != 'unknown' && (
                             <NxTile
                                 className='nx-tile'
                                 style={{
                                     padding: '0px !important',
-                                    // margin: '0px !important',
-                                    // height: '600px !important',
                                 }}>
                                 <NxTabs
                                     activeTab={activeTabId}
@@ -150,12 +152,22 @@ function IqPopup() {
                                             margin: '0px !important',
                                             height: '600px !important',
                                         }}>
-                                        <NxTab>Info</NxTab>
+                                        <Tooltip
+                                            title={_browser.i18n.getMessage('POPUP_TAB_INFO_TOOLTIP', [versionsCount])}>
+                                            <span>
+                                                <NxTab>{_browser.i18n.getMessage('POPUP_TAB_INFO')}</NxTab>
+                                            </span>
+                                        </Tooltip>
 
-                                        <Tooltip title={`Number of versions: ${versionsCount}`}>
-                                            <div>
+                                        <Tooltip
+                                            title={_browser.i18n.getMessage('POPUP_TAB_REMEDIATION_TOOLTIP', [
+                                                versionsCount,
+                                            ])}>
+                                            <span>
                                                 <NxTab>
-                                                    {policyViolations.length > 0 ? 'Remediation' : 'Versions'}
+                                                    {policyViolations.length > 0
+                                                        ? _browser.i18n.getMessage('POPUP_TAB_REMEDIATION')
+                                                        : _browser.i18n.getMessage('POPUP_TAB_VERSIONS')}
 
                                                     {versionsCount > 0 ? (
                                                         <span className={'nx-counter'}>{versionsCount}</span>
@@ -166,43 +178,47 @@ function IqPopup() {
                                                         />
                                                     )}
                                                 </NxTab>
-                                            </div>
+                                            </span>
                                         </Tooltip>
 
                                         {policyViolations.length > 0 && (
                                             <Tooltip
-                                                title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
+                                                title={_browser.i18n.getMessage('POPUP_TAB_POLICY_TOOLIP', [
+                                                    extensionConfigContext.iqApplicationPublidId,
+                                                ])}
                                                 placement='bottom'>
-                                                <div>
+                                                <span>
                                                     <NxTab>
-                                                        Policy
+                                                        {_browser.i18n.getMessage('POPUP_TAB_POLICY')}
                                                         <span className={'nx-counter'}>{policyViolations.length}</span>
                                                     </NxTab>
-                                                </div>
+                                                </span>
                                             </Tooltip>
                                         )}
                                         {securityIssues.length > 0 && (
-                                            <Tooltip
-                                                title={`Security Issues cataloged against this component.`}
-                                                placement='bottom'>
-                                                <div>
+                                            <Tooltip title={_browser.i18n.getMessage('POPUP_TAB_SECURITY_TOOLTIP')}>
+                                                <span>
                                                     <NxTab>
-                                                        Security
+                                                        {_browser.i18n.getMessage('POPUP_TAB_SECURITY')}
                                                         <span className={'nx-counter'}>{securityIssues.length}</span>
                                                     </NxTab>
-                                                </div>
+                                                </span>
                                             </Tooltip>
                                         )}
-                                        {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
+                                        {effectiveLicenses.length > 0 && (
+                                            <Tooltip title={_browser.i18n.getMessage('POPUP_TAB_LEGAL_TOOLTIP')}>
+                                                <span>
+                                                    <NxTab>{_browser.i18n.getMessage('POPUP_TAB_LEGAL')}</NxTab>
+                                                </span>
+                                            </Tooltip>
+                                        )}
                                     </NxTabList>
                                     <NxTabPanel>
                                         <ComponentInfoPage />
                                     </NxTabPanel>
-
                                     <NxTabPanel>
                                         <RemediationPage />
                                     </NxTabPanel>
-
                                     {policyViolations.length > 0 && (
                                         <NxTabPanel>
                                             <PolicyPage />
@@ -219,7 +235,6 @@ function IqPopup() {
                                         </NxTabPanel>
                                     )}
                                 </NxTabs>
-                                {/* </div> */}
                             </NxTile>
                         )}
                         {popupContext.iq.componentDetails.matchState == 'unknown' && (
@@ -231,26 +246,21 @@ function IqPopup() {
 
                                     <div className='nx-grid-col nx-grid-col--33 uknown-warn'>
                                         <NxWarningAlert>
-                                                We were unable to find that peanut in a haystack!
+                                            {_browser.i18n.getMessage('POPUP_COMPONENT_UNKNOWN_MESSAGE')}
                                         </NxWarningAlert>
-                        
                                     </div>
                                 </div>
                                 <div className='nx-grid-row'>
-                                <NxCopyToClipboard
-                                                label='Package URL'
-                                                inputProps={{ 
-                                                    rows: 1 }}
-                                                content={popupContext.iq.componentDetails.component?.packageUrl as string}
-                                                width={
-                                                    '100px'
-                                                }
-                                            />
-                                            </div>
+                                    <NxCopyToClipboard
+                                        label='Package URL'
+                                        inputProps={{
+                                            rows: 1,
+                                        }}
+                                        content={popupContext.iq.componentDetails.component?.packageUrl as string}
+                                        width={'100px'}
+                                    />
+                                </div>
                             </NxTile>
-
-                            
-
                         )}
                     </main>
                 </div>
