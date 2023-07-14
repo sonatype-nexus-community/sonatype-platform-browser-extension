@@ -33,7 +33,8 @@ const parseRuby = (url: string): PackageURL | undefined => {
                 return generatePackageURL(
                     FORMATS.gem,
                     pathResult.groups.artifactId,
-                    pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion
+                    pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
+                    pathResult.groups.platform !== undefined ? { platform: pathResult.groups.platform } : undefined
                 )
             }
         }

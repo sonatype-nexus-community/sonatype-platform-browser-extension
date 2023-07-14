@@ -324,7 +324,7 @@ export const REPO_TYPES: RepoType[] = [
         dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '/versions/{versionNumber}',
         pathRegex:
-            /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+            /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '.page__subheading',
     },
     {
