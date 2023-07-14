@@ -23,6 +23,8 @@ import {
     NxPageHeader,
     NxTile,
     NxButton,
+    NxCopyToClipboard,
+    NxWarningAlert,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
 import { ExtensionPopupContext } from '../../context/ExtensionPopupContext'
@@ -95,19 +97,21 @@ function IqPopup() {
                                     })
                                     window.close()
                                 }}>
-                                <img id='iq-server-button-icon' src='/images/sonatype-lifecycle-icon-32x32.png' height={'20'} width={'20'}></img>
+                                <img
+                                    id='iq-server-button-icon'
+                                    src='/images/sonatype-lifecycle-icon-32x32.png'
+                                    height={'20'}
+                                    width={'20'}></img>
                             </NxButton>
                         </span>
                     </Tooltip>
                     <Tooltip title={`Extension Options`}>
                         <span className='nx-pull-right'>
-                            <NxButton id='options-button' variant='icon-only'
-                            title={`Extension Options`}>
+                            <NxButton id='options-button' variant='icon-only' title={`Extension Options`}>
                                 <NxFontAwesomeIcon
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
                                         chrome.tabs.update({
-
                                             url: 'options.html',
                                         })
                                         window.close()
@@ -115,7 +119,6 @@ function IqPopup() {
                                 />
                             </NxButton>
                         </span>
-
                     </Tooltip>
                 </NxPageHeader>
 
@@ -126,96 +129,129 @@ function IqPopup() {
                             padding: '0px !important',
                             // margin: '0px !important',
                         }}>
-                        <NxTile
-                            className='nx-tile'
-                            style={{
-                                padding: '0px !important',
-                                // margin: '0px !important',
-                                // height: '600px !important',
-                            }}>
-                            <NxTabs
-                                activeTab={activeTabId}
-                                onTabSelect={(index) => setActiveTabId(index)}
+                        {popupContext.iq.componentDetails.matchState != 'unknown' && (
+                            <NxTile
+                                className='nx-tile'
                                 style={{
-                                    paddingTop: '0px !important',
-                                    marginTop: '0px !important',
+                                    padding: '0px !important',
+                                    // margin: '0px !important',
+                                    // height: '600px !important',
                                 }}>
-                                <NxTabList
+                                <NxTabs
+                                    activeTab={activeTabId}
+                                    onTabSelect={(index) => setActiveTabId(index)}
                                     style={{
-                                        padding: '0px !important',
-                                        margin: '0px !important',
-                                        height: '600px !important',
+                                        paddingTop: '0px !important',
+                                        marginTop: '0px !important',
                                     }}>
-                                    <NxTab>Info</NxTab>
-                                    
-                                    <Tooltip
-                                            title={`Number of versions: ${versionsCount}`}>
-                                                <div>
-                                    <NxTab>
-                                        {policyViolations.length > 0
-                                            ? 'Remediation'
-                                            : 'Versions'}
-                                        
-                                        {versionsCount > 0 ? (
-                                            <span className={'nx-counter'}>{versionsCount}</span>    
-                                        ):(
-                                            <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
-                                        )}
-                                        </NxTab>
+                                    <NxTabList
+                                        style={{
+                                            padding: '0px !important',
+                                            margin: '0px !important',
+                                            height: '600px !important',
+                                        }}>
+                                        <NxTab>Info</NxTab>
 
-                                        </div>
-                                    </Tooltip>
+                                        <Tooltip title={`Number of versions: ${versionsCount}`}>
+                                            <div>
+                                                <NxTab>
+                                                    {policyViolations.length > 0 ? 'Remediation' : 'Versions'}
+
+                                                    {versionsCount > 0 ? (
+                                                        <span className={'nx-counter'}>{versionsCount}</span>
+                                                    ) : (
+                                                        <NxFontAwesomeIcon
+                                                            icon={faSpinner as IconDefinition}
+                                                            spin={true}
+                                                        />
+                                                    )}
+                                                </NxTab>
+                                            </div>
+                                        </Tooltip>
+
+                                        {policyViolations.length > 0 && (
+                                            <Tooltip
+                                                title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
+                                                placement='bottom'>
+                                                <div>
+                                                    <NxTab>
+                                                        Policy
+                                                        <span className={'nx-counter'}>{policyViolations.length}</span>
+                                                    </NxTab>
+                                                </div>
+                                            </Tooltip>
+                                        )}
+                                        {securityIssues.length > 0 && (
+                                            <Tooltip
+                                                title={`Security Issues cataloged against this component.`}
+                                                placement='bottom'>
+                                                <div>
+                                                    <NxTab>
+                                                        Security
+                                                        <span className={'nx-counter'}>{securityIssues.length}</span>
+                                                    </NxTab>
+                                                </div>
+                                            </Tooltip>
+                                        )}
+                                        {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
+                                    </NxTabList>
+                                    <NxTabPanel>
+                                        <ComponentInfoPage />
+                                    </NxTabPanel>
+
+                                    <NxTabPanel>
+                                        <RemediationPage />
+                                    </NxTabPanel>
 
                                     {policyViolations.length > 0 && (
-                                        <Tooltip
-                                            title={`Sonatype Lifecycle Appliation Evaluation Policy Violations: ${extensionConfigContext.iqApplicationPublidId}`}
-                                            placement='bottom'>
-                                            <div>
-                                                <NxTab>
-                                                    Policy
-                                                    <span className={'nx-counter'}>{policyViolations.length}</span>
-                                                </NxTab>
-                                            </div>
-                                        </Tooltip>
+                                        <NxTabPanel>
+                                            <PolicyPage />
+                                        </NxTabPanel>
                                     )}
                                     {securityIssues.length > 0 && (
-                                        <Tooltip
-                                            title={`Security Issues cataloged against this component.`}
-                                            placement='bottom'>
-                                            <div>
-                                                <NxTab>
-                                                    Security
-                                                    <span className={'nx-counter'}>{securityIssues.length}</span>
-                                                </NxTab>
-                                            </div>
-                                        </Tooltip>
+                                        <NxTabPanel>
+                                            <SecurityPage />
+                                        </NxTabPanel>
                                     )}
-                                    {effectiveLicenses.length > 0 && <NxTab>Legal</NxTab>}
-                                </NxTabList>
-                                <NxTabPanel>
-                                    <ComponentInfoPage />
-                                </NxTabPanel>
-                                <NxTabPanel>
-                                    <RemediationPage />
-                                </NxTabPanel>
-                                {policyViolations.length > 0 && (
-                                    <NxTabPanel>
-                                        <PolicyPage />
-                                    </NxTabPanel>
-                                )}
-                                {securityIssues.length > 0 && (
-                                    <NxTabPanel>
-                                        <SecurityPage />
-                                    </NxTabPanel>
-                                )}
-                                {effectiveLicenses.length > 0 && (
-                                    <NxTabPanel>
-                                        <LicensePage />
-                                    </NxTabPanel>
-                                )}
-                            </NxTabs>
-                            {/* </div> */}
-                        </NxTile>
+                                    {effectiveLicenses.length > 0 && (
+                                        <NxTabPanel>
+                                            <LicensePage />
+                                        </NxTabPanel>
+                                    )}
+                                </NxTabs>
+                                {/* </div> */}
+                            </NxTile>
+                        )}
+                        {popupContext.iq.componentDetails.matchState == 'unknown' && (
+                            <NxTile>
+                                <div className='nx-grid-row'>
+                                    <div className='nx-grid-col nx-grid-col--67'>
+                                        <img width='340px' src='/images/Sherlock_Trunks_sticker@300ppi.png' />
+                                    </div>
+
+                                    <div className='nx-grid-col nx-grid-col--33 uknown-warn'>
+                                        <NxWarningAlert>
+                                                We were unable to find that peanut in a haystack!
+                                        </NxWarningAlert>
+                        
+                                    </div>
+                                </div>
+                                <div className='nx-grid-row'>
+                                <NxCopyToClipboard
+                                                label='Package URL'
+                                                inputProps={{ 
+                                                    rows: 1 }}
+                                                content={popupContext.iq.componentDetails.component?.packageUrl as string}
+                                                width={
+                                                    '100px'
+                                                }
+                                            />
+                                            </div>
+                            </NxTile>
+
+                            
+
+                        )}
                     </main>
                 </div>
             </React.Fragment>

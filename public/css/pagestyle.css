@@ -1,22 +1,40 @@
-.sonatype-iq-extension-vuln-severe {
+.sonatype-iq-extension-vuln-critical {
     border: 3px solid var(--nx-color-threat-critical) !important;
     border-radius: 10px;
     padding: 5px;
     box-shadow: 5px 5px 8px var(--nx-color-threat-critical);
 }
 
-.sonatype-iq-extension-vuln-high {
+.sonatype-iq-extension-vuln-critical:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-severe {
     border: 3px solid var(--nx-color-threat-severe) !important;
     border-radius: 10px;
     padding: 5px;
     box-shadow: 5px 5px 8px var(--nx-color-threat-severe);
 }
 
-.sonatype-iq-extension-vuln-med {
-    border: 3px solid var(--nx-color-threat-severe) !important;
+.sonatype-iq-extension-vuln-severe:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-severe.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-moderate {
+    border: 3px solid var(--nx-color-threat-moderate) !important;
     border-radius: 10px;
     padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-severe);
+    box-shadow: 5px 5px 8px var(--nx-color-threat-moderate);
+}
+
+.sonatype-iq-extension-vuln-moderate:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-moderate.png');
+    vertical-align: top;
+    padding-right: 10px;
 }
 
 .sonatype-iq-extension-vuln-low {
@@ -26,6 +44,12 @@
     box-shadow: 5px 5px 8px var(--nx-color-threat-moderate);
 }
 
+.sonatype-iq-extension-vuln-low:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-low.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
 .sonatype-iq-extension-vuln-none {
     border: 3px solid var(--nx-color-threat-none) !important;
     border-radius: 10px;
@@ -33,14 +57,21 @@
     box-shadow: 5px 5px 8px var(--nx-color-threat-none);
 }
 
-.sonatype-iq-extension-vuln-severe:before {
-    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-lifecycle-icon_Vulnerable-32x32.png');
+.sonatype-iq-extension-vuln-unspecified:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png');
     vertical-align: top;
     padding-right: 10px;
 }
 
+.sonatype-iq-extension-vuln-unspecified {
+    border: 3px solid black !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px black;
+}
+
 .sonatype-iq-extension-vuln-none:before {
-    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-lifecycle-icon-32x32.png');
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-none.png');
     vertical-align: top;
     padding-right: 10px;
 }
