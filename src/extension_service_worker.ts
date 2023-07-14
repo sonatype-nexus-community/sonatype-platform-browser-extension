@@ -144,10 +144,17 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 const componentDetails = (
                                     evalResponse as ApiComponentEvaluationResultDTOV2
                                 ).results?.pop()
-                                const componentState = getForComponentPolicyViolations(componentDetails?.policyData)
+
+                                let componentState: ComponentState = ComponentState.UNKNOWN
+                                if (componentDetails?.matchState != null && componentDetails.matchState != 'unknown') {
+                                    componentState = getForComponentPolicyViolations(componentDetails?.policyData)
+                                }
 
                                 propogateCurrentComponentState(tabId, componentState)
 
+                                /**
+                                @todo - make extension icon more relevant to the Component State
+                                */
                                 _browser.action.enable(tabId, () => {
                                     _browser.action.setIcon({
                                         tabId: tabId,
@@ -184,7 +191,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
                         LogLevel.DEBUG
                     )
-                    chrome.action.disable(tabId, () => {
+                    _browser.action.disable(tabId, () => {
                         /**
                          * @todo Change Extension ICON
                          */
