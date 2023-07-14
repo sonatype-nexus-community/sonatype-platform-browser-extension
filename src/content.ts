@@ -87,19 +87,22 @@ function handle_message_received_propogate_component_state(request: MessageReque
             const repoType = findRepoType(window.location.href) as RepoType
             const componentState = request.params.componentState as ComponentState
             logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
-            let vulnClass = 'sonatype-iq-extension-vuln-none'
+            let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
             switch (componentState) {
                 case ComponentState.CRITICAL:
-                    vulnClass = 'sonatype-iq-extension-vuln-severe'
+                    vulnClass = 'sonatype-iq-extension-vuln-critical'
                     break
                 case ComponentState.SEVERE:
-                    vulnClass = 'sonatype-iq-extension-vuln-high'
+                    vulnClass = 'sonatype-iq-extension-vuln-severe'
                     break
                 case ComponentState.MODERATE:
-                    vulnClass = 'sonatype-iq-extension-vuln-med'
+                    vulnClass = 'sonatype-iq-extension-vuln-moderate'
                     break
                 case ComponentState.LOW:
                     vulnClass = 'sonatype-iq-extension-vuln-low'
+                    break
+                case ComponentState.NONE:
+                    vulnClass = 'sonatype-iq-extension-vuln-none'
                     break
                 case ComponentState.EVALUATING:
                     vulnClass = 'sonatype-iq-extension-vuln-evaluating'
@@ -121,6 +124,7 @@ const removeClasses = (element) => {
     element.removeClass('sonatype-iq-extension-vuln')
     element.removeClass('sonatype-iq-extension-vuln-severe')
     element.removeClass('sonatype-iq-extension-vuln-high')
+    element.removeClass('sonatype-iq-extension-vuln-med')
     element.removeClass('sonatype-iq-extension-vuln-low')
     element.removeClass('sonatype-iq-extension-vuln-none')
     element.removeClass('sonatype-iq-extension-vuln-evaluating')

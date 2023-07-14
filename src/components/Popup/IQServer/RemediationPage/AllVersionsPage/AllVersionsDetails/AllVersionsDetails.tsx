@@ -127,8 +127,7 @@ function IqAllVersionDetails() {
                     const versionPurl = PackageURL.fromString(version.component?.packageUrl as string)
 
                     return (
-                        <NxList.LinkItem
-                            href=''
+                        <NxList.ButtonItem
                             key={version.component?.packageUrl}
                             selected={versionPurl.version == currentPurl?.version}>
                             <NxList.Text
@@ -202,7 +201,7 @@ function IqAllVersionDetails() {
                                     )}
                                 </NxGrid.Row>
                             </NxList.Text>
-                        </NxList.LinkItem>
+                        </NxList.ButtonItem>
                     )
                 })}
             </NxList>

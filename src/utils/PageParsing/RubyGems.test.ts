@@ -19,6 +19,7 @@ import { join } from 'path'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { ensure } from '../Helpers'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import exp from 'constants'
 
 describe('Ruby Gems Page Parsing', () => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.rubyGemsOrg)
@@ -35,6 +36,23 @@ describe('Ruby Gems Page Parsing', () => {
         expect(PackageURL?.type).toBe(FORMATS.gem)
         expect(PackageURL?.name).toBe('chelsea')
         expect(PackageURL?.version).toBe('0.0.35')
+    })
+
+    test('should parse a valid RubyGems page with platform', () => {
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-platform.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const PackageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java'
+        )
+
+        expect(PackageURL).toBeDefined()
+        expect(PackageURL?.type).toBe(FORMATS.gem)
+        expect(PackageURL?.name).toBe('logstash-input-tcp')
+        expect(PackageURL?.version).toBe('6.0.9')
+        expect(PackageURL?.qualifiers).toEqual({ platform: 'java' })
     })
 
     test('should parse a valid RubyGems page with QS and Fragment', () => {

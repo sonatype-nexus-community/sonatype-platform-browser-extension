@@ -27,7 +27,7 @@ import {
     pollForComponentEvaluationResult,
 } from './messages/IqMessages'
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
-import { ComponentState, getForComponentPolicyViolations } from './types/Component'
+import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -143,17 +143,18 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 const componentDetails = (
                                     evalResponse as ApiComponentEvaluationResultDTOV2
                                 ).results?.pop()
-                                const componentState = getForComponentPolicyViolations(componentDetails?.policyData)
+
+                                let componentState: ComponentState = ComponentState.UNKNOWN
+                                if (componentDetails?.matchState != null && componentDetails.matchState != 'unknown') {
+                                    componentState = getForComponentPolicyViolations(componentDetails?.policyData)
+                                }
 
                                 propogateCurrentComponentState(tabId, componentState)
 
                                 _browser.action.enable(tabId, () => {
                                     _browser.action.setIcon({
                                         tabId: tabId,
-                                        path:
-                                            componentState == ComponentState.NONE
-                                                ? '/images/sonatype-lifecycle-icon-white-32x32.png'
-                                                : '/images/sonatype-lifecycle-icon_Vulnerable-32x32.png',
+                                        path: getIconForComponentState(componentState),
                                     })
                                 })
 
@@ -183,21 +184,23 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
                         LogLevel.DEBUG
                     )
-                    chrome.action.disable(tabId, () => {
-                        /**
-                         * @todo Change Extension ICON
-                         */
+                    _browser.action.disable(tabId, () => {
                         logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
+                        _browser.action.setIcon({
+                            tabId: tabId,
+                            path: getIconForComponentState(ComponentState.UNKNOWN),
+                        })
                     })
                 }
             })
     } else {
         logger.logMessage(`Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`, LogLevel.DEBUG)
-        chrome.action.disable(tabId, () => {
-            /**
-             * @todo Change Extension ICON
-             */
+        _browser.action.disable(tabId, () => {
             logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
+            _browser.action.setIcon({
+                tabId: tabId,
+                path: getIconForComponentState(ComponentState.UNKNOWN),
+            })
         })
     }
 }

@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.0...v2.2.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* incorrect PURL derived for RubyGems when platform was present [#28](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/28) ([4514424](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/45144248d382174577dd4ac203072db1ed5e56dd))
+
 # [2.2.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.1.2...v2.2.0) (2023-07-13)
 
 
