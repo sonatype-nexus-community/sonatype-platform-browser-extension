@@ -243,6 +243,10 @@
         "message": "CONDITION",
         "description": "The column header in the policy table for condition"
     },
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "We were unable to find that peanut in a haystack!",
+        "description": "Message to inform a user that the current package is not known by Sonatype"
+    },
     "POPUP_TAB_INFO": {
         "message": "Info",
         "description": "Component Information top-level tab in Popup "
@@ -330,8 +334,7 @@
     "GITHUB_STARS": {
         "message": "Stars",
         "description": "The number of GitHub stars for the project"
-    }
-    ,
+    },
     "GITHUB_FORKS": {
         "message": "Forks",
         "description": "The number of GitHub forks for the project"

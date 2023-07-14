@@ -109,7 +109,10 @@ function IqPopup() {
                     </Tooltip>
                     <Tooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}>
                         <span>
-                            <NxButton variant='icon-only' title='OPTIONS' id='options-button'>
+                            <NxButton
+                                variant='icon-only'
+                                title={_browser.i18n.getMessage('SIDEBAR_LINK_OPTIONS')}
+                                id='options-button'>
                                 <NxFontAwesomeIcon
                                     icon={faGear as IconDefinition}
                                     onClick={() => {
@@ -129,7 +132,6 @@ function IqPopup() {
                         className='nx-page-main'
                         style={{
                             padding: '0px !important',
-                            // margin: '0px !important',
                         }}>
                         {popupContext.iq.componentDetails.matchState != 'unknown' && (
                             <NxTile
@@ -233,7 +235,6 @@ function IqPopup() {
                                         </NxTabPanel>
                                     )}
                                 </NxTabs>
-                                {/* </div> */}
                             </NxTile>
                         )}
                         {popupContext.iq.componentDetails.matchState == 'unknown' && (
@@ -245,7 +246,7 @@ function IqPopup() {
 
                                     <div className='nx-grid-col nx-grid-col--33 uknown-warn'>
                                         <NxWarningAlert>
-                                            We were unable to find that peanut in a haystack!
+                                            {_browser.i18n.getMessage('POPUP_COMPONENT_UNKNOWN_MESSAGE')}
                                         </NxWarningAlert>
                                     </div>
                                 </div>
