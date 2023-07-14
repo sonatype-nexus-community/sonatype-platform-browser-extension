@@ -107,12 +107,6 @@ function handle_message_received_propogate_component_state(request: MessageReque
                 case ComponentState.EVALUATING:
                     vulnClass = 'sonatype-iq-extension-vuln-evaluating'
                     break
-                // case ComponentState.UNKNOWN:
-                //     vulnClass = 'sonatype-iq-extension-vuln-unknown'
-                //     break
-                // case ComponentState.NONE:
-                //     vulnClass = 'sonatype-iq-extension-vuln-none'
-                //     break
             }
 
             const domElement = $(repoType.titleSelector)
