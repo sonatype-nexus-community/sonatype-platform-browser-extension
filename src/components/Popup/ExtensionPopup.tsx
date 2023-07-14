@@ -187,8 +187,7 @@ export default function ExtensionPopup() {
     useEffect(() => {
         if (purl !== undefined) {
             if (
-                popupContext.iq &&
-                popupContext.iq.componentDetails &&
+                popupContext.iq?.componentDetails?.matchState !== undefined &&
                 popupContext.iq.componentDetails.matchState != 'unknown'
             ) {
                 /**
@@ -280,7 +279,7 @@ export default function ExtensionPopup() {
                 })
             }
         }
-    }, [popupContext.iq, purl])
+    }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     /**
      * Separate effect for readability trigger when the PURL changes.
@@ -290,8 +289,7 @@ export default function ExtensionPopup() {
     useEffect(() => {
         if (purl !== undefined) {
             if (
-                popupContext.iq &&
-                popupContext.iq.componentDetails &&
+                popupContext.iq?.componentDetails?.matchState !== undefined &&
                 popupContext.iq.componentDetails.matchState != 'unknown'
             ) {
                 /**
@@ -376,7 +374,7 @@ export default function ExtensionPopup() {
                 })
             }
         }
-    }, [popupContext.iq, purl])
+    }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
