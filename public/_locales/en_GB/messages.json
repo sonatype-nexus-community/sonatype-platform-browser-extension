@@ -1,0 +1,6 @@
+{
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "Aw shucks! We could not find that peanut in a haystack!",
+        "description": "Message to inform a user that the current package is not known by Sonatype"
+    }
+}
