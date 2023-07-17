@@ -37,7 +37,12 @@ import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigu
 import { isHttpUriValidator, nonEmptyValidator } from '../../Common/Validators'
 import { logger, LogLevel } from '../../../logger/Logger'
 import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
-import { determineSupportsFirewall } from '../../../messages/IqMessages'
+import {
+    determineSupportsFirewall,
+    determineSupportsLifecycle,
+    determineSupportsLifecycleAlp,
+} from '../../../messages/IqCapabilities'
+import merge from 'ts-deepmerge'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -168,10 +173,46 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     async function determineIqCapabilities() {
+        const sandboxApplication = iqServerApplicationList
+            .filter((applicationDto: ApiApplicationDTO) => {
+                return applicationDto.publicId == 'sandbox-application'
+            })
+            .pop() as ApiApplicationDTO
+        logger.logMessage(
+            `Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
+            LogLevel.DEBUG
+        )
+        const supportsFirewall = await determineSupportsFirewall()
+        const supportsLifecycleAlp = await determineSupportsLifecycleAlp()
         const newExtensionSettings = extensionSettings as ExtensionConfiguration
-        newExtensionSettings.supportsFirewall = await determineSupportsFirewall()
+        newExtensionSettings.supportsFirewall = supportsFirewall
+        newExtensionSettings.supportsLifecycleAlp = supportsLifecycleAlp
         setExtensionConfig(newExtensionSettings)
     }
+
+    useEffect(() => {
+        async function determineIqLifecycleCapability() {
+            const sandboxApplication = iqServerApplicationList
+                .filter((applicationDto: ApiApplicationDTO) => {
+                    return applicationDto.publicId == 'sandbox-application'
+                })
+                .pop() as ApiApplicationDTO
+            logger.logMessage(
+                `UE: Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
+                LogLevel.DEBUG
+            )
+            let supportsLifecycle = false
+            if (sandboxApplication !== undefined) {
+                supportsLifecycle = await determineSupportsLifecycle(sandboxApplication.id as string)
+            }
+            const newExtensionSettings = extensionSettings as ExtensionConfiguration
+            newExtensionSettings.supportsLifecycle = supportsLifecycle
+            setExtensionConfig(newExtensionSettings)
+        }
+
+        determineIqLifecycleCapability()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [iqServerApplicationList])
 
     return (
         <React.Fragment>

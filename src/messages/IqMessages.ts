@@ -23,7 +23,6 @@ import {
     GetSuggestedRemediationForComponentOwnerTypeEnum,
     LicenseLegalMetadataApi,
     GetLicenseLegalComponentReportOwnerTypeEnum,
-    FirewallApi,
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
@@ -32,42 +31,6 @@ import { InvalidConfigurationError } from '../error/ExtensionError'
 import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
-
-/**
- * This file contains handlers for processing messages that relate to calling
- * Sonatype IQ Server.
- */
-
-export async function determineSupportsFirewall(): Promise<boolean> {
-    return _get_iq_api_configuration()
-        .then((apiConfig) => {
-            return apiConfig
-        })
-        .catch((err) => {
-            throw err
-        })
-        .then((apiConfig) => {
-            logger.logMessage('API Configiration', LogLevel.TRACE, apiConfig)
-            const apiClient = new FirewallApi(apiConfig)
-
-            return apiClient
-                .getQuarantineSummaryRaw({ credentials: 'omit' })
-                .then(() => {
-                    return true
-                })
-                .catch((err: ResponseError) => {
-                    if (err.response.status == 402) {
-                        return false
-                    } else {
-                        logger.logMessage(
-                            `Unexpected return code when checking Firewall Capability: ${err.response.status}`,
-                            LogLevel.WARN
-                        )
-                        return false
-                    }
-                })
-        })
-}
 
 export async function requestComponentEvaluationByPurls(request: MessageRequest): Promise<MessageResponse> {
     return readExtensionConfiguration()
@@ -386,7 +349,7 @@ export async function getRemediationDetailsForComponent(request: MessageRequest)
         })
 }
 
-async function _get_iq_api_configuration(): Promise<Configuration> {
+export async function _get_iq_api_configuration(): Promise<Configuration> {
     return readExtensionConfiguration()
         .then((response) => {
             if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
