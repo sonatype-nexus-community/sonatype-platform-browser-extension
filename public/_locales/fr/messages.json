@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
+        "message": "Intégrer la sécurité au départ avec l'extension de navigateur de la plate-forme Sonatype - Analysez les référentiels Open Source pour les vulnérabilités connues.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
