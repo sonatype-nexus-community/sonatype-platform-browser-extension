@@ -22,7 +22,7 @@ import {
     ThreatLevelNumber,
     NxPolicyViolationIndicator,
     NxFontAwesomeIcon,
-    NxButton
+    NxButton,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
 import { ExtensionPopupContext } from '../../../../context/ExtensionPopupContext'
@@ -31,7 +31,6 @@ import { LicenseDetail } from '../../../../types/ArtifactMessage'
 import { DATA_SOURCE } from '../../../../utils/Constants'
 import './LicensingDisplay.css'
 import { ApiLicenseLegalMetadataDTO } from '@sonatype/nexus-iq-api-client'
-import { Puff } from '@agney/react-loading'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 import { Tooltip } from '@material-ui/core'
@@ -41,6 +40,7 @@ const _browser: any = chrome ? chrome : browser
 
 function IqLicensePage() {
     const popupContext = useContext(ExtensionPopupContext)
+    const extConfigContext = useContext(ExtensionConfigurationContext)
     const licenseData = popupContext.iq?.componentDetails?.licenseData
     const [activeTabId, setActiveTabId] = useState(0)
 
@@ -51,16 +51,16 @@ function IqLicensePage() {
         const declaredLicenses = licenseData?.declaredLicenses
         const effectiveLicenses = licenseData?.effectiveLicenses
 
-        if (popupContext.iq?.componentLegalDetails === undefined) {
-            return <Puff />
-        }
+        // if (popupContext.iq?.componentLegalDetails === undefined) {
+        //     return <Puff />
+        // }
 
         const copyToClipboard = (_event: React.MouseEvent, text: string) => {
             navigator.clipboard.writeText(text)
         }
 
         let licenseLegalMetadataArray: ApiLicenseLegalMetadataDTO[] = []
-        if (popupContext.iq.componentLegalDetails !== undefined) {
+        if (popupContext.iq && popupContext.iq.componentLegalDetails !== undefined) {
             licenseLegalMetadataArray = [...popupContext.iq.componentLegalDetails]
                 .sort((a, b) =>
                     (a.licenseName !== undefined ? a.licenseName : '').localeCompare(
@@ -104,6 +104,9 @@ function IqLicensePage() {
                             </NxTab>
                         )}
                     </NxTabList>
+                    {}
+                    {extConfigContext.supportsLifecycleAlp === true && (
+                    
                     <NxTabPanel
                         className='nx-scrollable'
                         style={
@@ -116,9 +119,15 @@ function IqLicensePage() {
                             <NxTable className='nx-table' id='license-table'>
                                 <NxTable.Head>
                                     <NxTable.Row className='nx-table-row nx-table-row--header'>
-                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_THREAT_GROUP')}</NxTable.Cell>
+                                        <NxTable.Cell>
+                                            {_browser.i18n.getMessage('LEGAL_TABLE_THREAT_GROUP')}
+                                        </NxTable.Cell>
                                         <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
-                                        <NxTable.Cell hasIcon>{_browser.i18n.getMessage('LEGAL_TABLE_COPY_TEXT')}</NxTable.Cell>
+                                        {extConfigContext.supportsLifecycleAlp === true && (
+                                            <NxTable.Cell hasIcon>
+                                                {_browser.i18n.getMessage('LEGAL_TABLE_COPY_TEXT')}
+                                            </NxTable.Cell>
+                                        )}
                                     </NxTable.Row>
                                 </NxTable.Head>
                                 <NxTable.Body
@@ -148,26 +157,31 @@ function IqLicensePage() {
                                                             <NxTable.Cell className='nx-cell'>
                                                                 {licenseLegalMetadata.licenseName}
                                                             </NxTable.Cell>
-                                                            <NxTable.Cell hasIcon>
-                                                                {licenseLegalMetadata.licenseText !== undefined && (
-                                                                    <Tooltip title={_browser.i18n.getMessage('LEGAL_COPY_TEXT_TOOLTIP')}>
-                                                                        <span>
-                                                                        <NxButton
-                                                                            variant='icon-only'
-                                                                            onClick={(event) =>
-                                                                                copyToClipboard(
-                                                                                    event,
-                                                                                    licenseLegalMetadata.licenseText as string
-                                                                                )
-                                                                            }>
-                                                                            <NxFontAwesomeIcon
-                                                                                icon={faCopy as IconDefinition}
-                                                                            />
-                                                                        </NxButton>
-                                                                        </span>
-                                                                    </Tooltip>
-                                                                )}
-                                                            </NxTable.Cell>
+                                                            {extConfigContext.supportsLifecycleAlp === true && (
+                                                                <NxTable.Cell hasIcon>
+                                                                    {licenseLegalMetadata.licenseText !== undefined && (
+                                                                        <Tooltip
+                                                                            title={_browser.i18n.getMessage(
+                                                                                'LEGAL_COPY_TEXT_TOOLTIP'
+                                                                            )}>
+                                                                            <span>
+                                                                                <NxButton
+                                                                                    variant='icon-only'
+                                                                                    onClick={(event) =>
+                                                                                        copyToClipboard(
+                                                                                            event,
+                                                                                            licenseLegalMetadata.licenseText as string
+                                                                                        )
+                                                                                    }>
+                                                                                    <NxFontAwesomeIcon
+                                                                                        icon={faCopy as IconDefinition}
+                                                                                    />
+                                                                                </NxButton>
+                                                                            </span>
+                                                                        </Tooltip>
+                                                                    )}
+                                                                </NxTable.Cell>
+                                                            )}
                                                         </React.Fragment>
                                                     </NxTable.Row>
                                                 )
@@ -177,6 +191,38 @@ function IqLicensePage() {
                             </NxTable>
                         </section>
                     </NxTabPanel>
+                    )}
+                    {extConfigContext.supportsLifecycleAlp === false && effectiveLicenses && effectiveLicenses.length > 0 && (
+                        <NxTabPanel className='nx-scrollable'>
+                            <NxTable
+                                className='nx-table'
+                                style={{
+                                    height: '400px',
+                                }}>
+                                <NxTable.Head>
+                                    <NxTable.Row className='nx-table-row nx-table-row--header'>
+                                        <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
+                                    </NxTable.Row>
+                                </NxTable.Head>
+                                <NxTable.Body
+                                    style={{
+                                        height: '300px',
+                                        maxHeight: '300px',
+                                    }}>
+                                    {effectiveLicenses.sort().map((license: LicenseDetail) => {
+                                        return (
+                                            <NxTable.Row
+                                                // isClickable
+                                                className='nx-table-row'
+                                                key={`row-${license.licenseId}`}>
+                                                <NxTable.Cell className='nx-cell'>{license.licenseName}</NxTable.Cell>
+                                            </NxTable.Row>
+                                        )
+                                    })}
+                                </NxTable.Body>
+                            </NxTable>
+                        </NxTabPanel>
+                    )}
                     {observedLicenses && observedLicenses.length > 0 && (
                         <NxTabPanel className='nx-scrollable'>
                             <NxTable

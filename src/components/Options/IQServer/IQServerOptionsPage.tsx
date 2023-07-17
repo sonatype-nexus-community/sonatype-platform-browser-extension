@@ -42,7 +42,6 @@ import {
     determineSupportsLifecycle,
     determineSupportsLifecycleAlp,
 } from '../../../messages/IqCapabilities'
-import merge from 'ts-deepmerge'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -173,6 +172,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     async function determineIqCapabilities() {
+        logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
         const sandboxApplication = iqServerApplicationList
             .filter((applicationDto: ApiApplicationDTO) => {
                 return applicationDto.publicId == 'sandbox-application'

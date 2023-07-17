@@ -22,8 +22,6 @@ import {
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { _get_iq_api_configuration } from './IqMessages'
-import { readExtensionConfiguration } from './SettingsMessages'
-import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 
 /**
  * This file contains methods for determining the capability of an IQ Server.
