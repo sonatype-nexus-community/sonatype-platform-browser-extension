@@ -1,3 +1,11 @@
+# [2.3.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.1...v2.3.0) (2023-07-17)
+
+
+### Features
+
+* add localisation in Finnish ([59ac34f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/59ac34f320f4e2012bec229b907d6f6dbca02eed))
+* add localisation in French ([49d1bf1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/49d1bf16726cbeb709f9a53442c17d41a086b6c6))
+
 ## [2.2.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.0...v2.2.1) (2023-07-14)
 
 
