@@ -37,6 +37,7 @@ import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigu
 import { isHttpUriValidator, nonEmptyValidator } from '../../Common/Validators'
 import { logger, LogLevel } from '../../../logger/Logger'
 import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
+import { determineSupportsFirewall } from '../../../messages/IqMessages'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -163,6 +164,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     }
                 }
             })
+            .then(determineIqCapabilities)
+    }
+
+    async function determineIqCapabilities() {
+        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        newExtensionSettings.supportsFirewall = await determineSupportsFirewall()
+        setExtensionConfig(newExtensionSettings)
     }
 
     return (
