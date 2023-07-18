@@ -149,20 +149,20 @@ export const REPO_TYPES: RepoType[] = [
         versionPath: '{url}/{packagename}/{versionNumber}', // https://crates.io/crates/claxon/0.4.0
         appendVersionPath: '/{versionNumber}',
     },
-    // {
-    //     url: 'https://pkg.go.dev/',
-    //     //old gocenter path ->// https://search.gocenter.io/github.com~2Fgo-gitea~2Fgitea/info?version=v1.5.1
-    //     //https://pkg.go.dev/github.com/etcd-io/etcd
-    //     //https://pkg.go.dev/github.com/etcd-io/etcd@v3.3.25+incompatible
-    //     repoFormat: FORMATS.golang,
-    //     repoID: REPOS.pkgGoDev,
-    //     titleSelector:
-    //         'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1',
-    //     versionPath: '{url}/{packagename}/@{versionNumber}',
-    //     appendVersionPath: '@{versionNumber}',
-    //     pathRegex:
-    //         /^(?<groupId>.+)\/(?<artifactId>[^/]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-    // },
+    {
+        url: 'https://pkg.go.dev/',
+        //old gocenter path ->// https://search.gocenter.io/github.com~2Fgo-gitea~2Fgitea/info?version=v1.5.1
+        //https://pkg.go.dev/github.com/etcd-io/etcd
+        //https://pkg.go.dev/github.com/etcd-io/etcd@v3.3.25+incompatible
+        repoFormat: FORMATS.golang,
+        repoID: REPOS.pkgGoDev,
+        titleSelector:
+            'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1',
+        versionPath: '{url}/{packagename}/@{versionNumber}',
+        appendVersionPath: '@{versionNumber}',
+        pathRegex:
+            /^(?<groupId>.+)\/(?<artifactId>[^/]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+    },
     {
         url: 'https://central.sonatype.com/artifact/',
         repoFormat: FORMATS.maven,
