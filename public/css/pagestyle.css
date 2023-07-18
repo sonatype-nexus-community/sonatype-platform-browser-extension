@@ -71,7 +71,8 @@
 }
 
 .sonatype-iq-extension-vuln-invalid-config:before {
-    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png') / "Invalid Extension Configuration";
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png') /
+        'Invalid Extension Configuration';
     vertical-align: top;
     padding-right: 10px;
 }

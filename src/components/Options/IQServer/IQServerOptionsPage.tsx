@@ -25,12 +25,16 @@ import {
     NxFormSelect,
     NxButton,
     NxStatefulInfoAlert,
+    NxPageMain,
+    NxPageTitle,
+    NxTile,
+    NxTextLink,
+    NxSuccessAlert,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
@@ -48,6 +52,7 @@ const _browser: any = chrome ? chrome : browser
 
 export interface IqServerOptionsPageInterface {
     setExtensionConfig: (settings: ExtensionConfiguration) => void
+    install: boolean
 }
 
 export default function IQServerOptionsPage(props: IqServerOptionsPageInterface) {
@@ -215,115 +220,182 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }, [iqServerApplicationList])
 
     return (
-        <React.Fragment>
-            <NxGrid.Row>
-            {extensionSettings.supportsLifecycle !== false && (
-                                    <span>LC</span>
-                                )}
-                                {extensionSettings.supportsLifecycleAlp !== false && (
-                                    <span>ALP</span>
-                                )}
-                                {extensionSettings.supportsFirewall !== false && (
-                                    <span>FW</span>
-                                )}
-                                </NxGrid.Row>
-            <NxGrid.Row>
-                <section className='nx-grid-col nx-grid-col--'>
-                    <p className='nx-p'>
-                        <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
-                    </p>
+        <NxPageMain>
+            <h1>
+                {props.install === true && (
+                    <NxPageTitle>
+                        &#127881; {_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')} &#127881;
+                    </NxPageTitle>
+                )}
+                {props.install !== true && <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}</NxPageTitle>}
+            </h1>
 
-                    <div className='nx-form-row'>
-                        <NxFormGroup label={`URL`} isRequired>
-                            <NxStatefulTextInput
-                                value={extensionSettings?.host as string}
-                                placeholder='https://your-iq-server-url'
-                                validator={nonEmptyValidator}
-                                onBlur={handleIqHostChange}
-                            />
-                        </NxFormGroup>
-                        {!hasPermissions && (
-                            <button className='nx-btn grant-permissions' onClick={askForPermissions}>
-                                {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS')}
-                            </button>
-                        )}
-                    </div>
-
-                    {hasPermissions && (
-                        <div>
-                            <p className='nx-p'>
-                                <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
-                            </p>
-                            <div className='nx-form-row'>
-                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
-                                    <NxStatefulTextInput
-                                        defaultValue={extensionSettings?.user}
-                                        validator={nonEmptyValidator}
-                                        onChange={handleIqUserChange}
-                                    />
-                                </NxFormGroup>
-                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
-                                    <NxStatefulTextInput
-                                        defaultValue={extensionSettings?.token}
-                                        validator={nonEmptyValidator}
-                                        type='password'
-                                        onChange={handleIqTokenChange}
-                                    />
-                                </NxFormGroup>
-                                <NxButton variant='primary' onClick={handleLoginCheck}>
-                                    {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
-                                </NxButton>
+            <NxTile>
+                <NxTile.Content>
+                    <NxGrid.Row>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img src='/images/sonatype-lifecycle-icon.png' width='50' alt='' />
+                                    {extensionSettings.supportsLifecycle !== false && (
+                                        <NxSuccessAlert>Supported</NxSuccessAlert>
+                                    )}
+                                    <p>
+                                        Does your Sonatype IQ Server include support for{' '}
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/open-source-security-dependency-management'>
+                                            Sonatype Lifecycle
+                                        </NxTextLink>
+                                        ?
+                                    </p>
+                                </center>
                             </div>
                         </div>
-                    )}
-                    {iqAuthenticated === true && iqServerApplicationList.length > 0 && (
-                        <React.Fragment>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img src='/images/add-on-sonatype-icon-water.png' width='50' alt='' />
+                                    {extensionSettings.supportsLifecycleAlp !== false && (
+                                        <NxSuccessAlert>Supported</NxSuccessAlert>
+                                    )}
+                                    <p>
+                                        Does your Sonatype IQ Server include support for{' '}
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/advanced-legal-pack'>
+                                            Advanced Legal Pack for Sonatype Lifecycle
+                                        </NxTextLink>
+                                        ?
+                                    </p>
+                                </center>
+                            </div>
+                        </div>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img src='/images/sonatype-firewall-icon.png' width='50' alt='' />
+
+                                    {extensionSettings.supportsFirewall !== false && (
+                                        <NxSuccessAlert>Supported</NxSuccessAlert>
+                                    )}
+                                    <p>
+                                        Does your Sonatype IQ Server include support for{' '}
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/sonatype-repository-firewall'>
+                                            Sonatype Repository Firewall
+                                        </NxTextLink>
+                                        ?
+                                    </p>
+                                </center>
+                            </div>
+                        </div>
+                    </NxGrid.Row>
+                    <NxGrid.Row>
+                        <section className='nx-grid-col nx-grid-col--'>
                             <p className='nx-p'>
-                                <strong>3)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
-                                <NxTooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
-                                    <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
-                                </NxTooltip>
+                                <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
                             </p>
 
-                            <NxFormGroup label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')} isRequired>
-                                <NxFormSelect
-                                    defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
-                                    onChange={handleIqApplicationChange}
-                                    disabled={!iqAuthenticated}>
-                                    <option value=''>{_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}</option>
-                                    {iqServerApplicationList.map((app: ApiApplicationDTO) => {
-                                        return (
-                                            <option key={app.id} value={`${app.id}|${app.publicId}`}>
-                                                {app.name}
-                                            </option>
-                                        )
-                                    })}
-                                </NxFormSelect>
-                            </NxFormGroup>
-                        </React.Fragment>
-                    )}
+                            <div className='nx-form-row'>
+                                <NxFormGroup label={`URL`} isRequired>
+                                    <NxStatefulTextInput
+                                        value={extensionSettings?.host as string}
+                                        placeholder='https://your-iq-server-url'
+                                        validator={nonEmptyValidator}
+                                        onBlur={handleIqHostChange}
+                                    />
+                                </NxFormGroup>
+                                {!hasPermissions && (
+                                    <button className='nx-btn grant-permissions' onClick={askForPermissions}>
+                                        {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS')}
+                                    </button>
+                                )}
+                            </div>
 
-                    {iqAuthenticated === true &&
-                        extensionSettings.iqApplicationInternalId != undefined &&
-                        extensionSettings.iqApplicationPublidId != undefined && (
-                            <NxStatefulSuccessAlert>
-                                {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
-                            </NxStatefulSuccessAlert>
-                        )}
-                    {extensionSettings.iqApplicationInternalId === undefined &&
-                        extensionSettings.iqApplicationPublidId === undefined &&
-                        iqAuthenticated === true && (
-                            <NxStatefulInfoAlert>
-                                {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}
-                            </NxStatefulInfoAlert>
-                        )}
-                    {iqAuthenticated === false && (
-                        <NxStatefulErrorAlert>
-                            {_browser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
-                        </NxStatefulErrorAlert>
-                    )}
-                </section>
-            </NxGrid.Row>
-        </React.Fragment>
+                            {hasPermissions && (
+                                <div>
+                                    <p className='nx-p'>
+                                        <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
+                                    </p>
+                                    <div className='nx-form-row'>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
+                                            <NxStatefulTextInput
+                                                defaultValue={extensionSettings?.user}
+                                                validator={nonEmptyValidator}
+                                                onChange={handleIqUserChange}
+                                            />
+                                        </NxFormGroup>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
+                                            <NxStatefulTextInput
+                                                defaultValue={extensionSettings?.token}
+                                                validator={nonEmptyValidator}
+                                                type='password'
+                                                onChange={handleIqTokenChange}
+                                            />
+                                        </NxFormGroup>
+                                        <NxButton variant='primary' onClick={handleLoginCheck}>
+                                            {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
+                                        </NxButton>
+                                    </div>
+                                </div>
+                            )}
+                            {iqAuthenticated === true && iqServerApplicationList.length > 0 && (
+                                <React.Fragment>
+                                    <p className='nx-p'>
+                                        <strong>3)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
+                                        <NxTooltip
+                                            title={_browser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
+                                            <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
+                                        </NxTooltip>
+                                    </p>
+
+                                    <NxFormGroup
+                                        label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
+                                        isRequired>
+                                        <NxFormSelect
+                                            defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
+                                            onChange={handleIqApplicationChange}
+                                            disabled={!iqAuthenticated}>
+                                            <option value=''>
+                                                {_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}
+                                            </option>
+                                            {iqServerApplicationList.map((app: ApiApplicationDTO) => {
+                                                return (
+                                                    <option key={app.id} value={`${app.id}|${app.publicId}`}>
+                                                        {app.name}
+                                                    </option>
+                                                )
+                                            })}
+                                        </NxFormSelect>
+                                    </NxFormGroup>
+                                </React.Fragment>
+                            )}
+
+                            {iqAuthenticated === true &&
+                                extensionSettings.iqApplicationInternalId != undefined &&
+                                extensionSettings.iqApplicationPublidId != undefined && (
+                                    <NxStatefulSuccessAlert>
+                                        {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
+                                    </NxStatefulSuccessAlert>
+                                )}
+                            {extensionSettings.iqApplicationInternalId === undefined &&
+                                extensionSettings.iqApplicationPublidId === undefined &&
+                                iqAuthenticated === true && (
+                                    <NxStatefulInfoAlert>
+                                        {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}
+                                    </NxStatefulInfoAlert>
+                                )}
+                            {iqAuthenticated === false && (
+                                <NxStatefulErrorAlert>
+                                    {_browser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
+                                </NxStatefulErrorAlert>
+                            )}
+                        </section>
+                    </NxGrid.Row>
+                </NxTile.Content>
+            </NxTile>
+        </NxPageMain>
     )
 }

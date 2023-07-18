@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { NxFormGroup, NxFormSelect } from '@sonatype/react-shared-components'
+import { NxFormGroup, NxFormSelect, NxPageMain, NxPageTitle, NxTile } from '@sonatype/react-shared-components'
 import React, { useContext } from 'react'
 import { ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
@@ -37,20 +37,30 @@ export default function GeneralOptionsPage({
     }
 
     return (
-        <form className='nx-form'>
-            <NxFormGroup label={_browser.i18n.getMessage('LABEL_LOG_LEVEL')} isRequired>
-                <NxFormSelect defaultValue={extensionSettings.logLevel} onChange={handleLogLevelChange}>
-                    {Object.keys(LogLevel)
-                        .filter((key) => !isNaN(Number(LogLevel[key])))
-                        .map((val, key) => {
-                            return (
-                                <option key={key} value={key}>
-                                    {LogLevel[key]}
-                                </option>
-                            )
-                        })}
-                </NxFormSelect>
-            </NxFormGroup>
-        </form>
+        <NxPageMain>
+            <h1>
+                <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}</NxPageTitle>
+            </h1>
+
+            <NxTile>
+                <NxTile.Content>
+                    <form className='nx-form'>
+                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_LOG_LEVEL')} isRequired>
+                            <NxFormSelect defaultValue={extensionSettings.logLevel} onChange={handleLogLevelChange}>
+                                {Object.keys(LogLevel)
+                                    .filter((key) => !isNaN(Number(LogLevel[key])))
+                                    .map((val, key) => {
+                                        return (
+                                            <option key={key} value={key}>
+                                                {LogLevel[key]}
+                                            </option>
+                                        )
+                                    })}
+                            </NxFormSelect>
+                        </NxFormGroup>
+                    </form>
+                </NxTile.Content>
+            </NxTile>
+        </NxPageMain>
     )
 }

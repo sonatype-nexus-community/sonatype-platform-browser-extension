@@ -24,6 +24,11 @@ import {
     NxTile,
     NxButton,
     NxButtonBar,
+    NxStatefulGlobalSidebar,
+    NxGlobalSidebarNavigation,
+    NxGlobalSidebarNavigationLink,
+    NxGlobalSidebarFooter,
+    NxPageMain,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState } from 'react'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
@@ -34,24 +39,45 @@ import IQServerOptionsPage from './IQServer/IQServerOptionsPage'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
 import { readExtensionConfiguration, updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { faArrowLeft, faArrowRight, faCog, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import Help from '../Help/Help'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
+
+enum OPTIONS_PAGE_MODE {
+    GENERAL,
+    HELP,
+    SONATYPE,
+}
 
 export default function Options() {
     const [activeTabId, setActiveTabId] = useState(0)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
+    const search = window.location.search
+    const params = new URLSearchParams(search)
+    let pageMode: OPTIONS_PAGE_MODE = OPTIONS_PAGE_MODE.SONATYPE
 
-    function handleDataSourceChange(e) {
-        const newExtensionConfig = extensionConfig
-        newExtensionConfig.dataSource = e
-        newExtensionConfig.host = undefined
-        newExtensionConfig.iqApplicationInternalId = undefined
-        newExtensionConfig.iqApplicationPublidId = undefined
-        newExtensionConfig.token = undefined
-        newExtensionConfig.user = undefined
-        handleNewExtensionConfig(newExtensionConfig)
+    if (params.has('general')) {
+        pageMode = OPTIONS_PAGE_MODE.GENERAL
+    } else if (params.has('help')) {
+        pageMode = OPTIONS_PAGE_MODE.HELP
     }
+
+    const install = params.has('install')
+
+    // function handleDataSourceChange(e) {
+    //     const newExtensionConfig = extensionConfig
+    //     newExtensionConfig.dataSource = e
+    //     newExtensionConfig.host = undefined
+    //     newExtensionConfig.iqApplicationInternalId = undefined
+    //     newExtensionConfig.iqApplicationPublidId = undefined
+    //     newExtensionConfig.token = undefined
+    //     newExtensionConfig.user = undefined
+    //     handleNewExtensionConfig(newExtensionConfig)
+    // }
 
     function handleNewExtensionConfig(settings: ExtensionConfiguration) {
         logger.logMessage(`Options handleNewExtensionConfig`, LogLevel.DEBUG, settings)
@@ -80,62 +106,53 @@ export default function Options() {
     }, [])
 
     return (
-        <ExtensionConfigurationContext.Provider value={extensionConfig}>
-            <React.Fragment>
-                <h1>
-                    <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}</NxPageTitle>
-                </h1>
+        <React.StrictMode>
+            <ExtensionConfigurationContext.Provider value={extensionConfig}>
+                <NxStatefulGlobalSidebar
+                    isDefaultOpen={true}
+                    toggleCloseIcon={faArrowRight as IconDefinition}
+                    toggleOpenIcon={faArrowLeft as IconDefinition}
+                    logoImg='images/sonatype-lifecycle-logo-nav-white.svg'
+                    logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
+                    logoLink='#'>
+                    <NxGlobalSidebarNavigation>
+                        <NxGlobalSidebarNavigationLink
+                            icon={faPlay as IconDefinition}
+                            text={_browser.i18n.getMessage('SIDEBAR_LINK_GETTING_STARTED')}
+                            href='options.html?install'
+                        />
+                        <NxGlobalSidebarNavigationLink
+                            icon={faCog as IconDefinition}
+                            text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
+                            href='options.html'
+                        />
+                        <NxGlobalSidebarNavigationLink
+                            icon={faCog as IconDefinition}
+                            text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
+                            href='options.html?general'
+                        />
+                        <NxGlobalSidebarNavigationLink
+                            icon={faQuestionCircle as IconDefinition}
+                            text={_browser.i18n.getMessage('SIDEBAR_LINK_HELP')}
+                            href='options.html?help'
+                        />
+                    </NxGlobalSidebarNavigation>
+                    <NxGlobalSidebarFooter
+                        supportText={_browser.i18n.getMessage('SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT')}
+                        supportLink={extension.homepage_url}
+                        releaseText={_browser.i18n.getMessage('RELEASE_VERSION', extension.version)}
+                        showCreatedBy={true}
+                    />
+                </NxStatefulGlobalSidebar>
 
-                <NxTile>
-                    <NxTile.Content>
-                        <div className='nx-grid-row'>
-                            <section className='nx-grid-col nx-grid-col--50'>
-                                <NxFieldset
-                                    label={`${_browser.i18n.getMessage('OPTIONS_CURRENT_CONNECTION')}: ${
-                                        extensionConfig.dataSource
-                                    }`}
-                                    isRequired>
-                                    <NxRadio
-                                        defaultChecked={true}
-                                        name='scanType'
-                                        value={DATA_SOURCE.NEXUSIQ}
-                                        onChange={handleDataSourceChange}
-                                        isChecked={extensionConfig.dataSource === DATA_SOURCE.NEXUSIQ}
-                                        radioId='scanType-IQ-Server'>
-                                        {_browser.i18n.getMessage('SONATYPE_IQ_SERVER')}
-                                    </NxRadio>
-                                </NxFieldset>
-                            </section>
-                            <section className='nx-grid-col nx-grid-col--50'>
-                                <NxButtonBar>
-                                    <NxButton onClick={handleSaveClose}>
-                                        <span>{_browser.i18n.getMessage('BUTTON_CLOSE')}</span>
-                                    </NxButton>
-                                </NxButtonBar>
-                            </section>
-                        </div>
-
-                        <NxTabs activeTab={activeTabId} onTabSelect={setActiveTabId}>
-                            <NxTabList>
-                                <NxTab key={`DATA_SOURCE`}>
-                                    {_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
-                                </NxTab>
-                                <NxTab key={`GENERAL`}>
-                                    {_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
-                                </NxTab>
-                            </NxTabList>
-                            <NxTabPanel>
-                                {extensionConfig.dataSource === DATA_SOURCE.NEXUSIQ && (
-                                    <IQServerOptionsPage setExtensionConfig={handleNewExtensionConfig} />
-                                )}
-                            </NxTabPanel>
-                            <NxTabPanel>
-                                <GeneralOptionsPage setExtensionConfig={handleNewExtensionConfig} />
-                            </NxTabPanel>
-                        </NxTabs>
-                    </NxTile.Content>
-                </NxTile>
-            </React.Fragment>
-        </ExtensionConfigurationContext.Provider>
+                {pageMode === OPTIONS_PAGE_MODE.HELP && <Help />}
+                {pageMode === OPTIONS_PAGE_MODE.GENERAL && (
+                    <GeneralOptionsPage setExtensionConfig={handleNewExtensionConfig} />
+                )}
+                {pageMode === OPTIONS_PAGE_MODE.SONATYPE && (
+                    <IQServerOptionsPage install={install} setExtensionConfig={handleNewExtensionConfig} />
+                )}
+            </ExtensionConfigurationContext.Provider>
+        </React.StrictMode>
     )
 }
