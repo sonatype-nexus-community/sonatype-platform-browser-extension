@@ -18,7 +18,7 @@
         }
     },
     "ALL_VERSIONS": {
-        "message": "All Versions",
+        "message": "Toutes Versions",
         "description": "The list of all the available component versions"
     },
     "CATALOG_DATE": {
@@ -168,19 +168,19 @@
         "description": "Page Title for Options page"
     },
     "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-        "message": "Thanks for installing the Sonatype Platform Browser Extension",
+        "message": "Merci d'avoir intallé le Sonatype Platform Browser Extension",
         "description": "Page Title for Options page upon first installation"
     },
     "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
-        "message": "Getting Started",
+        "message": "Commencer",
         "description": "Sub Heading on Options Page in Install Mode"
     },
     "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
-        "message": "Please now follow the steps below to connect this extension to your Sonatype IQ Server.",
+        "message": "Merci de maintenant suivre les etaps ci-dessous pour connecter cette extension a votre Sonatype IQ Server.",
         "description": "Description paragraph on Options Page in Install Mode"
     },
     "OPTIONS_CURRENT_CONNECTION": {
-        "message": "Current Connection Type",
+        "message": "Connection actuelle",
         "description": "Current Connection Type prompt"
     },
     "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
@@ -192,15 +192,15 @@
         "description": "Options Tab name for General Configuration"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_1": {
-        "message": "Enter the URL for your Sonatype IQ Server and then grant the permissions needed for this extension to communicate with your Sonatype IQ Server.",
+        "message": "Remplir avec l'URL de votre Sonatype IQ Server pour donners le permissions necessaires pour que cette extension puisse communiquer avec votre Sonatype IQ Server.",
         "description": "First point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
-        "message": "Grant Permissions to your Sonatype IQ Server",
+        "message": "Donner des permissions a votre Sonatype IQ Server",
         "description": "Button text for 'Grant Permission' button"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_2": {
-        "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications.",
+        "message": "Fournir votre nom d'utilisateur et token de votre Sonatype IQ Server. Puis connecter pour voir la liste d'applications disponibles.",
         "description": "Second point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
@@ -208,23 +208,23 @@
         "description": "Button text for 'Connect' button"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_3": {
-        "message": "Select an Application from the list available on your Sonatype IQ Server.",
+        "message": "Selectionner une application de la liste disponible sur votre Sonatype IQ Server.",
         "description": "Third point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
-        "message": "The application policies that components will be evaluated against.",
+        "message": "Les politiques d'application qui évaluera les composants.",
         "description": "Tooltip as to why an Application is to be selected"
     },
     "OPTIONS_SUCCESS_MESSAGE": {
-        "message": "Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected! You may close this browser tab to continue.",
+        "message": "Felicitations! Vous avez authentifié avec votre Sonatype IQ Server et une application a été selectionnée! Vous pouvez fermer le browser tab pour continuer.",
         "description": "Success message to display once Sonatype IQ has been configured"
     },
     "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
-        "message": "Please select an application from the list above.",
+        "message": "Merci de selectioner l'applications de la liste.",
         "description": "Info message to direct to choose an Application"
     },
     "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
-        "message": "There was an error signing in.",
+        "message": "Il y a une erreur de login.",
         "description": "Error message showed if Sonatype IQ credentials are incorrect"
     },
     "POLICY_TABLE_THREAT": {
@@ -244,7 +244,7 @@
         "description": "The column header in the policy table for condition"
     },
     "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
-        "message": "We were unable to find that peanut in a haystack!",
+        "message": "nous n'avons pas pu trouver l'aiguille dans la botte de foin!",
         "description": "Message to inform a user that the current package is not known by Sonatype"
     },
     "POPUP_TAB_INFO": {
@@ -268,7 +268,7 @@
         "description": "List of all versions available if there are no policy violations"
     },
     "POPUP_TAB_REMEDIATION_TOOLTIP": {
-        "message": "Remediation and version info for $VERSION_COUNT$ versions",
+        "message": "Information de correction (remediation) et version pour les versions $VERSION_COUNT$",
         "description": "Toolip for the POPUP_TAB_REMEDIATION",
         "placeholders": {
             "VERSION_COUNT": {
@@ -292,19 +292,19 @@
         "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
     },
     "POPUP_TAB_SECURITY_TOOLTIP": {
-        "message": "Security Issues cataloged against this component",
+        "message": "Problemes de securite logées contre ce composant",
         "description": "Tooltip for POPUP_TAB_SECURITY"
     },
     "POPUP_TAB_LEGAL": {
-        "message": "Legal",
+        "message": "Legale",
         "description": "Legal/License top-level tab in Popup. List of licenses for this component"
     },
     "POPUP_TAB_LEGAL_TOOLTIP": {
-        "message": "License information for component",
+        "message": "Information de license pour le composant",
         "description": "Legal/License top-level tab in Popup tooltip"
     },
     "RECOMMENDED_VERSIONS": {
-        "message": "Recommended Versions",
+        "message": "Versions conseillées",
         "description": "The list of the recommended version from Lifecycle"
     },
     "SECURITY_TABLE_CVSS": {
@@ -316,11 +316,11 @@
         "description": "The column header in the security table for issue"
     },
     "SIDEBAR_LINK_GETTING_STARTED": {
-        "message": "Getting Started",
+        "message": "Commencer",
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_LINK_HELP": {
-        "message": "Help",
+        "message": "Aide",
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_LINK_OPTIONS": {
@@ -328,15 +328,15 @@
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
-        "message": "Request Support",
+        "message": "Demander de l'aide",
         "description": "Sidebar Footer Link in Options Page"
     },
     "GITHUB_STARS": {
-        "message": "Stars",
+        "message": "Etoiles",
         "description": "The number of GitHub stars for the project"
     },
     "GITHUB_FORKS": {
-        "message": "Forks",
+        "message": "Forchettes",
         "description": "The number of GitHub forks for the project"
     }
 }
