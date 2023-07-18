@@ -27,7 +27,7 @@ import {
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
-import { InvalidConfigurationError } from '../error/ExtensionError'
+import { IncompleteConfigurationError, InvalidConfigurationError } from '../error/ExtensionError'
 import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
@@ -369,16 +369,16 @@ export async function _get_iq_api_configuration(): Promise<Configuration> {
                 }
 
                 if (settings.host === undefined) {
-                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_HOST'), LogLevel.WARN)
-                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_HOST'))
+                    logger.logMessage('Host is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('Host is not set for IQ Server')
                 }
                 if (settings.user === undefined) {
-                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_USER'), LogLevel.WARN)
-                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_USER'))
+                    logger.logMessage('User is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('User is not set for IQ Server')
                 }
                 if (settings.token === undefined) {
-                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_TOKEN'), LogLevel.WARN)
-                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_TOKEN'))
+                    logger.logMessage('Token is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('Token is not set for IQ Server')
                 }
 
                 return new Configuration({
@@ -391,7 +391,7 @@ export async function _get_iq_api_configuration(): Promise<Configuration> {
                     },
                 })
             } else {
-                throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_DEFAULT'))
+                throw new IncompleteConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_DEFAULT'))
             }
         })
         .catch((err) => {

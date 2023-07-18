@@ -28,7 +28,7 @@ import {
 } from './messages/IqMessages'
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
-import { InvalidConfigurationError } from './error/ExtensionError'
+import { IncompleteConfigurationError, InvalidConfigurationError } from './error/ExtensionError'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -181,11 +181,11 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 stopPolling()
                             })
                     }).catch((err) => {
-                        if (err instanceof InvalidConfigurationError) {
-                            logger.logMessage(`Invalid Extension Configuration: ${err}`, LogLevel.ERROR)
-                            propogateCurrentComponentState(tabId, ComponentState.CONFIG_ERROR)
+                        if (err instanceof IncompleteConfigurationError) {
+                            logger.logMessage(`Incomplete Extension Configuration: ${err}`, LogLevel.ERROR)
+                            propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
                             logger.logMessage(
-                                `Disabling ${extension.name} - Invalid Extension Configuration: ${err}`,
+                                `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
                                 LogLevel.ERROR
                             )
                             _browser.action.disable(tabId, () => {

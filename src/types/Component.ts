@@ -24,7 +24,7 @@ export enum ComponentState {
     NONE,
     EVALUATING,
     UNKNOWN,
-    CONFIG_ERROR,
+    INCOMPLETE_CONFIG,
 }
 
 export function getMaxThreatLevelForPolicyData(policydata: ApiComponentPolicyViolationListDTOV2): number {
