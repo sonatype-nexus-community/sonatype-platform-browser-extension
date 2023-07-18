@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.0...v2.3.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* improvements to French localisation ([ee9df37](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ee9df37d5c54271d2cee7f45615c994abf6896b7))
+
 # [2.3.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.1...v2.3.0) (2023-07-17)
 
 
