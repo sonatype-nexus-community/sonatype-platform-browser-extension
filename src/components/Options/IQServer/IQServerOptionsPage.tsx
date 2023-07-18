@@ -217,7 +217,18 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     return (
         <React.Fragment>
             <NxGrid.Row>
-                <section className='nx-grid-col nx-grid-col--100'>
+            {extensionSettings.supportsLifecycle !== false && (
+                                    <span>LC</span>
+                                )}
+                                {extensionSettings.supportsLifecycleAlp !== false && (
+                                    <span>ALP</span>
+                                )}
+                                {extensionSettings.supportsFirewall !== false && (
+                                    <span>FW</span>
+                                )}
+                                </NxGrid.Row>
+            <NxGrid.Row>
+                <section className='nx-grid-col nx-grid-col--'>
                     <p className='nx-p'>
                         <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
                     </p>

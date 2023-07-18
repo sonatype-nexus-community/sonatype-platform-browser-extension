@@ -89,7 +89,7 @@ export default function Options() {
                 <NxTile>
                     <NxTile.Content>
                         <div className='nx-grid-row'>
-                            <section className='nx-grid-col nx-grid-col--66'>
+                            <section className='nx-grid-col nx-grid-col--50'>
                                 <NxFieldset
                                     label={`${_browser.i18n.getMessage('OPTIONS_CURRENT_CONNECTION')}: ${
                                         extensionConfig.dataSource
@@ -106,7 +106,7 @@ export default function Options() {
                                     </NxRadio>
                                 </NxFieldset>
                             </section>
-                            <section className='nx-grid-col nx-grid-col--33'>
+                            <section className='nx-grid-col nx-grid-col--50'>
                                 <NxButtonBar>
                                     <NxButton onClick={handleSaveClose}>
                                         <span>{_browser.i18n.getMessage('BUTTON_CLOSE')}</span>
