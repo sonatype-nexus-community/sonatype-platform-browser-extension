@@ -32,6 +32,9 @@ import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../typ
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 export async function requestComponentEvaluationByPurls(request: MessageRequest): Promise<MessageResponse> {
     return readExtensionConfiguration()
         .then((response) => {
@@ -366,8 +369,16 @@ export async function _get_iq_api_configuration(): Promise<Configuration> {
                 }
 
                 if (settings.host === undefined) {
-                    logger.logMessage(`Host is not set for IQ Server`, LogLevel.WARN)
-                    throw new InvalidConfigurationError('Host is not set for IQ Server')
+                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_HOST'), LogLevel.WARN)
+                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_HOST'))
+                }
+                if (settings.user === undefined) {
+                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_USER'), LogLevel.WARN)
+                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_USER'))
+                }
+                if (settings.token === undefined) {
+                    logger.logMessage(_browser.i18n.getMessage('INVALID_CONFIGURATION_TOKEN'), LogLevel.WARN)
+                    throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_TOKEN'))
                 }
 
                 return new Configuration({
@@ -380,7 +391,7 @@ export async function _get_iq_api_configuration(): Promise<Configuration> {
                     },
                 })
             } else {
-                throw new InvalidConfigurationError('Unable to get Extension Configuration')
+                throw new InvalidConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_DEFAULT'))
             }
         })
         .catch((err) => {
@@ -400,7 +411,7 @@ function _handle_iq_error_repsonse(err) {
             return {
                 status: MESSAGE_RESPONSE_STATUS.FAILURE,
                 status_detail: {
-                    message: 'Failed to call Sonatype IQ Server',
+                    message: _browser.i18n.getMessage('IQ_ERROR_RESPONSE_DEFAULT'),
                     detail: `${err.response.status}: ${err.message}`,
                 },
             }
@@ -409,7 +420,7 @@ function _handle_iq_error_repsonse(err) {
     return {
         status: MESSAGE_RESPONSE_STATUS.FAILURE,
         status_detail: {
-            message: 'Failed to call Sonatype IQ Server',
+            message: _browser.i18n.getMessage('IQ_ERROR_RESPONSE_DEFAULT'),
             detail: err,
         },
     }

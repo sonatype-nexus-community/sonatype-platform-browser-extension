@@ -135,6 +135,26 @@
             }
         }
     },
+    "INVALID_CONFIGURATION_HOST": {
+        "message": "Host is not set for IQ Server",
+        "description": "Missing host from extension configuration"
+    },
+    "INVALID_CONFIGURATION_USER": {
+        "message": "User is not set for IQ Server",
+        "description": "Missing user from extension configuration"
+    },
+    "INVALID_CONFIGURATION_TOKEN": {
+        "message": "Token is not set for IQ Server",
+        "description": "Missing token from extension configuration"
+    },
+    "INVALID_CONFIGURATION_DEFAULT": {
+        "message": "Unable to get Extension Configuration",
+        "description": "Default extension configuration error"
+    },
+    "IQ_ERROR_RESPONSE_DEFAULT": {
+        "message": "Failed to call Sonatype IQ Server",
+        "description": "Default message when unable to connect to IQ Server"
+    },
     "LEGAL_EFFECTIVE_LICENSE": {
         "message": "Effective",
         "description": "The effective license of the component"
