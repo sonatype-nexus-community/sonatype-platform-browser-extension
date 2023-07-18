@@ -19,7 +19,6 @@ import { join } from 'path'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { ensure } from '../Helpers'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import exp from 'constants'
 
 describe('Ruby Gems Page Parsing', () => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.rubyGemsOrg)
