@@ -28,9 +28,11 @@ import {
 } from './messages/IqMessages'
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
+import { InvalidConfigurationError } from './error/ExtensionError'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 /**
  * New listener for messages received by Service Worker.
@@ -159,7 +161,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 })
 
                                 logger.logMessage(
-                                    `Sonatype Extension ENABLED for ${url} : ${response.data.purl}`,
+                                    `${extension.name} ENABLED for ${url} : ${response.data.purl}`,
                                     LogLevel.INFO
                                 )
 
@@ -178,6 +180,22 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
                                 stopPolling()
                             })
+                    }).catch((err) => {
+                        if (err instanceof InvalidConfigurationError) {
+                            logger.logMessage(`Invalid Extension Configuration: ${err}`, LogLevel.ERROR)
+                            propogateCurrentComponentState(tabId, ComponentState.CONFIG_ERROR)
+                            logger.logMessage(
+                                `Disabling ${extension.name} - Invalid Extension Configuration: ${err}`,
+                                LogLevel.ERROR
+                            )
+                            _browser.action.disable(tabId, () => {
+                                _browser.action.setIcon({
+                                    tabId: tabId,
+                                    path: getIconForComponentState(ComponentState.UNKNOWN),
+                                })
+                            })
+                        }
+                        logger.logMessage(`Error in r2: ${err}`, LogLevel.ERROR)
                     })
                 } else {
                     logger.logMessage(
