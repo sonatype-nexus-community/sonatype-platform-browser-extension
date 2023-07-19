@@ -29,6 +29,18 @@
         "message": "Sonatype IQ Server",
         "description": "Branded product name for Sonatype IQ Server"
     },
+    "SONATYPE_FIREWALL": {
+        "message": "Sonatype Repository Firewall",
+        "description": "Branded product name for Sonatype Repository Firewall"
+    },
+    "SONATYPE_LIFECYCLE": {
+        "message": "Sonatype Lifecycle",
+        "description": "Branded product name for Sonatype Lifecycle"
+    },
+    "SONATYPE_LIFECYCLE_ALP": {
+        "message": "Advanced Legal Pack for Sonatype Lifecycle",
+        "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
+    },
     "BUTTON_CLOSE": {
         "message": "Close",
         "description": "Close button text"
@@ -36,6 +48,10 @@
     "GITHUB_ISSUE": {
         "message": "GitHub Issue",
         "description": "GitHub Issue"
+    },
+    "LABEL_URL": {
+        "message": "URL",
+        "description": "Label for the field where you input your Sonatype IQ Server URL"
     },
     "LABEL_USERNAME": {
         "message": "Username",
@@ -184,11 +200,11 @@
         "description": "Current Connection Type prompt"
     },
     "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
-        "message": "Sonatype Configuration",
+        "message": "Configuration",
         "description": "Options Tab name for Sonatype Configuration"
     },
     "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-        "message": "General Options",
+        "message": "Advanced Options",
         "description": "Options Tab name for General Configuration"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_1": {
@@ -331,6 +347,10 @@
         "message": "Request Support",
         "description": "Sidebar Footer Link in Options Page"
     },
+    "SUPPORTED": {
+        "message": "Supported",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
     "GITHUB_STARS": {
         "message": "Stars",
         "description": "The number of GitHub stars for the project"
@@ -338,5 +358,9 @@
     "GITHUB_FORKS": {
         "message": "Forks",
         "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "Does your Sonatype IQ Server include support for",
+        "description": "Prompt in Options about what features IQ Licence supports"
     }
 }

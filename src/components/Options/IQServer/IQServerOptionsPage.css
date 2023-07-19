@@ -4,3 +4,15 @@
 .nx-list__term {
     width: unset !important;
 }
+
+.dim-image {
+    opacity: 0.2;
+}
+
+.nx-p {
+    max-width: unset !important;
+}
+
+.nx-tag {
+    margin-top: 10px !important;
+}

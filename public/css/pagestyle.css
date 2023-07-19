@@ -1,8 +1,18 @@
+.nx-p {
+    max-width: unset !important;
+}
+
+.sonatype-iq-extension-vuln {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
 .sonatype-iq-extension-vuln-critical {
-    border: 3px solid var(--nx-color-threat-critical) !important;
+    border: 3px solid #cc0129 !important;
     border-radius: 10px;
-    padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-critical);
+    box-shadow: 5px 5px 8px #cc0129;
 }
 
 .sonatype-iq-extension-vuln-critical:before {
@@ -12,10 +22,10 @@
 }
 
 .sonatype-iq-extension-vuln-severe {
-    border: 3px solid var(--nx-color-threat-severe) !important;
+    border: 3px solid #ff8300 !important;
     border-radius: 10px;
     padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-severe);
+    box-shadow: 5px 5px 8px #ff8300;
 }
 
 .sonatype-iq-extension-vuln-severe:before {
@@ -25,10 +35,10 @@
 }
 
 .sonatype-iq-extension-vuln-moderate {
-    border: 3px solid var(--nx-color-threat-moderate) !important;
+    border: 3px solid #ffc233 !important;
     border-radius: 10px;
     padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-moderate);
+    box-shadow: 5px 5px 8px #ffc233;
 }
 
 .sonatype-iq-extension-vuln-moderate:before {
@@ -38,10 +48,10 @@
 }
 
 .sonatype-iq-extension-vuln-low {
-    border: 3px solid var(--nx-color-threat-moderate) !important;
+    border: 3px solid #495ab6 !important;
     border-radius: 10px;
     padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-moderate);
+    box-shadow: 5px 5px 8px #495ab6;
 }
 
 .sonatype-iq-extension-vuln-low:before {
@@ -51,10 +61,10 @@
 }
 
 .sonatype-iq-extension-vuln-none {
-    border: 3px solid var(--nx-color-threat-none) !important;
+    border: 3px solid #02b3fe !important;
     border-radius: 10px;
     padding: 5px;
-    box-shadow: 5px 5px 8px var(--nx-color-threat-none);
+    box-shadow: 5px 5px 8px #02b3fe;
 }
 
 .sonatype-iq-extension-vuln-unspecified:before {
@@ -64,6 +74,20 @@
 }
 
 .sonatype-iq-extension-vuln-unspecified {
+    border: 3px solid black !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px black;
+}
+
+.sonatype-iq-extension-vuln-invalid-config:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png') /
+        'Invalid Extension Configuration';
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-invalid-config {
     border: 3px solid black !important;
     border-radius: 10px;
     padding: 5px;

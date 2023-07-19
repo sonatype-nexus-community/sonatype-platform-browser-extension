@@ -34,22 +34,16 @@ export interface ExtensionPopupContext {
     currentPurl: PackageURL | undefined
     currentTab?: chrome.tabs.Tab | browser.tabs.Tab | undefined
     iq?: IqPopupContext
-    supportsLicensing: boolean
-    supportsPolicy: boolean
 }
 
 const DEFAULT_IQ_EXTENSION_POPUP_CONTEXT_DATA = {
     currentPurl: undefined,
     currentTab: undefined,
     iq: {},
-    supportsLicensing: true,
-    supportsPolicy: true,
 }
 
 const DEFAULT_UNKNOWN_EXTENSION_POPUP_CONTEXT_DATA = {
     currentPurl: undefined,
-    supportsLicensing: false,
-    supportsPolicy: false,
 }
 
 export const ExtensionPopupContext = React.createContext<ExtensionPopupContext>(DEFAULT_IQ_EXTENSION_POPUP_CONTEXT_DATA)

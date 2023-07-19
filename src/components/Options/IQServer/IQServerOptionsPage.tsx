@@ -25,24 +25,36 @@ import {
     NxFormSelect,
     NxButton,
     NxStatefulInfoAlert,
+    NxPageMain,
+    NxPageTitle,
+    NxTile,
+    NxTextLink,
+    NxDivider,
+    NxTag,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { isHttpUriValidator, nonEmptyValidator } from '../../Common/Validators'
 import { logger, LogLevel } from '../../../logger/Logger'
 import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
+import {
+    determineSupportsFirewall,
+    determineSupportsLifecycle,
+    determineSupportsLifecycleAlp,
+} from '../../../messages/IqCapabilities'
+import { SANDBOX_APPLICATION_PUBLIC_ID } from '../../../utils/Constants'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 
 export interface IqServerOptionsPageInterface {
     setExtensionConfig: (settings: ExtensionConfiguration) => void
+    install: boolean
 }
 
 export default function IQServerOptionsPage(props: IqServerOptionsPageInterface) {
@@ -163,107 +175,281 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     }
                 }
             })
+            .then(determineIqCapabilities)
     }
 
+    function getSandboxApplicationOrFirst(): ApiApplicationDTO | undefined {
+        const sandboxApplication = iqServerApplicationList
+            .filter((applicationDto: ApiApplicationDTO) => {
+                return applicationDto.publicId == SANDBOX_APPLICATION_PUBLIC_ID
+            })
+            .pop() as ApiApplicationDTO
+        if (sandboxApplication === undefined) {
+            return iqServerApplicationList.pop()
+        } else {
+            return sandboxApplication
+        }
+    }
+
+    async function determineIqCapabilities() {
+        logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
+        const supportsFirewall = await determineSupportsFirewall()
+        const supportsLifecycleAlp = await determineSupportsLifecycleAlp()
+        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        newExtensionSettings.supportsFirewall = supportsFirewall
+        newExtensionSettings.supportsLifecycleAlp = supportsLifecycleAlp
+        setExtensionConfig(newExtensionSettings)
+    }
+
+    useEffect(() => {
+        async function determineIqLifecycleCapability() {
+            const sandboxApplication = getSandboxApplicationOrFirst()
+
+            if (sandboxApplication === undefined) {
+                logger.logMessage(`There is no Sandbox Application AND no Applications that we can read`, LogLevel.WARN)
+                return
+            }
+
+            logger.logMessage(
+                `UE: Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
+                LogLevel.DEBUG
+            )
+            let supportsLifecycle = false
+            if (sandboxApplication !== undefined) {
+                supportsLifecycle = await determineSupportsLifecycle(sandboxApplication.id as string)
+            }
+            const newExtensionSettings = extensionSettings as ExtensionConfiguration
+            newExtensionSettings.supportsLifecycle = supportsLifecycle
+            if (supportsLifecycle === false) {
+                newExtensionSettings.iqApplicationInternalId = sandboxApplication.id as string
+                newExtensionSettings.iqApplicationPublidId = sandboxApplication.publicId as string
+            }
+            setExtensionConfig(newExtensionSettings)
+        }
+
+        determineIqLifecycleCapability()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [iqServerApplicationList])
+
     return (
-        <React.Fragment>
-            <NxGrid.Row>
-                <section className='nx-grid-col nx-grid-col--100'>
-                    <p className='nx-p'>
-                        <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
-                    </p>
+        <NxPageMain>
+            <h1>
+                {props.install === true && (
+                    <NxPageTitle>
+                        &#127881; {_browser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')} &#127881;
+                    </NxPageTitle>
+                )}
+                {props.install !== true && <NxPageTitle>{_browser.i18n.getMessage('OPTIONS_PAGE_TITLE')}</NxPageTitle>}
+            </h1>
 
-                    <div className='nx-form-row'>
-                        <NxFormGroup label={`URL`} isRequired>
-                            <NxStatefulTextInput
-                                value={extensionSettings?.host as string}
-                                placeholder='https://your-iq-server-url'
-                                validator={nonEmptyValidator}
-                                onBlur={handleIqHostChange}
-                            />
-                        </NxFormGroup>
-                        {!hasPermissions && (
-                            <button className='nx-btn grant-permissions' onClick={askForPermissions}>
-                                {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS')}
-                            </button>
-                        )}
-                    </div>
+            <NxTile>
+                <NxTile.Content>
+                    <NxGrid.Row>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img
+                                        src='/images/sonatype-lifecycle-icon.png'
+                                        width='50'
+                                        alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
+                                        title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
+                                        className={
+                                            extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'
+                                        }
+                                    />
+                                    <div>
+                                        {extensionSettings.supportsLifecycle === false && (
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
+                                        )}
 
-                    {hasPermissions && (
-                        <div>
-                            <p className='nx-p'>
-                                <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
-                            </p>
-                            <div className='nx-form-row'>
-                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
-                                    <NxStatefulTextInput
-                                        defaultValue={extensionSettings?.user}
-                                        validator={nonEmptyValidator}
-                                        onChange={handleIqUserChange}
-                                    />
-                                </NxFormGroup>
-                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
-                                    <NxStatefulTextInput
-                                        defaultValue={extensionSettings?.token}
-                                        validator={nonEmptyValidator}
-                                        type='password'
-                                        onChange={handleIqTokenChange}
-                                    />
-                                </NxFormGroup>
-                                <NxButton variant='primary' onClick={handleLoginCheck}>
-                                    {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
-                                </NxButton>
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/open-source-security-dependency-management'>
+                                            {_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
+                                        </NxTextLink>
+                                        {extensionSettings.supportsLifecycle === false && <span>?</span>}
+                                        {extensionSettings.supportsLifecycle === true && (
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
+                                        )}
+                                    </div>
+                                </center>
                             </div>
                         </div>
-                    )}
-                    {iqAuthenticated === true && iqServerApplicationList.length > 0 && (
-                        <React.Fragment>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img
+                                        src='/images/add-on-sonatype-icon-water.png'
+                                        width='50'
+                                        alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
+                                        title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
+                                        className={
+                                            extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
+                                        }
+                                    />
+                                    <div>
+                                        {extensionSettings.supportsLifecycleAlp === false && (
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
+                                        )}
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/advanced-legal-pack'>
+                                            {_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
+                                        </NxTextLink>
+                                        {extensionSettings.supportsLifecycleAlp === false && <span>?</span>}
+                                        {extensionSettings.supportsLifecycleAlp === true && (
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
+                                        )}
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <div className='nx-grid-col nx-grid-col-33'>
+                            <div>
+                                <center>
+                                    <img
+                                        src='/images/sonatype-firewall-icon.png'
+                                        width='50'
+                                        alt={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
+                                        title={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
+                                        className={
+                                            extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'
+                                        }
+                                    />
+                                    <div>
+                                        {extensionSettings.supportsFirewall === false && (
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
+                                        )}
+                                        <NxTextLink
+                                            external
+                                            href='https://www.sonatype.com/products/sonatype-repository-firewall'>
+                                            {_browser.i18n.getMessage('SONATYPE_FIREWALL')}
+                                        </NxTextLink>
+                                        {extensionSettings.supportsFirewall === false && <span>?</span>}
+                                        {extensionSettings.supportsFirewall === true && (
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
+                                        )}
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </NxGrid.Row>
+                    <NxDivider></NxDivider>
+                    <NxGrid.Row>
+                        <section className='nx-grid-col nx-grid-col--'>
                             <p className='nx-p'>
-                                <strong>3)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
-                                <NxTooltip title={_browser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
-                                    <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
-                                </NxTooltip>
+                                <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
                             </p>
 
-                            <NxFormGroup label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')} isRequired>
-                                <NxFormSelect
-                                    defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
-                                    onChange={handleIqApplicationChange}
-                                    disabled={!iqAuthenticated}>
-                                    <option value=''>{_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}</option>
-                                    {iqServerApplicationList.map((app: ApiApplicationDTO) => {
-                                        return (
-                                            <option key={app.id} value={`${app.id}|${app.publicId}`}>
-                                                {app.name}
-                                            </option>
-                                        )
-                                    })}
-                                </NxFormSelect>
-                            </NxFormGroup>
-                        </React.Fragment>
-                    )}
+                            <div className='nx-form-row'>
+                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_URL')} isRequired>
+                                    <NxStatefulTextInput
+                                        defaultValue={extensionSettings?.host as string}
+                                        validator={nonEmptyValidator}
+                                        onBlur={handleIqHostChange}
+                                    />
+                                </NxFormGroup>
+                                {!hasPermissions && (
+                                    <button className='nx-btn grant-permissions' onClick={askForPermissions}>
+                                        {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS')}
+                                    </button>
+                                )}
+                            </div>
 
-                    {iqAuthenticated === true &&
-                        extensionSettings.iqApplicationInternalId != undefined &&
-                        extensionSettings.iqApplicationPublidId != undefined && (
-                            <NxStatefulSuccessAlert>
-                                {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
-                            </NxStatefulSuccessAlert>
-                        )}
-                    {extensionSettings.iqApplicationInternalId === undefined &&
-                        extensionSettings.iqApplicationPublidId === undefined &&
-                        iqAuthenticated === true && (
-                            <NxStatefulInfoAlert>
-                                {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}
-                            </NxStatefulInfoAlert>
-                        )}
-                    {iqAuthenticated === false && (
-                        <NxStatefulErrorAlert>
-                            {_browser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
-                        </NxStatefulErrorAlert>
-                    )}
-                </section>
-            </NxGrid.Row>
-        </React.Fragment>
+                            {hasPermissions && (
+                                <div>
+                                    <p className='nx-p'>
+                                        <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
+                                    </p>
+                                    <div className='nx-form-row'>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
+                                            <NxStatefulTextInput
+                                                defaultValue={extensionSettings?.user}
+                                                validator={nonEmptyValidator}
+                                                onChange={handleIqUserChange}
+                                            />
+                                        </NxFormGroup>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
+                                            <NxStatefulTextInput
+                                                defaultValue={extensionSettings?.token}
+                                                validator={nonEmptyValidator}
+                                                type='password'
+                                                onChange={handleIqTokenChange}
+                                            />
+                                        </NxFormGroup>
+                                        <NxButton variant='primary' onClick={handleLoginCheck}>
+                                            {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
+                                        </NxButton>
+                                    </div>
+                                </div>
+                            )}
+                            {iqAuthenticated === true &&
+                                extensionSettings.supportsLifecycle === true &&
+                                iqServerApplicationList.length > 0 && (
+                                    <React.Fragment>
+                                        <p className='nx-p'>
+                                            <strong>3)</strong>{' '}
+                                            {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
+                                            <NxTooltip
+                                                title={_browser.i18n.getMessage(
+                                                    'OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION'
+                                                )}>
+                                                <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
+                                            </NxTooltip>
+                                        </p>
+
+                                        <NxFormGroup
+                                            label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
+                                            isRequired>
+                                            <NxFormSelect
+                                                defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
+                                                onChange={handleIqApplicationChange}
+                                                disabled={!iqAuthenticated}>
+                                                <option value=''>
+                                                    {_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}
+                                                </option>
+                                                {iqServerApplicationList.map((app: ApiApplicationDTO) => {
+                                                    return (
+                                                        <option key={app.id} value={`${app.id}|${app.publicId}`}>
+                                                            {app.name}
+                                                        </option>
+                                                    )
+                                                })}
+                                            </NxFormSelect>
+                                        </NxFormGroup>
+                                    </React.Fragment>
+                                )}
+
+                            {iqAuthenticated === true &&
+                                extensionSettings.iqApplicationInternalId != undefined &&
+                                extensionSettings.iqApplicationPublidId != undefined && (
+                                    <NxStatefulSuccessAlert>
+                                        {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
+                                    </NxStatefulSuccessAlert>
+                                )}
+                            {extensionSettings.iqApplicationInternalId === undefined &&
+                                extensionSettings.iqApplicationPublidId === undefined &&
+                                extensionSettings.supportsLifecycle === true &&
+                                iqAuthenticated === true && (
+                                    <NxStatefulInfoAlert>
+                                        {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}
+                                    </NxStatefulInfoAlert>
+                                )}
+                            {iqAuthenticated === false && (
+                                <NxStatefulErrorAlert>
+                                    {_browser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
+                                </NxStatefulErrorAlert>
+                            )}
+                        </section>
+                    </NxGrid.Row>
+                </NxTile.Content>
+            </NxTile>
+        </NxPageMain>
     )
 }

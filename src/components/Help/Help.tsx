@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxH2, NxP, NxPageTitle, NxTextLink, NxTile } from '@sonatype/react-shared-components'
+import { NxH2, NxP, NxPageMain, NxPageTitle, NxTextLink, NxTile } from '@sonatype/react-shared-components'
 import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -22,7 +22,7 @@ const extension = _browser.runtime.getManifest()
 
 export default function Help() {
     return (
-        <React.Fragment>
+        <NxPageMain>
             <h1>
                 <NxPageTitle>
                     {_browser.i18n.getMessage('EXTENSION_NAME')} {_browser.i18n.getMessage('HELP_PAGE_TITLE')}
@@ -79,6 +79,6 @@ export default function Help() {
                     </NxTextLink>
                 </NxTile.Content>
             </NxTile>
-        </React.Fragment>
+        </NxPageMain>
     )
 }

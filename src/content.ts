@@ -107,8 +107,11 @@ function handle_message_received_propogate_component_state(request: MessageReque
                 case ComponentState.EVALUATING:
                     vulnClass = 'sonatype-iq-extension-vuln-evaluating'
                     break
+                case ComponentState.INCOMPLETE_CONFIG:
+                    vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
+                    break
             }
-
+            
             const domElement = $(repoType.titleSelector)
             if (domElement.length > 0) {
                 removeClasses(domElement)
@@ -128,4 +131,5 @@ const removeClasses = (element) => {
     element.removeClass('sonatype-iq-extension-vuln-low')
     element.removeClass('sonatype-iq-extension-vuln-none')
     element.removeClass('sonatype-iq-extension-vuln-evaluating')
+    element.removeClass('sonatype-iq-extension-vuln-invalid-config')
 }
