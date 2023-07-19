@@ -47,6 +47,7 @@ import {
     determineSupportsLifecycle,
     determineSupportsLifecycleAlp,
 } from '../../../messages/IqCapabilities'
+import { SANDBOX_APPLICATION_PUBLIC_ID } from '../../../utils/Constants'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -177,13 +178,28 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             .then(determineIqCapabilities)
     }
 
-    async function determineIqCapabilities() {
-        logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
+    function getSandboxApplicationOrFirst(): ApiApplicationDTO | undefined {
         const sandboxApplication = iqServerApplicationList
             .filter((applicationDto: ApiApplicationDTO) => {
-                return applicationDto.publicId == 'sandbox-application'
+                return applicationDto.publicId == SANDBOX_APPLICATION_PUBLIC_ID
             })
             .pop() as ApiApplicationDTO
+        if (sandboxApplication === undefined) {
+            return iqServerApplicationList.pop()
+        } else {
+            return sandboxApplication
+        }
+    }
+
+    async function determineIqCapabilities() {
+        logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
+        const sandboxApplication = getSandboxApplicationOrFirst()
+
+        if (sandboxApplication === undefined) {
+            logger.logMessage(`There is no Sandbox Application AND no Applications that we can read`, LogLevel.WARN)
+            return
+        }
+
         logger.logMessage(
             `Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
             LogLevel.DEBUG
@@ -198,11 +214,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
     useEffect(() => {
         async function determineIqLifecycleCapability() {
-            const sandboxApplication = iqServerApplicationList
-                .filter((applicationDto: ApiApplicationDTO) => {
-                    return applicationDto.publicId == 'sandbox-application'
-                })
-                .pop() as ApiApplicationDTO
+            const sandboxApplication = getSandboxApplicationOrFirst()
+
+            if (sandboxApplication === undefined) {
+                logger.logMessage(`There is no Sandbox Application AND no Applications that we can read`, LogLevel.WARN)
+                return
+            }
+
             logger.logMessage(
                 `UE: Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
                 LogLevel.DEBUG

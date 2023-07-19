@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+export const SANDBOX_APPLICATION_PUBLIC_ID = 'sandbox-application'
+
 export enum DATA_SOURCE {
     NEXUSIQ = 'Sonatype IQ Server',
     OSSINDEX = 'Sonatype OSS Index',

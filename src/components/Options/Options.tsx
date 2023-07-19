@@ -56,17 +56,6 @@ export default function Options() {
 
     const install = params.has('install')
 
-    // function handleDataSourceChange(e) {
-    //     const newExtensionConfig = extensionConfig
-    //     newExtensionConfig.dataSource = e
-    //     newExtensionConfig.host = undefined
-    //     newExtensionConfig.iqApplicationInternalId = undefined
-    //     newExtensionConfig.iqApplicationPublidId = undefined
-    //     newExtensionConfig.token = undefined
-    //     newExtensionConfig.user = undefined
-    //     handleNewExtensionConfig(newExtensionConfig)
-    // }
-
     function handleNewExtensionConfig(settings: ExtensionConfiguration) {
         logger.logMessage(`Options handleNewExtensionConfig`, LogLevel.DEBUG, settings)
         updateExtensionConfiguration(settings).then((response) => {
@@ -76,10 +65,6 @@ export default function Options() {
             }
         })
     }
-
-    // function handleSaveClose() {
-    //     window.close()
-    // }
 
     useEffect(() => {
         readExtensionConfiguration().then((response) => {
@@ -93,6 +78,15 @@ export default function Options() {
         })
     }, [])
 
+    function getLogo() {
+        if (extensionConfig.supportsLifecycle === true) {
+            return '/images/sonatype-lifecycle-logo-nav-white.svg'
+        } else if (extensionConfig.supportsFirewall === true) {
+            return '/images/sonatype-firewall-logo-white.svg'
+        }
+        return '/images/Sonatype-platform-logo-white.svg'
+    }
+
     return (
         <React.StrictMode>
             <ExtensionConfigurationContext.Provider value={extensionConfig}>
@@ -100,7 +94,7 @@ export default function Options() {
                     isDefaultOpen={true}
                     toggleCloseIcon={faArrowRight as IconDefinition}
                     toggleOpenIcon={faArrowLeft as IconDefinition}
-                    logoImg='images/sonatype-lifecycle-logo-nav-white.svg'
+                    logoImg={getLogo()}
                     logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
                     logoLink='#'>
                     <NxGlobalSidebarNavigation>
