@@ -28,7 +28,8 @@ import {
     NxPageMain,
     NxPageTitle,
     NxTile,
-    NxTextLink
+    NxTextLink,
+    NxDivider
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -237,15 +238,18 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                 <center>
                                     <img src='/images/sonatype-lifecycle-icon.png' width='50' alt='' 
                                     className={extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'}/>
-                                    <p>
-                                        Does your Sonatype IQ Server include support for{' '}
+                                    <div>
+                                    {extensionSettings.supportsLifecycle === false && (
+                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
+                                    )}
+                                        
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
                                             Sonatype Lifecycle
                                         </NxTextLink>
                                         ?
-                                    </p>
+                                    </div>
                                 </center>
                             </div>
                         </div>
@@ -257,15 +261,17 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         alt=''
                                        className={extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'}
                                     />
-                                    <p>
-                                        Does your Sonatype IQ Server include support for{' '}
+                                    <div>
+                                    {extensionSettings.supportsLifecycle === false && (
+                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
+                                    )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
                                             Advanced Legal Pack for Sonatype Lifecycle
                                         </NxTextLink>
                                         ?
-                                    </p>
+                                    </div>
                                 </center>
                             </div>
                         </div>
@@ -274,19 +280,22 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                 <center>
                                     <img src='/images/sonatype-firewall-icon.png' width='50' alt='' 
                                     className={extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'} />
-                                    <p>
-                                        Does your Sonatype IQ Server include support for{' '}
+                                    <div>
+                                    {extensionSettings.supportsLifecycle === false && (
+                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
+                                    )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
                                             Sonatype Repository Firewall
                                         </NxTextLink>
                                         ?
-                                    </p>
+                                    </div>
                                 </center>
                             </div>
                         </div>
                     </NxGrid.Row>
+                    <NxDivider></NxDivider>
                     <NxGrid.Row>
                         <section className='nx-grid-col nx-grid-col--'>
                             <p className='nx-p'>
