@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.1...v2.4.0) (2023-07-19)
+
+
+### Features
+
+* add localisation support for Korean ([56f62e7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/56f62e73585421c438dcb08198a5481adcac142d))
+
 ## [2.3.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.0...v2.3.1) (2023-07-18)
 
 
