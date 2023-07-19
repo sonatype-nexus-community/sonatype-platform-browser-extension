@@ -411,7 +411,7 @@ function _handle_iq_error_repsonse(err) {
             return {
                 status: MESSAGE_RESPONSE_STATUS.FAILURE,
                 status_detail: {
-                    message: _browser.i18n.getMessage('IQ_ERROR_RESPONSE_DEFAULT'),
+                    message: 'Failed to call Sonatype IQ Server',
                     detail: `${err.response.status}: ${err.message}`,
                 },
             }
@@ -420,7 +420,7 @@ function _handle_iq_error_repsonse(err) {
     return {
         status: MESSAGE_RESPONSE_STATUS.FAILURE,
         status_detail: {
-            message: _browser.i18n.getMessage('IQ_ERROR_RESPONSE_DEFAULT'),
+            message: 'Failed to call Sonatype IQ Server',
             detail: err,
         },
     }

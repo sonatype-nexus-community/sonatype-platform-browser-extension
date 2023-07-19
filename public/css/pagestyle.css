@@ -5,7 +5,8 @@
 .sonatype-iq-extension-vuln {
     padding-right: 10px !important;
     padding-left: 10px !important;
-    padding-bottom: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 .sonatype-iq-extension-vuln-critical {
