@@ -12,3 +12,7 @@
 .nx-p {
     max-width: unset !important;
 }
+
+.nx-tag {
+    margin-top: 10px !important;
+}
