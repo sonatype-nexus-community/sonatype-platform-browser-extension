@@ -251,8 +251,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <img
                                         src='/images/sonatype-lifecycle-icon.png'
                                         width='50'
-                                        alt='Sonatype Lifecycle'
-                                        title='Sonatype Lifecycle'
+                                        alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
+                                        title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
                                         className={
                                             extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'
                                         }
@@ -283,8 +283,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <img
                                         src='/images/add-on-sonatype-icon-water.png'
                                         width='50'
-                                        alt='Advanced Legal Pack for Sonatype Lifecycle'
-                                        title='Advanced Legal Pack for Sonatype Lifecycle'
+                                        alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
+                                        title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         className={
                                             extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
                                         }
@@ -314,8 +314,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <img
                                         src='/images/sonatype-firewall-icon.png'
                                         width='50'
-                                        alt='Sonatype Repository Firewall'
-                                        title='Sonatype Repository Firewall'
+                                        alt={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
+                                        title={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
                                         className={
                                             extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'
                                         }
