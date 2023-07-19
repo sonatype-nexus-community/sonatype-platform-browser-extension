@@ -334,5 +334,13 @@
     "GITHUB_FORKS": {
         "message": "Forks",
         "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "O seu servidor Sonatype IQ inclui suporte para",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "SUPPORTED": {
+        "message": "Suportado",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
     }
 }
