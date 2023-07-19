@@ -51,10 +51,6 @@ function IqLicensePage() {
         const declaredLicenses = licenseData?.declaredLicenses
         const effectiveLicenses = licenseData?.effectiveLicenses
 
-        // if (popupContext.iq?.componentLegalDetails === undefined) {
-        //     return <Puff />
-        // }
-
         const copyToClipboard = (_event: React.MouseEvent, text: string) => {
             navigator.clipboard.writeText(text)
         }
