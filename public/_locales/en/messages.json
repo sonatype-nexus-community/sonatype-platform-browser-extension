@@ -49,6 +49,10 @@
         "message": "GitHub Issue",
         "description": "GitHub Issue"
     },
+    "LABEL_URL": {
+        "message": "URL",
+        "description": "Label for the field where you input your Sonatype IQ Server URL"
+    },
     "LABEL_USERNAME": {
         "message": "Username",
         "description": "Username label"

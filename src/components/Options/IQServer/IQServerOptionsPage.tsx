@@ -348,7 +348,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                             </p>
 
                             <div className='nx-form-row'>
-                                <NxFormGroup label={`URL`} isRequired>
+                                <NxFormGroup label={_browser.i18n.getMessage('LABEL_URL')} isRequired>
                                     <NxStatefulTextInput
                                         defaultValue={extensionSettings?.host as string}
                                         validator={nonEmptyValidator}
