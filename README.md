@@ -18,6 +18,7 @@ The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Exte
   - [Missing or unsupported Registry?](#missing-or-unsupported-registry)
 - [Installation](#installation)
   - [Installation on Chrome](#installation-on-chrome)
+- [Supported Languages](#supported-languages)
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Pinning the Extension](#pinning-the-extension)
@@ -78,6 +79,21 @@ Missing format or ecosystem? Why not raise an Issue to request?
 ### Installation on Chrome
 
 Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag) to add to Chrome.
+
+## Supported Languages
+
+Yes - you read right - we have localised this extension!
+
+Currently we have translations for:
+
+-   English 🇬🇧 🇺🇸 🇦🇺
+-   Finnish 🇫🇮
+-   French 🇫🇷
+-   Korean 🇰🇷
+
+More are coming soon.
+
+If you'd like to contribute a translation, please check the target locale you have in mind is supported by Chromium - [see this list](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support).
 
 ## Configuration
 
