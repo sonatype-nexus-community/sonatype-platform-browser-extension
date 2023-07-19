@@ -79,9 +79,13 @@ export default function Options() {
     }, [])
 
     function getLogo() {
+        if (extensionConfig.supportsLifecycle === true && extensionConfig.supportsFirewall === true) {
+            return '/images/Sonatype-platform-logo-white.svg'
+        }
         if (extensionConfig.supportsLifecycle === true) {
             return '/images/sonatype-lifecycle-logo-nav-white.svg'
-        } else if (extensionConfig.supportsFirewall === true) {
+        }
+        if (extensionConfig.supportsFirewall === true) {
             return '/images/sonatype-firewall-logo-white.svg'
         }
         return '/images/Sonatype-platform-logo-white.svg'

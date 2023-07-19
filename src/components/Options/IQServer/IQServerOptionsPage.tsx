@@ -193,17 +193,6 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
     async function determineIqCapabilities() {
         logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
-        const sandboxApplication = getSandboxApplicationOrFirst()
-
-        if (sandboxApplication === undefined) {
-            logger.logMessage(`There is no Sandbox Application AND no Applications that we can read`, LogLevel.WARN)
-            return
-        }
-
-        logger.logMessage(
-            `Found Sandbox Application: ${sandboxApplication} from ${iqServerApplicationList.length} Applications`,
-            LogLevel.DEBUG
-        )
         const supportsFirewall = await determineSupportsFirewall()
         const supportsLifecycleAlp = await determineSupportsLifecycleAlp()
         const newExtensionSettings = extensionSettings as ExtensionConfiguration
