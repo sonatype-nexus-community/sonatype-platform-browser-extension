@@ -339,6 +339,10 @@
         "message": "Request Support",
         "description": "Sidebar Footer Link in Options Page"
     },
+    "SUPPORTED": {
+        "message": "Supported",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
     "GITHUB_STARS": {
         "message": "Stars",
         "description": "The number of GitHub stars for the project"

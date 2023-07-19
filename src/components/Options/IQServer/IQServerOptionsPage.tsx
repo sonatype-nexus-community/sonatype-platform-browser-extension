@@ -29,7 +29,8 @@ import {
     NxPageTitle,
     NxTile,
     NxTextLink,
-    NxDivider
+    NxDivider,
+    NxTag
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -248,7 +249,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
                                             Sonatype Lifecycle
                                         </NxTextLink>
-                                        ?
+                                        {extensionSettings.supportsLifecycle === false && (
+                                            <span>?</span>
+                                        )}
+                                        {extensionSettings.supportsLifecycle === true && (
+                                            <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                        )}
                                     </div>
                                 </center>
                             </div>
@@ -270,7 +276,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
                                             Advanced Legal Pack for Sonatype Lifecycle
                                         </NxTextLink>
-                                        ?
+                                        {extensionSettings.supportsLifecycleAlp === false && (
+                                            <span>?</span>
+                                        )}
+                                        {extensionSettings.supportsLifecycleAlp === true && (
+                                           <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                        )}
                                     </div>
                                 </center>
                             </div>
@@ -289,7 +300,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
                                             Sonatype Repository Firewall
                                         </NxTextLink>
-                                        ?
+                                        {extensionSettings.supportsFirewall === false && (
+                                            <span>?</span>
+                                        )}
+                                        {extensionSettings.supportsFirewall === true && (
+                                            <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                        )}
                                     </div>
                                 </center>
                             </div>

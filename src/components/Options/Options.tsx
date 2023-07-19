@@ -14,25 +14,13 @@
  * limitations under the License.
  */
 import {
-    NxFieldset,
-    NxPageTitle,
-    NxRadio,
-    NxTab,
-    NxTabList,
-    NxTabPanel,
-    NxTabs,
-    NxTile,
-    NxButton,
-    NxButtonBar,
     NxStatefulGlobalSidebar,
     NxGlobalSidebarNavigation,
     NxGlobalSidebarNavigationLink,
     NxGlobalSidebarFooter,
-    NxPageMain,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState } from 'react'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
-import { DATA_SOURCE } from '../../utils/Constants'
 import { MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import GeneralOptionsPage from './General/GeneralOptionsPage'
 import IQServerOptionsPage from './IQServer/IQServerOptionsPage'
@@ -54,7 +42,7 @@ enum OPTIONS_PAGE_MODE {
 }
 
 export default function Options() {
-    const [activeTabId, setActiveTabId] = useState(0)
+    // const [activeTabId, setActiveTabId] = useState(0)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const search = window.location.search
     const params = new URLSearchParams(search)
@@ -89,9 +77,9 @@ export default function Options() {
         })
     }
 
-    function handleSaveClose() {
-        window.close()
-    }
+    // function handleSaveClose() {
+    //     window.close()
+    // }
 
     useEffect(() => {
         readExtensionConfiguration().then((response) => {
