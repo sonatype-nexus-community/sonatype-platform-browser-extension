@@ -8,3 +8,7 @@
 .dim-image {
     opacity: 0.2;
 }
+
+.nx-p {
+    max-width: unset !important;
+}

@@ -1,3 +1,7 @@
+.nx-p {
+    max-width: unset !important;
+}
+
 .sonatype-iq-extension-vuln-critical {
     border: 3px solid var(--nx-color-threat-critical) !important;
     border-radius: 10px;
