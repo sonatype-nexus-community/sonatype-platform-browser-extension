@@ -23,7 +23,7 @@
     },
     "CATALOG_DATE": {
         "message": "카탈로그 일자",
-        "description": "The date this component version was add to the Sonatype data catalog"
+        "description": "The date this component version was added to the Sonatype data catalog"
     },
     "SONATYPE_IQ_SERVER": {
         "message": "소나타입 IQ 서버",
@@ -67,7 +67,7 @@
     },
     "LINK_TEXT_HERE": {
         "message": "여기",
-        "description": "Link text used for generic link to somehting [here]."
+        "description": "Link text used for generic link to something [here]."
     },
     "HELP_PAGE_TITLE": {
         "message": "도움말",
