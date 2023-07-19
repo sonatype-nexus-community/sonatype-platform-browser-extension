@@ -147,10 +147,6 @@
             }
         }
     },
-    "IQ_ERROR_RESPONSE_DEFAULT": {
-        "message": "Failed to call Sonatype IQ Server",
-        "description": "Default message when unable to connect to IQ Server"
-    },
     "LEGAL_EFFECTIVE_LICENSE": {
         "message": "Effective",
         "description": "The effective license of the component"
@@ -242,10 +238,6 @@
     "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
         "message": "There was an error signing in.",
         "description": "Error message showed if Sonatype IQ credentials are incorrect"
-    },
-    "OPTIONS_LICENSE_ALP_ENABLED": {
-        "message": "Your license enables the 'copy text' features of the Advanced Legal Pack.",
-        "description": "Message when ALP features are enabled"
     },
     "POLICY_TABLE_THREAT": {
         "message": "THREAT",
