@@ -1,3 +1,16 @@
+# [2.6.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.5.1...v2.6.0) (2023-07-19)
+
+
+### Bug Fixes
+
+* typos in french translation ([#43](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/43)) ([215ff97](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/215ff97a5fed382b70f5bac275f1e6e70f7f7c31))
+
+
+### Features
+
+* add localisation support for Portugal and Brazil (Portuguese) ([124b39f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/124b39f27978f245f971917fe6952b6b02d9d5f7))
+* determine Sonatype IQ Server licensed capabilities with user feedback ([#41](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/41)) ([da4d40d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/da4d40d066847ed3748b523f87bac241d12ba370))
+
 ## [2.5.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.5.0...v2.5.1) (2023-07-19)
 
 
