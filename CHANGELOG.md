@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.4.0...v2.5.0) (2023-07-19)
+
+
+### Features
+
+* add localisation support for German ([#40](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/40)) ([315629f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/315629f85eaad0a058e21e73a31d3d0b9e0565b5))
+
 # [2.4.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.1...v2.4.0) (2023-07-19)
 
 
