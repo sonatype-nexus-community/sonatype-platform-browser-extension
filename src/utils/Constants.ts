@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const DATA_SOURCES = {
-    NEXUSIQ: 'NEXUSIQ',
-    OSSINDEX: 'OSSINDEX',
-}
 
 export enum DATA_SOURCE {
     NEXUSIQ = 'Sonatype IQ Server',
@@ -27,8 +23,6 @@ export const REPOSITORY_MANAGERS = {
     NEXUS: 'nexus',
     ARTIFACTORY: 'artifactory',
 }
-
-export const DEFAULT_OSSINDEX_URL = 'https://ossindex.sonatype.org/'
 
 export const REMEDIATION_LABELS = {
     'next-no-violations': 'Next version with no policy violation(s)',
@@ -92,7 +86,6 @@ export interface RepoType {
     titleSelector?: string
     versionSelector?: string
     versionPath?: string
-    dataSource: string //TODO: remove this as unnecessary now as we no longer switch datasources on RepoType
     appendVersionPath?: string
     pathRegex?: RegExp
     versionDomPath?: string
@@ -105,47 +98,25 @@ export const REPO_TYPES: RepoType[] = [
         repoFormat: FORMATS.alpine,
         titleSelector: 'th.header ~ td',
         versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '',
         pathRegex:
             /^(?<releaseName>[^/]*)\/(?<releaseFeed>[^/]*)\/(?<architecture>[^/]*)\/(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#package > tbody > tr:nth-child(2) > td',
     },
     // {
-    //     url: 'https://anaconda.org/',
-    //     repoFormat: FORMATS.conda,
-    //     repoID: REPOS.anacondaCom,
-    //     titleSelector: 'span.long-breadcrumb',
+    //     url: 'https://clojars.org/',
+    //     repoFormat: FORMATS.clojars,
+    //     repoID: REPOS.clojarsOrg,
+    //     titleSelector: '#jar-title > h1 > a',
     //     versionPath: '',
-    //     dataSource: DATA_SOURCES.NEXUSIQ,
-    //     appendVersionPath: '',
-    //     pathRegex: /^(?<channel>[^/]*)\/(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-    //     versionDomPath: 'small.subheader',
+    //     appendVersionPath: '/versions/{version}',
     // },
-    {
-        url: 'https://chocolatey.org/packages/',
-        repoFormat: FORMATS.chocolatey,
-        repoID: REPOS.chocolateyOrg,
-        titleSelector: 'h1',
-        versionPath: '{url}/{packagename}/{versionNumber}',
-        dataSource: DATA_SOURCES.OSSINDEX,
-    },
-    {
-        url: 'https://clojars.org/',
-        repoFormat: FORMATS.clojars,
-        repoID: REPOS.clojarsOrg,
-        titleSelector: '#jar-title > h1 > a',
-        versionPath: '',
-        dataSource: DATA_SOURCES.OSSINDEX,
-        appendVersionPath: '/versions/{version}',
-    },
     {
         url: 'https://cocoapods.org/pods/',
         repoFormat: FORMATS.cocoapods,
         repoID: REPOS.cocoaPodsOrg,
         titleSelector: 'h1',
         versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '',
         pathRegex: /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'h1 > span',
@@ -157,7 +128,6 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector: '.package-name',
         versionPath: '',
         appendVersionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         pathRegex: /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'h1',
     },
@@ -168,7 +138,6 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector: 'h2', //"h2.title",?
         versionPath: '',
         appendVersionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         pathRegex: /^web\/packages\/(?<artifactId>[^/]*)\/index\.html(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'table tr:nth-child(1) td:nth-child(2)',
     },
@@ -178,24 +147,7 @@ export const REPO_TYPES: RepoType[] = [
         repoFormat: FORMATS.cargo,
         titleSelector: "div[class*='heading'] h1",
         versionPath: '{url}/{packagename}/{versionNumber}', // https://crates.io/crates/claxon/0.4.0
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '/{versionNumber}',
-    },
-    {
-        url: 'https://packages.debian.org',
-        repoFormat: FORMATS.debian,
-        repoID: REPOS.packagesDebianOrg,
-        titleSelector: '',
-        versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-    },
-    {
-        url: 'https://tracker.debian.org/pkg',
-        repoFormat: FORMATS.debian,
-        repoID: REPOS.trackerDebianOrg,
-        titleSelector: 'li.list-group-item',
-        versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
     },
     {
         url: 'https://pkg.go.dev/',
@@ -207,43 +159,9 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector:
             'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1',
         versionPath: '{url}/{packagename}/@{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '@{versionNumber}',
         pathRegex:
             /^(?<groupId>.+)\/(?<artifactId>[^/]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-    },
-    {
-        url: 'https://repo1.maven.org/maven2/',
-        repoFormat: FORMATS.maven,
-        repoID: REPOS.repo1MavenOrg,
-        titleSelector: 'h1',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-        appendVersionPath: '',
-        pathRegex:
-            /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
-    },
-    {
-        url: 'https://repo.maven.apache.org/maven2/',
-        repoFormat: FORMATS.maven,
-        repoID: REPOS.repoMavenApacheOrg,
-        titleSelector: 'h1',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-        appendVersionPath: '',
-        pathRegex:
-            /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)?\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
-    },
-    {
-        url: 'https://search.maven.org/artifact/',
-        repoFormat: FORMATS.maven,
-        repoID: REPOS.searchMavenOrg,
-        titleSelector: '.artifact-title',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}/{extension}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-        appendVersionPath: '',
-        pathRegex:
-            /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)(\/(?<version>[^/#?]*)\/(?<type>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
     },
     {
         url: 'https://central.sonatype.com/artifact/',
@@ -251,10 +169,39 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.centralSonatypeCom,
         titleSelector: 'h1',
         versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}/{extension}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '',
         pathRegex:
             /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\/[^#?]*)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+    },
+    {
+        url: 'https://repo.maven.apache.org/maven2/',
+        repoFormat: FORMATS.maven,
+        repoID: REPOS.repoMavenApacheOrg,
+        titleSelector: 'h1',
+        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
+        appendVersionPath: '',
+        pathRegex:
+            /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)?\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
+    },
+    {
+        url: 'https://repo1.maven.org/maven2/',
+        repoFormat: FORMATS.maven,
+        repoID: REPOS.repo1MavenOrg,
+        titleSelector: 'h1',
+        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
+        appendVersionPath: '',
+        pathRegex:
+            /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
+    },
+    {
+        url: 'https://search.maven.org/artifact/',
+        repoFormat: FORMATS.maven,
+        repoID: REPOS.searchMavenOrg,
+        titleSelector: '.artifact-title',
+        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}/{extension}',
+        appendVersionPath: '',
+        pathRegex:
+            /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)(\/(?<version>[^/#?]*)\/(?<type>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
     },
     {
         url: 'https://mvnrepository.com/artifact/',
@@ -262,7 +209,6 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.mvnRepositoryCom,
         titleSelector: 'h2.im-title',
         versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '',
         pathRegex:
             /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
@@ -271,10 +217,8 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://www.npmjs.com/package/',
         repoFormat: FORMATS.npm,
         repoID: REPOS.npmJs,
-        titleSelector: '#top > div > h2 > span', //".package-name-redundant",
-        // titleSelector: ".package-name-redundant",
+        titleSelector: '#top > div > h2 > span',
         versionPath: '{url}/{packagename}/v/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '/v/{versionNumber}',
         pathRegex:
             /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
@@ -287,7 +231,6 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector: '.package-title > h1',
         versionSelector: 'span.version-title',
         versionPath: '{url}/{packagename}/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '/{versionNumber}',
         pathRegex: /^(?<artifactId>[^/?#]*)(\/(?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'span.version-title',
@@ -298,7 +241,6 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.packagistOrg,
         titleSelector: 'h2.title',
         versionPath: '{url}/{packagename}#{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '#{versionNumber}',
         pathRegex: /^(?<groupId>[^/]*)\/(?<artifactId>[^/?#]*)(\?(?<query>([^#]*)))?(#(?<version>(.*)))?$/,
         versionDomPath: '#view-package-page .versions-section .title .version-number',
@@ -309,7 +251,6 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.pypiOrg,
         titleSelector: 'h1.package-header__name',
         versionPath: '{url}/{packagename}/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '{versionNumber}',
         pathRegex: /^(?<artifactId>[^/?#]*)\/((?<version>[^?#]*)\/)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#content > div.banner > div > div.package-header__left > h1',
@@ -321,18 +262,17 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector: 'h1.t-display',
         versionSelector: 'body > main > div > h1 > i',
         versionPath: '{url}/{packagename}/versions/{versionNumber}',
-        dataSource: DATA_SOURCES.NEXUSIQ,
         appendVersionPath: '/versions/{versionNumber}',
         pathRegex:
             /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '.page__subheading',
     },
-    {
-        url: '/#browse/browse:',
-        repoID: REPOS.nexusRepository,
-        titleSelector: "div[id*='-coreui-component-componentinfo-'",
-        versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-        appendVersionPath: '',
-    },
+    // {
+    //     url: '/#browse/browse:',
+    //     repoID: REPOS.nexusRepository,
+    //     titleSelector: "div[id*='-coreui-component-componentinfo-'",
+    //     versionPath: '',
+    //     dataSource: DATA_SOURCES.NEXUSIQ,
+    //     appendVersionPath: '',
+    // },
 ]

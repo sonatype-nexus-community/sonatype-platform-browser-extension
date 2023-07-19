@@ -1,3 +1,39 @@
+## [2.5.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.5.0...v2.5.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* fix typo in English ([7503b8d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/7503b8d16a9ced00716d23f7a6da081bc3e487ad))
+
+# [2.5.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.4.0...v2.5.0) (2023-07-19)
+
+
+### Features
+
+* add localisation support for German ([#40](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/40)) ([315629f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/315629f85eaad0a058e21e73a31d3d0b9e0565b5))
+
+# [2.4.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.1...v2.4.0) (2023-07-19)
+
+
+### Features
+
+* add localisation support for Korean ([56f62e7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/56f62e73585421c438dcb08198a5481adcac142d))
+
+## [2.3.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.3.0...v2.3.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* improvements to French localisation ([ee9df37](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ee9df37d5c54271d2cee7f45615c994abf6896b7))
+
+# [2.3.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.1...v2.3.0) (2023-07-17)
+
+
+### Features
+
+* add localisation in Finnish ([59ac34f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/59ac34f320f4e2012bec229b907d6f6dbca02eed))
+* add localisation in French ([49d1bf1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/49d1bf16726cbeb709f9a53442c17d41a086b6c6))
+
 ## [2.2.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.2.0...v2.2.1) (2023-07-14)
 
 
