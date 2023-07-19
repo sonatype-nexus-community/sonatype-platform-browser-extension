@@ -330,5 +330,13 @@
     "SIDEBAR_LINK_HELP": {
         "message": "Apua",
         "description": "Sivupalkin navigointilinkki asetussivulla"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "Tukeeko Sonatype Lifecycle-serverisi X",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "SUPPORTED": {
+        "message": "Tuettu",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
     }
 }
