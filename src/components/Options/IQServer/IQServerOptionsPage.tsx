@@ -213,6 +213,10 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             }
             const newExtensionSettings = extensionSettings as ExtensionConfiguration
             newExtensionSettings.supportsLifecycle = supportsLifecycle
+            if (supportsLifecycle === false) {
+                newExtensionSettings.iqApplicationInternalId = sandboxApplication.id as string
+                newExtensionSettings.iqApplicationPublidId = sandboxApplication.publicId as string
+            }
             setExtensionConfig(newExtensionSettings)
         }
 
@@ -247,13 +251,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     />
                                     <div>
                                         {extensionSettings.supportsLifecycle === false && (
-                                            <span>Does your Sonatype IQ Server include support for </span>
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
 
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
-                                            Sonatype Lifecycle
+                                            {_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
                                         </NxTextLink>
                                         {extensionSettings.supportsLifecycle === false && <span>?</span>}
                                         {extensionSettings.supportsLifecycle === true && (
@@ -278,12 +282,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     />
                                     <div>
                                         {extensionSettings.supportsLifecycleAlp === false && (
-                                            <span>Does your Sonatype IQ Server include support for </span>
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
-                                            Advanced Legal Pack for Sonatype Lifecycle
+                                            {_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         </NxTextLink>
                                         {extensionSettings.supportsLifecycleAlp === false && <span>?</span>}
                                         {extensionSettings.supportsLifecycleAlp === true && (
@@ -308,12 +312,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     />
                                     <div>
                                         {extensionSettings.supportsFirewall === false && (
-                                            <span>Does your Sonatype IQ Server include support for </span>
+                                            <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
-                                            Sonatype Repository Firewall
+                                            {_browser.i18n.getMessage('SONATYPE_FIREWALL')}
                                         </NxTextLink>
                                         {extensionSettings.supportsFirewall === false && <span>?</span>}
                                         {extensionSettings.supportsFirewall === true && (
@@ -336,8 +340,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                             <div className='nx-form-row'>
                                 <NxFormGroup label={`URL`} isRequired>
                                     <NxStatefulTextInput
-                                        value={extensionSettings?.host as string}
-                                        placeholder='https://your-iq-server-url'
+                                        defaultValue={extensionSettings?.host as string}
                                         validator={nonEmptyValidator}
                                         onBlur={handleIqHostChange}
                                     />
@@ -376,37 +379,42 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     </div>
                                 </div>
                             )}
-                            {iqAuthenticated === true && iqServerApplicationList.length > 0 && (
-                                <React.Fragment>
-                                    <p className='nx-p'>
-                                        <strong>3)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
-                                        <NxTooltip
-                                            title={_browser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
-                                            <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
-                                        </NxTooltip>
-                                    </p>
+                            {iqAuthenticated === true &&
+                                extensionSettings.supportsLifecycle === true &&
+                                iqServerApplicationList.length > 0 && (
+                                    <React.Fragment>
+                                        <p className='nx-p'>
+                                            <strong>3)</strong>{' '}
+                                            {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
+                                            <NxTooltip
+                                                title={_browser.i18n.getMessage(
+                                                    'OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION'
+                                                )}>
+                                                <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
+                                            </NxTooltip>
+                                        </p>
 
-                                    <NxFormGroup
-                                        label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
-                                        isRequired>
-                                        <NxFormSelect
-                                            defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
-                                            onChange={handleIqApplicationChange}
-                                            disabled={!iqAuthenticated}>
-                                            <option value=''>
-                                                {_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}
-                                            </option>
-                                            {iqServerApplicationList.map((app: ApiApplicationDTO) => {
-                                                return (
-                                                    <option key={app.id} value={`${app.id}|${app.publicId}`}>
-                                                        {app.name}
-                                                    </option>
-                                                )
-                                            })}
-                                        </NxFormSelect>
-                                    </NxFormGroup>
-                                </React.Fragment>
-                            )}
+                                        <NxFormGroup
+                                            label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
+                                            isRequired>
+                                            <NxFormSelect
+                                                defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
+                                                onChange={handleIqApplicationChange}
+                                                disabled={!iqAuthenticated}>
+                                                <option value=''>
+                                                    {_browser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}
+                                                </option>
+                                                {iqServerApplicationList.map((app: ApiApplicationDTO) => {
+                                                    return (
+                                                        <option key={app.id} value={`${app.id}|${app.publicId}`}>
+                                                            {app.name}
+                                                        </option>
+                                                    )
+                                                })}
+                                            </NxFormSelect>
+                                        </NxFormGroup>
+                                    </React.Fragment>
+                                )}
 
                             {iqAuthenticated === true &&
                                 extensionSettings.iqApplicationInternalId != undefined &&
@@ -417,6 +425,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                 )}
                             {extensionSettings.iqApplicationInternalId === undefined &&
                                 extensionSettings.iqApplicationPublidId === undefined &&
+                                extensionSettings.supportsLifecycle === true &&
                                 iqAuthenticated === true && (
                                     <NxStatefulInfoAlert>
                                         {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}

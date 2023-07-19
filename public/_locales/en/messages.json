@@ -29,6 +29,18 @@
         "message": "Sonatype IQ Server",
         "description": "Branded product name for Sonatype IQ Server"
     },
+    "SONATYPE_FIREWALL": {
+        "message": "Sonatype Repository Firewall",
+        "description": "Branded product name for Sonatype Repository Firewall"
+    },
+    "SONATYPE_LIFECYCLE": {
+        "message": "Sonatype Lifecycle",
+        "description": "Branded product name for Sonatype Lifecycle"
+    },
+    "SONATYPE_LIFECYCLE_ALP": {
+        "message": "Advanced Legal Pack for Sonatype Lifecycle",
+        "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
+    },
     "BUTTON_CLOSE": {
         "message": "Close",
         "description": "Close button text"
@@ -350,5 +362,9 @@
     "GITHUB_FORKS": {
         "message": "Forks",
         "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "Does your Sonatype IQ Server include support for",
+        "description": "Prompt in Options about what features IQ Licence supports"
     }
 }
