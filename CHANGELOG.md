@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.5.0...v2.5.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* fix typo in English ([7503b8d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/7503b8d16a9ced00716d23f7a6da081bc3e487ad))
+
 # [2.5.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.4.0...v2.5.0) (2023-07-19)
 
 
