@@ -30,7 +30,7 @@ import {
     NxTile,
     NxTextLink,
     NxDivider,
-    NxTag
+    NxTag,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -237,23 +237,29 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/sonatype-lifecycle-icon.png' width='50' alt='' 
-                                    className={extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'}/>
+                                    <img
+                                        src='/images/sonatype-lifecycle-icon.png'
+                                        width='50'
+                                        alt=''
+                                        className={
+                                            extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'
+                                        }
+                                    />
                                     <div>
-                                    {extensionSettings.supportsLifecycle === false && (
-                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
-                                    )}
-                                        
+                                        {extensionSettings.supportsLifecycle === false && (
+                                            <span>Does your Sonatype IQ Server include support for </span>
+                                        )}
+
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
                                             Sonatype Lifecycle
                                         </NxTextLink>
-                                        {extensionSettings.supportsLifecycle === false && (
-                                            <span>?</span>
-                                        )}
+                                        {extensionSettings.supportsLifecycle === false && <span>?</span>}
                                         {extensionSettings.supportsLifecycle === true && (
-                                            <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
                                         )}
                                     </div>
                                 </center>
@@ -262,25 +268,28 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/add-on-sonatype-icon-water.png' 
-                                        width='50' 
+                                    <img
+                                        src='/images/add-on-sonatype-icon-water.png'
+                                        width='50'
                                         alt=''
-                                       className={extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'}
+                                        className={
+                                            extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
+                                        }
                                     />
                                     <div>
-                                    {extensionSettings.supportsLifecycle === false && (
-                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
-                                    )}
+                                        {extensionSettings.supportsLifecycleAlp === false && (
+                                            <span>Does your Sonatype IQ Server include support for </span>
+                                        )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
                                             Advanced Legal Pack for Sonatype Lifecycle
                                         </NxTextLink>
-                                        {extensionSettings.supportsLifecycleAlp === false && (
-                                            <span>?</span>
-                                        )}
+                                        {extensionSettings.supportsLifecycleAlp === false && <span>?</span>}
                                         {extensionSettings.supportsLifecycleAlp === true && (
-                                           <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
                                         )}
                                     </div>
                                 </center>
@@ -289,22 +298,28 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/sonatype-firewall-icon.png' width='50' alt='' 
-                                    className={extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'} />
+                                    <img
+                                        src='/images/sonatype-firewall-icon.png'
+                                        width='50'
+                                        alt=''
+                                        className={
+                                            extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'
+                                        }
+                                    />
                                     <div>
-                                    {extensionSettings.supportsLifecycle === false && (
-                                        <span>Does your Sonatype IQ Server include support for{' '}</span>
-                                    )}
+                                        {extensionSettings.supportsFirewall === false && (
+                                            <span>Does your Sonatype IQ Server include support for </span>
+                                        )}
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
                                             Sonatype Repository Firewall
                                         </NxTextLink>
-                                        {extensionSettings.supportsFirewall === false && (
-                                            <span>?</span>
-                                        )}
+                                        {extensionSettings.supportsFirewall === false && <span>?</span>}
                                         {extensionSettings.supportsFirewall === true && (
-                                            <div><NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag></div>
+                                            <div>
+                                                <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                            </div>
                                         )}
                                     </div>
                                 </center>
