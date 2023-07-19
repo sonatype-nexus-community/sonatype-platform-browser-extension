@@ -4,3 +4,7 @@
 .nx-list__term {
     width: unset !important;
 }
+
+.dim-image {
+    opacity: 0.2;
+}

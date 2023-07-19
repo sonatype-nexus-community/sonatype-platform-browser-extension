@@ -28,8 +28,7 @@ import {
     NxPageMain,
     NxPageTitle,
     NxTile,
-    NxTextLink,
-    NxSuccessAlert,
+    NxTextLink
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -236,10 +235,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/sonatype-lifecycle-icon.png' width='50' alt='' />
-                                    {extensionSettings.supportsLifecycle !== false && (
-                                        <NxSuccessAlert>Supported</NxSuccessAlert>
-                                    )}
+                                    <img src='/images/sonatype-lifecycle-icon.png' width='50' alt='' 
+                                    className={extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'}/>
                                     <p>
                                         Does your Sonatype IQ Server include support for{' '}
                                         <NxTextLink
@@ -255,10 +252,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/add-on-sonatype-icon-water.png' width='50' alt='' />
-                                    {extensionSettings.supportsLifecycleAlp !== false && (
-                                        <NxSuccessAlert>Supported</NxSuccessAlert>
-                                    )}
+                                    <img src='/images/add-on-sonatype-icon-water.png' 
+                                        width='50' 
+                                        alt=''
+                                       className={extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'}
+                                    />
                                     <p>
                                         Does your Sonatype IQ Server include support for{' '}
                                         <NxTextLink
@@ -274,11 +272,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         <div className='nx-grid-col nx-grid-col-33'>
                             <div>
                                 <center>
-                                    <img src='/images/sonatype-firewall-icon.png' width='50' alt='' />
-
-                                    {extensionSettings.supportsFirewall !== false && (
-                                        <NxSuccessAlert>Supported</NxSuccessAlert>
-                                    )}
+                                    <img src='/images/sonatype-firewall-icon.png' width='50' alt='' 
+                                    className={extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'} />
                                     <p>
                                         Does your Sonatype IQ Server include support for{' '}
                                         <NxTextLink

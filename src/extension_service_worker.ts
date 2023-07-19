@@ -28,7 +28,7 @@ import {
 } from './messages/IqMessages'
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
-import { IncompleteConfigurationError, InvalidConfigurationError } from './error/ExtensionError'
+import { IncompleteConfigurationError } from './error/ExtensionError'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
