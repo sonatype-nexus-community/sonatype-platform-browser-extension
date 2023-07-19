@@ -86,10 +86,11 @@ Yes - you read right - we have localised this extension!
 
 Currently we have translations for:
 
--   English 🇬🇧 🇺🇸 🇦🇺
+-   English 🇦🇺 🇬🇧 🇺🇸
 -   Finnish 🇫🇮
--   French 🇫🇷
--   Korean 🇰🇷
+-   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
+-   German 🇩🇪 🇦🇹 🇨🇭
+-   Korean 🇰🇷 🇨🇳
 
 More are coming soon.
 
