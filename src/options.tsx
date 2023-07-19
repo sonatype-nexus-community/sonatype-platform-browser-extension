@@ -24,9 +24,12 @@ import Options from './components/Options/Options'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 const container = document.getElementById('ui')
 const root = ReactDOM.createRoot(container)
+
+window.document.title = extension.name
 
 root.render(
     <React.StrictMode>
