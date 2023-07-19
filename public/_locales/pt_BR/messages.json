@@ -1,6 +1,6 @@
 {
     "EXTENSION_NAME": {
-        "message": "Sonatype Platform Browser Extension",
+        "message": "Extensão de browser da Plataforma Sonatype",
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
