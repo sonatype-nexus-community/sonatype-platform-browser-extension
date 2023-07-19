@@ -278,7 +278,7 @@
         }
     },
     "POPUP_TAB_POLICY_TOOLIP": {
-        "message": "Sonatype Lifecycle Appliation Evaluation Policy Violations: $APPNAME$",
+        "message": "Sonatype Lifecycle Application Evaluation Policy Violations: $APPNAME$",
         "description": "Toolip for the POPUP_TAB_POLICY",
         "placeholders": {
             "APPNAME": {
