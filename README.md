@@ -91,6 +91,7 @@ Currently we have translations for:
 -   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
 -   German 🇩🇪 🇦🇹 🇨🇭
 -   Korean 🇰🇷 🇨🇳
+-   Portuguese 🇧🇷 🇵🇹
 
 More are coming soon.
 
