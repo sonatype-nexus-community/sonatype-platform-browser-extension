@@ -8,7 +8,7 @@
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
-        "message": "Release $VERSION$",
+        "message": "Version $VERSION$",
         "description": "The release version of this browser extension",
         "placeholders": {
             "VERSION": {
@@ -78,7 +78,7 @@
         "description": "Title of the first Help Tile"
     },
     "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
-        "message": "Ausführliche Dokumentation für die Sonatype Plattform Browser Extension ist verfügbar",
+        "message": "Ausführliche Dokumentation für die Sonatype Plattform Browser Extension ist verfügbar ",
         "description": "Content for the first Help Tile"
     },
     "HELP_TILE_TITLE_FEATURE_REQUEST": {
