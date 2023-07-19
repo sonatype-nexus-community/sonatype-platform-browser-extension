@@ -188,11 +188,11 @@
         "description": "Current Connection Type prompt"
     },
     "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
-        "message": "Sonatype Configuration",
+        "message": "Configuration",
         "description": "Options Tab name for Sonatype Configuration"
     },
     "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-        "message": "General Options",
+        "message": "Advanced Options",
         "description": "Options Tab name for General Configuration"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_1": {
