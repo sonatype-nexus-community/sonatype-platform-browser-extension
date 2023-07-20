@@ -77,7 +77,10 @@ export default function GeneralOptionsPage({
         logger.logMessage(`Requesting  Browser Permission for: ${addNxrmHostState.trimmedValue}`, LogLevel.INFO)
 
         if (addNxrmHostState.trimmedValue !== undefined) {
-            logger.logMessage(`Requesting permission to Origin ${extensionSettings.host}`, LogLevel.DEBUG)
+            const newNxrmHost = addNxrmHostState.trimmedValue.endsWith('/')
+                ? addNxrmHostState.trimmedValue
+                : `${addNxrmHostState.trimmedValue}/`
+            logger.logMessage(`Requesting permission to Origin ${newNxrmHost}`, LogLevel.DEBUG)
             if (extensionSettings.sonatypeNexusRepositoryHosts.length == 0) {
                 _browser.scripting
                     .registerContentScripts([
@@ -85,15 +88,13 @@ export default function GeneralOptionsPage({
                             id: 'content',
                             css: ['/css/pagestyle.css'],
                             js: ['/static/js/content.js'],
-                            matches: [`${addNxrmHostState.trimmedValue}/*`],
+                            matches: [`${newNxrmHost}*`],
                             runAt: 'document_end',
                         },
                     ])
-                    .then(recordRegisteredNxrmHost(addNxrmHostState.trimmedValue))
+                    .then(recordRegisteredNxrmHost(newNxrmHost))
             } else {
-                const allNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts.concat([
-                    addNxrmHostState.trimmedValue,
-                ])
+                const allNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts.concat([newNxrmHost])
                 _browser.scripting
                     .updateContentScripts([
                         {
@@ -101,22 +102,32 @@ export default function GeneralOptionsPage({
                             css: ['/css/pagestyle.css'],
                             js: ['/static/js/content.js'],
                             matches: allNxrmHosts.map((url: string) => {
-                                return url + '/*'
+                                return url + '*'
                             }),
                             runAt: 'document_end',
+                            world: 'MAIN',
                         },
                     ])
-                    .then(recordRegisteredNxrmHost(addNxrmHostState.trimmedValue))
+                    .then(recordRegisteredNxrmHost(newNxrmHost))
             }
         }
     }
 
     function recordRegisteredNxrmHost(host: string): void {
         logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO)
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
-        newExtensionSettings.sonatypeNexusRepositoryHosts.push(host)
-        setExtensionConfig(newExtensionSettings)
-        setAddNxrmHostState(userInput(null, ''))
+        _browser.permissions
+            .request({
+                origins: [host],
+            })
+            .then((success: boolean) => {
+                if (success) {
+                    logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO)
+                    const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                    newExtensionSettings.sonatypeNexusRepositoryHosts.push(host)
+                    setExtensionConfig(newExtensionSettings)
+                    setAddNxrmHostState(userInput(null, ''))
+                }
+            })
     }
 
     function handleLogLevelChange(e) {

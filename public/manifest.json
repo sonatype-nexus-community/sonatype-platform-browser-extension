@@ -38,7 +38,7 @@
         }
     ],
     "homepage_url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
-    "minimum_chrome_version": "96",
+    "minimum_chrome_version": "102",
     "offline_enabled": false,
     "options_page": "options.html",
     "permissions": ["activeTab", "declarativeContent", "background", "scripting", "storage", "tabs"],

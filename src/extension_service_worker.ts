@@ -92,7 +92,6 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
         if (repoType !== undefined) {
             // We support this Repository!
             logger.logMessage(`Enabling Sonatype Browser Extension for ${url}`, LogLevel.DEBUG)
-            propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
             _browser.tabs
                 .sendMessage(tabId, {
                     type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
@@ -116,6 +115,8 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                     // })
 
                     if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                        propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
+
                         requestComponentEvaluationByPurls({
                             type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
                             params: {

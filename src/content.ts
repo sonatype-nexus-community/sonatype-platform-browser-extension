@@ -20,6 +20,7 @@ import { findRepoType } from './utils/UrlParsing'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'
+import { FORMATS } from './utils/Constants'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -50,6 +51,15 @@ function handle_message_received_calculate_purl_for_page(
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
                         message: `Repository not supported: ${window.location.href}`,
+                    },
+                })
+            } else if (repoType.repoFormat == FORMATS.NXRM) {
+                logger.logMessage(`Calculating PURL for a Sonatype Nexus Repository`, LogLevel.DEBUG)
+
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.FAILURE,
+                    status_detail: {
+                        message: `Unable to determine PackageURL for Sonatype Nexus Repository ${request.params}`,
                     },
                 })
             } else {

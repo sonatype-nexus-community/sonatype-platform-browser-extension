@@ -27,9 +27,7 @@ const findRepoType = async (url: string): Promise<RepoType | undefined> => {
         }
     }
 
-    const val = await findNxrmRepoType(url)
-    logger.logMessage(`Got ${val}`, LogLevel.DEBUG, val)
-    return val
+    return await findNxrmRepoType(url)
 }
 
 function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
@@ -37,13 +35,15 @@ function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
         logger.logMessage(`Checking if ${url} matches a configured Sonatype Nexus Repository`, LogLevel.DEBUG)
         if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
             const extensionConfig = response.data as ExtensionConfiguration
-            for (const nxrmUrl of extensionConfig.sonatypeNexusRepositoryHosts) {
-                logger.logMessage(`Checking ${url} against ${nxrmUrl}...`, LogLevel.DEBUG)
-                if (url.startsWith(nxrmUrl)) {
-                    return {
-                        url: nxrmUrl,
-                        repoFormat: FORMATS.NXRM,
-                        repoID: `NXRM-${nxrmUrl}`,
+            if (extensionConfig !== undefined && extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
+                for (const nxrmUrl of extensionConfig.sonatypeNexusRepositoryHosts) {
+                    logger.logMessage(`Checking ${url} against ${nxrmUrl}...`, LogLevel.DEBUG)
+                    if (url.startsWith(nxrmUrl)) {
+                        return {
+                            url: nxrmUrl,
+                            repoFormat: FORMATS.NXRM,
+                            repoID: `NXRM-${nxrmUrl}`,
+                        }
                     }
                 }
             }
