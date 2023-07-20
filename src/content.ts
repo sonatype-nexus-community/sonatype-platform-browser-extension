@@ -20,7 +20,8 @@ import { findRepoType } from './utils/UrlParsing'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'
-import { FORMATS } from './utils/Constants'
+import { FORMATS, RepoType } from './utils/Constants'
+import { getArtifactDetailsFromNxrmDom } from './utils/PageParsing/NexusRepositoryPageParsing'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -45,17 +46,24 @@ function handle_message_received_calculate_purl_for_page(
     if (request.type == MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE) {
         logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
         logger.logMessage('Deriving PackageURL', LogLevel.INFO, request.params)
-        findRepoType(window.location.href).then((repoType) => {
-            if (repoType === undefined) {
-                sendResponse({
-                    status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                    status_detail: {
-                        message: `Repository not supported: ${window.location.href}`,
-                    },
-                })
-            } else if (repoType.repoFormat == FORMATS.NXRM) {
-                logger.logMessage(`Calculating PURL for a Sonatype Nexus Repository`, LogLevel.DEBUG)
 
+        let repoType: RepoType | undefined
+        if (request.params !== undefined && 'repoType' in request.params) {
+            repoType = request.params.repoType as RepoType
+        }
+
+        if (repoType === undefined) {
+            sendResponse({
+                status: MESSAGE_RESPONSE_STATUS.FAILURE,
+                status_detail: {
+                    message: `Repository not supported: ${window.location.href}`,
+                },
+            })
+        } else if (repoType.repoFormat == FORMATS.NXRM) {
+            logger.logMessage(`Calculating PURL for a Sonatype Nexus Repository`, LogLevel.DEBUG)
+            const purl = getArtifactDetailsFromNxrmDom(repoType, window.location.href)
+
+            if (purl === undefined) {
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
@@ -63,24 +71,31 @@ function handle_message_received_calculate_purl_for_page(
                     },
                 })
             } else {
-                const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
-                if (purl === undefined) {
-                    sendResponse({
-                        status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                        status_detail: {
-                            message: `Unable to determine PackageURL for ${request.params}`,
-                        },
-                    })
-                } else {
-                    sendResponse({
-                        status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-                        data: {
-                            purl: purl.toString(),
-                        },
-                    })
-                }
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                    data: {
+                        purl: purl.toString(),
+                    },
+                })
             }
-        })
+        } else {
+            const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
+            if (purl === undefined) {
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.FAILURE,
+                    status_detail: {
+                        message: `Unable to determine PackageURL for ${request.params}`,
+                    },
+                })
+            } else {
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                    data: {
+                        purl: purl.toString(),
+                    },
+                })
+            }
+        }
     }
 }
 
