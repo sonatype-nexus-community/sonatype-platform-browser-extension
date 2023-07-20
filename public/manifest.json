@@ -4,10 +4,10 @@
     "version": "2.1.0",
     "description": "__MSG_extension_description__",
     "icons": {
-        "16": "images/sonatype-lifecycle-icon-16x16.png",
-        "32": "images/sonatype-lifecycle-icon-32x32.png",
-        "48": "images/sonatype-lifecycle-icon-48x48.png",
-        "128": "images/sonatype-lifecycle-icon-128x128.png"
+        "16": "images/sonatype-platform-icon-16x16.png",
+        "32": "images/sonatype-platform-icon-32x32.png",
+        "48": "images/sonatype-platform-icon-48x48.png",
+        "128": "images/sonatype-platform-icon-128x128.png"
     },
     "default_locale": "en",
     "content_scripts": [
@@ -50,8 +50,8 @@
         "default_popup": "popup.html",
         "default_title": "View the details of this Component",
         "default_icon": {
-            "16": "images/sonatype-lifecycle-icon-16x16.png",
-            "32": "images/sonatype-lifecycle-icon-32x32.png"
+            "16": "images/sonatype-platform-icon-16x16.png",
+            "32": "images/sonatype-platform-icon-32x32.png"
         }
     },
     "content_security_policy": {
