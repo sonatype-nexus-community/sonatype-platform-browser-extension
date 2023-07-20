@@ -43,6 +43,7 @@ function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
                             url: nxrmUrl,
                             repoFormat: FORMATS.NXRM,
                             repoID: `NXRM-${nxrmUrl}`,
+                            titleSelector: "#nx-coreui-component-componentassetinfo-1200_header-title-textEl",
                         }
                     }
                 }

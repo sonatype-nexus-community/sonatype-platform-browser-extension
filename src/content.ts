@@ -106,9 +106,10 @@ function handle_message_received_calculate_purl_for_page(
  */
 function handle_message_received_propogate_component_state(request: MessageRequest): void {
     if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
-        logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
+        logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type)
         findRepoType(window.location.href).then((repoType) => {
             if (repoType !== undefined) {
+                logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
                 if (request.params !== undefined && 'componentState' in request.params) {
                     const componentState = request.params.componentState as ComponentState
                     logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
@@ -138,6 +139,7 @@ function handle_message_received_propogate_component_state(request: MessageReque
                     }
 
                     const domElement = $(repoType.titleSelector)
+                    logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
                     if (domElement.length > 0) {
                         removeClasses(domElement)
                         domElement.addClass('sonatype-iq-extension-vuln')
