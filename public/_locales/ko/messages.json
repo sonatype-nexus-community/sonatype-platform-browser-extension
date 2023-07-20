@@ -338,5 +338,13 @@
     "GITHUB_FORKS": {
         "message": "포크",
         "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "소나타입 IQ 서버 지원여부",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "SUPPORTED": {
+        "message": "지원",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
     }
 }
