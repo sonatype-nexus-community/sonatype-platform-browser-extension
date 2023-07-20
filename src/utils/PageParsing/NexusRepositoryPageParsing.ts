@@ -15,11 +15,15 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { RepoType } from '..//Constants'
+import { FORMATS, RepoType } from '..//Constants'
 import { LogLevel, logger } from '../../logger/Logger'
+import { generatePackageURLComplete } from './PurlUtils'
 
-const DOM_SELECTOR_BROWSE_FORMAT = '#nx-info-1204 tbody tr:nth-child(2) td:nth-child(2)'
-const DOM_SELECTOR_BROWSE_SHA1 = 'DIV:contains(sha1)'
+const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
+
+const DOM_BROWSE_MAVEN2_GROUP = 'div.nx-info > table > tbody > tr:nth-child(3) > td.nx-info-entry-value'
+const DOM_BROWSE_MAVEN2_COMPONENT = 'div.nx-info > table > tbody > tr:nth-child(4) > td.nx-info-entry-value'
+const DOM_BROWSE_MAVEN2_VERSION = 'div.nx-info > table > tbody > tr:nth-child(5) > td.nx-info-entry-value'
 
 export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromNxrmDom', LogLevel.DEBUG, repoType, url)
@@ -29,20 +33,27 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
 
     if (uriPath.startsWith('#browse/browse')) {
         // Browse Mode
-        // const checksumDomNode = $('DIV.x-grid-group-title').filter(function (i, e) {
-        //     logger.logMessage(` Filtering Node`, LogLevel.DEBUG, i, e)
-        //     return e.innerText === 'Checksum'
-        // })
-        const checksumDomNode = $("td[data-qtip|='sha1']")
-        logger.logMessage(` SHA1`, LogLevel.DEBUG, checksumDomNode.html())
-        // const parentNode = $(checksumDomNode).parent()
-        // logger.logMessage(` Parent`, LogLevel.DEBUG, parentNode.html())
-        logger.logMessage(` SHA1 VALUE`, LogLevel.DEBUG, checksumDomNode.next().html())
+        const formatDomNode = $(DOM_SELECTOR_BROWSE_REPO_FORMAT)
+        if (formatDomNode === undefined) {
+            return undefined
+        }
 
-        const formatDomNode = $(DOM_SELECTOR_BROWSE_FORMAT)
-        if (formatDomNode !== undefined) {
-            const format = formatDomNode.get(0)?.innerHTML
-            logger.logMessage(` Detected format ${format}`, LogLevel.DEBUG, formatDomNode)
+        const format = formatDomNode.first().text()
+        logger.logMessage(`Detected format ${format}`, LogLevel.DEBUG, formatDomNode)
+
+        if (format == 'maven2') {
+            const group = $(DOM_BROWSE_MAVEN2_GROUP).first().text()
+            const component = $(DOM_BROWSE_MAVEN2_COMPONENT).first().text()
+            const version = $(DOM_BROWSE_MAVEN2_VERSION).first().text()
+
+            return generatePackageURLComplete(
+                FORMATS.maven,
+                encodeURIComponent(component),
+                encodeURIComponent(version),
+                encodeURIComponent(group),
+                { type: 'jar' },
+                undefined
+            )
         }
     } else if (uriPath.startsWith('#/browse/search')) {
         // Search Mode
