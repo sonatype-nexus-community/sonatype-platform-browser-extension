@@ -25,6 +25,7 @@ export interface ExtensionConfiguration {
     iqApplicationInternalId?: string
     iqApplicationPublidId?: string
     logLevel: LogLevel
+    sonatypeNexusRepositoryHosts: Array<string>
     supportsFirewall: boolean
     supportsLifecycle: boolean
     supportsLifecycleAlp: boolean
@@ -33,6 +34,7 @@ export interface ExtensionConfiguration {
 export const DEFAULT_EXTENSION_SETTINGS: ExtensionConfiguration = {
     dataSource: DATA_SOURCE.NEXUSIQ,
     logLevel: LogLevel.DEBUG,
+    sonatypeNexusRepositoryHosts: [],
     supportsFirewall: false,
     supportsLifecycle: false,
     supportsLifecycleAlp: false,
