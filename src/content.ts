@@ -20,7 +20,6 @@ import { findRepoType } from './utils/UrlParsing'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'
-import { RepoType } from './utils/Constants'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -45,33 +44,33 @@ function handle_message_received_calculate_purl_for_page(
     if (request.type == MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE) {
         logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
         logger.logMessage('Deriving PackageURL', LogLevel.INFO, request.params)
-        const repoType = findRepoType(window.location.href)
-
-        if (repoType === undefined) {
-            sendResponse({
-                status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                status_detail: {
-                    message: `Repository not supported: ${window.location.href}`,
-                },
-            })
-        } else {
-            const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
-            if (purl === undefined) {
+        findRepoType(window.location.href).then((repoType) => {
+            if (repoType === undefined) {
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
-                        message: `Unable to determine PackageURL for ${request.params}`,
+                        message: `Repository not supported: ${window.location.href}`,
                     },
                 })
             } else {
-                sendResponse({
-                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-                    data: {
-                        purl: purl.toString(),
-                    },
-                })
+                const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
+                if (purl === undefined) {
+                    sendResponse({
+                        status: MESSAGE_RESPONSE_STATUS.FAILURE,
+                        status_detail: {
+                            message: `Unable to determine PackageURL for ${request.params}`,
+                        },
+                    })
+                } else {
+                    sendResponse({
+                        status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                        data: {
+                            purl: purl.toString(),
+                        },
+                    })
+                }
             }
-        }
+        })
     }
 }
 
@@ -83,42 +82,45 @@ function handle_message_received_calculate_purl_for_page(
 function handle_message_received_propogate_component_state(request: MessageRequest): void {
     if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
         logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
-        if (request.params !== undefined && 'componentState' in request.params) {
-            const repoType = findRepoType(window.location.href) as RepoType
-            const componentState = request.params.componentState as ComponentState
-            logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
-            let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
-            switch (componentState) {
-                case ComponentState.CRITICAL:
-                    vulnClass = 'sonatype-iq-extension-vuln-critical'
-                    break
-                case ComponentState.SEVERE:
-                    vulnClass = 'sonatype-iq-extension-vuln-severe'
-                    break
-                case ComponentState.MODERATE:
-                    vulnClass = 'sonatype-iq-extension-vuln-moderate'
-                    break
-                case ComponentState.LOW:
-                    vulnClass = 'sonatype-iq-extension-vuln-low'
-                    break
-                case ComponentState.NONE:
-                    vulnClass = 'sonatype-iq-extension-vuln-none'
-                    break
-                case ComponentState.EVALUATING:
-                    vulnClass = 'sonatype-iq-extension-vuln-evaluating'
-                    break
-                case ComponentState.INCOMPLETE_CONFIG:
-                    vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
-                    break
+        findRepoType(window.location.href).then((repoType) => {
+            if (repoType !== undefined) {
+                if (request.params !== undefined && 'componentState' in request.params) {
+                    const componentState = request.params.componentState as ComponentState
+                    logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
+                    let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
+                    switch (componentState) {
+                        case ComponentState.CRITICAL:
+                            vulnClass = 'sonatype-iq-extension-vuln-critical'
+                            break
+                        case ComponentState.SEVERE:
+                            vulnClass = 'sonatype-iq-extension-vuln-severe'
+                            break
+                        case ComponentState.MODERATE:
+                            vulnClass = 'sonatype-iq-extension-vuln-moderate'
+                            break
+                        case ComponentState.LOW:
+                            vulnClass = 'sonatype-iq-extension-vuln-low'
+                            break
+                        case ComponentState.NONE:
+                            vulnClass = 'sonatype-iq-extension-vuln-none'
+                            break
+                        case ComponentState.EVALUATING:
+                            vulnClass = 'sonatype-iq-extension-vuln-evaluating'
+                            break
+                        case ComponentState.INCOMPLETE_CONFIG:
+                            vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
+                            break
+                    }
+
+                    const domElement = $(repoType.titleSelector)
+                    if (domElement.length > 0) {
+                        removeClasses(domElement)
+                        domElement.addClass('sonatype-iq-extension-vuln')
+                        domElement.addClass(vulnClass)
+                    }
+                }
             }
-            
-            const domElement = $(repoType.titleSelector)
-            if (domElement.length > 0) {
-                removeClasses(domElement)
-                domElement.addClass('sonatype-iq-extension-vuln')
-                domElement.addClass(vulnClass)
-            }
-        }
+        })
     }
 }
 

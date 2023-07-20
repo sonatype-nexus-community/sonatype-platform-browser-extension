@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { RepoType, REPO_TYPES } from './Constants'
+import { RepoType, REPO_TYPES, FORMATS } from './Constants'
 import { LogLevel, logger } from '../logger/Logger'
+import { readExtensionConfiguration } from '../messages/SettingsMessages'
+import { MESSAGE_RESPONSE_STATUS } from '../types/Message'
+import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 
-const findRepoType = (url: string): RepoType | undefined => {
+const findRepoType = async (url: string): Promise<RepoType | undefined> => {
     for (let i = 0; i < REPO_TYPES.length; i++) {
         if (url.search(REPO_TYPES[i].url) >= 0) {
             logger.logMessage(`Current URL ${url} matches ${REPO_TYPES[i].repoID}`, LogLevel.INFO)
@@ -24,7 +27,29 @@ const findRepoType = (url: string): RepoType | undefined => {
         }
     }
 
-    return undefined
+    const val = await findNxrmRepoType(url)
+    logger.logMessage(`Got ${val}`, LogLevel.DEBUG, val)
+    return val
+}
+
+function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
+    return readExtensionConfiguration().then((response) => {
+        logger.logMessage(`Checking if ${url} matches a configured Sonatype Nexus Repository`, LogLevel.DEBUG)
+        if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+            const extensionConfig = response.data as ExtensionConfiguration
+            for (const nxrmUrl of extensionConfig.sonatypeNexusRepositoryHosts) {
+                logger.logMessage(`Checking ${url} against ${nxrmUrl}...`, LogLevel.DEBUG)
+                if (url.startsWith(nxrmUrl)) {
+                    return {
+                        url: nxrmUrl,
+                        repoFormat: FORMATS.NXRM,
+                        repoID: `NXRM-${nxrmUrl}`,
+                    }
+                }
+            }
+        }
+        return undefined
+    })
 }
 
 export { findRepoType }

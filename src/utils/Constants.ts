@@ -54,6 +54,7 @@ export const FORMATS = {
     nuget: 'nuget',
     pypi: 'pypi',
     rpm: 'rpm',
+    NXRM: 'NXRM',
 }
 
 export const REPOS = {
