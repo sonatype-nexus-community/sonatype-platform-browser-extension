@@ -83,7 +83,7 @@ export default function Options() {
             return '/images/Sonatype-platform-logo-white.svg'
         }
         if (extensionConfig.supportsLifecycle === true) {
-            return '/images/sonatype-lifecycle-logo-nav-white.svg'
+            return '/images/sonatype-lifecycle-logo-white.svg'
         }
         if (extensionConfig.supportsFirewall === true) {
             return '/images/sonatype-firewall-logo-white.svg'
