@@ -21,12 +21,6 @@ import { generatePackageURLComplete } from './PurlUtils'
 
 const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
 
-const DOM_BROWSE_ITEM_2 = 'div.nx-info > table > tbody > tr:nth-child(3) > td.nx-info-entry-value'
-const DOM_BROWSE_ITEM_3 = 'div.nx-info > table > tbody > tr:nth-child(4) > td.nx-info-entry-value'
-const DOM_BROWSE_ITEM_4 = 'div.nx-info > table > tbody > tr:nth-child(5) > td.nx-info-entry-value'
-const DOM_BROWSE_ATTRIBUTE_TABLE =
-    'DIV.nx-coreui-component-assetattributes > DIV.x-panel-bodyWrap > DIV.x-panel-body > DIV.x-grid-view > DIV.x-grid-item-container'
-
 export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromNxrmDom', LogLevel.DEBUG, repoType, url)
 
@@ -43,25 +37,15 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
         const format = formatDomNode.first().text().trim()
         logger.logMessage(`Detected format ${format}`, LogLevel.DEBUG, formatDomNode)
 
-        const summary_item_2 = $(DOM_BROWSE_ITEM_2).first().text().trim()
-        const summary_item_3 = $(DOM_BROWSE_ITEM_3).first().text().trim()
-        const summary_item_4 = $(DOM_BROWSE_ITEM_4).first().text().trim()
-
-        if (summary_item_3.includes('/')) {
-            // When browsing and selecting the tree node before the version, this contains
-            // the content type - e.g. 'application/json'
-            return undefined
-        }
-
         switch (format) {
             case 'maven2':
-                return attemptPackageUrlMaven(summary_item_3, summary_item_4, summary_item_2)
+                return attemptPackageUrlMavenUrl(uriPath)
             case FORMATS.npm:
-                return attempPackageUrlNpm(summary_item_3, summary_item_4, summary_item_2)
+                return attemptPackageUrlNpmUrl(uriPath)
             case FORMATS.pypi:
-                return attemptPackageUrlPyPi(summary_item_2, summary_item_3)
+                return attemptPackageUrlPyPiUrl(uriPath)
             case 'rubygems':
-                return attemptPackageUrlRubyGem(summary_item_2, summary_item_3)
+                return attemptPackageUrlRubyUrl(uriPath)
         }
     } else if (uriPath.startsWith('#/browse/search')) {
         // Search Mode
@@ -70,77 +54,102 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
     return undefined
 }
 
-function attemptPackageUrlMaven(name: string, version: string, namespace: string): PackageURL | undefined {
-    if (name == '' || version == '' || namespace == '') {
-        return undefined
+function attemptPackageUrlMavenUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:maven-central:org%2Fapache%2Flogging%2Flog4j%2Flog4j-core%2F2.12.0%2Flog4j-core-2.12.0.jar
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 4) {
+        const fileExtension = (componentParts.pop() as string).split('.').pop() as string
+        const version = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+        const componentGroup = componentParts.join('.')
+
+        return generatePackageURLComplete(
+            FORMATS.maven,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            encodeURIComponent(componentGroup),
+            { type: fileExtension },
+            undefined
+        )
     }
-    return generatePackageURLComplete(
-        FORMATS.maven,
-        encodeURIComponent(name),
-        encodeURIComponent(version),
-        encodeURIComponent(namespace),
-        { type: 'jar' },
-        undefined
-    )
+    return undefined
 }
 
-function attempPackageUrlNpm(name: string, version: string, namespace?: string): PackageURL | undefined {
-    if (name == '' || version == '') {
-        return undefined
+function attemptPackageUrlNpmUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:npm-proxy:%40sonatype%2Fpolicy-demo%2Fpolicy-demo-2.0.0.tgz
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 2) {
+        const filename = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+        const componentNamespace = componentParts.pop() as string
+
+        const filenameParts = (filename.split('-').pop() as string).split('.')
+        filenameParts.pop()
+        const version = filenameParts.join('.')
+
+        return generatePackageURLComplete(
+            FORMATS.npm,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            encodeURIComponent(componentNamespace),
+            undefined,
+            undefined
+        )
     }
-    if (namespace !== undefined) {
-        namespace = '@' + encodeURIComponent(namespace)
-    }
-    return generatePackageURLComplete(
-        FORMATS.npm,
-        encodeURIComponent(name),
-        encodeURIComponent(version),
-        namespace,
-        {},
-        undefined
-    )
+    return undefined
 }
 
-function attemptPackageUrlPyPi(name: string, version: string): PackageURL | undefined {
-    if (name == '' || version == '') {
-        return undefined
+function attemptPackageUrlPyPiUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:pupy-proxy:babel%2F2.12.1%2FBabel-2.12.1-py3-none-any.whl
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 3) {
+        componentParts.pop() as string // drop filename
+        const version = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+
+        return generatePackageURLComplete(
+            FORMATS.pypi,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            undefined,
+            { extension: 'tar.gz' },
+            undefined
+        )
     }
-    return generatePackageURLComplete(
-        FORMATS.pypi,
-        encodeURIComponent(name),
-        encodeURIComponent(version),
-        undefined,
-        { extension: 'tar.gz' },
-        undefined
-    )
+    return undefined
 }
 
-function attemptPackageUrlRubyGem(name: string, version: string): PackageURL | undefined {
-    if (name == '' || version == '') {
-        return undefined
+function attemptPackageUrlRubyUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:ruby-proxy:logstash-input-tcp%2F6.0.9%2Flogstash-input-tcp-6.0.9-java.gemspec.rz
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 3) {
+        const filename = componentParts.pop() as string
+        const version = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+
+        let platform: string | undefined = undefined
+        const detectPlatformInFilename = filename.replace(`${componentName}-`, '').replace(`${version}`, '')
+        if (detectPlatformInFilename != '.gemspec.rz') {
+            platform = (detectPlatformInFilename.split('.').shift() as string).substring(1)
+        }
+
+        return generatePackageURLComplete(
+            FORMATS.gem,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            undefined,
+            platform !== undefined ? { platform: platform } : undefined,
+            undefined
+        )
     }
 
-    const attributeTableNode = $(DOM_BROWSE_ATTRIBUTE_TABLE)
-    let platformValue: string | undefined
-    logger.logMessage(`Attribute Table: `, LogLevel.DEBUG, attributeTableNode)
-    const a = $(
-        'DIV.nx-coreui-component-assetattributes > DIV.x-panel-body > DIV.x-grid-item-container > TABLE:last-child > DIV'
-    ).first()
-    const b = $(
-        'DIV.nx-coreui-component-assetattributes > DIV.x-panel-body > DIV.x-grid-item-container > TABLE:last-child > DIV'
-    )
-        .first()
-        .text()
-    if ($('TD:nth-child(1)', $(DOM_BROWSE_ATTRIBUTE_TABLE).first()).first().text().trim() == 'platform') {
-        platformValue = $('TD:nth-child(2)', $(DOM_BROWSE_ATTRIBUTE_TABLE).first()).first().text().trim()
-    }
-
-    return generatePackageURLComplete(
-        FORMATS.gem,
-        encodeURIComponent(name),
-        encodeURIComponent(version),
-        undefined,
-        platformValue === undefined || platformValue == 'ruby' ? undefined : { platform: platformValue as string },
-        undefined
-    )
+    return undefined
 }
