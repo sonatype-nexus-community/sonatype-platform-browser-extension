@@ -38,6 +38,8 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
         logger.logMessage(`Detected format ${format}`, LogLevel.DEBUG, formatDomNode)
 
         switch (format) {
+            case FORMATS.cocoapods:
+                return attemptPackageUrlCocoaPodsUrl(uriPath)
             case 'maven2':
                 return attemptPackageUrlMavenUrl(uriPath)
             case FORMATS.npm:
@@ -49,6 +51,34 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
         }
     } else if (uriPath.startsWith('#/browse/search')) {
         // Search Mode
+    }
+
+    return undefined
+}
+
+function attemptPackageUrlCocoaPodsUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:cocoapods-proxy:Specs%2Fc%2Fb%2F0%2FIgor%2F0.5.0%2FIgor.podspec.json
+    // ==> Specs/c/b/0/Igor/0.5.0/Igor.podspec.json
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 4) {
+        const filename = componentParts.pop() as string
+        if (!filename.endsWith('.podspec.json')) {
+            return undefined
+        }
+
+        const version = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+
+        return generatePackageURLComplete(
+            FORMATS.cocoapods,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            undefined,
+            undefined,
+            undefined
+        )
     }
 
     return undefined

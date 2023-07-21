@@ -28,6 +28,41 @@ describe('NXRM3 Page Parsing', () => {
     }
 
     /**
+     * CocoaPods FORMAT TESTS
+     */
+
+    test('#browse/browse:cocoapods-proxy:Specs%2Fc%2Fb%2F0%2FIgor%2F0.5.0', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-cocoapod-folder.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:cocoapods-proxy:Specs%2Fc%2Fb%2F0%2FIgor%2F0.5.0'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:cocoapods-proxy:Specs%2Fc%2Fb%2F0%2FIgor%2F0.5.0%2FIgor.podspec.json', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-cocoapod.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:cocoapods-proxy:Specs%2Fc%2Fb%2F0%2FIgor%2F0.5.0%2FIgor.podspec.json'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.cocoapods)
+        expect(packageURL?.namespace).toBeUndefined()
+        expect(packageURL?.name).toBe('Igor')
+        expect(packageURL?.version).toBe('0.5.0')
+        expect(packageURL?.qualifiers).toBeUndefined()
+    })
+
+    /**
      * MAVEN(2) FORMAT TESTS
      */
 
