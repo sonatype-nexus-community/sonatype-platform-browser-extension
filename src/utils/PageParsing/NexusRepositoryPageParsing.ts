@@ -21,9 +21,9 @@ import { generatePackageURLComplete } from './PurlUtils'
 
 const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
 
-const DOM_BROWSE_MAVEN2_GROUP = 'div.nx-info > table > tbody > tr:nth-child(3) > td.nx-info-entry-value'
-const DOM_BROWSE_MAVEN2_COMPONENT = 'div.nx-info > table > tbody > tr:nth-child(4) > td.nx-info-entry-value'
-const DOM_BROWSE_MAVEN2_VERSION = 'div.nx-info > table > tbody > tr:nth-child(5) > td.nx-info-entry-value'
+const DOM_BROWSE_GROUP = 'div.nx-info > table > tbody > tr:nth-child(3) > td.nx-info-entry-value'
+const DOM_BROWSE_COMPONENT = 'div.nx-info > table > tbody > tr:nth-child(4) > td.nx-info-entry-value'
+const DOM_BROWSE_VERSION = 'div.nx-info > table > tbody > tr:nth-child(5) > td.nx-info-entry-value'
 
 export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromNxrmDom', LogLevel.DEBUG, repoType, url)
@@ -38,22 +38,46 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
             return undefined
         }
 
-        const format = formatDomNode.first().text()
+        const format = formatDomNode.first().text().trim()
         logger.logMessage(`Detected format ${format}`, LogLevel.DEBUG, formatDomNode)
 
-        if (format == 'maven2') {
-            const group = $(DOM_BROWSE_MAVEN2_GROUP).first().text()
-            const component = $(DOM_BROWSE_MAVEN2_COMPONENT).first().text()
-            const version = $(DOM_BROWSE_MAVEN2_VERSION).first().text()
+        const group = $(DOM_BROWSE_GROUP).first().text().trim()
+        const component = $(DOM_BROWSE_COMPONENT).first().text().trim()
+        const version = $(DOM_BROWSE_VERSION).first().text().trim()
 
-            return generatePackageURLComplete(
-                FORMATS.maven,
-                encodeURIComponent(component),
-                encodeURIComponent(version),
-                encodeURIComponent(group),
-                { type: 'jar' },
-                undefined
-            )
+        if (component.includes('/')) {
+            // When browsing and selecting the tree node before the version, this contains
+            // the content type - e.g. 'application/json'
+            return undefined
+        }
+
+        switch (format) {
+            case 'maven2':
+                if (group == '' || component == '' || version == '') {
+                    return undefined
+                }
+                return generatePackageURLComplete(
+                    FORMATS.maven,
+                    encodeURIComponent(component),
+                    encodeURIComponent(version),
+                    encodeURIComponent(group),
+                    { type: 'jar' },
+                    undefined
+                )
+                break
+            case FORMATS.npm:
+                if (component == '' || version == '') {
+                    return undefined
+                }
+                return generatePackageURLComplete(
+                    FORMATS.npm,
+                    encodeURIComponent(component),
+                    encodeURIComponent(version),
+                    '@' + encodeURIComponent(group),
+                    {},
+                    undefined
+                )
+                break
         }
     } else if (uriPath.startsWith('#/browse/search')) {
         // Search Mode
