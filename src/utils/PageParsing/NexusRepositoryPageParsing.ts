@@ -24,6 +24,8 @@ const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-ch
 const DOM_BROWSE_ITEM_2 = 'div.nx-info > table > tbody > tr:nth-child(3) > td.nx-info-entry-value'
 const DOM_BROWSE_ITEM_3 = 'div.nx-info > table > tbody > tr:nth-child(4) > td.nx-info-entry-value'
 const DOM_BROWSE_ITEM_4 = 'div.nx-info > table > tbody > tr:nth-child(5) > td.nx-info-entry-value'
+const DOM_BROWSE_ATTRIBUTE_TABLE =
+    'DIV.nx-coreui-component-assetattributes > DIV.x-panel-bodyWrap > DIV.x-panel-body > DIV.x-grid-view > DIV.x-grid-item-container'
 
 export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromNxrmDom', LogLevel.DEBUG, repoType, url)
@@ -53,48 +55,92 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
 
         switch (format) {
             case 'maven2':
-                if (summary_item_2 == '' || summary_item_3 == '' || summary_item_4 == '') {
-                    return undefined
-                }
-                return generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(summary_item_3),
-                    encodeURIComponent(summary_item_4),
-                    encodeURIComponent(summary_item_2),
-                    { type: 'jar' },
-                    undefined
-                )
-                break
+                return attemptPackageUrlMaven(summary_item_3, summary_item_4, summary_item_2)
             case FORMATS.npm:
-                if (summary_item_3 == '' || summary_item_4 == '') {
-                    return undefined
-                }
-                return generatePackageURLComplete(
-                    FORMATS.npm,
-                    encodeURIComponent(summary_item_3),
-                    encodeURIComponent(summary_item_4),
-                    '@' + encodeURIComponent(summary_item_2),
-                    {},
-                    undefined
-                )
-                break
+                return attempPackageUrlNpm(summary_item_3, summary_item_4, summary_item_2)
             case FORMATS.pypi:
-                if (summary_item_2 == '' || summary_item_3 == '') {
-                    return undefined
-                }
-                return generatePackageURLComplete(
-                    FORMATS.pypi,
-                    encodeURIComponent(summary_item_2),
-                    encodeURIComponent(summary_item_3),
-                    undefined,
-                    { extension: 'tar.gz' },
-                    undefined
-                )
-                break
+                return attemptPackageUrlPyPi(summary_item_2, summary_item_3)
+            case 'rubygems':
+                return attemptPackageUrlRubyGem(summary_item_2, summary_item_3)
         }
     } else if (uriPath.startsWith('#/browse/search')) {
         // Search Mode
     }
 
     return undefined
+}
+
+function attemptPackageUrlMaven(name: string, version: string, namespace: string): PackageURL | undefined {
+    if (name == '' || version == '' || namespace == '') {
+        return undefined
+    }
+    return generatePackageURLComplete(
+        FORMATS.maven,
+        encodeURIComponent(name),
+        encodeURIComponent(version),
+        encodeURIComponent(namespace),
+        { type: 'jar' },
+        undefined
+    )
+}
+
+function attempPackageUrlNpm(name: string, version: string, namespace?: string): PackageURL | undefined {
+    if (name == '' || version == '') {
+        return undefined
+    }
+    if (namespace !== undefined) {
+        namespace = '@' + encodeURIComponent(namespace)
+    }
+    return generatePackageURLComplete(
+        FORMATS.npm,
+        encodeURIComponent(name),
+        encodeURIComponent(version),
+        namespace,
+        {},
+        undefined
+    )
+}
+
+function attemptPackageUrlPyPi(name: string, version: string): PackageURL | undefined {
+    if (name == '' || version == '') {
+        return undefined
+    }
+    return generatePackageURLComplete(
+        FORMATS.pypi,
+        encodeURIComponent(name),
+        encodeURIComponent(version),
+        undefined,
+        { extension: 'tar.gz' },
+        undefined
+    )
+}
+
+function attemptPackageUrlRubyGem(name: string, version: string): PackageURL | undefined {
+    if (name == '' || version == '') {
+        return undefined
+    }
+
+    const attributeTableNode = $(DOM_BROWSE_ATTRIBUTE_TABLE)
+    let platformValue: string | undefined
+    logger.logMessage(`Attribute Table: `, LogLevel.DEBUG, attributeTableNode)
+    const a = $(
+        'DIV.nx-coreui-component-assetattributes > DIV.x-panel-body > DIV.x-grid-item-container > TABLE:last-child > DIV'
+    ).first()
+    const b = $(
+        'DIV.nx-coreui-component-assetattributes > DIV.x-panel-body > DIV.x-grid-item-container > TABLE:last-child > DIV'
+    )
+        .first()
+        .text()
+    if ($('TD:nth-child(1)', $(DOM_BROWSE_ATTRIBUTE_TABLE).first()).first().text().trim() == 'platform') {
+        platformValue = $('TD:nth-child(2)', $(DOM_BROWSE_ATTRIBUTE_TABLE).first()).first().text().trim()
+    }
+
+    return generatePackageURLComplete(
+        FORMATS.gem,
+        encodeURIComponent(name),
+        encodeURIComponent(version),
+        undefined,
+        platformValue === undefined || platformValue == 'ruby' ? undefined : { platform: platformValue as string },
+        undefined
+    )
 }
