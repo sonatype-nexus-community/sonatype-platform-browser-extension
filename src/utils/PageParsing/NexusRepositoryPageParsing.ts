@@ -84,6 +84,9 @@ function attemptPackageUrlNpmUrl(uriPath: string): PackageURL | undefined {
 
     if (componentParts.length >= 2) {
         const filename = componentParts.pop() as string
+        if (!filename.endsWith('.tgz')) {
+            return undefined
+        }
         const componentName = componentParts.pop() as string
         const componentNamespace = componentParts.pop() as string
 
@@ -95,7 +98,7 @@ function attemptPackageUrlNpmUrl(uriPath: string): PackageURL | undefined {
             FORMATS.npm,
             encodeURIComponent(componentName),
             encodeURIComponent(version),
-            encodeURIComponent(componentNamespace),
+            componentNamespace === undefined ? undefined : encodeURIComponent(componentNamespace),
             undefined,
             undefined
         )

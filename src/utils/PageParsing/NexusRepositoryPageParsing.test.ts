@@ -110,6 +110,19 @@ describe('NXRM3 Page Parsing', () => {
         expect(packageURL).toBeUndefined()
     })
 
+    test('#browse/browse:npm-proxy:braces%2Fbraces-1.8.5.tgz', () => {
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:npm-proxy:braces%2Fbraces-1.8.5.tgz'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.npm)
+        expect(packageURL?.namespace).toBeUndefined()
+        expect(packageURL?.name).toBe('braces')
+        expect(packageURL?.version).toBe('1.8.5')
+    })
+
     test('#browse/browse:npm-proxy:%40sonatype%2Fnexus-iq-api-client', () => {
         const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-npm-no-version.html'))
 
