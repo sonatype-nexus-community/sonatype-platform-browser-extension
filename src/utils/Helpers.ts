@@ -29,7 +29,10 @@ function ensure<T>(argument: T | undefined | null, message = 'This value was pro
 }
 
 function simpleHash(input: string): string {
-    return crypto.createHash('sha1').update(input).digest('hex')
+    if (input.length > 0) {
+        return crypto.createHash('sha1').update(input).digest('hex')
+    }
+    throw new Error('Cannot SHA empty string')
 }
 
 function stripHtmlComments(html: string): string {
