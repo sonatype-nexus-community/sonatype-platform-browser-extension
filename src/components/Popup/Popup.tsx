@@ -101,7 +101,7 @@ function IqPopup() {
                                 }}>
                                 <img
                                     id='iq-server-button-icon'
-                                    src='/images/sonatype-lifecycle-icon-32x32.png'
+                                    src='/images/sonatype-platform-icon-32x32.png'
                                     height={'20'}
                                     width={'20'}></img>
                             </NxButton>
