@@ -17,20 +17,26 @@
 import {
     NxDescriptionList,
     NxDivider,
+    NxErrorAlert,
+    NxFontAwesomeIcon,
     NxFormGroup,
     NxFormSelect,
     NxGrid,
     NxPageMain,
     NxPageTitle,
+    NxSmallTag,
     NxTextInput,
     NxTile,
     nxTextInputStateHelpers,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
-import { ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { ExtensionConfiguration, SonatypeNexusRepostitoryHost } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { LogLevel, logger } from '../../../logger/Logger'
 import { isHttpUriValidator } from '../../Common/Validators'
+import { simpleHash } from '../../../utils/Helpers'
 
 const { initialState, userInput } = nxTextInputStateHelpers
 
@@ -44,6 +50,8 @@ export default function GeneralOptionsPage({
 }) {
     const extensionSettings = useContext(ExtensionConfigurationContext)
     const [addNxrmHostState, setAddNxrmHostState] = useState(initialState(''))
+    const [checkingNxrmConnection, setCheckingNxrmConnection] = useState<boolean>(false)
+    const [errorNxrm, setErrorNxrm] = useState<string | undefined>(undefined)
 
     /**
      * Field onChange Handlers
@@ -74,12 +82,27 @@ export default function GeneralOptionsPage({
     }
 
     const askForPermissions = () => {
-        logger.logMessage(`Requesting  Browser Permission for: ${addNxrmHostState.trimmedValue}`, LogLevel.INFO)
+        logger.logMessage(`Requesting Browser Permission for: ${addNxrmHostState.trimmedValue}`, LogLevel.INFO)
 
         if (addNxrmHostState.trimmedValue !== undefined) {
             const newNxrmHost = addNxrmHostState.trimmedValue.endsWith('/')
                 ? addNxrmHostState.trimmedValue
                 : `${addNxrmHostState.trimmedValue}/`
+
+            const existingNxrmHostCheck = extensionSettings.sonatypeNexusRepositoryHosts.find(
+                (nxrm) => nxrm.id == simpleHash(newNxrmHost)
+            )
+
+            if (existingNxrmHostCheck !== undefined) {
+                logger.logMessage(
+                    `Attempt to add duplicate Sonatype Nexus Repository Host: ${newNxrmHost}`,
+                    LogLevel.WARN
+                )
+                return
+            }
+
+            setCheckingNxrmConnection(true)
+
             logger.logMessage(`Requesting permission to Origin ${newNxrmHost}`, LogLevel.DEBUG)
             if (extensionSettings.sonatypeNexusRepositoryHosts.length == 0) {
                 _browser.scripting
@@ -94,7 +117,11 @@ export default function GeneralOptionsPage({
                     ])
                     .then(recordRegisteredNxrmHost(newNxrmHost))
             } else {
-                const allNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts.concat([newNxrmHost])
+                const allNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts
+                    .map((nxrm) => {
+                        return nxrm.url
+                    })
+                    .concat([newNxrmHost])
                 _browser.scripting
                     .updateContentScripts([
                         {
@@ -121,11 +148,34 @@ export default function GeneralOptionsPage({
             })
             .then((success: boolean) => {
                 if (success) {
-                    logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO)
-                    const newExtensionSettings = extensionSettings as ExtensionConfiguration
-                    newExtensionSettings.sonatypeNexusRepositoryHosts.push(host)
-                    setExtensionConfig(newExtensionSettings)
-                    setAddNxrmHostState(userInput(null, ''))
+                    fetch(host + 'service/rest/swagger.json')
+                        .then((response) => {
+                            response
+                                .json()
+                                .then((swaggerJson) => {
+                                    logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO, swaggerJson)
+                                    const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                    newExtensionSettings.sonatypeNexusRepositoryHosts.push({
+                                        id: simpleHash(host),
+                                        url: host,
+                                        version: swaggerJson['info']['version'],
+                                    })
+                                    setExtensionConfig(newExtensionSettings)
+                                    setAddNxrmHostState(userInput(null, ''))
+                                })
+                                .catch(() => {
+                                    setErrorNxrm('This does not appear to be a Sonatype Nexus Repository 3 Server.')
+                                })
+                                .finally(() => {
+                                    setCheckingNxrmConnection(false)
+                                })
+                        })
+                        .catch(() => {
+                            setCheckingNxrmConnection(false)
+                        })
+                } else {
+                    setErrorNxrm('You need to Allow your browser permission to add a Sonatype Nexus Repository server.')
+                    setCheckingNxrmConnection(false)
                 }
             })
     }
@@ -151,7 +201,7 @@ export default function GeneralOptionsPage({
                                     <NxTextInput
                                         {...addNxrmHostState}
                                         onChange={handleAddNxrmHostChange}
-                                        placeholder='Enter the URL of your Sonatype Nexus Repository'
+                                        placeholder='Sonatype Nexus Repository URL'
                                         validatable={true}
                                     />
                                 </NxFormGroup>
@@ -159,22 +209,38 @@ export default function GeneralOptionsPage({
                                     className='nx-btn grant-permissions'
                                     onClick={askForPermissions}
                                     disabled={!enableAddNxrmHostButton()}>
-                                    {'Add +'}
+                                    {'Add'}
+                                    {checkingNxrmConnection === true && (
+                                        <React.Fragment>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
+                                        </React.Fragment>
+                                    )}
                                 </button>
                             </div>
+                            {errorNxrm !== undefined && (
+                                <div className='nx-form-row'>
+                                    <NxErrorAlert>{errorNxrm}</NxErrorAlert>
+                                </div>
+                            )}
                         </section>
                         <section className='nx-grid-col nx-grid-col--50'>
-                            <p className='nx-p'>Configured Sonatype Nexus Repository hosts:</p>
+                            <p className='nx-p'>Enabled Sonatype Nexus Repository servers:</p>
                             {extensionSettings.sonatypeNexusRepositoryHosts.length == 0 && <em>None added yet</em>}
                             {extensionSettings.sonatypeNexusRepositoryHosts.length > 0 && (
                                 <NxDescriptionList>
-                                    {extensionSettings.sonatypeNexusRepositoryHosts.map((nxrmUrl: string) => {
-                                        return (
-                                            <NxDescriptionList.Item key={nxrmUrl}>
-                                                <NxDescriptionList.Term>{nxrmUrl}</NxDescriptionList.Term>
-                                            </NxDescriptionList.Item>
-                                        )
-                                    })}
+                                    {extensionSettings.sonatypeNexusRepositoryHosts.map(
+                                        (nxrmHost: SonatypeNexusRepostitoryHost) => {
+                                            return (
+                                                <NxDescriptionList.Item key={nxrmHost.id}>
+                                                    <NxDescriptionList.Term>
+                                                        {nxrmHost.url}{' '}
+                                                        <NxSmallTag color='green'>{nxrmHost.version}</NxSmallTag>
+                                                    </NxDescriptionList.Term>
+                                                </NxDescriptionList.Item>
+                                            )
+                                        }
+                                    )}
                                 </NxDescriptionList>
                             )}
                         </section>

@@ -17,6 +17,12 @@
 import { LogLevel } from '../logger/Logger'
 import { DATA_SOURCE } from '../utils/Constants'
 
+export interface SonatypeNexusRepostitoryHost {
+    id: string
+    url: string
+    version: string
+}
+
 export interface ExtensionConfiguration {
     dataSource: DATA_SOURCE
     host?: string
@@ -25,7 +31,7 @@ export interface ExtensionConfiguration {
     iqApplicationInternalId?: string
     iqApplicationPublidId?: string
     logLevel: LogLevel
-    sonatypeNexusRepositoryHosts: Array<string>
+    sonatypeNexusRepositoryHosts: Array<SonatypeNexusRepostitoryHost>
     supportsFirewall: boolean
     supportsLifecycle: boolean
     supportsLifecycleAlp: boolean

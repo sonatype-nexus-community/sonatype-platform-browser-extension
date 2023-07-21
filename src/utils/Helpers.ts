@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import crypto from 'crypto'
 import { logger, LogLevel } from '../logger/Logger'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -24,6 +26,10 @@ function ensure<T>(argument: T | undefined | null, message = 'This value was pro
     }
 
     return argument
+}
+
+function simpleHash(input: string): string {
+    return crypto.createHash('sha1').update(input).digest('hex')
 }
 
 function stripHtmlComments(html: string): string {
@@ -55,4 +61,4 @@ function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string)
     }
 }
 
-export { ensure, stripHtmlComments, getNewUrlandGo, stripTrailingSlash }
+export { ensure, simpleHash, stripHtmlComments, getNewUrlandGo, stripTrailingSlash }

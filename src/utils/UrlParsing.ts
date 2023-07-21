@@ -36,13 +36,13 @@ function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
         if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
             const extensionConfig = response.data as ExtensionConfiguration
             if (extensionConfig !== undefined && extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-                for (const nxrmUrl of extensionConfig.sonatypeNexusRepositoryHosts) {
-                    logger.logMessage(`Checking ${url} against ${nxrmUrl}...`, LogLevel.DEBUG)
-                    if (url.startsWith(nxrmUrl)) {
+                for (const nxrmHost of extensionConfig.sonatypeNexusRepositoryHosts) {
+                    logger.logMessage(`Checking ${url} against ${nxrmHost.url}...`, LogLevel.DEBUG)
+                    if (url.startsWith(nxrmHost.url)) {
                         return {
-                            url: nxrmUrl,
+                            url: nxrmHost.url,
                             repoFormat: FORMATS.NXRM,
-                            repoID: `NXRM-${nxrmUrl}`,
+                            repoID: `NXRM-${nxrmHost.id}`,
                             titleSelector: "[id^='nx-coreui-component-componentassetinfo'][id$='header-title-textEl']",
                         }
                     }
