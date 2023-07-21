@@ -128,7 +128,7 @@ function attemptPackageUrlNpmUrl(uriPath: string): PackageURL | undefined {
             FORMATS.npm,
             encodeURIComponent(componentName),
             encodeURIComponent(version),
-            componentNamespace === undefined ? undefined : encodeURIComponent(componentNamespace),
+            componentNamespace === undefined ? undefined : componentNamespace,
             undefined,
             undefined
         )

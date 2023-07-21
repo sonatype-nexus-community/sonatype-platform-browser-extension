@@ -111,7 +111,14 @@ function handle_message_received_propogate_component_state(request: MessageReque
             if (repoType !== undefined) {
                 logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
                 if (request.params !== undefined && 'componentState' in request.params) {
+                    const domElement = $(repoType.titleSelector)
                     const componentState = request.params.componentState as ComponentState
+
+                    if (componentState == ComponentState.CLEAR) {
+                        removeClasses(domElement)
+                        return
+                    }
+
                     logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
                     let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
                     switch (componentState) {
@@ -138,7 +145,6 @@ function handle_message_received_propogate_component_state(request: MessageReque
                             break
                     }
 
-                    const domElement = $(repoType.titleSelector)
                     logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
                     if (domElement.length > 0) {
                         removeClasses(domElement)
@@ -161,4 +167,5 @@ const removeClasses = (element) => {
     element.removeClass('sonatype-iq-extension-vuln-none')
     element.removeClass('sonatype-iq-extension-vuln-evaluating')
     element.removeClass('sonatype-iq-extension-vuln-invalid-config')
+    element.removeClass('sonatype-iq-extension-vuln-unspecified')
 }

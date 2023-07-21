@@ -217,6 +217,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                             `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
                             LogLevel.DEBUG
                         )
+                        propogateCurrentComponentState(tabId, ComponentState.CLEAR)
                         _browser.action.disable(tabId, () => {
                             logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
                             _browser.action.setIcon({
@@ -231,6 +232,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                 `Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`,
                 LogLevel.DEBUG
             )
+            propogateCurrentComponentState(tabId, ComponentState.CLEAR)
             _browser.action.disable(tabId, () => {
                 logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
                 _browser.action.setIcon({
