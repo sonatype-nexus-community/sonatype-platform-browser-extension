@@ -30,11 +30,11 @@ import {
     NxTile,
     NxTextLink,
     NxDivider,
-    NxTag,
+    NxTag
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
@@ -63,6 +63,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const [iqAuthenticated, setIqAuthenticated] = useState<boolean | undefined>()
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
+    const [checkingConnection, setCheckingConnection] = useState(false)
 
     /**
      * Hook to check whether we already have permissions to IQ Server Host
@@ -144,6 +145,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     function handleLoginCheck() {
+        setCheckingConnection(true)
         _browser.runtime
             .sendMessage({
                 type: MESSAGE_REQUEST_TYPE.GET_APPLICATIONS,
@@ -153,6 +155,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((response: any) => {
+                setCheckingConnection(false)
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (_browser.runtime.lastError) {
                     logger.logMessage('Error handleLoginCheck', LogLevel.ERROR)
@@ -385,6 +388,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         </NxFormGroup>
                                         <NxButton variant='primary' onClick={handleLoginCheck}>
                                             {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
+                                            {checkingConnection === true && (
+                                                <React.Fragment>
+                                                &nbsp;&nbsp;&nbsp;<NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
+                                                </React.Fragment>
+
+                                            )}
                                         </NxButton>
                                     </div>
                                 </div>
