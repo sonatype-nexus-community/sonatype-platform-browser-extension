@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import crypto from 'crypto'
+// import crypto from 'crypto'
 import { logger, LogLevel } from '../logger/Logger'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -28,12 +28,13 @@ function ensure<T>(argument: T | undefined | null, message = 'This value was pro
     return argument
 }
 
-function simpleHash(input: string): string {
-    if (input.length > 0) {
-        return crypto.createHash('sha1').update(input).digest('hex')
-    }
-    throw new Error('Cannot SHA empty string')
-}
+// function simpleHash(input: string): string {
+//     console.log('HASHING: ', input)
+//     if (input.length > 0) {
+//         return crypto.createHash('sha1').update(input).digest('hex')
+//     }
+//     throw new Error('Cannot SHA empty string')
+// }
 
 function stripHtmlComments(html: string): string {
     return html.replace(/<!--[\s\S]*?(?:-->)/g, '')
@@ -64,4 +65,4 @@ function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string)
     }
 }
 
-export { ensure, simpleHash, stripHtmlComments, getNewUrlandGo, stripTrailingSlash }
+export { ensure, stripHtmlComments, getNewUrlandGo, stripTrailingSlash }

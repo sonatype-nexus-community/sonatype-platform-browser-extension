@@ -36,7 +36,7 @@ import { ExtensionConfiguration, SonatypeNexusRepostitoryHost } from '../../../t
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { LogLevel, logger } from '../../../logger/Logger'
 import { isHttpUriValidator } from '../../Common/Validators'
-import { simpleHash } from '../../../utils/Helpers'
+// import { simpleHash } from '../../../utils/Helpers'
 
 const { initialState, userInput } = nxTextInputStateHelpers
 
@@ -90,7 +90,7 @@ export default function GeneralOptionsPage({
                 : `${addNxrmHostState.trimmedValue}/`
 
             const existingNxrmHostCheck = extensionSettings.sonatypeNexusRepositoryHosts.find(
-                (nxrm) => nxrm.id == simpleHash(newNxrmHost)
+                (nxrm) => nxrm.id == newNxrmHost.replace('://', '-')
             )
 
             if (existingNxrmHostCheck !== undefined) {
@@ -156,7 +156,7 @@ export default function GeneralOptionsPage({
                                     logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO, swaggerJson)
                                     const newExtensionSettings = extensionSettings as ExtensionConfiguration
                                     newExtensionSettings.sonatypeNexusRepositoryHosts.push({
-                                        id: simpleHash(host),
+                                        id: host.replace('://', '-'),
                                         url: host,
                                         version: swaggerJson['info']['version'],
                                     })
