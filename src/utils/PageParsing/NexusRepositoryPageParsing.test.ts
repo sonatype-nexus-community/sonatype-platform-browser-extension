@@ -18,6 +18,7 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { FORMATS } from '../Constants'
 import { getArtifactDetailsFromNxrmDom } from './NexusRepositoryPageParsing'
+import exp from 'constants'
 
 describe('NXRM3 Page Parsing', () => {
     const repoType = {
@@ -26,8 +27,43 @@ describe('NXRM3 Page Parsing', () => {
         repoID: 'NXRM-https://repo.tld/',
     }
 
+    /**
+     * MAVEN(2) FORMAT TESTS
+     */
+
+    test('#browse/browse:maven-central:commons-collections', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-maven2-folder.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:maven-central:commons-collections'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:maven-central:commons-collections%2Fcommons-collections%2F2.0', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-maven2-component.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            '#browse/browse:maven-central:commons-collections%2Fcommons-collections%2F2.0'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.maven)
+        expect(packageURL?.namespace).toBe('commons-collections')
+        expect(packageURL?.name).toBe('commons-collections')
+        expect(packageURL?.version).toBe('2.0')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
+    })
+
     test('#browse/browse:maven-central:commons-logging%2Fcommons-logging%2F1.1.3%2Fcommons-logging-1.1.3.jar', () => {
-        const html = readFileSync(join(__dirname, 'testdata/nxrm3-browse-maven2.html'))
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-maven2.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -61,7 +97,7 @@ describe('NXRM3 Page Parsing', () => {
         expect(packageURL).toBeUndefined()
     })
 
-    test('#browse/browse:npm-proxy:%40sonatype%2Fnexus-iq-api-client NO VERSION', () => {
+    test('#browse/browse:npm-proxy:%40sonatype%2Fnexus-iq-api-client', () => {
         const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-npm-no-version.html'))
 
         window.document.body.innerHTML = html.toString()
@@ -89,5 +125,41 @@ describe('NXRM3 Page Parsing', () => {
         expect(packageURL?.namespace).toBe('@sonatype')
         expect(packageURL?.name).toBe('policy-demo')
         expect(packageURL?.version).toBe('2.0.0')
+    })
+
+    /**
+     * PYPI FORMAT TESTS
+     */
+
+    test('#browse/browse:pupy-proxy:asynctest', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-pypi-folder.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:pupy-proxy:asynctest'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:pupy-proxy:asynctest%2F0.13.0%2Fasynctest-0.13.0-py3-none-any.whl', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-pypi.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            '#browse/browse:pupy-proxy:asynctest%2F0.13.0%2Fasynctest-0.13.0-py3-none-any.whl'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.namespace).toBeUndefined()
+        expect(packageURL?.name).toBe('asynctest')
+        expect(packageURL?.version).toBe('0.13.0')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'tar.gz' })
+        expect(packageURL?.toString()).toBe('pkg:pypi/asynctest@0.13.0?extension=tar.gz')
     })
 })
