@@ -65,7 +65,7 @@ if (SCRIPT_MODE == 'PUBLISH') {
 
         client
             .submit({
-                filePath: './build/sonatype-platform-browser-extension.zip',
+                filePath: ZIP_PATH,
             })
             .then((r) => {
                 console.log(r)
