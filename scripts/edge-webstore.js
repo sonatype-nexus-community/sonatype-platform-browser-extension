@@ -27,7 +27,7 @@ const PRODUCT_ID = process.env.EDGE_PRODUCT_ID
 const CLIENT_ID = process.env.EDGE_CLIENT_ID
 const CLIENT_SECRET = process.env.EDGE_CLIENT_SECRET
 const ACCESS_TOKEN_URL = process.env.EDGE_ACCESS_TOKEN_URL
-const ZIP_PATH = './build/sonatype-platform-browser-extension.zip'
+const ZIP_PATH = './sonatype-platform-browser-extension.zip'
 
 if (PRODUCT_ID === undefined) {
     console.log('EDGE_PRODUCT_ID is not set - cannot continue.')
