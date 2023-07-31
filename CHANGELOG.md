@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.7.0...v2.8.0) (2023-07-31)
+
+
+### Features
+
+* add release process to Microsoft Edge Webstore ([#19](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/19)) ([f981ed1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f981ed1c35c520127a44cbdd98215cae9bc8576e))
+
 # [2.7.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.6.0...v2.7.0) (2023-07-20)
 
 
