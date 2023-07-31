@@ -29,11 +29,6 @@ const CLIENT_SECRET = process.env.EDGE_CLIENT_SECRET
 const ACCESS_TOKEN_URL = process.env.EDGE_ACCESS_TOKEN_URL
 const ZIP_PATH = './build/sonatype-platform-browser-extension.zip'
 
-if (!fs.existsSync(ZIP_PATH)) {
-    console.log(`ZIP does not exist at expected location: ${ZIP_PATH}`)
-    process.exit(1)
-}
-
 if (PRODUCT_ID === undefined) {
     console.log('EDGE_PRODUCT_ID is not set - cannot continue.')
     process.exit(1)
@@ -55,6 +50,11 @@ if (ACCESS_TOKEN_URL === undefined) {
 }
 
 if (SCRIPT_MODE == 'PUBLISH') {
+    if (!fs.existsSync(ZIP_PATH)) {
+        console.log(`ZIP does not exist at expected location: ${ZIP_PATH}`)
+        process.exit(1)
+    }
+
     import(ews).then((module) => {
         const client = new module.EdgeWebstoreClient({
             productId: PRODUCT_ID,
