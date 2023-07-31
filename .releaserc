@@ -17,8 +17,8 @@
       "distFolder": "build"
     }],
     ["@semantic-release/exec", {
-      "verifyConditionsCmd": "node ./scripts/scripts/edge-webstore.js verify",
-      "publishCmd": "node ./scripts/scripts/edge-webstore.js publish"
+      "verifyConditionsCmd": "node ./scripts/edge-webstore.js verify",
+      "publishCmd": "node ./scripts/edge-webstore.js publish"
     }],
     ["@semantic-release/github", {
       "assets": "build/*.tgz"
