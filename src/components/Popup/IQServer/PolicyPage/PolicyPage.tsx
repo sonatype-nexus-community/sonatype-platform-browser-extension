@@ -23,6 +23,9 @@ import { DATA_SOURCE } from '../../../../utils/Constants'
 import { NxLoadingSpinner } from '@sonatype/react-shared-components'
 import { ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 function IqPolicyPage() {
     const popupContext = useContext(ExtensionPopupContext)
     const extensionContext = useContext(ExtensionConfigurationContext)
@@ -39,10 +42,10 @@ function IqPolicyPage() {
                     <table className='nx-table'>
                         <thead>
                             <tr className='nx-table-row nx-table-row--header'>
-                                <th className='nx-cell nx-cell--header nx-cell--num'>Threat</th>
-                                <th className='nx-cell nx-cell--header'>Policy</th>
-                                <th className='nx-cell nx-cell--header'>Constraint Name</th>
-                                <th className='nx-cell nx-cell--header'>Condition</th>
+                                <th className='nx-cell nx-cell--header nx-cell--num'>{_browser.i18n.getMessage('POLICY_TABLE_THREAT')}</th>
+                                <th className='nx-cell nx-cell--header'>{_browser.i18n.getMessage('POLICY_TABLE_POLICY')}</th>
+                                <th className='nx-cell nx-cell--header'>{_browser.i18n.getMessage('POLICY_TABLE_CONSTRAINT')}</th>
+                                <th className='nx-cell nx-cell--header'>{_browser.i18n.getMessage('POLICY_TABLE_CONDITION')}</th>
                             </tr>
                         </thead>
                         <tbody>

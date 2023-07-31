@@ -1,0 +1,350 @@
+{
+    "EXTENSION_NAME": {
+        "message": "소나타입 플랫폼 브라우저 확장프로그램",
+        "description": "The full name for this browser extension."
+    },
+    "EXTENSION_DESCRIPTION": {
+        "message": "소나타입 플랫폼 브라우저 확장 프로그램을 통한 시프트 레프트 – 오픈소스 리포지토리에 대한 취약점 점검",
+        "description": "Description of this browser extension."
+    },
+    "RELEASE_VERSION": {
+        "message": "릴리즈 $VERSION$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
+    },
+    "ALL_VERSIONS": {
+        "message": "모든 버전",
+        "description": "The list of all the available component versions"
+    },
+    "CATALOG_DATE": {
+        "message": "카탈로그 일자",
+        "description": "The date this component version was added to the Sonatype data catalog"
+    },
+    "SONATYPE_IQ_SERVER": {
+        "message": "소나타입 IQ 서버",
+        "description": "Branded product name for Sonatype IQ Server"
+    },
+    "BUTTON_CLOSE": {
+        "message": "닫기",
+        "description": "Close button text"
+    },
+    "GITHUB_ISSUE": {
+        "message": "GitHub 이슈",
+        "description": "GitHub Issue"
+    },
+    "LABEL_USERNAME": {
+        "message": "사용자명",
+        "description": "Username label"
+    },
+    "LABEL_PASSWORD": {
+        "message": "비밀번호 또는 토큰",
+        "description": "Password label"
+    },
+    "LABEL_SONATYPE_APPLICATION": {
+        "message": "소나타입 라이프사이클 어플리케이션",
+        "description": "Application label"
+    },
+    "LABEL_SELECT_AN_APPLICATION": {
+        "message": "-- 어플리케이션 선택 --",
+        "description": "Default option in Application List"
+    },
+    "LABEL_LOG_LEVEL": {
+        "message": "확장프로그램 로그 수준",
+        "description": "Label for Log Level option"
+    },
+    "LINK_BUG_REPORT": {
+        "message": "버그 보고",
+        "description": "Link text used for reporting a bug."
+    },
+    "LINK_FEATURE_REQUEST": {
+        "message": "새로운 기능 요청",
+        "description": "Link text used for making a feature request."
+    },
+    "LINK_TEXT_HERE": {
+        "message": "여기",
+        "description": "Link text used for generic link to something [here]."
+    },
+    "HELP_PAGE_TITLE": {
+        "message": "도움말",
+        "description": "Page Title for Options page"
+    },
+    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+        "message": "어디서 도움을 받을 수 있나요?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+        "message": "소나타입 플랫폼 브라우저 확장프로그램에 대한 세부 문서가 있습니다",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_FEATURE_REQUEST": {
+        "message": "새로운 기능을 어떻게 요청할 수 있나요?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+        "message": "아래에 소나타입 플랫폼 브라우저 확장프로그램에 대한 세부 문서가 있습니다. 여러분의 피드백에 감사드립니다. 아이디어나 질문은 Github 이슈를 열거나 고객사 담당자에게 연락하시기 바랍니다.",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_RAISE_BUG": {
+        "message": "버그를 발견한것 같습니다 - 누구에게 알려야 하나요?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_RAISE_BUG": {
+        "message": "여러분의 피드백에 감사드립니다. 버그를 발견하시면 이슈를 여고 다음 사항을 포함하여 최대한 많은 정보를 제공해 주시기 바랍니다.",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+        "message": "웹브라우저 세부사항 (브라우저명 및 버전)",
+        "description": "First item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+        "message": "설치된 소나타입 플랫폼 브라우저 확장프로그램 버전",
+        "description": "Second item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+        "message": "수행한 동작(들)",
+        "description": "Third item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+        "message": "기대한 동작",
+        "description": "Fourth item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+        "message": "실제 (기대하지 않았던) 동작",
+        "description": "Fifth item of detail we request when raising a Bug"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS": {
+        "message": "최고 등급 정책 위협 수준",
+        "description": "Header when displaying the highest threat levels by policy"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
+        "message": "어플리케이션: $APP_NAME$에 대한 최고 등급 $POLICY_TYPE_LABEL$ 정책 위협 수준",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "POLICY_TYPE_LABEL": {
+                "content": "$1",
+                "example": "Security, Architecture, License, Other"
+            },
+            "APP_NAME": {
+                "content": "$2",
+                "example": "sample-application"
+            }
+        }
+    },
+    "LEGAL_EFFECTIVE_LICENSE": {
+        "message": "실제",
+        "description": "The effective license of the component"
+    },
+    "LEGAL_OBSERVED_LICENSE": {
+        "message": "관측",
+        "description": "The observed license of the component"
+    },
+    "LEGAL_DECLARED_LICENSE": {
+        "message": "선언",
+        "description": "The declared license of the component"
+    },
+    "LEGAL_TABLE_THREAT_GROUP": {
+        "message": "위협 그룹",
+        "description": "The column header in the security table for threat group"
+    },
+    "LEGAL_TABLE_LICENSE": {
+        "message": "라이선스",
+        "description": "The column header in the security table for license"
+    },
+    "LEGAL_TABLE_COPY_TEXT": {
+        "message": "텍스트 복사",
+        "description": "The column header in the security table for copy text"
+    },
+    "LEGAL_COPY_TEXT_TOOLTIP": {
+        "message": "라이선스 텍스트 복사",
+        "description": "Tooltip for the copy license text button"
+    },
+    "OPTIONS_PAGE_TITLE": {
+        "message": "확장프로그램 옵션",
+        "description": "Page Title for Options page"
+    },
+    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+        "message": "소나타입 플랫폼 브라우저 확장프로그램을 설치해주셔서 감사합니다",
+        "description": "Page Title for Options page upon first installation"
+    },
+    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
+        "message": "시작하기",
+        "description": "Sub Heading on Options Page in Install Mode"
+    },
+    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
+        "message": "소나타입 IQ 서버에 확장프로그램을 연결하려면 다음 절차를 따르시기 바랍니다.",
+        "description": "Description paragraph on Options Page in Install Mode"
+    },
+    "OPTIONS_CURRENT_CONNECTION": {
+        "message": "현재 연결 형태",
+        "description": "Current Connection Type prompt"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
+        "message": "소나타입 구성",
+        "description": "Options Tab name for Sonatype Configuration"
+    },
+    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+        "message": "일반 옵션",
+        "description": "Options Tab name for General Configuration"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_1": {
+        "message": "소나타입 IQ 서버의 URL을 입력하고 확장프로그램이 소나타입 IQ 서버와 통신하기 위해 필요한 권한을 설정합니다.",
+        "description": "First point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+        "message": "소나타입 IQ 서버에 권한을 설정합니다",
+        "description": "Button text for 'Grant Permission' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_2": {
+        "message": "소나타입 IQ 서버에 대한 사용자명 또는 토큰을 입력하여 연결한 후 어플리케이션 목록을 받습니다.",
+        "description": "Second point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+        "message": "연결",
+        "description": "Button text for 'Connect' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_3": {
+        "message": "소나타입 IQ 서버의 목록에서 어플리케이션을 선택합니다.",
+        "description": "Third point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
+        "message": "컴포넌트를 점검할 어플리케이션 정책",
+        "description": "Tooltip as to why an Application is to be selected"
+    },
+    "OPTIONS_SUCCESS_MESSAGE": {
+        "message": "축하합니다! 소나타입 IQ 서버 인증과 어플리케이션 선택이 성공적으로 이루어졌습니다! 브라우저 탭을 닫고 진행해도 됩니다",
+        "description": "Success message to display once Sonatype IQ has been configured"
+    },
+    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+        "message": "리스트에서 어플리케이션을 선택하세요",
+        "description": "Info message to direct to choose an Application"
+    },
+    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+        "message": "로그인에 문제가 있습니다",
+        "description": "Error message showed if Sonatype IQ credentials are incorrect"
+    },
+    "POLICY_TABLE_THREAT": {
+        "message": "위협",
+        "description": "The column header in the policy table for threat"
+    },
+    "POLICY_TABLE_POLICY": {
+        "message": "정책",
+        "description": "The column header in the policy table for policy"
+    },
+    "POLICY_TABLE_CONSTRAINT": {
+        "message": "제한",
+        "description": "The column header in the policy table for constraint name"
+    },
+    "POLICY_TABLE_CONDITION": {
+        "message": "조건",
+        "description": "The column header in the policy table for condition"
+    },
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "현재 패키지에 대한 정보를 찾을 수 없습니다",
+        "description": "Message to inform a user that the current package is not known by Sonatype"
+    },
+    "POPUP_TAB_INFO": {
+        "message": "정보",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_INFO_TOOLTIP": {
+        "message": "컴포넌트 정보",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_POLICY": {
+        "message": "정책",
+        "description": "Policy violations top-level tab in Popup. All policy violations for this component."
+    },
+    "POPUP_TAB_REMEDIATION": {
+        "message": "교정",
+        "description": "List of recommended version as well as a complete list of the versions available."
+    },
+    "POPUP_TAB_VERSIONS": {
+        "message": "버전",
+        "description": "List of all versions available if there are no policy violations"
+    },
+    "POPUP_TAB_REMEDIATION_TOOLTIP": {
+        "message": "$VERSION_COUNT$ 버전에 대한 교정 및 버전 정보",
+        "description": "Toolip for the POPUP_TAB_REMEDIATION",
+        "placeholders": {
+            "VERSION_COUNT": {
+                "content": "$1",
+                "example": "0"
+            }
+        }
+    },
+    "POPUP_TAB_POLICY_TOOLIP": {
+        "message": "소나타입 라이프사이클 어플리케이션 진단 정책 위반: $APPNAME$",
+        "description": "Toolip for the POPUP_TAB_POLICY",
+        "placeholders": {
+            "APPNAME": {
+                "content": "$1",
+                "example": "sandbox-application"
+            }
+        }
+    },
+    "POPUP_TAB_SECURITY": {
+        "message": "보안",
+        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
+    },
+    "POPUP_TAB_SECURITY_TOOLTIP": {
+        "message": "컴포넌트에 대한 보안 이슈",
+        "description": "Tooltip for POPUP_TAB_SECURITY"
+    },
+    "POPUP_TAB_LEGAL": {
+        "message": "라이선스",
+        "description": "Legal/License top-level tab in Popup. List of licenses for this component"
+    },
+    "POPUP_TAB_LEGAL_TOOLTIP": {
+        "message": "라이선스 정보",
+        "description": "Legal/License top-level tab in Popup tooltip"
+    },
+    "RECOMMENDED_VERSIONS": {
+        "message": "추천 버전",
+        "description": "The list of the recommended version from Lifecycle"
+    },
+    "SECURITY_TABLE_CVSS": {
+        "message": "CVSS",
+        "description": "The column header in the security table for cvss"
+    },
+    "SECURITY_TABLE_ISSUE": {
+        "message": "이슈",
+        "description": "The column header in the security table for issue"
+    },
+    "SIDEBAR_LINK_GETTING_STARTED": {
+        "message": "시작하기",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_HELP": {
+        "message": "도움말",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_OPTIONS": {
+        "message": "옵션",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
+        "message": "지원 요청",
+        "description": "Sidebar Footer Link in Options Page"
+    },
+    "GITHUB_STARS": {
+        "message": "별점",
+        "description": "The number of GitHub stars for the project"
+    },
+    "GITHUB_FORKS": {
+        "message": "포크",
+        "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "소나타입 IQ 서버 지원여부",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "SUPPORTED": {
+        "message": "지원",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
+    }
+}

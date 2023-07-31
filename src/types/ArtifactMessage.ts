@@ -13,57 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { RepoType } from '../utils/Constants'
 
-export interface ArtifactMessage {
-    type: string
-    url: string
-    repoTypeInfo: RepoType
-}
-
-export interface ArtifactMessageResponse {
-    type: string
-    artifact: ComponentDetails
-}
-
-export interface ComponentDetails {
-    componentDetails: ComponentContainer[]
-}
-
-export interface ComponentContainer {
-    component: Component
-    matchState: string | null | undefined
-    catalogDate: string | null | undefined
-    relativePopularity: string | null | undefined
-    securityData: SecurityData | null | undefined
-    licenseData: LicenseData | null | undefined
-}
-
-export interface Component {
-    packageUrl: string
-    name: string | null | undefined
-    hash: string | null | undefined
-    componentIdentifier?: ComponentIdentifier
-}
-
-export interface ComponentIdentifier {
-    format: string
-    coordinates: Coordinates
-}
-
-export interface Coordinates {
-    artifactId: string
-    classifier: string
-    extension: string
-    groupId: string
-    version: string
-}
-
-export interface SecurityData {
-    securityIssues: SecurityIssue[]
-}
-
-//TODO: these are duplicated because of @sonatype/js-sona-types/ComponentDetails.ts
 export interface SecurityIssue {
     source: string
     reference: string

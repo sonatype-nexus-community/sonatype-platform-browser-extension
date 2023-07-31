@@ -32,6 +32,9 @@ import { Tooltip } from '@material-ui/core'
 import { faCodeFork, faStar } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 const formatDate = (date: Date | undefined | null): string => {
     if (date) {
         const dateTime = new Date(date)
@@ -65,7 +68,7 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
         return (
             <React.Fragment>
                 <Tooltip
-                    title={`The highest ${policyTypeLabel} policy threat level for application: ${extConfigContext.iqApplicationPublidId}`}>
+                    title={_browser.i18n.getMessage('HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP', [policyTypeLabel, extConfigContext.iqApplicationPublidId])}>
                     <section className='nx-card nx-card--equal' aria-label={policyTypeLabel}>
                         <div className='nx-card__content'>
                             <div className='nx-card__call-out'>
@@ -89,15 +92,11 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
         <React.Fragment>
             <Tooltip
                 title={`The highest ${policyTypeLabel} policy threat level for application: ${extConfigContext.iqApplicationPublidId}`}>
+                   
                 <section className='nx-card nx-card--equal' aria-label={policyTypeLabel}>
                     <div className='nx-card__content'>
                         <div className='nx-card__call-out'>
-                            <NxPolicyViolationIndicator
-                                style={{
-                                    width: '10px !important',
-                                    margin: 'none !important',
-                                }}
-                                policyThreatLevel={0}>
+                            <NxPolicyViolationIndicator>
                                 None
                             </NxPolicyViolationIndicator>
                         </div>
@@ -132,8 +131,8 @@ function IqComponentInfo() {
                                     undefined && (
                                     <>
                                         <span className='nx-pull-right'>
-                                            <NxFontAwesomeIcon icon={faCodeFork as IconDefinition} title='Forks' />
-                                            Forks:
+                                            <NxFontAwesomeIcon icon={faCodeFork as IconDefinition} title={_browser.i18n.getMessage('GITHUB_FORKS')} />
+                                            {_browser.i18n.getMessage('GITHUB_FORKS')}:
                                             <span className='nx-counter'>
                                                 {
                                                     popupContext.iq?.componentDetails.projectData
@@ -142,8 +141,8 @@ function IqComponentInfo() {
                                             </span>
                                         </span>
                                         <span className='nx-pull-right'>
-                                            <NxFontAwesomeIcon icon={faStar as IconDefinition} title='Stars' />
-                                            Stars:
+                                            <NxFontAwesomeIcon icon={faStar as IconDefinition} title={_browser.i18n.getMessage('GITHUB_STARS')} />
+                                            {_browser.i18n.getMessage('GITHUB_STARS')}:
                                             <span className='nx-counter'>
                                                 {
                                                     popupContext.iq?.componentDetails.projectData
@@ -201,7 +200,9 @@ function IqComponentInfo() {
                                 <dl>
                                     {popupContext.iq?.componentDetails.catalogDate && (
                                         <div className='nx-read-only__item'>
-                                            <dt className='nx-read-only__label'>Catalog Date</dt>
+                                            <dt className='nx-read-only__label'>
+                                            {_browser.i18n.getMessage('CATALOG_DATE')}
+                                            </dt>
                                             <dd className='nx-read-only__data'>
                                                 {formatDate(new Date(popupContext.iq?.componentDetails.catalogDate))}
                                             </dd>
@@ -218,7 +219,9 @@ function IqComponentInfo() {
                             <div id='highest-policy-threat-levels'>
                                 <hr className='nx-grid-h-keyline' />
                                 <header className='nx-grid-header' id='max-policy-header'>
-                                    <h4 className='nx-h3 nx-grid-header__title'>Highest Policy Threat Levels</h4>
+                                    <h4 className='nx-h3 nx-grid-header__title'>
+                                        {_browser.i18n.getMessage('HIGHEST_POLICY_THREAT_LEVELS')}
+                                    </h4>
                                 </header>
                                 <div className='nx-grid-row popup-content-row' id='max-policy-content'>
                                     <div className='nx-card-container'>

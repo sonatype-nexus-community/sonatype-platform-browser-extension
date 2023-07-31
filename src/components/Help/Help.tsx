@@ -13,28 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxH2, NxP, NxPageTitle, NxTextLink, NxTile } from '@sonatype/react-shared-components'
+import { NxH2, NxP, NxPageMain, NxPageTitle, NxTextLink, NxTile } from '@sonatype/react-shared-components'
 import React from 'react'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
 
 export default function Help() {
     return (
-        <React.Fragment>
+        <NxPageMain>
             <h1>
-                <NxPageTitle>Sonatype Platform Browser Extension Help</NxPageTitle>
+                <NxPageTitle>
+                    {_browser.i18n.getMessage('EXTENSION_NAME')} {_browser.i18n.getMessage('HELP_PAGE_TITLE')}
+                </NxPageTitle>
             </h1>
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>
-                        <NxH2>Where do I go to get help?</NxH2>
+                        <NxH2>{_browser.i18n.getMessage('HELP_TILE_TITLE_WHERE_TO_GET_HELP')}</NxH2>
                     </NxTile.HeaderTitle>
                 </NxTile.Header>
                 <NxTile.Content>
                     <NxP>
-                        We have detailed documentation for the Sonatype Platform Browser Extension available&nbsp;
-                        <NxTextLink
-                            external
-                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/'>
-                            here
+                        {_browser.i18n.getMessage('HELP_TILE_CONTENT_WHERE_TO_GET_HELP')}
+                        <NxTextLink external href={extension.homepage_url}>
+                            {_browser.i18n.getMessage('LINK_TEXT_HERE')}
                         </NxTextLink>
                         &nbsp;.
                     </NxP>
@@ -43,47 +47,38 @@ export default function Help() {
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>
-                        <NxH2>How can I make a Feature Request?</NxH2>
+                        <NxH2>{_browser.i18n.getMessage('HELP_TILE_TITLE_FEATURE_REQUEST')}</NxH2>
                     </NxTile.HeaderTitle>
                 </NxTile.Header>
                 <NxTile.Content>
-                    <NxP>
-                        We greatly value feedback. You can open a &nbsp;
-                        <NxTextLink
-                            external
-                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/issues'>
-                            GitHub Issue
-                        </NxTextLink>
-                        &nbsp; with your idea or question or reach out to your dedicated Customer Success
-                        representative.
-                    </NxP>
+                    <NxP>{_browser.i18n.getMessage('HELP_TILE_CONTENT_FEATURE_REQUEST')}</NxP>
+                    <NxTextLink external href={`${extension.homepage_url}/issues`}>
+                        {_browser.i18n.getMessage('LINK_FEATURE_REQUEST')}
+                    </NxTextLink>
                 </NxTile.Content>
             </NxTile>
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>
-                        <NxH2>I think I found a bug - who do I tell?</NxH2>
+                        <NxH2>{_browser.i18n.getMessage('HELP_TILE_TITLE_RAISE_BUG')}</NxH2>
                     </NxTile.HeaderTitle>
                 </NxTile.Header>
                 <NxTile.Content>
                     <NxP>
-                        We greatly value feedback. If you believe you have found a bug, please open a &nbsp;
-                        <NxTextLink
-                            external
-                            href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/issues'>
-                            GitHub Issue
-                        </NxTextLink>
-                        &nbsp; and provide as much information as you can including:
+                        {_browser.i18n.getMessage('HELP_TILE_CONTENT_RAISE_BUG')}
                         <ul>
-                            <li>Details of your Web Browser (name and version)</li>
-                            <li>Version of the Sonatype Platform Browser Extension you have installed</li>
-                            <li>The action(s) you performed</li>
-                            <li>The expected behaviour</li>
-                            <li>The actual (unexpected) behaviour</li>
+                            <li>{_browser.i18n.getMessage('HELP_TITLE_CONTENT_BUG_DETAIL_1')}</li>
+                            <li>{_browser.i18n.getMessage('HELP_TITLE_CONTENT_BUG_DETAIL_2')}</li>
+                            <li>{_browser.i18n.getMessage('HELP_TITLE_CONTENT_BUG_DETAIL_3')}</li>
+                            <li>{_browser.i18n.getMessage('HELP_TITLE_CONTENT_BUG_DETAIL_4')}</li>
+                            <li>{_browser.i18n.getMessage('HELP_TITLE_CONTENT_BUG_DETAIL_5')}</li>
                         </ul>
                     </NxP>
+                    <NxTextLink external href={`${extension.homepage_url}/issues`}>
+                        {_browser.i18n.getMessage('LINK_BUG_REPORT')}
+                    </NxTextLink>
                 </NxTile.Content>
             </NxTile>
-        </React.Fragment>
+        </NxPageMain>
     )
 }

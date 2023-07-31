@@ -27,15 +27,13 @@ import {
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
-import { InvalidConfigurationError } from '../error/ExtensionError'
+import { IncompleteConfigurationError, InvalidConfigurationError } from '../error/ExtensionError'
 import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
 
-/**
- * This file contains handlers for processing messages that relate to calling
- * Sonatype IQ Server.
- */
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
 
 export async function requestComponentEvaluationByPurls(request: MessageRequest): Promise<MessageResponse> {
     return readExtensionConfiguration()
@@ -354,7 +352,7 @@ export async function getRemediationDetailsForComponent(request: MessageRequest)
         })
 }
 
-async function _get_iq_api_configuration(): Promise<Configuration> {
+export async function _get_iq_api_configuration(): Promise<Configuration> {
     return readExtensionConfiguration()
         .then((response) => {
             if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
@@ -371,8 +369,16 @@ async function _get_iq_api_configuration(): Promise<Configuration> {
                 }
 
                 if (settings.host === undefined) {
-                    logger.logMessage(`Host is not set for IQ Server`, LogLevel.WARN)
-                    throw new InvalidConfigurationError('Host is not set for IQ Server')
+                    logger.logMessage('Host is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('Host is not set for IQ Server')
+                }
+                if (settings.user === undefined) {
+                    logger.logMessage('User is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('User is not set for IQ Server')
+                }
+                if (settings.token === undefined) {
+                    logger.logMessage('Token is not set for IQ Server', LogLevel.WARN)
+                    throw new IncompleteConfigurationError('Token is not set for IQ Server')
                 }
 
                 return new Configuration({
@@ -385,7 +391,7 @@ async function _get_iq_api_configuration(): Promise<Configuration> {
                     },
                 })
             } else {
-                throw new InvalidConfigurationError('Unable to get Extension Configuration')
+                throw new IncompleteConfigurationError(_browser.i18n.getMessage('INVALID_CONFIGURATION_DEFAULT'))
             }
         })
         .catch((err) => {

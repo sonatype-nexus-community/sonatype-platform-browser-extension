@@ -23,6 +23,8 @@ export enum ComponentState {
     LOW,
     NONE,
     EVALUATING,
+    UNKNOWN,
+    INCOMPLETE_CONFIG,
 }
 
 export function getMaxThreatLevelForPolicyData(policydata: ApiComponentPolicyViolationListDTOV2): number {
@@ -62,4 +64,23 @@ export function getForComponentPolicyViolations(policydata?: ApiComponentPolicyV
     } else {
         return ComponentState.NONE
     }
+}
+
+export function getIconForComponentState(componentState: ComponentState): string {
+    switch (componentState) {
+        case ComponentState.CRITICAL:
+            return '/images/sonatype-platform-icon-critical.png'
+        case ComponentState.SEVERE:
+            return '/images/sonatype-platform-icon-severe.png'
+        case ComponentState.MODERATE:
+            return '/images/sonatype-platform-icon-moderate.png'
+        case ComponentState.LOW:
+            return '/images/sonatype-platform-icon-low.png'
+        case ComponentState.NONE:
+            return '/images/sonatype-platform-icon-none.png'
+        case ComponentState.EVALUATING:
+            return '/images/sonatype-platform-spinning.gif'
+    }
+
+    return '/images/sonatype-platform-icon-unspecified.png'
 }

@@ -16,26 +16,23 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { DATA_SOURCES, FORMATS, REPOS, RepoType } from '../Constants'
+import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { ensure } from '../Helpers'
 
 describe('CRAN Page Parsing', () => {
+    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cranRProject)
+    expect(repoType).toBeDefined()
+
     test('should parse a valid CRAN page', () => {
         const html = readFileSync(join(__dirname, 'testdata/cran.html'))
 
         window.document.body.innerHTML = html.toString()
 
-        const rt: RepoType = {
-            url: '',
-            repoFormat: FORMATS.cran,
-            repoID: REPOS.cranRProject,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.OSSINDEX,
-            appendVersionPath: '',
-        }
-
-        const PackageURL = getArtifactDetailsFromDOM(rt, 'https://cran.r-project.org/web/packages/oysteR/index.html')
+        const PackageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://cran.r-project.org/web/packages/oysteR/index.html'
+        )
 
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.type).toBe(FORMATS.cran)
@@ -48,18 +45,8 @@ describe('CRAN Page Parsing', () => {
 
         window.document.body.innerHTML = html.toString()
 
-        const rt: RepoType = {
-            url: '',
-            repoFormat: FORMATS.cran,
-            repoID: REPOS.cranRProject,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.OSSINDEX,
-            appendVersionPath: '',
-        }
-
         const PackageURL = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://cran.r-project.org/web/packages/oysteR/index.html?something=else'
         )
 
@@ -74,18 +61,8 @@ describe('CRAN Page Parsing', () => {
 
         window.document.body.innerHTML = html.toString()
 
-        const rt: RepoType = {
-            url: '',
-            repoFormat: FORMATS.cran,
-            repoID: REPOS.cranRProject,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.OSSINDEX,
-            appendVersionPath: '',
-        }
-
         const PackageURL = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://cran.r-project.org/web/packages/oysteR/index.html?something=else#anchor'
         )
 

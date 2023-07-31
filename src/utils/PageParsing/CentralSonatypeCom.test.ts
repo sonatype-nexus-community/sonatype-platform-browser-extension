@@ -17,27 +17,21 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
-import { DATA_SOURCES, FORMATS, REPOS, RepoType } from '../Constants'
+import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { ensure } from '../Helpers'
 
 describe('central.sonatype.com Page Parsing', () => {
+    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.centralSonatypeCom)
+    expect(repoType).toBeDefined()
+
     test('should parse a valid central.sonatype.com page', () => {
         const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2
-        const rt: RepoType = {
-            repoID: REPOS.centralSonatypeCom,
-            url: '',
-            repoFormat: FORMATS.maven,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.NEXUSIQ,
-            appendVersionPath: '',
-        }
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2'
         )
 
@@ -52,19 +46,9 @@ describe('central.sonatype.com Page Parsing', () => {
         const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions
-        const rt: RepoType = {
-            repoID: REPOS.centralSonatypeCom,
-            url: '',
-            repoFormat: FORMATS.maven,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.NEXUSIQ,
-            appendVersionPath: '',
-        }
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions'
         )
 
@@ -79,19 +63,9 @@ describe('central.sonatype.com Page Parsing', () => {
         const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions
-        const rt: RepoType = {
-            repoID: REPOS.centralSonatypeCom,
-            url: '',
-            repoFormat: FORMATS.maven,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.NEXUSIQ,
-            appendVersionPath: '',
-        }
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions?something=else'
         )
 
@@ -106,19 +80,9 @@ describe('central.sonatype.com Page Parsing', () => {
         const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions
-        const rt: RepoType = {
-            repoID: REPOS.centralSonatypeCom,
-            url: '',
-            repoFormat: FORMATS.maven,
-            titleSelector: '',
-            versionPath: '',
-            dataSource: DATA_SOURCES.NEXUSIQ,
-            appendVersionPath: '',
-        }
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions#anchor'
         )
 

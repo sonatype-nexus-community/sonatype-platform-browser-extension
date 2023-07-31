@@ -17,22 +17,17 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
-import { DATA_SOURCES, FORMATS, REPOS, RepoType } from '../Constants'
+import { REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { ensure } from '../Helpers'
 
 describe('Golang Page Parsing', () => {
-    const rt: RepoType = {
-        url: '',
-        repoFormat: FORMATS.golang,
-        repoID: REPOS.pkgGoDev,
-        titleSelector: '',
-        versionPath: '',
-        dataSource: DATA_SOURCES.NEXUSIQ,
-        appendVersionPath: '',
-    }
+    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.pkgGoDev)
+    expect(repoType).toBeDefined()
+
     test('Parse golang page etcd version in url', () => {
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://pkg.go.dev/github.com/etcd-io/etcd@v0.3.0'
         )
 
@@ -43,7 +38,10 @@ describe('Golang Page Parsing', () => {
     })
 
     test('Parse golang page protobuf version in url', () => {
-        const PackageURL = getArtifactDetailsFromDOM(rt, 'https://pkg.go.dev/google.golang.org/protobuf@v1.26.0')
+        const PackageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://pkg.go.dev/google.golang.org/protobuf@v1.26.0'
+        )
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.version).toBe('v1.26.0')
         expect(PackageURL?.namespace).toBe('google.golang.org')
@@ -57,7 +55,7 @@ describe('Golang Page Parsing', () => {
 
     test('Parse golang page protobuf version in url and subpath', () => {
         const PackageURL = getArtifactDetailsFromDOM(
-            rt,
+            ensure(repoType),
             'https://pkg.go.dev/google.golang.org/protobuf@v1.26.0/runtime/protoimpl'
         )
         expect(PackageURL).toBeDefined()
@@ -67,7 +65,7 @@ describe('Golang Page Parsing', () => {
         expect(PackageURL?.toString()).toBe('pkg:golang/google.golang.org/protobuf@v1.26.0')
     })
     test('Parse golang page gopkg.in version in url', () => {
-        const PackageURL = getArtifactDetailsFromDOM(rt, 'https://pkg.go.dev/gopkg.in/ini.v1@v1.61.0')
+        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pkg.go.dev/gopkg.in/ini.v1@v1.61.0')
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.version).toBe('v1.61.0')
         expect(PackageURL?.namespace).toBe('github.com/go-ini')
@@ -75,7 +73,7 @@ describe('Golang Page Parsing', () => {
     })
 
     test('Parse golang page gopkg.in version in url', () => {
-        const PackageURL = getArtifactDetailsFromDOM(rt, 'https://pkg.go.dev/gopkg.in/yaml.v2@v2.4.0')
+        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pkg.go.dev/gopkg.in/yaml.v2@v2.4.0')
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.version).toBe('v2.4.0')
         expect(PackageURL?.namespace).toBe('github.com/go-yaml')
@@ -85,7 +83,7 @@ describe('Golang Page Parsing', () => {
         const html = readFileSync(join(__dirname, 'testdata/golang.html'))
 
         window.document.body.innerHTML = html.toString()
-        const PackageURL = getArtifactDetailsFromDOM(rt, 'https://pkg.go.dev/github.com/etcd-io/etcd')
+        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pkg.go.dev/github.com/etcd-io/etcd')
 
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.namespace).toBe('github.com/etcd-io')

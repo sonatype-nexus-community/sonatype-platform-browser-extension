@@ -152,7 +152,7 @@ const popupConfig = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(ttf|eot|woff2?|svg|png)$/,
+        test: /\.(ttf|eot|woff2?|svg|png|json)$/,
         type: 'asset'
       }
     ],

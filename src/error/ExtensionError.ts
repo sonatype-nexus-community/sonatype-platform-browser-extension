@@ -29,3 +29,11 @@ export class ExtensionError extends Error {
  * For example - attempting to access IQ configuration when data source is set to OSS INDEX.
  */
 export class InvalidConfigurationError extends ExtensionError {}
+
+
+/**
+ * Error thrown when configuration of the extension is incomplete.
+ *
+ * For example - attempting to access IQ configuration when data source is set to OSS INDEX.
+ */
+export class IncompleteConfigurationError extends ExtensionError {}

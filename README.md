@@ -12,58 +12,51 @@ The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Exte
 
 **Contents**
 
--   [Format Support](#format-support)
-    -   [Public Registries](#public-registries)
-    -   [Private Hosted Registries](#private-hosted-registries)
-    -   [Missing or unsupported Registry?](#missing-or-unsupported-registry)
--   [Installation](#installation)
-    -   [Installation on Chrome](#installation-on-chrome)
--   [Configuration](#configuration)
--   [Usage](#usage)
-    -   [Pinning the Extension](#pinning-the-extension)
-    -   [Opening the Extension](#opening-the-extension)
-    -   [Component Information](#component-information)
-    -   [Remediation Advice](#remediation-advice)
-    -   [Policy Violation(s)](#policy-violations)
-    -   [Known Security Issues](#known-security-issues)
-    -   [Open Source License(s)](#open-source-licenses)
--   [Development](#development)
--   [Uninstallation](#uninstallation)
--   [Version History](#version-history)
--   [The Fine Print](#the-fine-print)
-
-<!-- ### Notable Features not yet in 2.x.x
-
--   Support for Sonatype OSS Index as a (free) data source
--   Some public registry formats have not yet been ported - see table below
--   Support for repositories on Sonatype Nexus Repository and jFrog Artifactory has not yet been ported - coming soon -->
+- [Format Support](#format-support)
+  - [Public Registries](#public-registries)
+  - [Private Hosted Registries](#private-hosted-registries)
+  - [Missing or unsupported Registry?](#missing-or-unsupported-registry)
+- [Installation](#installation)
+  - [Installation on Chrome](#installation-on-chrome)
+- [Supported Languages](#supported-languages)
+- [Configuration](#configuration)
+- [Usage](#usage)
+  - [Pinning the Extension](#pinning-the-extension)
+  - [Opening the Extension](#opening-the-extension)
+  - [Component Information](#component-information)
+  - [Remediation Advice](#remediation-advice)
+  - [Policy Violation(s)](#policy-violations)
+  - [Known Security Issues](#known-security-issues)
+  - [Open Source License(s)](#open-source-licenses)
+- [Development](#development)
+- [Uninstallation](#uninstallation)
+- [Version History](#version-history)
+- [The Fine Print](#the-fine-print)
 
 ## Format Support
 
 ### Public Registries
 
-**NOTE:** For the initial versions of this Extension, support for OSS Index has not yet been included (so we could ship quicker!) We'll update here when support is re-introduced.
-
-| Registry               | Language            | Enabled | URL                              | Sonatype Lifecycle | Sonatype OSS Index |
-| ---------------------- | ------------------- | ------- | -------------------------------- | ------------------ | ------------------ |
-| Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ✅                 | ❌                 |
-| Clojars                | Java                | ❌      | `https://clojars.org/`           | ✅                 | ✅                 |
-| CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ✅                 | ❌                 |
-| Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                 | ❌                 |
-| CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ✅                 | ❌                 |
-| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | ✅                 | ✅                 |
-| Go.dev                 | Go                  | ❌ ^2   | `https://pkg.go.dev/`            | ✅                 | ✅                 |
-| Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                 | ✅                 |
-| Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ✅                 | ✅                 |
-| Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ✅                 | ✅                 |
-| Maven Central (old)    | Java                | ✅      | `https://search.maven.org/`      | ✅                 | ✅                 |
-| MVN Repository         | Java                | ✅      | `https://mvnrepository.com/`     | ✅                 | ✅                 |
-| NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                 | ✅                 |
-| NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                 | ✅                 |
-| Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                 | ✅                 |
-| PyPI                   | Python              | ✅      | `https://pypi.org/`              | ✅                 | ✅                 |
-| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                 | ✅                 |
-| Spring.io              | Java                | ❌ ^3   | `https://repo.spring.io/list/`   | ✅                 | ✅                 |
+| Registry               | Language            | Enabled | URL                              | Sonatype Lifecycle |
+| ---------------------- | ------------------- | ------- | -------------------------------- | ------------------ |
+| Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ✅                 |
+| Clojars                | Java                | ❌      | `https://clojars.org/`           | ✅                 |
+| CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ✅                 |
+| Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                 |
+| CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ✅                 |
+| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | ✅                 |
+| Go.dev                 | Go                  | ❌ ^2   | `https://pkg.go.dev/`            | ✅                 |
+| Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                 |
+| Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ✅                 |
+| Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ✅                 |
+| Maven Central (old)    | Java                | ✅      | `https://search.maven.org/`      | ✅                 |
+| MVN Repository         | Java                | ✅      | `https://mvnrepository.com/`     | ✅                 |
+| NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                 |
+| NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                 |
+| Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                 |
+| PyPI                   | Python              | ✅      | `https://pypi.org/`              | ✅                 |
+| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                 |
+| Spring.io              | Java                | ❌ ^3   | `https://repo.spring.io/list/`   | ✅                 |
 
 _Notes:_
 
@@ -86,6 +79,23 @@ Missing format or ecosystem? Why not raise an Issue to request?
 ### Installation on Chrome
 
 Visit [Chrome Web Store](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag) to add to Chrome.
+
+## Supported Languages
+
+Yes - you read right - we have localised this extension!
+
+Currently we have translations for:
+
+-   English 🇦🇺 🇬🇧 🇺🇸
+-   Finnish 🇫🇮
+-   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
+-   German 🇩🇪 🇦🇹 🇨🇭
+-   Korean 🇰🇷 🇨🇳
+-   Portuguese 🇧🇷 🇵🇹
+
+More are coming soon.
+
+If you'd like to contribute a translation, please check the target locale you have in mind is supported by Chromium - [see this list](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support).
 
 ## Configuration
 

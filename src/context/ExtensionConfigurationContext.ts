@@ -15,11 +15,6 @@
  */
 
 import React from 'react'
-import { DATA_SOURCE } from '../utils/Constants'
-import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
-import { LogLevel } from '../logger/Logger'
+import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../types/ExtensionConfiguration'
 
-export const ExtensionConfigurationContext = React.createContext<ExtensionConfiguration>({
-    dataSource: DATA_SOURCE.NEXUSIQ,
-    logLevel: LogLevel.ERROR,
-})
+export const ExtensionConfigurationContext = React.createContext<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)

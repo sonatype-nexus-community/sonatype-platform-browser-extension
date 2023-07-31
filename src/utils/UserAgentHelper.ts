@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const extension = chrome.runtime.getManifest()
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+const extension = _browser.runtime.getManifest()
+const extension_name_normalised = 'sonatype_platform_browser_extension'
 
 export class UserAgentHelper {
     public static getUserAgent(): string {
-        return `${UserAgentHelper.nameToUserAgentProduct(extension.name)}/${extension.version}`
-    }
-
-    private static nameToUserAgentProduct(name: string): string {
-        return name.toLowerCase().replaceAll(' ', '_')
+        return `${extension_name_normalised}/${extension.version}`
     }
 }

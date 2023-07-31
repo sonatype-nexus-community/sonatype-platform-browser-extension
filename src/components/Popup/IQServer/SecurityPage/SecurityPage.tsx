@@ -24,6 +24,9 @@ import { ApiSecurityIssueDTO } from '@sonatype/nexus-iq-api-client'
 import { sortSecurityIssues, SecurityIssue } from '../../../../types/ArtifactMessage'
 import { NxTable, NxThreatIndicatorLegend } from '@sonatype/react-shared-components'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 function IqSecurityPage() {
     const popupContext = useContext(ExtensionPopupContext)
     const [open, setOpen] = useState('')
@@ -55,8 +58,8 @@ function IqSecurityPage() {
                         <NxTable.Head>
                             <NxTable.Row isClickable className='nx-table-row nx-table-row--header'>
                                 {/*<th className="nx-cell nx-cell--header nx-cell--num">Threat</th>*/}
-                                <NxTable.Cell>CVSS</NxTable.Cell>
-                                <NxTable.Cell>Issue</NxTable.Cell>
+                                <NxTable.Cell>{_browser.i18n.getMessage('SECURITY_TABLE_CVSS')}</NxTable.Cell>
+                                <NxTable.Cell>{_browser.i18n.getMessage('SECURITY_TABLE_ISSUE')}</NxTable.Cell>
                                 <NxTable.Cell chevron />
                             </NxTable.Row>
                         </NxTable.Head>
