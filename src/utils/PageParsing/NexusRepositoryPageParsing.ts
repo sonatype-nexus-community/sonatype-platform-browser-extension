@@ -20,6 +20,8 @@ import { LogLevel, logger } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
 
 const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
+const DOM_SELECTOR_BROWSE_SHA1_SUM =
+    'div.nx-coreui-component-assetattributes table:nth-child(2) tr:nth-child(2) td:nth-child(2) div'
 
 export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromNxrmDom', LogLevel.DEBUG, repoType, url)
@@ -42,6 +44,8 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
                 return attemptPackageUrlCocoaPodsUrl(uriPath)
             case 'maven2':
                 return attemptPackageUrlMavenUrl(uriPath)
+            case FORMATS.nuget:
+                return attemptPackageUrlNuGetUrl(uriPath)
             case FORMATS.npm:
                 return attemptPackageUrlNpmUrl(uriPath)
             case FORMATS.pypi:
@@ -130,6 +134,40 @@ function attemptPackageUrlNpmUrl(uriPath: string): PackageURL | undefined {
             encodeURIComponent(version),
             componentNamespace === undefined ? undefined : componentNamespace,
             undefined,
+            undefined
+        )
+    }
+    return undefined
+}
+
+function attemptPackageUrlNuGetUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:nuget-proxy:azure.core%2F1.0.2%2Fazure.core-1.0.2.nupkg
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 2) {
+        const sha1DomNode = $(DOM_SELECTOR_BROWSE_SHA1_SUM)
+
+        if (sha1DomNode === undefined) {
+            return undefined
+        }
+
+        const sha1Hash = sha1DomNode.first().text().trim()
+        logger.logMessage(`Detected SHA-1: ${sha1Hash}`, LogLevel.DEBUG, sha1DomNode)
+
+        const filename = componentParts.pop() as string
+        if (!filename.endsWith('.nupkg')) {
+            return undefined
+        }
+        const componentVersion = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+
+        return generatePackageURLComplete(
+            FORMATS.nuget,
+            encodeURIComponent(componentName),
+            encodeURIComponent(componentVersion),
+            undefined,
+            { checksum: `sha1:${sha1Hash}` },
             undefined
         )
     }

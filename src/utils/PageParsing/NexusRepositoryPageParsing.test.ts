@@ -129,6 +129,57 @@ describe('NXRM3 Page Parsing', () => {
     })
 
     /**
+     * NuGet FORMAT TESTS
+     */
+
+    test('#browse/browse:nuget-proxy:azure.core', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-nuget-folder.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:nuget-proxy:azure.core'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:nuget-proxy:azure.core%2F1.0.2', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-nuget-version.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:nuget-proxy:azure.core%2F1.0.2'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:nuget-proxy:azure.core%2F1.0.2%2Fazure.core-1.0.2.nupkg', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-nuget.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:nuget-proxy:azure.core%2F1.0.2%2Fazure.core-1.0.2.nupkg'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.nuget)
+        expect(packageURL?.namespace).toBeUndefined()
+        expect(packageURL?.name).toBe('azure.core')
+        expect(packageURL?.version).toBe('1.0.2')
+        expect(packageURL?.qualifiers).toEqual({ checksum: 'sha1:4fd5ec10371c391919dddda1849436aaa41893b9' })
+        expect(packageURL?.toString()).toBe(
+            'pkg:nuget/azure.core@1.0.2?checksum=sha1%3A4fd5ec10371c391919dddda1849436aaa41893b9'
+        )
+    })
+
+    /**
      * NPM FORMAT TESTS
      */
 
