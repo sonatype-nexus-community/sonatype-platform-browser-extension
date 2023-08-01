@@ -1,3 +1,24 @@
+# [2.8.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.7.0...v2.8.0) (2023-07-31)
+
+
+### Features
+
+* add release process to Microsoft Edge Webstore ([#19](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/19)) ([f981ed1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f981ed1c35c520127a44cbdd98215cae9bc8576e))
+
+# [2.7.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.6.0...v2.7.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* additional French translations ([9bb453c](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/9bb453c0ddd5a6811d7a52bf45fc691384f6f7f1))
+* additional translations for French ([e605120](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/e60512045a421fbf3c0e22d598f5b14d7cbaa0cd))
+* additional translations for Korean ([969199b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/969199b411b5f88a755f97d39c75b374544c357a))
+
+
+### Features
+
+* update icons for accessibility ([#48](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/48)) ([65a5aa8](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/65a5aa841e6b4face9005d00dfd84966b780770c))
+
 # [2.6.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.5.1...v2.6.0) (2023-07-19)
 
 
