@@ -238,6 +238,55 @@ describe('NXRM3 Page Parsing', () => {
     })
 
     /**
+     * R FORMAT TESTS
+     */
+
+    test('#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-r-folder.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3%2Fxgboost%2F1.7.5.1', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-r-version.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3%2Fxgboost%2F1.7.5.1'
+        )
+
+        expect(packageURL).toBeUndefined()
+    })
+
+    test('#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3%2Fxgboost%2F1.7.5.1%2Fxgboost_1.7.5.1.tgz', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nxrm3/browse-r.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromNxrmDom(
+            repoType,
+            'https://repo.tld/#browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3%2Fxgboost%2F1.7.5.1%2Fxgboost_1.7.5.1.tgz'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.cran)
+        expect(packageURL?.namespace).toBeUndefined()
+        expect(packageURL?.name).toBe('xgboost')
+        expect(packageURL?.version).toBe('1.7.5.1')
+        expect(packageURL?.qualifiers).toBeUndefined()
+        expect(packageURL?.toString()).toBe('pkg:cran/xgboost@1.7.5.1')
+    })
+
+    /**
      * RubyGem FORMAT TESTS
      */
 

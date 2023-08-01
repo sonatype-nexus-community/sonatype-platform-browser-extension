@@ -40,6 +40,8 @@ export const getArtifactDetailsFromNxrmDom = (repoType: RepoType, url: string): 
         switch (format) {
             case FORMATS.cocoapods:
                 return attemptPackageUrlCocoaPodsUrl(uriPath)
+            case 'r':
+                return attemptPackageUrlRUrl(uriPath)
             case 'maven2':
                 return attemptPackageUrlMavenUrl(uriPath)
             case FORMATS.npm:
@@ -155,6 +157,32 @@ function attemptPackageUrlPyPiUrl(uriPath: string): PackageURL | undefined {
             undefined
         )
     }
+    return undefined
+}
+
+function attemptPackageUrlRUrl(uriPath: string): PackageURL | undefined {
+    // #browse/browse:r-proxy:bin%2Fmacosx%2Fbig-sur-arm64%2Fcontrib%2F4.3%2Fxgboost%2F1.7.5.1%2Fxgboost_1.7.5.1.tgz
+    const urlParts = uriPath.split(':')
+    const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
+
+    if (componentParts.length >= 3) {
+        const filename = componentParts.pop() as string
+        if (!filename.endsWith('.tgz')) {
+            return undefined
+        }
+        const version = componentParts.pop() as string
+        const componentName = componentParts.pop() as string
+
+        return generatePackageURLComplete(
+            FORMATS.cran,
+            encodeURIComponent(componentName),
+            encodeURIComponent(version),
+            undefined,
+            undefined,
+            undefined
+        )
+    }
+
     return undefined
 }
 
