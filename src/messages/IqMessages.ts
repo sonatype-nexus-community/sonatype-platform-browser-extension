@@ -23,6 +23,7 @@ import {
     GetSuggestedRemediationForComponentOwnerTypeEnum,
     LicenseLegalMetadataApi,
     GetLicenseLegalComponentReportOwnerTypeEnum,
+    ApiComponentDTOV2,
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
@@ -31,6 +32,7 @@ import { IncompleteConfigurationError, InvalidConfigurationError } from '../erro
 import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
+import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -67,9 +69,7 @@ export async function requestComponentEvaluationByPurls(request: MessageRequest)
                             {
                                 applicationId: applicationId,
                                 apiComponentEvaluationRequestDTOV2: {
-                                    components: purls.map((purl) => {
-                                        return { packageUrl: purl }
-                                    }),
+                                    components: purls.map(mapPurlToComponentEvaluationRequestDTOV2),
                                 },
                             },
                             { credentials: 'omit' }
@@ -88,6 +88,17 @@ export async function requestComponentEvaluationByPurls(request: MessageRequest)
                         .catch(_handle_iq_error_repsonse)
                 })
         })
+}
+
+function mapPurlToComponentEvaluationRequestDTOV2(purl: string): ApiComponentDTOV2 {
+    const packageUrl = PackageURL.fromString(purl)
+
+    if (packageUrl.qualifiers && 'checksum' in packageUrl.qualifiers) {
+        logger.logMessage(`PURL contains a checksum: ${purl}`, LogLevel.DEBUG)
+        return { packageUrl: purl }
+    } else {
+        return { packageUrl: purl }
+    }
 }
 
 export function pollForComponentEvaluationResult(applicationId: string, resultId: string, time: number) {

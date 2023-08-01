@@ -38,10 +38,10 @@
         }
     ],
     "homepage_url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
-    "minimum_chrome_version": "93",
+    "minimum_chrome_version": "102",
     "offline_enabled": false,
     "options_page": "options.html",
-    "permissions": ["activeTab", "declarativeContent", "background", "storage", "tabs"],
+    "permissions": ["activeTab", "declarativeContent", "background", "scripting", "storage", "tabs"],
     "short_name": "Sonatype",
     "background": {
         "service_worker": "extension_service_worker.js"
@@ -64,5 +64,5 @@
             "matches": ["<all_urls>"]
         }
     ],
-    "optional_host_permissions": ["<all_urls>"]
+    "optional_host_permissions": ["https://*/*", "http://*/*"]
 }

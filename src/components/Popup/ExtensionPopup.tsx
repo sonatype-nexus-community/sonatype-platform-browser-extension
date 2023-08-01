@@ -40,6 +40,7 @@ import {
     ApiComponentRemediationDTO,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
+import { findRepoType } from '../../utils/UrlParsing'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -77,27 +78,30 @@ export default function ExtensionPopup() {
             setPopupContext((c) => merge(c, newPopupContextWithTab))
             logger.logMessage(`Requesting PURL from Tab ${tab.url}`, LogLevel.DEBUG)
             if (tab.status != 'unloaded') {
-                _browser.tabs
-                    .sendMessage(tab.id, {
-                        type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
-                        params: {
-                            tabId: tab.id,
-                            url: tab.url,
-                        },
-                    })
-                    .catch((err) => {
-                        logger.logMessage(`Error caught calculating PURL from Tab`, LogLevel.DEBUG, err)
-                    })
-                    .then((response) => {
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        if (_browser.runtime.lastError) {
-                            console.error('ERROR in here', _browser.runtime.lastError.message, response)
-                        }
-                        logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
-                        if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                            setPurl(PackageURL.fromString(response.data.purl))
-                        }
-                    })
+                findRepoType(tab.url).then((repoType) => {
+                    _browser.tabs
+                        .sendMessage(tab.id, {
+                            type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
+                            params: {
+                                repoType: repoType,
+                                tabId: tab.id,
+                                url: tab.url,
+                            },
+                        })
+                        .catch((err) => {
+                            logger.logMessage(`Error caught calculating PURL from Tab`, LogLevel.DEBUG, err)
+                        })
+                        .then((response) => {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                            if (_browser.runtime.lastError) {
+                                console.error('ERROR in here', _browser.runtime.lastError.message, response)
+                            }
+                            logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
+                            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                                setPurl(PackageURL.fromString(response.data.purl))
+                            }
+                        })
+                })
             }
         })
     }, [])
