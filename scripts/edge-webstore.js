@@ -27,6 +27,7 @@ const PRODUCT_ID = process.env.EDGE_PRODUCT_ID
 const CLIENT_ID = process.env.EDGE_CLIENT_ID
 const CLIENT_SECRET = process.env.EDGE_CLIENT_SECRET
 const ACCESS_TOKEN_URL = process.env.EDGE_ACCESS_TOKEN_URL
+const SUBMISSION_NOTES = process.env.EDGE_SUBMISSION_NOTES
 const ZIP_PATH = './sonatype-platform-browser-extension.zip'
 
 if (PRODUCT_ID === undefined) {
@@ -49,6 +50,11 @@ if (ACCESS_TOKEN_URL === undefined) {
     process.exit(1)
 }
 
+if (SUBMISSION_NOTES === undefined) {
+    console.log('EDGE_SUBMISSION_NOTES is not set - cannot continue.')
+    process.exit(1)
+}
+
 if (SCRIPT_MODE == 'PUBLISH') {
     if (!fs.existsSync(ZIP_PATH)) {
         console.log(`ZIP does not exist at expected location: ${ZIP_PATH}`)
@@ -66,6 +72,7 @@ if (SCRIPT_MODE == 'PUBLISH') {
         client
             .submit({
                 filePath: ZIP_PATH,
+                notes: atob(SUBMISSION_NOTES),
             })
             .then((r) => {
                 console.log(r)
