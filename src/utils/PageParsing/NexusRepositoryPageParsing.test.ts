@@ -183,7 +183,7 @@ describe('NXRM3 Page Parsing', () => {
 
         expect(packageURL).toBeDefined()
         expect(packageURL?.type).toBe(FORMATS.npm)
-        expect(packageURL?.namespace).toBe('%40sonatype')
+        expect(packageURL?.namespace).toBe('@sonatype')
         expect(packageURL?.name).toBe('policy-demo')
         expect(packageURL?.version).toBe('2.0.0')
     })
