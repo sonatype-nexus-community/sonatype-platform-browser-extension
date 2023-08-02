@@ -426,11 +426,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         {/* <NxFormGroup
                                             label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}> */}
                                         
-                                                <a href="https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1" className="nx-btn">Maven Example
+                                                <a href="https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1" className="nx-btn">Maven {_browser.i18n.getMessage('EXAMPLE')}
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                                <a href="https://www.npmjs.com/package/handlebars/v/4.7.5" className="nx-btn">npmjs Example
+                                                <a href="https://www.npmjs.com/package/handlebars/v/4.7.5" className="nx-btn">npmjs {_browser.i18n.getMessage('EXAMPLE')}
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                                <a href="https://pypi.org/project/feedparser/6.0.10/" className="nx-btn">PyPi Example
+                                                <a href="https://pypi.org/project/feedparser/6.0.10/" className="nx-btn">PyPi {_browser.i18n.getMessage('EXAMPLE')}
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
                                     
                                         {/* </NxFormGroup> */}
