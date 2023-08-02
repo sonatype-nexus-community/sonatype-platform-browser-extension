@@ -15,6 +15,7 @@
  */
 
 import {
+    NxButton,
     NxDescriptionList,
     NxDivider,
     NxErrorAlert,
@@ -30,13 +31,12 @@ import {
     nxTextInputStateHelpers,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useState } from 'react'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { ExtensionConfiguration, SonatypeNexusRepostitoryHost } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { LogLevel, logger } from '../../../logger/Logger'
 import { isHttpUriValidator } from '../../Common/Validators'
-// import { simpleHash } from '../../../utils/Helpers'
 
 const { initialState, userInput } = nxTextInputStateHelpers
 
@@ -144,7 +144,7 @@ export default function GeneralOptionsPage({
         logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO)
         _browser.permissions
             .request({
-                origins: [host],
+                origins: [host + '*'],
             })
             .then((success: boolean) => {
                 if (success) {
@@ -167,15 +167,77 @@ export default function GeneralOptionsPage({
                                     setErrorNxrm('This does not appear to be a Sonatype Nexus Repository 3 Server.')
                                 })
                                 .finally(() => {
+                                    setErrorNxrm(undefined)
                                     setCheckingNxrmConnection(false)
                                 })
                         })
                         .catch(() => {
+                            setErrorNxrm(undefined)
                             setCheckingNxrmConnection(false)
                         })
                 } else {
                     setErrorNxrm('You need to Allow your browser permission to add a Sonatype Nexus Repository server.')
                     setCheckingNxrmConnection(false)
+                }
+            })
+    }
+
+    function removeNxrmInstance(id: string): void {
+        const nxrmInstanceToRemove = extensionSettings.sonatypeNexusRepositoryHosts.find(
+            (nxrmHost) => nxrmHost.id == id
+        )
+
+        if (nxrmInstanceToRemove === undefined) {
+            return
+        }
+
+        const remainingNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts.filter(
+            (nxrmHost) => nxrmHost.id != id
+        )
+
+        logger.logMessage(
+            `Removing Browser Permission for: ${nxrmInstanceToRemove.url}, leaving ${remainingNxrmHosts.length} NXRM Hosts`,
+            LogLevel.INFO,
+            remainingNxrmHosts
+        )
+
+        logger.logMessage(`Browser Permission REMOVED for: ${nxrmInstanceToRemove.url}*`, LogLevel.DEBUG)
+        _browser.permissions
+            .remove({
+                origins: [nxrmInstanceToRemove.url + '*'],
+            })
+            .then((success: boolean) => {
+                if (success) {
+                    if (remainingNxrmHosts.length == 0) {
+                        _browser.scripting
+                            .unregisterContentScripts({
+                                ids: ['content'],
+                            })
+                            .then(() => {
+                                const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
+                                setExtensionConfig(newExtensionSettings)
+                            })
+                    } else {
+                        _browser.scripting
+                            .updateContentScripts([
+                                {
+                                    id: 'content',
+                                    css: ['/css/pagestyle.css'],
+                                    js: ['/static/js/content.js'],
+                                    matches: remainingNxrmHosts.map((nxrmHost) => {
+                                        return nxrmHost.url + '*'
+                                    }),
+                                    runAt: 'document_end',
+                                    world: 'MAIN',
+                                },
+                            ])
+                            .then(() => {
+                                const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
+                                setExtensionConfig(newExtensionSettings)
+                            })
+                    }
                 }
             })
     }
@@ -234,9 +296,26 @@ export default function GeneralOptionsPage({
                                             return (
                                                 <NxDescriptionList.Item key={nxrmHost.id}>
                                                     <NxDescriptionList.Term>
-                                                        {nxrmHost.url}{' '}
-                                                        <NxSmallTag color='green'>{nxrmHost.version}</NxSmallTag>
+                                                        <img
+                                                            src='./images/sonatype-repo-icon.png'
+                                                            width={38}
+                                                            height={38}
+                                                            alt='Sonatype Nexus Repository'
+                                                            style={{ marginRight: '10px' }}
+                                                        />
+                                                        <div style={{ padding: '5px 0' }}>
+                                                            {nxrmHost.url}{' '}
+                                                            <NxSmallTag color='green'>{nxrmHost.version}</NxSmallTag>
+                                                        </div>
                                                     </NxDescriptionList.Term>
+                                                    <NxDescriptionList.Description>
+                                                        <NxButton
+                                                            variant='icon-only'
+                                                            title='Remove'
+                                                            onClick={() => removeNxrmInstance(nxrmHost.id)}>
+                                                            <NxFontAwesomeIcon icon={faTrashAlt as IconDefinition} />
+                                                        </NxButton>
+                                                    </NxDescriptionList.Description>
                                                 </NxDescriptionList.Item>
                                             )
                                         }
