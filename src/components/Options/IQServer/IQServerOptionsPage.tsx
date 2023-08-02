@@ -430,7 +430,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
                                                 <a href="https://www.npmjs.com/package/handlebars/v/4.7.5" className="nx-btn">npmjs {_browser.i18n.getMessage('EXAMPLE')}
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                                <a href="https://pypi.org/project/feedparser/6.0.10/" className="nx-btn">PyPi {_browser.i18n.getMessage('EXAMPLE')}
+                                                <a href="https://pypi.org/project/feedparser/6.0.10/" className="nx-btn">PyPI {_browser.i18n.getMessage('EXAMPLE')}
                                                 {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
                                     
                                         {/* </NxFormGroup> */}
