@@ -30,10 +30,12 @@ import { logger, LogLevel } from '../../logger/Logger'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft, faArrowRight, faCog, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import Help from '../Help/Help'
+import { Analytics } from '../../utils/Analytics'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 const extension = _browser.runtime.getManifest()
+const analytics = new Analytics()
 
 enum OPTIONS_PAGE_MODE {
     GENERAL,
@@ -42,7 +44,6 @@ enum OPTIONS_PAGE_MODE {
 }
 
 export default function Options() {
-    // const [activeTabId, setActiveTabId] = useState(0)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const search = window.location.search
     const params = new URLSearchParams(search)
@@ -55,6 +56,11 @@ export default function Options() {
     }
 
     const install = params.has('install')
+
+    analytics.firePageViewEvent('Options', window.location.href, {
+        subPage: OPTIONS_PAGE_MODE[pageMode],
+        install: install,
+    })
 
     function handleNewExtensionConfig(settings: ExtensionConfiguration) {
         logger.logMessage(`Options handleNewExtensionConfig`, LogLevel.DEBUG, settings)
