@@ -34,7 +34,6 @@ jobs:
             - run:
                   name: Inject Production GA Configuration
                   command: |
-                      sed -i -r 's|/debug/|/|g' src/utils/AnalyticsConfg.ts \
                       sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts \
                       sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/utils/AnalyticsConfg.ts
             - run:
@@ -90,6 +89,8 @@ workflows:
     ci:
         jobs:
             - build_and_test:
+                  context:
+                      - sonatype-browser-extension-build
                   filters:
                       branches:
                           ignore: main
@@ -99,6 +100,7 @@ workflows:
             - release_build:
                   context:
                       - sonatype-browser-extension
+                      - sonatype-browser-extension-build
                   filters:
                       branches:
                           only: main
