@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { RepoType, REPO_TYPES } from './Constants'
+import { RepoType, REPO_TYPES, FORMATS } from './Constants'
 import { LogLevel, logger } from '../logger/Logger'
+import { readExtensionConfiguration } from '../messages/SettingsMessages'
+import { MESSAGE_RESPONSE_STATUS } from '../types/Message'
+import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 
-const findRepoType = (url: string): RepoType | undefined => {
+const findRepoType = async (url: string): Promise<RepoType | undefined> => {
     for (let i = 0; i < REPO_TYPES.length; i++) {
         if (url.search(REPO_TYPES[i].url) >= 0) {
             logger.logMessage(`Current URL ${url} matches ${REPO_TYPES[i].repoID}`, LogLevel.INFO)
@@ -24,7 +27,30 @@ const findRepoType = (url: string): RepoType | undefined => {
         }
     }
 
-    return undefined
+    return await findNxrmRepoType(url)
+}
+
+function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
+    return readExtensionConfiguration().then((response) => {
+        logger.logMessage(`Checking if ${url} matches a configured Sonatype Nexus Repository`, LogLevel.DEBUG)
+        if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+            const extensionConfig = response.data as ExtensionConfiguration
+            if (extensionConfig !== undefined && extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
+                for (const nxrmHost of extensionConfig.sonatypeNexusRepositoryHosts) {
+                    logger.logMessage(`Checking ${url} against ${nxrmHost.url}...`, LogLevel.DEBUG)
+                    if (url.startsWith(nxrmHost.url)) {
+                        return {
+                            url: nxrmHost.url,
+                            repoFormat: FORMATS.NXRM,
+                            repoID: `NXRM-${nxrmHost.id}`,
+                            titleSelector: "[id^='nx-coreui-component-componentassetinfo'][id$='header-title-textEl']",
+                        }
+                    }
+                }
+            }
+        }
+        return undefined
+    })
 }
 
 export { findRepoType }

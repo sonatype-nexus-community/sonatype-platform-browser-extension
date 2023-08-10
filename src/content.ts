@@ -20,7 +20,8 @@ import { findRepoType } from './utils/UrlParsing'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'
-import { RepoType } from './utils/Constants'
+import { FORMATS, RepoType } from './utils/Constants'
+import { getArtifactDetailsFromNxrmDom } from './utils/PageParsing/NexusRepositoryPageParsing'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -45,7 +46,11 @@ function handle_message_received_calculate_purl_for_page(
     if (request.type == MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE) {
         logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
         logger.logMessage('Deriving PackageURL', LogLevel.INFO, request.params)
-        const repoType = findRepoType(window.location.href)
+
+        let repoType: RepoType | undefined
+        if (request.params !== undefined && 'repoType' in request.params) {
+            repoType = request.params.repoType as RepoType
+        }
 
         if (repoType === undefined) {
             sendResponse({
@@ -54,6 +59,25 @@ function handle_message_received_calculate_purl_for_page(
                     message: `Repository not supported: ${window.location.href}`,
                 },
             })
+        } else if (repoType.repoFormat == FORMATS.NXRM) {
+            logger.logMessage(`Calculating PURL for a Sonatype Nexus Repository`, LogLevel.DEBUG)
+            const purl = getArtifactDetailsFromNxrmDom(repoType, window.location.href)
+
+            if (purl === undefined) {
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.FAILURE,
+                    status_detail: {
+                        message: `Unable to determine PackageURL for Sonatype Nexus Repository ${window.location.href}`,
+                    },
+                })
+            } else {
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                    data: {
+                        purl: purl.toString(),
+                    },
+                })
+            }
         } else {
             const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
             if (purl === undefined) {
@@ -82,43 +106,54 @@ function handle_message_received_calculate_purl_for_page(
  */
 function handle_message_received_propogate_component_state(request: MessageRequest): void {
     if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
-        logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
-        if (request.params !== undefined && 'componentState' in request.params) {
-            const repoType = findRepoType(window.location.href) as RepoType
-            const componentState = request.params.componentState as ComponentState
-            logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
-            let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
-            switch (componentState) {
-                case ComponentState.CRITICAL:
-                    vulnClass = 'sonatype-iq-extension-vuln-critical'
-                    break
-                case ComponentState.SEVERE:
-                    vulnClass = 'sonatype-iq-extension-vuln-severe'
-                    break
-                case ComponentState.MODERATE:
-                    vulnClass = 'sonatype-iq-extension-vuln-moderate'
-                    break
-                case ComponentState.LOW:
-                    vulnClass = 'sonatype-iq-extension-vuln-low'
-                    break
-                case ComponentState.NONE:
-                    vulnClass = 'sonatype-iq-extension-vuln-none'
-                    break
-                case ComponentState.EVALUATING:
-                    vulnClass = 'sonatype-iq-extension-vuln-evaluating'
-                    break
-                case ComponentState.INCOMPLETE_CONFIG:
-                    vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
-                    break
-            }
+        logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type)
+        findRepoType(window.location.href).then((repoType) => {
+            if (repoType !== undefined) {
+                logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
+                if (request.params !== undefined && 'componentState' in request.params) {
+                    const domElement = $(repoType.titleSelector)
+                    const componentState = request.params.componentState as ComponentState
 
-            const domElement = $(repoType.titleSelector)
-            if (domElement.length > 0) {
-                removeClasses(domElement)
-                domElement.addClass('sonatype-iq-extension-vuln')
-                domElement.addClass(vulnClass)
+                    if (componentState == ComponentState.CLEAR) {
+                        removeClasses(domElement)
+                        return
+                    }
+
+                    logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
+                    let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
+                    switch (componentState) {
+                        case ComponentState.CRITICAL:
+                            vulnClass = 'sonatype-iq-extension-vuln-critical'
+                            break
+                        case ComponentState.SEVERE:
+                            vulnClass = 'sonatype-iq-extension-vuln-severe'
+                            break
+                        case ComponentState.MODERATE:
+                            vulnClass = 'sonatype-iq-extension-vuln-moderate'
+                            break
+                        case ComponentState.LOW:
+                            vulnClass = 'sonatype-iq-extension-vuln-low'
+                            break
+                        case ComponentState.NONE:
+                            vulnClass = 'sonatype-iq-extension-vuln-none'
+                            break
+                        case ComponentState.EVALUATING:
+                            vulnClass = 'sonatype-iq-extension-vuln-evaluating'
+                            break
+                        case ComponentState.INCOMPLETE_CONFIG:
+                            vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
+                            break
+                    }
+
+                    logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
+                    if (domElement.length > 0) {
+                        removeClasses(domElement)
+                        domElement.addClass('sonatype-iq-extension-vuln')
+                        domElement.addClass(vulnClass)
+                    }
+                }
             }
-        }
+        })
     }
 }
 
@@ -132,4 +167,5 @@ const removeClasses = (element) => {
     element.removeClass('sonatype-iq-extension-vuln-none')
     element.removeClass('sonatype-iq-extension-vuln-evaluating')
     element.removeClass('sonatype-iq-extension-vuln-invalid-config')
+    element.removeClass('sonatype-iq-extension-vuln-unspecified')
 }

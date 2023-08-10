@@ -34,7 +34,7 @@ import {
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
-import { faExternalLink, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faExternalLink, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
@@ -63,6 +63,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const [iqAuthenticated, setIqAuthenticated] = useState<boolean | undefined>()
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
+    const [checkingConnection, setCheckingConnection] = useState(false)
 
     /**
      * Hook to check whether we already have permissions to IQ Server Host
@@ -144,6 +145,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     function handleLoginCheck() {
+        setCheckingConnection(true)
         _browser.runtime
             .sendMessage({
                 type: MESSAGE_REQUEST_TYPE.GET_APPLICATIONS,
@@ -153,6 +155,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((response: any) => {
+                setCheckingConnection(false)
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (_browser.runtime.lastError) {
                     logger.logMessage('Error handleLoginCheck', LogLevel.ERROR)
@@ -368,7 +371,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                                     </p>
                                     <div className='nx-form-row'>
-                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME') } isRequired>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
                                             <NxStatefulTextInput
                                                 defaultValue={extensionSettings?.user}
                                                 validator={nonEmptyValidator}
@@ -385,6 +388,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         </NxFormGroup>
                                         <NxButton variant='primary' onClick={handleLoginCheck}>
                                             {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ')}
+                                            {checkingConnection === true && (
+                                                <React.Fragment>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
+                                                </React.Fragment>
+                                            )}
                                         </NxButton>
                                     </div>
                                 </div>
@@ -425,14 +434,29 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         </NxFormGroup>
                                         {/* <NxFormGroup
                                             label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}> */}
-                                        
-                                                <a href="https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1" target='_blank' className="nx-btn">Maven {_browser.i18n.getMessage('EXAMPLE')}
-                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                                <a href="https://www.npmjs.com/package/handlebars/v/4.7.5" target='_blank' className="nx-btn">npmjs {_browser.i18n.getMessage('EXAMPLE')}
-                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                                <a href="https://pypi.org/project/feedparser/6.0.10/" target='_blank' className="nx-btn">PyPI {_browser.i18n.getMessage('EXAMPLE')}
-                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
-                                    
+
+                                        <a
+                                            href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
+                                            target='_blank'
+                                            className='nx-btn'>
+                                            Maven {_browser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+                                        <a
+                                            href='https://www.npmjs.com/package/handlebars/v/4.7.5'
+                                            target='_blank'
+                                            className='nx-btn'>
+                                            npmjs {_browser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+                                        <a
+                                            href='https://pypi.org/project/feedparser/6.0.10/'
+                                            target='_blank'
+                                            className='nx-btn'>
+                                            PyPI {_browser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+
                                         {/* </NxFormGroup> */}
                                     </React.Fragment>
                                 )}

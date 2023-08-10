@@ -22,6 +22,8 @@ The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Exte
     -   [Installation on Microsoft Edge](#installation-on-microsoft-edge)
 -   [Supported Languages](#supported-languages)
 -   [Configuration](#configuration)
+-   [Advanced Configuration](#advanced-configuration)
+    -   [Support for Sonatype Nexus Repository](#support-for-sonatype-nexus-repository)
 -   [Usage](#usage)
     -   [Pinning the Extension](#pinning-the-extension)
     -   [Opening the Extension](#opening-the-extension)
@@ -122,6 +124,27 @@ You can now enter your credentials for your Sonatype IQ Server and click "Connec
 ![Installation Step 3](./docs/images/install-03.png)
 
 That's it - you have configured the Sonatype Platform Browser Extension. You can close the configuration tab. If you need to make changes to the configuration
+
+## Advanced Configuration
+
+### Support for Sonatype Nexus Repository
+
+If your organisation runs one or more instances of Sonatype Nexus Repository, you can add these under Advanced Options.
+
+![Configure Sonatype Nexus Repository](./docs/images/configure-add-nxrm.png)
+
+> **_NOTE:_** The Sonatype Nexus Repository instance must be accessible via `http://` or `https://`
+
+When browsing Sonatype Nexus Repository instances you have added, this extension will look to provide insight for Open Source Components for the following format repositories:
+
+-   CocoaPods
+-   Maven (Java)
+-   NPM (Javascript)
+-   PyPi (Python)
+-   R (CRAN)
+-   RubyGems
+
+![Browsing Sonatype Nexus Repository](./docs/images/browse-nxrm.png)
 
 ## Usage
 
