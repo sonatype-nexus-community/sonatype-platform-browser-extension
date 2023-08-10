@@ -1,4 +1,8 @@
 {
+    "EXTENSION_NAME": {
+        "message": "Sonatype Platform Browser Extension",
+        "description": "The full name for this browser extension."
+    },
     "EXTENSION_DESCRIPTION": {
         "message": "Cambie la seguridad a la izquierda con la extensión del navegador de la plataforma Sonatype: analice los repositorios de código abierto en busca de vulnerabilidades conocidas.",
         "description": "Description of this browser extension."

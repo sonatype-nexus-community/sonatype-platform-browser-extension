@@ -118,7 +118,7 @@
         "description": "Fifth item of detail we request when raising a Bug"
     },
     "HIGHEST_POLICY_THREAT_LEVELS": {
-        "message": "最高策略威胁级别",
+        "message": "最高策略威脅級別",
         "description": "Header when displaying the highest threat levels by policy"
     },
     "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
