@@ -19,7 +19,7 @@ import {
     NxGlobalSidebarNavigationLink,
     NxGlobalSidebarFooter,
 } from '@sonatype/react-shared-components'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import { MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import GeneralOptionsPage from './General/GeneralOptionsPage'
@@ -57,10 +57,14 @@ export default function Options() {
 
     const install = params.has('install')
 
-    analytics.firePageViewEvent('Options', window.location.href, {
-        subPage: OPTIONS_PAGE_MODE[pageMode],
-        install: install,
-    })
+    useMemo(
+        () =>
+            analytics.firePageViewEvent('Options', window.location.href, {
+                subPage: OPTIONS_PAGE_MODE[pageMode],
+                install: install,
+            }),
+        [install, pageMode]
+    )
 
     function handleNewExtensionConfig(settings: ExtensionConfiguration) {
         logger.logMessage(`Options handleNewExtensionConfig`, LogLevel.DEBUG, settings)

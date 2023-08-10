@@ -22,6 +22,14 @@ import {
     SESSION_EXPIRATION_IN_MIN,
 } from './AnalyticsConfg'
 
+export enum ANALYTICS_EVENT_TYPES {
+    BROWSER_UPDATE = 'BROWSER_UPDATE',
+    EXTENSION_INSTALL = 'EXTENSION_INSTALL',
+    EXTENSION_UPDATE = 'EXTENSION_UPDATE',
+    PURL_CALCULATED = 'PURL_CALCULATED',
+    PURL_CALCULATE_FAILURE = 'PURL_CALCULATE_FAILURE',
+}
+
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 
@@ -68,7 +76,7 @@ export class Analytics {
                 session_id: currentTimeInMs.toString(),
                 timestamp: currentTimeInMs.toString(),
             }
-            await chrome.storage.session.set({ sessionData })
+            await _browser.storage.session.set({ sessionData })
         }
         return sessionData.session_id
     }
@@ -86,7 +94,7 @@ export class Analytics {
         }
 
         try {
-            const response = await fetch(`${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`, {
+            await fetch(`${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`, {
                 method: 'POST',
                 body: JSON.stringify({
                     client_id: await this.getOrCreateClientId(),
@@ -98,7 +106,7 @@ export class Analytics {
                     ],
                 }),
             })
-            console.log(await response.text())
+            // console.log(await response.text())
         } catch (e) {
             console.error('Google Analytics request failed with an exception', e)
         }
