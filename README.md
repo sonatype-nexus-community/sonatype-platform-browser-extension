@@ -96,12 +96,14 @@ Currently we have translations for:
 
 -   English 🇦🇺 🇬🇧 🇺🇸
 -   Catalan 🇪🇸 🇦🇩
+-   Chinese 🇨🇳 🇸🇬 🇭🇰 🇸🇬
 -   Finnish 🇫🇮
 -   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
 -   German 🇩🇪 🇦🇹 🇨🇭
 -   Korean 🇰🇷 🇨🇳
 -   Portuguese 🇧🇷 🇵🇹
 -   Spanish 🇪🇸 🇲🇽 🇨🇴 🇦🇷
+-   Taiwanese 🇹🇼
 
 More are coming soon.
 
