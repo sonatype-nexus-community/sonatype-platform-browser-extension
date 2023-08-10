@@ -29,10 +29,13 @@ import {
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
 import { IncompleteConfigurationError } from './error/ExtensionError'
+import { Analytics, ANALYTICS_EVENT_TYPES } from './utils/Analytics'
+import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 const extension = _browser.runtime.getManifest()
+const analytics = new Analytics()
 
 /**
  * New listener for messages received by Service Worker.
@@ -76,6 +79,18 @@ function handle_message_received(
 _browser.runtime.onInstalled.addListener((details) => {
     if (details.reason === 'install') {
         _browser.tabs.create({ url: 'options.html?install' })
+        analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_INSTALL, {
+            reason: details.reason,
+        })
+    } else if (details.reason == 'update') {
+        analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_UPDATE, {
+            previousVersion: details.previousVersion,
+            reason: details.reason,
+        })
+    } else {
+        analytics.fireEvent(ANALYTICS_EVENT_TYPES.BROWSER_UPDATE, {
+            reason: details.reason,
+        })
     }
 })
 
@@ -92,17 +107,21 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
         if (repoType !== undefined) {
             // We support this Repository!
             logger.logMessage(`Enabling Sonatype Browser Extension for ${url}`, LogLevel.DEBUG)
+            propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
             _browser.tabs
                 .sendMessage(tabId, {
                     type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
                     params: {
-                        repoType: repoType,
                         tabId: tabId,
                         url: url,
                     },
                 })
                 .catch((err) => {
                     logger.logMessage(`Error caught calling CALCULATE_PURL_FOR_PAGE`, LogLevel.DEBUG, err)
+                    analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
+                        repo: repoType.url,
+                        url: url,
+                    })
                 })
                 .then((response) => {
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -116,7 +135,15 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                     // })
 
                     if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                        propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
+                        const packageUrl = PackageURL.fromString(response.data.purl)
+                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
+                            name: packageUrl.name,
+                            namespace: packageUrl.namespace,
+                            purl: response.data.purl,
+                            qualifiers: packageUrl.qualifiers,
+                            type: packageUrl.type,
+                            version: packageUrl.version,
+                        })
 
                         requestComponentEvaluationByPurls({
                             type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
@@ -217,6 +244,10 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                             `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
                             LogLevel.DEBUG
                         )
+                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
+                            repo: repoType.url,
+                            url: url,
+                        })
                         propogateCurrentComponentState(tabId, ComponentState.CLEAR)
                         _browser.action.disable(tabId, () => {
                             logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)

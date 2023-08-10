@@ -67,7 +67,7 @@ function handle_message_received_calculate_purl_for_page(
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
-                        message: `Unable to determine PackageURL for Sonatype Nexus Repository ${request.params}`,
+                        message: `Unable to determine PackageURL for Sonatype Nexus Repository ${window.location.href}`,
                     },
                 })
             } else {
@@ -84,7 +84,7 @@ function handle_message_received_calculate_purl_for_page(
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
-                        message: `Unable to determine PackageURL for ${request.params}`,
+                        message: `Unable to determine PackageURL for ${window.location.href}`,
                     },
                 })
             } else {

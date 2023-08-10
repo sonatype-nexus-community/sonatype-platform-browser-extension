@@ -95,11 +95,13 @@ Yes - you read right - we have localised this extension!
 Currently we have translations for:
 
 -   English 🇦🇺 🇬🇧 🇺🇸
+-   Catalan 🇪🇸 🇦🇩
 -   Finnish 🇫🇮
 -   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
 -   German 🇩🇪 🇦🇹 🇨🇭
 -   Korean 🇰🇷 🇨🇳
 -   Portuguese 🇧🇷 🇵🇹
+-   Spanish 🇪🇸 🇲🇽 🇨🇴 🇦🇷
 
 More are coming soon.
 

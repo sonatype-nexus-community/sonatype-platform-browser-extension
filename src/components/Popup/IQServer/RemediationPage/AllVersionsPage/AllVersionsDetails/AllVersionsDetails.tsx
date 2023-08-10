@@ -69,11 +69,61 @@ function IqAllVersionDetails() {
         return 0
     }
 
-    function calculateAge(catalogDate) {
-        const ageDifMs = Date.now() - catalogDate
-        const ageDate = new Date(ageDifMs) // miliseconds from epoch
-        return Math.abs(ageDate.getUTCFullYear() - 1970)
-    }
+    function catalogDateDifference(startDate: Date | undefined) {
+        if (startDate === undefined) {
+            return
+        }
+        const endDate = new Date()
+        const differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+        const differenceInSeconds = differenceInMilliseconds / 1000;
+        const differenceInMinutes = differenceInSeconds / 60;
+        const differenceInHours = differenceInMinutes / 60;
+        const differenceInDays = differenceInHours / 24;
+        const differenceInMonths = (endDate.getMonth() - startDate.getMonth()) + (12 * (endDate.getFullYear() - startDate.getFullYear()));
+        const differenceInWeeks = differenceInDays / 7;
+        
+        let yearsDiff = endDate.getFullYear() - startDate.getFullYear();
+
+        if (
+            endDate.getMonth() < startDate.getMonth() ||
+            (endDate.getMonth() === startDate.getMonth() && endDate.getDate() < startDate.getDate())
+          ) {
+            yearsDiff -= 1;
+          }
+      
+        const difference = {
+          milliseconds: differenceInMilliseconds,
+          seconds: differenceInSeconds,
+          minutes: differenceInMinutes,
+          hours: differenceInHours,
+          days: differenceInDays,
+          months: differenceInMonths,
+          weeks: differenceInWeeks,
+          years: yearsDiff,
+        };
+
+        if (difference.years !== undefined && difference.years > 0) {
+            const yearString = `${difference.years} yr${difference.years !== 1 ? 's' : ''}`;
+            if (startDate.getMonth() !== 11) {
+                const remainingMonths = 12 - startDate.getMonth() - 1;
+                const monthString = `${remainingMonths} mo${remainingMonths !== 1 ? 's' : ''}`;
+                return `${yearString} ${monthString}`;
+              }
+            return yearString;
+          } else if (difference.months !== undefined && difference.months > 0) {
+            return `${difference.months} mo${difference.months !== 1 ? 's' : ''}`;
+          } else if (difference.weeks !== undefined && difference.weeks > 0) {
+            return `${difference.weeks} wk${difference.weeks !== 1 ? 's' : ''}`;
+          } else if (difference.days !== undefined && difference.days > 0) {
+            return `${difference.days} day${difference.days !== 1 ? 's' : ''}`;
+          } else if (difference.hours !== undefined && difference.hours > 0) {
+            return `${difference.hours} hr${difference.hours !== 1 ? 's' : ''}`;
+          } else if (difference.minutes !== undefined && difference.minutes > 0) {
+            return `${difference.minutes} min${difference.minutes !== 1 ? 's' : ''}`;
+          } else {
+            return `${difference.seconds} sec${difference.seconds !== 1 ? 's' : ''}`;
+          }
+      }
 
     function GetPolicyViolationsIndicator({ policyData, policyType }) {
         let filteredPolicies: ApiPolicyViolationDTOV2[] | undefined = []
@@ -159,7 +209,9 @@ function IqAllVersionDetails() {
 
                                             <Tooltip
                                                 title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
-                                                <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span>
+                                                {/* <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span> */}
+                                                <span className='nx-pull-right'>{catalogDateDifference(version.catalogDate)}</span>
+                                                
                                             </Tooltip>
                                         </NxGrid.Header>
                                         {version.policyData != undefined && (

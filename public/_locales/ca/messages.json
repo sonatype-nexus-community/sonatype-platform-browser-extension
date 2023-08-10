@@ -1,14 +1,14 @@
 {
     "EXTENSION_NAME": {
-        "message": "Sonatype Platform Browser Extension",
+        "message": "Extensió del navegador de la plataforma Sonatype",
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
+        "message": "Canvieu la seguretat cap a l'esquerra amb l'extensió del navegador de la plataforma Sonatype: analitzeu els repositoris de còdig obert per detectar vulnerabilitats conegudes.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
-        "message": "Release $VERSION$",
+        "message": "actualització $VERSION$",
         "description": "The release version of this browser extension",
         "placeholders": {
             "VERSION": {
@@ -18,127 +18,111 @@
         }
     },
     "ALL_VERSIONS": {
-        "message": "All Versions",
+        "message": "Totes les versions",
         "description": "The list of all the available component versions"
     },
     "CATALOG_DATE": {
-        "message": "Catalog Date",
-        "description": "The date this component version was added to the Sonatype data catalog"
+        "message": "Data del catàleg",
+        "description": "The date this component version was add to the Sonatype data catalog"
     },
     "SONATYPE_IQ_SERVER": {
         "message": "Sonatype IQ Server",
         "description": "Branded product name for Sonatype IQ Server"
     },
-    "SONATYPE_FIREWALL": {
-        "message": "Sonatype Repository Firewall",
-        "description": "Branded product name for Sonatype Repository Firewall"
-    },
-    "SONATYPE_LIFECYCLE": {
-        "message": "Sonatype Lifecycle",
-        "description": "Branded product name for Sonatype Lifecycle"
-    },
-    "SONATYPE_LIFECYCLE_ALP": {
-        "message": "Advanced Legal Pack for Sonatype Lifecycle",
-        "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
-    },
     "BUTTON_CLOSE": {
-        "message": "Close",
+        "message": "Tanca",
         "description": "Close button text"
     },
     "GITHUB_ISSUE": {
-        "message": "GitHub Issue",
+        "message": "Problema de GitHub",
         "description": "GitHub Issue"
     },
-    "LABEL_URL": {
-        "message": "URL",
-        "description": "Label for the field where you input your Sonatype IQ Server URL"
-    },
     "LABEL_USERNAME": {
-        "message": "Username",
+        "message": "Nom d'usuari",
         "description": "Username label"
     },
     "LABEL_PASSWORD": {
-        "message": "Password or User Token",
+        "message": "Contrasenya o identificador d'usuari",
         "description": "Password label"
     },
     "LABEL_SONATYPE_APPLICATION": {
-        "message": "Sonatype Lifecycle Application",
+        "message": "Aplicació del Lifecycle de Sonatype",
         "description": "Application label"
     },
     "LABEL_SELECT_AN_APPLICATION": {
-        "message": "-- Select an Application --",
+        "message": "-- Seleccioneu una aplicació --",
         "description": "Default option in Application List"
     },
     "LABEL_LOG_LEVEL": {
-        "message": "Extension Log Level",
+        "message": "Nivell de registre d'extensió",
         "description": "Label for Log Level option"
     },
     "LINK_BUG_REPORT": {
-        "message": "Report a Bug",
+        "message": "Informar d'un error",
         "description": "Link text used for reporting a bug."
     },
     "LINK_FEATURE_REQUEST": {
-        "message": "Make a feature request",
+        "message": "Feu una sol·licitud de funció",
         "description": "Link text used for making a feature request."
     },
     "LINK_TEXT_HERE": {
-        "message": "here",
-        "description": "Link text used for generic link to something [here]."
+        "message": "aquí",
+        "description": "Link text used for generic link to somehting [here]."
     },
     "HELP_PAGE_TITLE": {
-        "message": "Help",
+        "message": "Ajuda",
         "description": "Page Title for Options page"
     },
     "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
-        "message": "Where do I go to get help?",
+        "message": "On vaig a buscar ajuda?",
         "description": "Title of the first Help Tile"
     },
     "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
-        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available ",
+        "message": "Tenim disponible documentació detallada per a l'extensió del navegador de la plataforma Sonatype ",
         "description": "Content for the first Help Tile"
     },
     "HELP_TILE_TITLE_FEATURE_REQUEST": {
-        "message": "How can I make a Feature Request?",
+        "message": "Com puc fer una sol·licitud de funció?",
         "description": "Title of the first Help Tile"
     },
     "HELP_TILE_CONTENT_FEATURE_REQUEST": {
-        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available below. We greatly value feedback. You can open a GitHub Issue with your idea or question or reach out to your dedicated Customer Success representative.",
+        "message": "Tenim documentació detallada per a l'extensió del navegador de la plataforma Sonatype disponible a continuació. Valorem molt els teus comentaris. Podeu obrir un problema de GitHub amb la vostra idea o pregunta o posar-vos en contacte amb el vostre representant del servei al client.",
         "description": "Content for the first Help Tile"
     },
     "HELP_TILE_TITLE_RAISE_BUG": {
-        "message": "I think I found a bug - who do I tell?",
+        "message": "Crec que he trobat un error, a qui li dic?",
         "description": "Title of the first Help Tile"
     },
     "HELP_TILE_CONTENT_RAISE_BUG": {
-        "message": "We greatly value feedback. If you believe you have found a bug, please open an Issue and provide as much information as you can including:",
+        "message": "Valorem molt els comentaris. Si creieu que heu trobat un error, obriu un problema i proporcioneu tota la informació que pugueu, incloent:",
         "description": "Content for the first Help Tile"
     },
     "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
-        "message": "Details of your Web Browser (name and version)",
+        "message": "Detalls del vostre navegador web (nom i versió)",
         "description": "First item of detail we request when raising a Bug"
     },
     "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
-        "message": "Version of the Sonatype Platform Browser Extension you have installed",
+        "message": "Versió de l'extensió del navegador Sonatype Platform que teniu instal·lada",
         "description": "Second item of detail we request when raising a Bug"
     },
     "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
-        "message": "The action(s) you performed",
+        "message": "L'acció(s) que heu realitzat",
         "description": "Third item of detail we request when raising a Bug"
     },
     "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
-        "message": "The expected behaviour",
+        "message": "El comportament esperat",
         "description": "Fourth item of detail we request when raising a Bug"
     },
     "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
-        "message": "The actual (unexpected) behaviour",
+        "message": "El comportament real (inesperat).",
         "description": "Fifth item of detail we request when raising a Bug"
     },
     "HIGHEST_POLICY_THREAT_LEVELS": {
-        "message": "Highest Policy Threat Levels",
+        "message": "Nivells més alts d'amenaça per política",
         "description": "Header when displaying the highest threat levels by policy"
     },
     "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
-        "message": "The highest $POLICY_TYPE_LABEL$ policy threat level for application: $APP_NAME$",
+        "message": "El nivell més alt d'amenaça per política de $POLICY_TYPE_LABEL$ per a l'aplicació: $APP_NAME$",
         "description": "The release version of this browser extension",
         "placeholders": {
             "POLICY_TYPE_LABEL": {
@@ -152,115 +136,115 @@
         }
     },
     "LEGAL_EFFECTIVE_LICENSE": {
-        "message": "Effective",
+        "message": "Efectiva",
         "description": "The effective license of the component"
     },
     "LEGAL_OBSERVED_LICENSE": {
-        "message": "Observed",
+        "message": "Observada",
         "description": "The observed license of the component"
     },
     "LEGAL_DECLARED_LICENSE": {
-        "message": "Declared",
+        "message": "Declarada",
         "description": "The declared license of the component"
     },
     "LEGAL_TABLE_THREAT_GROUP": {
-        "message": "Threat Group",
+        "message": "Grup d'amenaça",
         "description": "The column header in the security table for threat group"
     },
     "LEGAL_TABLE_LICENSE": {
-        "message": "License",
+        "message": "Llicència",
         "description": "The column header in the security table for license"
     },
     "LEGAL_TABLE_COPY_TEXT": {
-        "message": "Copy Text",
+        "message": "Copiar el text",
         "description": "The column header in the security table for copy text"
     },
     "LEGAL_COPY_TEXT_TOOLTIP": {
-        "message": "Copy License Text",
+        "message": "Copia el text de la llicència",
         "description": "Tooltip for the copy license text button"
     },
     "OPTIONS_PAGE_TITLE": {
-        "message": "Extension Options",
+        "message": "Opcions d'extensió",
         "description": "Page Title for Options page"
     },
     "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-        "message": "Thanks for installing the Sonatype Platform Browser Extension",
+        "message": "Gràcies per instal·lar l'extensió del navegador de la plataforma Sonatype",
         "description": "Page Title for Options page upon first installation"
     },
     "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
-        "message": "Getting Started",
+        "message": "Començant",
         "description": "Sub Heading on Options Page in Install Mode"
     },
     "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
-        "message": "Please now follow the steps below to connect this extension to your Sonatype IQ Server.",
+        "message": "Ara seguiu els passos següents per connectar aquesta extensió al vostre servidor Sonatype IQ.",
         "description": "Description paragraph on Options Page in Install Mode"
     },
     "OPTIONS_CURRENT_CONNECTION": {
-        "message": "Current Connection Type",
+        "message": "Tipus de connexió actual",
         "description": "Current Connection Type prompt"
     },
     "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
-        "message": "Configuration",
+        "message": "Configuració de Sonatype",
         "description": "Options Tab name for Sonatype Configuration"
     },
     "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-        "message": "Advanced Options",
+        "message": "Opcions generals",
         "description": "Options Tab name for General Configuration"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_1": {
-        "message": "Enter the URL for your Sonatype IQ Server and then grant the permissions needed for this extension to communicate with your Sonatype IQ Server.",
+        "message": "Introduïu l'URL del vostre servidor Sonatype IQ i, a continuació, concediu els permisos necessaris perquè aquesta extensió es comuniqui amb el vostre servidor Sonatype IQ.",
         "description": "First point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
-        "message": "Grant Permissions to your Sonatype IQ Server",
+        "message": "Concediu permisos al vostre servidor Sonatype IQ",
         "description": "Button text for 'Grant Permission' button"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_2": {
-        "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications.",
+        "message": "Proporcioneu el vostre nom d'usuari amb l'identificador per al vostre servidor Sonatype IQ. A continuació, connecteu-vos per recuperar la llista d'aplicacions disponibles.",
         "description": "Second point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
-        "message": "Connect",
+        "message": "Conectar",
         "description": "Button text for 'Connect' button"
     },
     "OPTIONS_PAGE_SONATYPE_POINT_3": {
-        "message": "Select an Application from the list available on your Sonatype IQ Server.",
+        "message": "Seleccioneu una aplicació de la llista disponible al vostre servidor Sonatype IQ.",
         "description": "Third point of configuration for Sonatype IQ Server"
     },
     "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
-        "message": "The application policies that components will be evaluated against.",
+        "message": "Les polítiques d'aplicació amb les quals s'avaluaran els components.",
         "description": "Tooltip as to why an Application is to be selected"
     },
     "OPTIONS_SUCCESS_MESSAGE": {
-        "message": "Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected! You may close this browser tab to continue.",
+        "message": "Felicitats! Us heu autentificat correctament amb el vostre servidor Sonatype IQ i heu seleccionat una aplicació! Podeu tancar aquesta pestanya del navegador per continuar.",
         "description": "Success message to display once Sonatype IQ has been configured"
     },
     "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
-        "message": "Please select an application from the list above.",
+        "message": "Si us plau, selecciona una aplicació de la llista anterior.",
         "description": "Info message to direct to choose an Application"
     },
     "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
-        "message": "There was an error signing in.",
+        "message": "S'ha produït un error en iniciar la sessió.",
         "description": "Error message showed if Sonatype IQ credentials are incorrect"
     },
     "POLICY_TABLE_THREAT": {
-        "message": "THREAT",
+        "message": "AMENAÇA",
         "description": "The column header in the policy table for threat"
     },
     "POLICY_TABLE_POLICY": {
-        "message": "POLICY",
+        "message": "POLÍTICA",
         "description": "The column header in the policy table for policy"
     },
     "POLICY_TABLE_CONSTRAINT": {
-        "message": "CONSTRAINT",
+        "message": "LIMITACIÓ",
         "description": "The column header in the policy table for constraint name"
     },
     "POLICY_TABLE_CONDITION": {
-        "message": "CONDITION",
+        "message": "CONDICIÓ",
         "description": "The column header in the policy table for condition"
     },
     "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
-        "message": "We were unable to find that peanut in a haystack!",
+        "message": "No hem pogut hi hem pogut trabar!",
         "description": "Message to inform a user that the current package is not known by Sonatype"
     },
     "POPUP_TAB_INFO": {
@@ -268,15 +252,15 @@
         "description": "Component Information top-level tab in Popup "
     },
     "POPUP_TAB_INFO_TOOLTIP": {
-        "message": "Component Information",
+        "message": "Informació dels components",
         "description": "Component Information top-level tab in Popup "
     },
     "POPUP_TAB_POLICY": {
-        "message": "Policy",
+        "message": "Política",
         "description": "Policy violations top-level tab in Popup. All policy violations for this component."
     },
     "POPUP_TAB_REMEDIATION": {
-        "message": "Remediation",
+        "message": "Remediació",
         "description": "List of recommended version as well as a complete list of the versions available."
     },
     "POPUP_TAB_VERSIONS": {
@@ -284,7 +268,7 @@
         "description": "List of all versions available if there are no policy violations"
     },
     "POPUP_TAB_REMEDIATION_TOOLTIP": {
-        "message": "Remediation and version info for $VERSION_COUNT$ versions",
+        "message": "Informació de la remediació i versió de $VERSION_COUNT$ versions",
         "description": "Toolip for the POPUP_TAB_REMEDIATION",
         "placeholders": {
             "VERSION_COUNT": {
@@ -294,7 +278,7 @@
         }
     },
     "POPUP_TAB_POLICY_TOOLIP": {
-        "message": "Sonatype Lifecycle Application Evaluation Policy Violations: $APPNAME$",
+        "message": "Infraccions de la política d'avaluació d'aplicacions del Lifecycle de Sonatype: $APPNAME$",
         "description": "Toolip for the POPUP_TAB_POLICY",
         "placeholders": {
             "APPNAME": {
@@ -304,11 +288,11 @@
         }
     },
     "POPUP_TAB_SECURITY": {
-        "message": "Security",
+        "message": "Seguretat",
         "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
     },
     "POPUP_TAB_SECURITY_TOOLTIP": {
-        "message": "Security Issues cataloged against this component",
+        "message": "Problemes de seguretat catalogats amb aquest component",
         "description": "Tooltip for POPUP_TAB_SECURITY"
     },
     "POPUP_TAB_LEGAL": {
@@ -316,11 +300,11 @@
         "description": "Legal/License top-level tab in Popup. List of licenses for this component"
     },
     "POPUP_TAB_LEGAL_TOOLTIP": {
-        "message": "License information for component",
+        "message": "Informació de la llicència del component",
         "description": "Legal/License top-level tab in Popup tooltip"
     },
     "RECOMMENDED_VERSIONS": {
-        "message": "Recommended Versions",
+        "message": "Versions recomanades",
         "description": "The list of the recommended version from Lifecycle"
     },
     "SECURITY_TABLE_CVSS": {
@@ -328,43 +312,35 @@
         "description": "The column header in the security table for cvss"
     },
     "SECURITY_TABLE_ISSUE": {
-        "message": "ISSUE",
+        "message": "PROBLEMA",
         "description": "The column header in the security table for issue"
     },
     "SIDEBAR_LINK_GETTING_STARTED": {
-        "message": "Getting Started",
+        "message": "Començant",
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_LINK_HELP": {
-        "message": "Help",
+        "message": "Ajuda",
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_LINK_OPTIONS": {
-        "message": "Options",
+        "message": "Opcions",
         "description": "Sidebar Navigation Link in Options Page"
     },
     "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
-        "message": "Request Support",
+        "message": "Sol·licitar suport",
         "description": "Sidebar Footer Link in Options Page"
     },
-    "SUPPORTED": {
-        "message": "Supported",
-        "description": "Used when a product, feature, or function is supported in the current configuration"
-    },
     "GITHUB_STARS": {
-        "message": "Stars",
+        "message": "Estrelles",
         "description": "The number of GitHub stars for the project"
     },
     "GITHUB_FORKS": {
-        "message": "Forks",
+        "message": "Forquilles",
         "description": "The number of GitHub forks for the project"
     },
     "DOES_IQ_SUPPORT_FEATURE": {
-        "message": "Does your Sonatype IQ Server include support for",
+        "message": "El vostre servidor Sonatype IQ inclou suport per a",
         "description": "Prompt in Options about what features IQ Licence supports"
-    },
-    "EXAMPLE": {
-        "message": "Example",
-        "description": "Example links to public repositories"
     }
 }
