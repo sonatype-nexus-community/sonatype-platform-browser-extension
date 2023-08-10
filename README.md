@@ -144,6 +144,8 @@ When browsing Sonatype Nexus Repository instances you have added, this extension
 -   R (CRAN)
 -   RubyGems
 
+![Browsing Sonatype Nexus Repository](./docs/images/browse-nxrm.png)
+
 ## Usage
 
 When you browse to a website that is supported by the Sonatype Platform Browser Extension, such as [Maven Central](https://central.sonatype.com/) the extension will assess the component you are viewing and alert you if there are known issues.
