@@ -94,13 +94,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
     function hasOriginPermission() {
         if (extensionSettings.host !== undefined && isHttpUriValidator(extensionSettings.host)) {
-            chrome.permissions.contains(
+            _browser.permissions.contains(
                 {
                     origins: [extensionSettings.host],
                 },
                 (result: boolean) => {
                     if (chrome.runtime.lastError) {
-                        logger.logMessage('Error in hasOriginPermission', LogLevel.WARN)
+                        logger.logMessage('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
                     }
                     if (result) {
                         setHasPermission(true)
