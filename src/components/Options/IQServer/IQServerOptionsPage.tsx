@@ -34,7 +34,7 @@ import {
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faExternalLink, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
@@ -342,7 +342,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     </NxGrid.Row>
                     <NxDivider></NxDivider>
                     <NxGrid.Row>
-                        <section className='nx-grid-col nx-grid-col--'>
+                        <section className='nx-grid-col nx-grid-col-100'>
                             <p className='nx-p'>
                                 <strong>1)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_1')}
                             </p>
@@ -368,7 +368,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                                     </p>
                                     <div className='nx-form-row'>
-                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
+                                        <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME') } isRequired>
                                             <NxStatefulTextInput
                                                 defaultValue={extensionSettings?.user}
                                                 validator={nonEmptyValidator}
@@ -423,6 +423,17 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                                 })}
                                             </NxFormSelect>
                                         </NxFormGroup>
+                                        {/* <NxFormGroup
+                                            label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}> */}
+                                        
+                                                <a href="https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1" target='_blank' className="nx-btn">Maven {_browser.i18n.getMessage('EXAMPLE')}
+                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
+                                                <a href="https://www.npmjs.com/package/handlebars/v/4.7.5" target='_blank' className="nx-btn">npmjs {_browser.i18n.getMessage('EXAMPLE')}
+                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
+                                                <a href="https://pypi.org/project/feedparser/6.0.10/" target='_blank' className="nx-btn">PyPI {_browser.i18n.getMessage('EXAMPLE')}
+                                                {' '}<NxFontAwesomeIcon icon={faExternalLink as IconDefinition} /></a>
+                                    
+                                        {/* </NxFormGroup> */}
                                     </React.Fragment>
                                 )}
 

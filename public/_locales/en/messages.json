@@ -362,5 +362,9 @@
     "DOES_IQ_SUPPORT_FEATURE": {
         "message": "Does your Sonatype IQ Server include support for",
         "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "EXAMPLE": {
+        "message": "Example",
+        "description": "Example links to public repositories"
     }
 }
