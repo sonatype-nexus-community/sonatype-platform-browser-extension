@@ -112,6 +112,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                 .sendMessage(tabId, {
                     type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
                     params: {
+                        repoType: repoType,
                         tabId: tabId,
                         url: url,
                     },
