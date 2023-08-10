@@ -1,3 +1,20 @@
+# [2.9.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.8.0...v2.9.0) (2023-08-10)
+
+
+### Bug Fixes
+
+* add missing lifecycle icon in toolbar ([654d495](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/654d495ccbc57f6a73497ea3bc62de72dfe0dda6))
+* missing icon in Popup corrected ([f891d77](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f891d77c916386864f1cb10b39e3d7dab59ecbcf))
+
+
+### Features
+
+* add basic usage analytics collection ([#59](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/59)) ([9ad33df](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/9ad33df2fbf517de46258f5fcc894177bba57377))
+* add localisation support in Catalan and Spanish ([409059b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/409059be0b70e2bd09b83cb88c273f4a525091b3))
+* localisation in Chinese ([fab01d2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/fab01d2389b6621aed1cfba9f43a06ceb79f30e9))
+* localisation in Taiwanese ([cc722f0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/cc722f04e037858648e4edcb6d114fca8634a0f1))
+* support private Sonatype Nexus Repository instances as OSS Registries ([#49](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/49)) ([141e66e](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/141e66e8d202f73088a1d2e82c50902644457372))
+
 # [2.8.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.7.0...v2.8.0) (2023-07-31)
 
 
