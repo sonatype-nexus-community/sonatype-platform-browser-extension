@@ -32,9 +32,9 @@ jobs:
                   name: Confirm Node Version
                   command: node --version
             - run:
-                  name: Inject Production GA Configuration
+                  name: Inject GA Configuration
                   command: |
-                      sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts \
+                      sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts && 
                       sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/utils/AnalyticsConfg.ts
             - run:
                   name: Lint
