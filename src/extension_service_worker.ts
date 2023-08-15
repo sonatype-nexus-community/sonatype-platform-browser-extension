@@ -103,7 +103,7 @@ async function performUpgrade(fromVersion: string, reason: string): Promise<void
     logger.logMessage(`Upgrading from ${fromVersion}`, LogLevel.INFO)
     // There was no upgrade of internal data prior to 2.9.1
 
-    if (compareVersions('2.9.0', fromVersion) < 1) {
+    if (fromVersion === undefined || compareVersions('2.9.0', fromVersion) < 1) {
         // Upgrading from 2.9.0 or prior
         readExtensionConfiguration()
             .then((response) => {
