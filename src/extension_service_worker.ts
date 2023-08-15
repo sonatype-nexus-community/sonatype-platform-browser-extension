@@ -19,6 +19,7 @@ import 'node-window-polyfill/register' // New line ensures this Polyfill is firs
 
 import { logger, LogLevel } from './logger/Logger'
 import { findRepoType } from './utils/UrlParsing'
+import { compareVersions } from 'compare-versions'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { propogateCurrentComponentState } from './messages/ComponentStateMessages'
 import {
@@ -31,6 +32,8 @@ import { ComponentState, getForComponentPolicyViolations, getIconForComponentSta
 import { IncompleteConfigurationError } from './error/ExtensionError'
 import { Analytics, ANALYTICS_EVENT_TYPES } from './utils/Analytics'
 import { PackageURL } from 'packageurl-js'
+import { readExtensionConfiguration, updateExtensionConfiguration } from './messages/SettingsMessages'
+import { ExtensionConfiguration, SonatypeNexusRepostitoryHost } from './types/ExtensionConfiguration'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -83,9 +86,11 @@ _browser.runtime.onInstalled.addListener((details) => {
             reason: details.reason,
         })
     } else if (details.reason == 'update') {
-        analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_UPDATE, {
-            previousVersion: details.previousVersion,
-            reason: details.reason,
+        performUpgrade(details.fromVersion, details.reason).then(() => {
+            analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_UPDATE, {
+                previousVersion: details.previousVersion,
+                reason: details.reason,
+            })
         })
     } else {
         analytics.fireEvent(ANALYTICS_EVENT_TYPES.BROWSER_UPDATE, {
@@ -93,6 +98,53 @@ _browser.runtime.onInstalled.addListener((details) => {
         })
     }
 })
+
+async function performUpgrade(fromVersion: string, reason: string): Promise<void> {
+    logger.logMessage(`Upgrading from ${fromVersion}`, LogLevel.INFO)
+    // There was no upgrade of internal data prior to 2.9.1
+
+    if (compareVersions('2.9.0', fromVersion) < 1) {
+        // Upgrading from 2.9.0 or prior
+        readExtensionConfiguration()
+            .then((response) => {
+                const extensionSettings = response.data as ExtensionConfiguration
+                const newSettings = response.data as ExtensionConfiguration
+                if (!('sonatypeNexusRepositoryHosts' in extensionSettings)) {
+                    newSettings.sonatypeNexusRepositoryHosts = []
+                }
+                if (!('supportsFirewall' in extensionSettings)) {
+                    newSettings.supportsFirewall = false
+                }
+                if (!('supportsLifecycle' in extensionSettings)) {
+                    newSettings.supportsLifecycle = false
+                }
+                if (!('supportsLifecycleAlp' in extensionSettings)) {
+                    newSettings.supportsLifecycleAlp = false
+                }
+                updateExtensionConfiguration(newSettings)
+                    .then((upgradeResposne) => {
+                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_CONFIG_UPGRADE, {
+                            upgradeResposne: upgradeResposne.status,
+                        })
+                    })
+                    .then(() => {
+                        /**
+                         *  @todo Force re-detection of IQ Capabilities here
+                         */
+                        logger.logMessage(
+                            `Automatic re-detection of IQ Capabilities is not yet implemented - please click "Connect" in Options page`,
+                            LogLevel.WARN
+                        )
+                    })
+            })
+            .then(() => {
+                analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_UPDATE, {
+                    previousVersion: fromVersion,
+                    reason: reason,
+                })
+            })
+    }
+}
 
 function enableDisableExtensionForUrl(url: string, tabId: number): void {
     /**
