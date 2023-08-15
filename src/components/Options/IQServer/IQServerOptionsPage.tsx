@@ -151,7 +151,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                 type: MESSAGE_REQUEST_TYPE.GET_APPLICATIONS,
             })
             .catch((err) => {
-                logger.logMessage(`Error caught calling GET_APPLICATIONS`, LogLevel.DEBUG, err)
+                logger.logMessage(`Error caught calling GET_APPLICATIONS`, LogLevel.WARN, err)
             })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((response: any) => {
@@ -173,9 +173,12 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         setIqAuthenticated(true)
                         setiqServerApplicationList(msgResponse.data.applications as Array<ApiApplicationDTO>)
                     } else {
+                        logger.logMessage(`Unsuccessful response to GET_APPLICATIONS: `, LogLevel.WARN, response)
                         setIqAuthenticated(false)
                         setiqServerApplicationList([])
                     }
+                } else {
+                    logger.logMessage(`No response to GET_APPLICATIONS`, LogLevel.WARN, response)
                 }
             })
             .then(determineIqCapabilities)
@@ -188,7 +191,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             })
             .pop() as ApiApplicationDTO
         if (sandboxApplication === undefined) {
-            return iqServerApplicationList.pop()
+            return iqServerApplicationList[0]
         } else {
             return sandboxApplication
         }
