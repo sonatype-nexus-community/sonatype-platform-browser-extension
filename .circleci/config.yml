@@ -125,12 +125,12 @@ workflows:
 
     page_parsing:
         triggers:
-            schedule:
-                cron: '0 5 * * 0'
-                filters:
-                    branches:
-                        only:
-                            - main
+            - schedule:
+                  cron: '0 5 * * 0'
+                  filters:
+                      branches:
+                          only:
+                              - main
         jobs:
             - page_parsing_test
 
