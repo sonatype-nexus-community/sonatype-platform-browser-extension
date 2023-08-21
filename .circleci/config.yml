@@ -52,7 +52,7 @@ jobs:
                   path: build/sonatype-platform-browser-extension.zip
                   destination: sonatype-platform-browser-extension.zip
 
-      page_parsing_test:
+    page_parsing_test:
         docker:
             - image: 'cimg/base:stable'
         resource_class: medium+
@@ -80,7 +80,7 @@ jobs:
                   name: Test
                   command: yarn run test
 
-      release_build:
+    release_build:
         docker:
             - image: 'cimg/base:stable'
         resource_class: medium+
@@ -117,16 +117,16 @@ workflows:
     ci:
         jobs:
             - build_and_test:
-                context:
-                    - sonatype-browser-extension-build
-                filters:
-                    branches:
-                        ignore: main
+                  context:
+                      - sonatype-browser-extension-build
+                  filters:
+                      branches:
+                          ignore: main
 
     page_parsing:
         triggers:
             schedule:
-                cron: "0 5 * * 0"
+                cron: '0 5 * * 0'
                 filters:
                     branches:
                         only:
@@ -137,9 +137,9 @@ workflows:
     release:
         jobs:
             - release_build:
-                context:
-                    - sonatype-browser-extension
-                    - sonatype-browser-extension-build
-                filters:
-                    branches:
-                        only: main
+                  context:
+                      - sonatype-browser-extension
+                      - sonatype-browser-extension-build
+                  filters:
+                      branches:
+                          only: main
