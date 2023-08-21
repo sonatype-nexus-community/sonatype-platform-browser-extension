@@ -1,3 +1,17 @@
+# [2.10.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.9.0...v2.10.0) (2023-08-21)
+
+
+### Bug Fixes
+
+* don't remove first application when no  to fix [#63](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/63) ([3698d6d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/3698d6d886c8fef9c95a8bfcb0570b8de6b3dadc))
+* upgrade internal configuration model (set defaults) when extension is upgraded to prevent [#64](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/64) ([ba23e3c](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ba23e3c1d33a3bb66502dcfab240947fdc9e6384))
+* upgrade internal configuration when Extension is upgraded ([21c7b7b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/21c7b7b94685361db09d0645de04e138e86d795b))
+
+
+### Features
+
+* localisation in Greek ([ec73d2b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ec73d2b7c50cb161dcf2a56df825d5d6f965ec50))
+
 # [2.9.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.8.0...v2.9.0) (2023-08-10)
 
 
