@@ -52,7 +52,35 @@ jobs:
                   path: build/sonatype-platform-browser-extension.zip
                   destination: sonatype-platform-browser-extension.zip
 
-    release_build:
+      page_parsing_test:
+        docker:
+            - image: 'cimg/base:stable'
+        resource_class: medium+
+        steps:
+            - checkout
+            - node/install:
+                  install-yarn: true
+                  node-version: '18.14.2' # LTS of 18 @ 24-Feb-2023
+            - node/install-packages:
+                  pkg-manager: yarn
+            - run:
+                  name: Confirm Node Version
+                  command: node --version
+            - run:
+                  name: Lint
+                  command: yarn run lint
+            - run:
+                  name: Build
+                  command: yarn webpack --mode production --env production --no-watch
+            - run:
+                  name: Update test data
+                  command: update-test-data.sh
+                  working_directory: src/utils/PageParsing/testdata
+            - run:
+                  name: Test
+                  command: yarn run test
+
+      release_build:
         docker:
             - image: 'cimg/base:stable'
         resource_class: medium+
@@ -89,18 +117,29 @@ workflows:
     ci:
         jobs:
             - build_and_test:
-                  context:
-                      - sonatype-browser-extension-build
-                  filters:
-                      branches:
-                          ignore: main
+                context:
+                    - sonatype-browser-extension-build
+                filters:
+                    branches:
+                        ignore: main
+
+    page_parsing:
+        triggers:
+            schedule:
+                cron: "0 5 * * 0"
+                filters:
+                    branches:
+                        only:
+                            - main
+        jobs:
+            - page_parsing_test
 
     release:
         jobs:
             - release_build:
-                  context:
-                      - sonatype-browser-extension
-                      - sonatype-browser-extension-build
-                  filters:
-                      branches:
-                          only: main
+                context:
+                    - sonatype-browser-extension
+                    - sonatype-browser-extension-build
+                filters:
+                    branches:
+                        only: main

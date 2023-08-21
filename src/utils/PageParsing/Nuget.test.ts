@@ -25,7 +25,7 @@ describe('Nuget Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('Should parse Nuget page /Newtonsoft.Json', () => {
-        const html = readFileSync(join(__dirname, 'testdata/nuget.html'))
+        const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.1.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -38,7 +38,7 @@ describe('Nuget Page Parsing', () => {
     })
 
     test('Should parse Nuget page /Newtonsoft.Json/13.0.3', () => {
-        const html = readFileSync(join(__dirname, 'testdata/nuget.html'))
+        const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.3.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -54,7 +54,7 @@ describe('Nuget Page Parsing', () => {
     })
 
     test('Should parse Nuget page /Newtonsoft.Json/13.0.3/', () => {
-        const html = readFileSync(join(__dirname, 'testdata/nuget.html'))
+        const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.3.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -69,19 +69,19 @@ describe('Nuget Page Parsing', () => {
         expect(PackageURL?.version).toBe('13.0.3')
     })
 
-    test('Should parse Nuget page /Newtonsoft.Json/12.0.0?query#fragment', () => {
-        const html = readFileSync(join(__dirname, 'testdata/nuget.html'))
+    test('Should parse Nuget page /Newtonsoft.Json/13.0.3?query#fragment', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.3.html'))
 
         window.document.body.innerHTML = html.toString()
 
         const PackageURL = getArtifactDetailsFromDOM(
             ensure(repoType),
-            'https://www.nuget.org/packages/Newtonsoft.Json/12.0.0'
+            'https://www.nuget.org/packages/Newtonsoft.Json/13.0.3/?query#fragment'
         )
 
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.type).toBe('nuget')
         expect(PackageURL?.name).toBe('Newtonsoft.Json')
-        expect(PackageURL?.version).toBe('12.0.0')
+        expect(PackageURL?.version).toBe('13.0.3')
     })
 })

@@ -25,7 +25,7 @@ describe('Ruby Gems Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('should parse a valid RubyGems page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/rubygems.html'))
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-chelsea-0.0.35.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -38,7 +38,7 @@ describe('Ruby Gems Page Parsing', () => {
     })
 
     test('should parse a valid RubyGems page with platform', () => {
-        const html = readFileSync(join(__dirname, 'testdata/rubygems-platform.html'))
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-logstash-input-tcp-6.0.9-java.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -55,7 +55,7 @@ describe('Ruby Gems Page Parsing', () => {
     })
 
     test('should parse a valid RubyGems page with QS and Fragment', () => {
-        const html = readFileSync(join(__dirname, 'testdata/rubygems.html'))
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-chelsea-0.0.35.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -71,7 +71,7 @@ describe('Ruby Gems Page Parsing', () => {
     })
 
     test('should parse a valid RubyGems page with version', () => {
-        const html = readFileSync(join(__dirname, 'testdata/rubygems.html'))
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-chelsea-0.0.32.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -87,7 +87,7 @@ describe('Ruby Gems Page Parsing', () => {
     })
 
     test('should parse a valid RubyGems page with version with QS and Fragment', () => {
-        const html = readFileSync(join(__dirname, 'testdata/rubygems.html'))
+        const html = readFileSync(join(__dirname, 'testdata/rubygems-chelsea-0.0.32.html'))
 
         window.document.body.innerHTML = html.toString()
 

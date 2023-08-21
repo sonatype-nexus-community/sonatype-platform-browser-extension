@@ -25,7 +25,7 @@ describe('PyPI Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('should parse a valid PyPI page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/pypi.html'))
+        const html = readFileSync(join(__dirname, 'testdata/pypi-Django-4.2.1.html'))
 
         window.document.body.innerHTML = html.toString()
 

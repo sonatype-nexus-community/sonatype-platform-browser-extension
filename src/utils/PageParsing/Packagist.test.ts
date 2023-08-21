@@ -25,7 +25,7 @@ describe('Packagist Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('should parse a valid Packagist page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist.html'))
+        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.23.0.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -42,7 +42,7 @@ describe('Packagist Page Parsing', () => {
     })
 
     test('should parse a valid Packagist page, specific version', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist.html'))
+        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.22.html'))
 
         window.document.body.innerHTML = html.toString()
 
@@ -59,7 +59,7 @@ describe('Packagist Page Parsing', () => {
     })
 
     test('should parse a valid Packagist page, specific version with query string', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist.html'))
+        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.22.html'))
 
         window.document.body.innerHTML = html.toString()
 
