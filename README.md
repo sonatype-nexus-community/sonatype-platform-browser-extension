@@ -100,6 +100,7 @@ Currently we have translations for:
 -   Finnish 🇫🇮
 -   French 🇫🇷 🇨🇭 🇨🇦 🇲🇨 🇧🇪
 -   German 🇩🇪 🇦🇹 🇨🇭
+-   Greek 🇬🇷 🇨🇾
 -   Korean 🇰🇷 🇨🇳
 -   Portuguese 🇧🇷 🇵🇹
 -   Spanish 🇪🇸 🇲🇽 🇨🇴 🇦🇷
