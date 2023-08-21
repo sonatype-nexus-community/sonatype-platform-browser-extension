@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "__MSG_extension_name__",
-    "version": "2.1.0",
+    "version": "2.9.1",
     "description": "__MSG_extension_description__",
     "icons": {
         "16": "images/sonatype-platform-icon-16x16.png",
@@ -32,8 +32,12 @@
                 "https://pypi.org/*",
                 "https://rubygems.org/*"
             ],
-            "css": ["/css/pagestyle.css"],
-            "js": ["/static/js/content.js"],
+            "css": [
+                "/css/pagestyle.css"
+            ],
+            "js": [
+                "/static/js/content.js"
+            ],
             "run_at": "document_end"
         }
     ],
@@ -41,7 +45,14 @@
     "minimum_chrome_version": "102",
     "offline_enabled": false,
     "options_page": "options.html",
-    "permissions": ["activeTab", "declarativeContent", "background", "scripting", "storage", "tabs"],
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "background",
+        "scripting",
+        "storage",
+        "tabs"
+    ],
     "short_name": "Sonatype",
     "background": {
         "service_worker": "extension_service_worker.js"
@@ -60,9 +71,18 @@
     },
     "web_accessible_resources": [
         {
-            "resources": ["images/*", "static/*", "css/*"],
-            "matches": ["<all_urls>"]
+            "resources": [
+                "images/*",
+                "static/*",
+                "css/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
         }
     ],
-    "optional_host_permissions": ["https://*/*", "http://*/*"]
+    "optional_host_permissions": [
+        "https://*/*",
+        "http://*/*"
+    ]
 }
