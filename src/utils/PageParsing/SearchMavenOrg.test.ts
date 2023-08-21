@@ -26,10 +26,9 @@ describe('SearchMavenOrg Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('should parse a valid SearchMavenOrg page (JAR)', () => {
-        const html = readFileSync(join(__dirname, 'testdata/SearchMavenOrg.html'))
+        const html = readFileSync(join(__dirname, 'testdata/smo-struts2-core-2.3.30.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
             ensure(repoType),
@@ -45,10 +44,9 @@ describe('SearchMavenOrg Page Parsing', () => {
     })
 
     test('should parse a valid SearchMavenOrg page (Maven Plugin)', () => {
-        const html = readFileSync(join(__dirname, 'testdata/SearchMavenOrg.html'))
+        const html = readFileSync(join(__dirname, 'testdata/smo-cyclonedx-maven-plugin-2.7.6.html'))
 
         window.document.body.innerHTML = html.toString()
-        //https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar
 
         const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
             ensure(repoType),
@@ -64,7 +62,7 @@ describe('SearchMavenOrg Page Parsing', () => {
     })
 
     test('should parse a valid SearchMavenOrg page (Maven Plugin) + QS + F', () => {
-        const html = readFileSync(join(__dirname, 'testdata/SearchMavenOrg.html'))
+        const html = readFileSync(join(__dirname, 'testdata/smo-cyclonedx-maven-plugin-2.7.6.html'))
 
         window.document.body.innerHTML = html.toString()
         //https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar
