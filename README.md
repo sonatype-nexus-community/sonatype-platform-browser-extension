@@ -13,8 +13,8 @@ The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Exte
 
 To use this extension you will need access to a licensed installation of either:
 
--   [Sonatype Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management) 
-  - A license with [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack) provides additional license information
+-   [Sonatype Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management)
+-   A license with [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack) provides additional license information
 -   [Sonatype Repository Firewall](https://www.sonatype.com/products/sonatype-repository-firewall)
 
 **Contents**
@@ -38,7 +38,7 @@ To use this extension you will need access to a licensed installation of either:
   - [Policy Violation(s)](#policy-violations)
   - [Known Security Issues](#known-security-issues)
   - [Open Source License(s)](#open-source-licenses)
-- [Feature Support](#feature-support)
+- [Additional Feature Support](#additional-feature-support)
 - [Development](#development)
 - [Uninstallation](#uninstallation)
 - [Version History](#version-history)
@@ -215,8 +215,8 @@ The "Legal" tab allows you to understand what open source licenses apply or migh
 Current and future additional features are available based on the additional capabilities provided by your Sonatype Platform license. In addition to having the correct license installed at the Sonatype IQ Server, some features require that they be enabled.
 
 [Advanced Legal Pack](https://help.sonatype.com/iqserver/product-information/add-on-packs/advanced-legal-pack-quickstart)
--  [Extended Observed License Detections](https://help.sonatype.com/iqserver/configuring/advanced-legal-pack-extended-observed-license-detections) - When enabled, the browser extenstion shows the observed licenses detected for that component.
 
+-   [Extended Observed License Detections](https://help.sonatype.com/iqserver/configuring/advanced-legal-pack-extended-observed-license-detections) - When enabled, the browser extenstion shows the observed licenses detected for that component.
 
 ## Development
 
