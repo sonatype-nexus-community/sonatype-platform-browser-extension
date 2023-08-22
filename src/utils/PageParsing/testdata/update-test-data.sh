@@ -16,6 +16,9 @@ get_data "CentralSonatypeCom.html" "https://central.sonatype.com/artifact/org.cy
 # CocoaPods
 
 # Conan.io
+get_data "conanio-proj-8.2.1.html" "https://conan.io/center/recipes/proj?version=8.2.1"
+get_data "conanio-libxft-2.3.8.html" "https://conan.io/center/recipes/libxft?version=2.3.8"
+get_data "conanio-libxft-2.3.6.html" "https://conan.io/center/recipes/libxft?version=2.3.6"
 
 # CRAN (may break if new version of oysterR is releaseed)
 get_data "cran.html" "https://cran.r-project.org/web/packages/oysteR/index.html"
