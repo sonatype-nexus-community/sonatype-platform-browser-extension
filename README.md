@@ -13,7 +13,8 @@ The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Exte
 
 To use this extension you will need access to a licensed installation of either:
 
--   [Sonatype Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management) (with or without the [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack))
+-   [Sonatype Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management) 
+  - A license with [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack) provides additional license information
 -   [Sonatype Repository Firewall](https://www.sonatype.com/products/sonatype-repository-firewall)
 
 **Contents**
@@ -209,13 +210,13 @@ The "Legal" tab allows you to understand what open source licenses apply or migh
 
 ![Known Security Issues](./docs/images/extension-open-05.png)
 
-## Feature Support
+## Additional Feature Support
 
-Availability of some features in this Extension depend on the licensed installation of the Sonatype Platform that you connect it to. Here is a brief overview of what you can expect.
+Current and future additional features are available based on the additional capabilities provided by your Sonatype Platform license. In addition to having the correct license installed at the Sonatype IQ Server, some features require that they be enabled.
 
-| **Feature** | <img src="./docs/images/sonatype-lifecycle-logo.jpg" height="40" alt="Sonatype Lifecycle" /> | <img src="./docs/images/sonatype-firewall-logo.jpg" height="40" alt="Sonatype Repository Firewall" /> |
-| ----------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-|             |                                                                                              |                                                                                                       |
+[Advanced Legal Pack](https://help.sonatype.com/iqserver/product-information/add-on-packs/advanced-legal-pack-quickstart)
+-  [Extended Observed License Detections](https://help.sonatype.com/iqserver/configuring/advanced-legal-pack-extended-observed-license-detections) - When enabled, the browser extenstion shows the observed licenses detected for that component.
+
 
 ## Development
 
