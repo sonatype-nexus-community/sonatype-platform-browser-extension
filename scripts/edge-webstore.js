@@ -17,18 +17,24 @@
 const fs = require('fs')
 const ews = '@plasmo-corp/ewu'
 
-if (process.argv.length !== 3) {
-    console.error(`Expected a single argument: ${process.argv[1]} <verify|publish>`)
+if (process.argv.length !== 4) {
+    console.error(`Expected a two arguments: ${process.argv[1]} <verify|publish> <major|minor|patch>`)
     process.exit(1)
 }
 
 const SCRIPT_MODE = process.argv[2].toUpperCase()
+const RELEASE_TYPE = process.argv[3].toUpperCase()
 const PRODUCT_ID = process.env.EDGE_PRODUCT_ID
 const CLIENT_ID = process.env.EDGE_CLIENT_ID
 const CLIENT_SECRET = process.env.EDGE_CLIENT_SECRET
 const ACCESS_TOKEN_URL = process.env.EDGE_ACCESS_TOKEN_URL
 const SUBMISSION_NOTES = process.env.EDGE_SUBMISSION_NOTES
 const ZIP_PATH = './sonatype-platform-browser-extension.zip'
+
+if (RELEASE_TYPE === 'patch') {
+    console.log('Skipping release to Microsoft Edge Webstore for patch release')
+    process.exit(0)
+}
 
 if (PRODUCT_ID === undefined) {
     console.log('EDGE_PRODUCT_ID is not set - cannot continue.')

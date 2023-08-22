@@ -3,28 +3,44 @@
     "main"
   ],
   "plugins": [
-    "@semantic-release/commit-analyzer", 
-    "@semantic-release/release-notes-generator", 
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
     [
       "@semantic-release/changelog",
       {
         "changelogFile": "CHANGELOG.md"
       }
     ],
-    ["semantic-release-chrome", {
-      "extensionId": "kahnhlonadjlllgnilndafpajaiepdag",
-      "asset": "sonatype-platform-browser-extension.zip",
-      "distFolder": "build"
-    }],
-    ["@semantic-release/exec", {
-      "verifyConditionsCmd": "node ./scripts/edge-webstore.js verify",
-      "publishCmd": "node ./scripts/edge-webstore.js publish"
-    }],
-    ["@semantic-release/github", {
-      "assets": "build/*.tgz"
-    }],
-    ["@semantic-release/git", {
-        "assets": ["CHANGELOG.md", "package.json", "public/manifest.json"]
-    }]
+    [
+      "semantic-release-chrome",
+      {
+        "extensionId": "kahnhlonadjlllgnilndafpajaiepdag",
+        "asset": "sonatype-platform-browser-extension.zip",
+        "distFolder": "build"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "verifyConditionsCmd": "node ./scripts/edge-webstore.js verify ${nextRelease.type}",
+        "publishCmd": "node ./scripts/edge-webstore.js publish ${nextRelease.type}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": "build/*.tgz"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "package.json",
+          "public/manifest.json"
+        ]
+      }
+    ]
   ]
 }
