@@ -33,7 +33,7 @@ import { IncompleteConfigurationError } from './error/ExtensionError'
 import { Analytics, ANALYTICS_EVENT_TYPES } from './utils/Analytics'
 import { PackageURL } from 'packageurl-js'
 import { readExtensionConfiguration, updateExtensionConfiguration } from './messages/SettingsMessages'
-import { ExtensionConfiguration, SonatypeNexusRepostitoryHost } from './types/ExtensionConfiguration'
+import { ExtensionConfiguration } from './types/ExtensionConfiguration'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser

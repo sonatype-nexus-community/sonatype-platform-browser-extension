@@ -31,6 +31,8 @@ import {
     NxTextLink,
     NxDivider,
     NxTag,
+    NxTextInput,
+    nxTextInputStateHelpers,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -49,6 +51,8 @@ import {
 } from '../../../messages/IqCapabilities'
 import { SANDBOX_APPLICATION_PUBLIC_ID } from '../../../utils/Constants'
 
+const { initialState, userInput } = nxTextInputStateHelpers
+
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 
@@ -64,6 +68,9 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
     const [checkingConnection, setCheckingConnection] = useState(false)
+    const [iqUrl, setIqUrl] = useState(
+        initialState(extensionSettings.host === undefined ? '' : (extensionSettings.host as string))
+    )
 
     /**
      * Hook to check whether we already have permissions to IQ Server Host
@@ -78,6 +85,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
      * Request permission to IQ Server Host
      */
     const askForPermissions = () => {
+        // Update Extension Settings
+        // Normalise the host to end with / here
+        const newExtensionSettings = extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
+        newExtensionSettings.host = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
+        setExtensionConfig(newExtensionSettings)
+        hasOriginPermission()
+
         logger.logMessage(`Requesting Browser Permission to Origin: '${extensionSettings?.host}'`, LogLevel.INFO)
 
         if (extensionSettings.host !== undefined) {
@@ -116,12 +130,16 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     /**
      * Field onChange Handlers
      */
-    function handleIqHostChange(e) {
-        const newExtensionSettings = extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
-        const host = e.target.value
-        newExtensionSettings.host = (host as string).endsWith('/') ? host : `${host}/`
-        setExtensionConfig(newExtensionSettings)
-        hasOriginPermission()
+    function handleIqHostChange(url: string) {
+        setIqUrl(
+            userInput((val) => {
+                if (!isHttpUriValidator(val)) {
+                    return 'Must be a valid URL'
+                } else {
+                    return null
+                }
+            }, url)
+        )
     }
 
     function handleIqTokenChange(e) {
@@ -355,10 +373,17 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
                             <div className='nx-form-row'>
                                 <NxFormGroup label={_browser.i18n.getMessage('LABEL_URL')} isRequired>
-                                    <NxStatefulTextInput
+                                    {/* <NxStatefulTextInput
                                         defaultValue={extensionSettings?.host as string}
                                         validator={nonEmptyValidator}
                                         onBlur={handleIqHostChange}
+                                    /> */}
+                                    <NxTextInput
+                                        {...iqUrl}
+                                        onChange={handleIqHostChange}
+                                        // placeholder='Sonatype IQ Server URL'
+                                        validatable={true}
+                                        value={extensionSettings.host as string}
                                     />
                                 </NxFormGroup>
                                 {!hasPermissions && (
