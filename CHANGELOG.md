@@ -1,3 +1,10 @@
+## [2.10.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.1...v2.10.2) (2023-08-22)
+
+
+### Bug Fixes
+
+* Sonatype IQ Server URL is not visually persisted in Options ([9f43b4b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/9f43b4be244e1e65d76e46b3502a85a971e1c812))
+
 ## [2.10.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.0...v2.10.1) (2023-08-22)
 
 
