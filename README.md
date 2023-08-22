@@ -9,33 +9,39 @@
 [![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag)
 [<img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Available on the Microsoft Edge Webstore" height="58" style="max-height:58px; width:200px;"/>](https://microsoftedge.microsoft.com/addons/detail/sonatype-platform-browser/eimppjecdnhdmdiohjnkbjgdeaecabmg)
 
-The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/mjehedmoboadebjmbmobpedkdgenmlhd?authuser=0&hl=en-GB), and allows Developers to get insight from the Sonatype Platform for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
+The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/mjehedmoboadebjmbmobpedkdgenmlhd?authuser=0&hl=en-GB), and allows Developers to get insight from the [Sonatype Platform](https://www.sonatype.com/products/software-supply-chain-management) for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
+
+To use this extension you will need access to a licensed installation of either:
+
+-   [Sonatype Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management) (with or without the [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack))
+-   [Sonatype Repository Firewall](https://www.sonatype.com/products/sonatype-repository-firewall)
 
 **Contents**
 
--   [Format Support](#format-support)
-    -   [Public Registries](#public-registries)
-    -   [Private Hosted Registries](#private-hosted-registries)
-    -   [Missing or unsupported Registry?](#missing-or-unsupported-registry)
--   [Installation](#installation)
-    -   [Installation on Chrome](#installation-on-chrome)
-    -   [Installation on Microsoft Edge](#installation-on-microsoft-edge)
--   [Supported Languages](#supported-languages)
--   [Configuration](#configuration)
--   [Advanced Configuration](#advanced-configuration)
-    -   [Support for Sonatype Nexus Repository](#support-for-sonatype-nexus-repository)
--   [Usage](#usage)
-    -   [Pinning the Extension](#pinning-the-extension)
-    -   [Opening the Extension](#opening-the-extension)
-    -   [Component Information](#component-information)
-    -   [Remediation Advice](#remediation-advice)
-    -   [Policy Violation(s)](#policy-violations)
-    -   [Known Security Issues](#known-security-issues)
-    -   [Open Source License(s)](#open-source-licenses)
--   [Development](#development)
--   [Uninstallation](#uninstallation)
--   [Version History](#version-history)
--   [The Fine Print](#the-fine-print)
+- [Format Support](#format-support)
+  - [Public Registries](#public-registries)
+  - [Private Hosted Registries](#private-hosted-registries)
+  - [Missing or unsupported Registry?](#missing-or-unsupported-registry)
+- [Installation](#installation)
+  - [Installation on Chrome](#installation-on-chrome)
+  - [Installation on Microsoft Edge](#installation-on-microsoft-edge)
+- [Supported Languages](#supported-languages)
+- [Configuration](#configuration)
+- [Advanced Configuration](#advanced-configuration)
+  - [Support for Sonatype Nexus Repository](#support-for-sonatype-nexus-repository)
+- [Usage](#usage)
+  - [Pinning the Extension](#pinning-the-extension)
+  - [Opening the Extension](#opening-the-extension)
+  - [Component Information](#component-information)
+  - [Remediation Advice](#remediation-advice)
+  - [Policy Violation(s)](#policy-violations)
+  - [Known Security Issues](#known-security-issues)
+  - [Open Source License(s)](#open-source-licenses)
+- [Feature Support](#feature-support)
+- [Development](#development)
+- [Uninstallation](#uninstallation)
+- [Version History](#version-history)
+- [The Fine Print](#the-fine-print)
 
 ## Format Support
 
@@ -202,6 +208,14 @@ The "Security" tab allows you to understand what known security issues affect th
 The "Legal" tab allows you to understand what open source licenses apply or might apply to the component you are viewing.
 
 ![Known Security Issues](./docs/images/extension-open-05.png)
+
+## Feature Support
+
+Availability of some features in this Extension depend on the licensed installation of the Sonatype Platform that you connect it to. Here is a brief overview of what you can expect.
+
+| **Feature** | <img src="./docs/images/sonatype-lifecycle-logo.jpg" height="40" alt="Sonatype Lifecycle" /> | <img src="./docs/images/sonatype-firewall-logo.jpg" height="40" alt="Sonatype Repository Firewall" /> |
+| ----------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+|             |                                                                                              |                                                                                                       |
 
 ## Development
 
