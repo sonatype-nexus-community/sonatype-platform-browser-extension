@@ -22,7 +22,7 @@
     [
       "@semantic-release/exec",
       {
-        "verifyConditionsCmd": "node ./scripts/edge-webstore.js verify ${nextRelease.type}",
+        "verifyConditionsCmd": "node ./scripts/edge-webstore.js verify",
         "publishCmd": "node ./scripts/edge-webstore.js publish ${nextRelease.type}"
       }
     ],
