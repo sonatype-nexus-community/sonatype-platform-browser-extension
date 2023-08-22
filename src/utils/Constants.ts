@@ -125,7 +125,7 @@ export const REPO_TYPES: RepoType[] = [
         versionDomPath: 'h1 > span',
     },
     {
-        url: 'https://conan.io/center/',
+        url: 'https://conan.io/center/recipes/',
         repoFormat: FORMATS.conan,
         repoID: REPOS.conanIo,
         titleSelector: '.package-name',
