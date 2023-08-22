@@ -1,3 +1,11 @@
+## [2.10.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.0...v2.10.1) (2023-08-22)
+
+
+### Bug Fixes
+
+* udpate dom selector for conan.io for annotating the page ([509359f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/509359fe2039353b4d94bbc43327a0354f1196cd))
+* update to handle URL and HTML changes for conan.io [#69](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/69) ([dc33c88](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/dc33c88a1a59cf838e1f528fe5047085769e4a2a))
+
 # [2.10.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.9.0...v2.10.0) (2023-08-21)
 
 
