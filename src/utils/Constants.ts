@@ -128,7 +128,7 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://conan.io/center/recipes/',
         repoFormat: FORMATS.conan,
         repoID: REPOS.conanIo,
-        titleSelector: '.package-name',
+        titleSelector: 'h1',
         versionPath: '',
         appendVersionPath: '',
         pathRegex: /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
