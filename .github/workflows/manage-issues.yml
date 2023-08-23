@@ -1,0 +1,37 @@
+#
+# Copyright 2020-present Sonatype Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: 'Cleanup Issues'
+
+permissions:
+    issues: write
+
+on:
+    schedule:
+        - cron: '30 1 * * *'
+
+jobs:
+    stale:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/stale@v8
+              with:
+                  exempt-issue-labels: 'breaking-change,bug,documentation,enhancement,triage-required'
+                  stale-issue-label: 'stale'
+                  stale-issue-message: 'This issue is stale because it has been open 21 days with no activity. Remove the stale label or comment or this will be closed in 14 days.'
+                  close-issue-message: 'This issue was closed because it has been marked as stale for 14 days with no further activity.'
+                  days-before-issue-stale: 21
+                  days-before-issue-close: 14
