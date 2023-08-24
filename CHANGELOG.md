@@ -1,3 +1,10 @@
+## [2.10.3](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.2...v2.10.3) (2023-08-24)
+
+
+### Bug Fixes
+
+* [#80](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/80) - fix the date formats when in between groupings ([2b83fdf](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/2b83fdf75eba34f7d8257642172cbcaaa9d9c4f5))
+
 ## [2.10.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.1...v2.10.2) (2023-08-22)
 
 
