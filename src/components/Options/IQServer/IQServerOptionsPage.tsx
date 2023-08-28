@@ -381,9 +381,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <NxTextInput
                                         {...iqUrl}
                                         onChange={handleIqHostChange}
-                                        // placeholder='Sonatype IQ Server URL'
                                         validatable={true}
-                                        value={extensionSettings.host as string}
                                     />
                                 </NxFormGroup>
                                 {!hasPermissions && (
