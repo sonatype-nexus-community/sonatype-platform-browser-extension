@@ -33,6 +33,7 @@ import {
     NxTag,
     NxTextInput,
     nxTextInputStateHelpers,
+    NxTextInputStateProps,
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
@@ -68,7 +69,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
     const [checkingConnection, setCheckingConnection] = useState(false)
-    const [iqUrl, setIqUrl] = useState(
+    const [iqUrl, setIqUrl] = useState<NxTextInputStateProps>(
         initialState(extensionSettings.host === undefined ? '' : (extensionSettings.host as string))
     )
 
@@ -80,6 +81,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             hasOriginPermission()
         }
     })
+
+    useEffect(() => {
+        logger.logMessage(`Extension Host Changed to: ${extensionSettings.host}`, LogLevel.DEBUG)
+        if (extensionSettings.host !== undefined) {
+            setIqUrl(userInput(null, extensionSettings.host as string))
+        }
+    }, [extensionSettings.host])
 
     /**
      * Request permission to IQ Server Host
@@ -108,10 +116,10 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     function hasOriginPermission() {
-        if (extensionSettings.host !== undefined && isHttpUriValidator(extensionSettings.host)) {
+        if (iqUrl.trimmedValue !== undefined && isHttpUriValidator(iqUrl.trimmedValue)) {
             _browser.permissions.contains(
                 {
-                    origins: [extensionSettings.host],
+                    origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
                 },
                 (result: boolean) => {
                     if (chrome.runtime.lastError) {
@@ -164,6 +172,17 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
     function handleLoginCheck() {
         setCheckingConnection(true)
+
+        /**
+         * Force check that we have correct host in Extension Settings
+         */
+        if (iqUrl.trimmedValue !== extensionSettings.host) {
+            const newExtensionSettings =
+                extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
+            newExtensionSettings.host = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
+            setExtensionConfig(newExtensionSettings)
+        }
+
         _browser.runtime
             .sendMessage({
                 type: MESSAGE_REQUEST_TYPE.GET_APPLICATIONS,
@@ -373,16 +392,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
 
                             <div className='nx-form-row'>
                                 <NxFormGroup label={_browser.i18n.getMessage('LABEL_URL')} isRequired>
-                                    {/* <NxStatefulTextInput
-                                        defaultValue={extensionSettings?.host as string}
-                                        validator={nonEmptyValidator}
-                                        onBlur={handleIqHostChange}
-                                    /> */}
-                                    <NxTextInput
-                                        {...iqUrl}
-                                        onChange={handleIqHostChange}
-                                        validatable={true}
-                                    />
+                                    <NxTextInput {...iqUrl} onChange={handleIqHostChange} validatable={true} />
                                 </NxFormGroup>
                                 {!hasPermissions && (
                                     <button className='nx-btn grant-permissions' onClick={askForPermissions}>
@@ -424,7 +434,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     </div>
                                 </div>
                             )}
-                            {iqAuthenticated === true &&
+                            {hasPermissions &&
+                                iqAuthenticated === true &&
                                 extensionSettings.supportsLifecycle === true &&
                                 iqServerApplicationList.length > 0 && (
                                     <React.Fragment>
