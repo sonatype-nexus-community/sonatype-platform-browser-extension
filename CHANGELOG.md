@@ -1,3 +1,10 @@
+## [2.10.4](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.3...v2.10.4) (2023-08-29)
+
+
+### Bug Fixes
+
+* [#82](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/82) - remove value on text input to stop overwrite ([058c471](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/058c47194fc48b2fec968377abe87f44b5afb650))
+
 ## [2.10.3](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.2...v2.10.3) (2023-08-24)
 
 
