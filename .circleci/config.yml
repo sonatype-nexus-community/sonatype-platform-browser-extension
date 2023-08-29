@@ -74,7 +74,7 @@ jobs:
                   command: yarn webpack --mode production --env production --no-watch
             - run:
                   name: Update test data
-                  command: update-test-data.sh
+                  command: ./update-test-data.sh
                   working_directory: src/utils/PageParsing/testdata
             - run:
                   name: Test
