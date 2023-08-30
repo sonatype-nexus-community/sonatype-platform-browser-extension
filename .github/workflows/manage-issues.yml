@@ -29,7 +29,7 @@ jobs:
         steps:
             - uses: actions/stale@v8
               with:
-                  exempt-issue-labels: 'breaking-change,bug,documentation,enhancement,triage-required'
+                  exempt-issue-labels: 'blocked,breaking-change,bug,documentation,enhancement,triage-required'
                   stale-issue-label: 'stale'
                   stale-issue-message: 'This issue is stale because it has been open 21 days with no activity. Remove the stale label or comment or this will be closed in 14 days.'
                   close-issue-message: 'This issue was closed because it has been marked as stale for 14 days with no further activity.'
