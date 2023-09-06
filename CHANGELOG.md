@@ -1,3 +1,11 @@
+## [2.10.5](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.4...v2.10.5) (2023-09-06)
+
+
+### Bug Fixes
+
+* detect packaging format for Maven Central from POM XML rather than always assuming `jar` ([3fa2723](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/3fa27230d022bca2a56a15e825e807b5aa6a96fe))
+* detect source extension format for PyPi rather than always assuming `tar.gz` ([3635a05](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/3635a05cabacaae0f29ca028ee20bb01798ac40e))
+
 ## [2.10.4](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.3...v2.10.4) (2023-08-29)
 
 
