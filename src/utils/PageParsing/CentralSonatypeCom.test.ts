@@ -40,6 +40,7 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.namespace).toBe('org.cyclonedx')
         expect(packageURL?.name).toBe('cyclonedx-core-java')
         expect(packageURL?.version).toBe('7.3.2')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
     test('should parse a valid central.sonatype.com page with additional path', () => {
@@ -57,6 +58,7 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.namespace).toBe('org.cyclonedx')
         expect(packageURL?.name).toBe('cyclonedx-core-java')
         expect(packageURL?.version).toBe('7.3.2')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
     test('should parse a valid central.sonatype.com page with additional path and query string', () => {
@@ -74,6 +76,7 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.namespace).toBe('org.cyclonedx')
         expect(packageURL?.name).toBe('cyclonedx-core-java')
         expect(packageURL?.version).toBe('7.3.2')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
     test('should parse a valid central.sonatype.com page with additional path and fragment', () => {
@@ -91,5 +94,24 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.namespace).toBe('org.cyclonedx')
         expect(packageURL?.name).toBe('cyclonedx-core-java')
         expect(packageURL?.version).toBe('7.3.2')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
+    })
+
+    test('should parse a valid central.sonatype.com where artefact is not of type JAR', () => {
+        const html = readFileSync(join(__dirname, 'testdata/central-s-c-android.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://central.sonatype.com/artifact/com.fpliu.ndk.pkg.prefab.android.21/curl/7.82.0/overview'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe('maven')
+        expect(packageURL?.namespace).toBe('com.fpliu.ndk.pkg.prefab.android.21')
+        expect(packageURL?.name).toBe('curl')
+        expect(packageURL?.version).toBe('7.82.0')
+        expect(packageURL?.qualifiers).toEqual({ type: 'aar' })
     })
 })

@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar
-//"purl": "pkg:maven/org.apache.struts/struts2-core/2.3.30/jar",
+
+import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
+
+const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
 //pkg:type/namespace/name@version?qualifiers#subpath
 const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
@@ -26,14 +28,16 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
     if (repoType) {
         if (repoType.pathRegex) {
             const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            console.debug(pathResult?.groups)
+            const pomFileContent = $('pre[data-test="pom-file"]').text()
+            console.debug(pomFileContent)
+            const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
             if (pathResult && pathResult.groups) {
                 return generatePackageURLComplete(
                     FORMATS.maven,
                     encodeURIComponent(pathResult.groups.artifactId),
                     encodeURIComponent(pathResult.groups.version),
                     encodeURIComponent(pathResult.groups.groupId),
-                    { type: 'jar' },
+                    { type: pomResult?.groups !== undefined ? pomResult?.groups.packaging : 'jar' },
                     undefined
                 )
             }
