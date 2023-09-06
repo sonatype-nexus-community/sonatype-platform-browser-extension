@@ -18,7 +18,9 @@ import { PackageURL } from 'packageurl-js'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
 
-// https://pypi.org/project/Django/
+const PYPI_DEFAULT_EXTENSION = 'tar.gz'
+const PYPI_EXTENSION_SELECTOR = '#files > div.file div.card A:nth-child(1)'
+
 const parsePyPIURL = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.pypiOrg)
     console.debug('*** REPO TYPE: ', repoType)
@@ -30,11 +32,16 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
                 console.debug($(repoType.versionDomPath))
                 const pageVersion = $(repoType.versionDomPath).text().trim().split(' ')[1]
                 console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
+                const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
+                let extension = PYPI_DEFAULT_EXTENSION
+                if (firstDistributionFilename !== undefined && !firstDistributionFilename.endsWith(PYPI_DEFAULT_EXTENSION)) {
+                    extension = firstDistributionFilename.split('.').pop() as string
+                }
                 return generatePackageURL(
                     FORMATS.pypi,
                     pathResult.groups.artifactId,
                     pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                    { extension: 'tar.gz' }
+                    { extension: extension }
                 )
             }
         }

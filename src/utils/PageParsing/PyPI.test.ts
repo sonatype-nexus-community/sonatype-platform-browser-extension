@@ -29,32 +29,60 @@ describe('PyPI Page Parsing', () => {
 
         window.document.body.innerHTML = html.toString()
 
-        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pypi.org/project/Django/')
+        const packageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pypi.org/project/Django/')
 
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.pypi)
-        expect(PackageURL?.name).toBe('Django')
-        expect(PackageURL?.version).toBe('4.2.1')
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('Django')
+        expect(packageURL?.version).toBe('4.2.1')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'tar.gz' })
     })
 
     test('should parse valid PyPI page with the version', () => {
-        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pypi.org/project/Django/4.2/')
+        const html = readFileSync(join(__dirname, 'testdata/pypi-Django-4.2.1.html'))
 
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.pypi)
-        expect(PackageURL?.name).toBe('Django')
-        expect(PackageURL?.version).toBe('4.2')
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://pypi.org/project/Django/4.2/')
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('Django')
+        expect(packageURL?.version).toBe('4.2')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'tar.gz' })
     })
 
     test('should parse valid PyPI page with the version, query string and fragment', () => {
-        const PackageURL = getArtifactDetailsFromDOM(
+        const html = readFileSync(join(__dirname, 'testdata/pypi-Django-4.2.1.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromDOM(
             ensure(repoType),
             'https://pypi.org/project/Django/4.2/?some=thing#else'
         )
 
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.pypi)
-        expect(PackageURL?.name).toBe('Django')
-        expect(PackageURL?.version).toBe('4.2')
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('Django')
+        expect(packageURL?.version).toBe('4.2')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'tar.gz' })
+    })
+
+    test('should parse valid PyPI page where the SOURCE format is not .tar.gz', () => {
+        const html = readFileSync(join(__dirname, 'testdata/pypi-numpy-1.14.0.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://pypi.org/project/numpy/1.14.0/'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('numpy')
+        expect(packageURL?.version).toBe('1.14.0')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'zip' })
     })
 })
