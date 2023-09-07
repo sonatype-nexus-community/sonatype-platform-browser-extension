@@ -1,3 +1,10 @@
+## [2.10.7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.6...v2.10.7) (2023-09-07)
+
+
+### Bug Fixes
+
+* update Maven Central parsing to assume `type=jar` unless packaging is `aar`, `ear`, `jar` or `war` ([a9b2eac](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/a9b2eacc66285ac190a2d878e7dd7082849535c2))
+
 ## [2.10.6](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.5...v2.10.6) (2023-09-07)
 
 
