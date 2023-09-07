@@ -1,3 +1,10 @@
+## [2.10.6](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.5...v2.10.6) (2023-09-07)
+
+
+### Bug Fixes
+
+* force Maven Central components with packaging `bundle` to be `jar` ([18ee74b](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/18ee74b8794012b827c0c846f2ddfdd366262981))
+
 ## [2.10.5](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.4...v2.10.5) (2023-09-06)
 
 
