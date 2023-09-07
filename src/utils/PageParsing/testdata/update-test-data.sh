@@ -12,6 +12,12 @@ function get_data() {
 
 # central.sonatype.com
 get_data "CentralSonatypeCom.html" "https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2"
+get_data "central-s-c-android.html" "https://central.sonatype.com/artifact/com.fpliu.ndk.pkg.prefab.android.21/curl/7.82.0/overview"
+get_data "central-s-c-scalacheck-bundle.html" "https://central.sonatype.com/artifact/org.scalatestplus/scalacheck-1-17_sjs1_3/3.2.17.0"
+get_data "central-s-c-log4j-parent.html" "https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1"
+get_data "central-s-c-custom-properties-maven-plugin.html" "https://central.sonatype.com/artifact/net.sf.czsem/custom-properties-maven-plugin/4.0.3"
+get_data "central-s-c-cool-jconon.html" "https://central.sonatype.com/artifact/it.cnr.si.cool.jconon/cool-jconon/5.2.44"
+get_data "central-s-c-jakarta-ivt.html" "https://central.sonatype.com/artifact/com.ibm.mq/wmq.jakarta.jmsra.ivt/9.3.3.1"
 
 # CocoaPods
 
