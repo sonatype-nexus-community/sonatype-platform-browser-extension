@@ -19,6 +19,7 @@ import { PackageURL } from 'packageurl-js'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
 
+const PACKAGING_FORMATS_TO_JAR = new Set<string>(['bundle', 'pom'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
 //pkg:type/namespace/name@version?qualifiers#subpath
@@ -28,16 +29,24 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
     if (repoType) {
         if (repoType.pathRegex) {
             const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            const pomFileContent = $('pre[data-test="pom-file"]').text()
-            console.debug(pomFileContent)
             const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
+            let type = 'jar'
+            if (pomResult?.groups !== undefined) {
+                console.log('Found a POM to obtain pacakging from')
+                if (PACKAGING_FORMATS_TO_JAR.has(pomResult.groups.packaging)) {
+                    console.log(`    Coercing type to jar from ${pomResult.groups.packaging}`)
+                } else {
+                    console.log('    Using packaging from POM ')
+                    type = pomResult.groups.packaging
+                }
+            }
             if (pathResult && pathResult.groups) {
                 return generatePackageURLComplete(
                     FORMATS.maven,
                     encodeURIComponent(pathResult.groups.artifactId),
                     encodeURIComponent(pathResult.groups.version),
                     encodeURIComponent(pathResult.groups.groupId),
-                    { type: pomResult?.groups !== undefined ? pomResult?.groups.packaging : 'jar' },
+                    { type: type },
                     undefined
                 )
             }

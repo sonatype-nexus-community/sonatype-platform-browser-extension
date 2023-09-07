@@ -114,4 +114,40 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.version).toBe('7.82.0')
         expect(packageURL?.qualifiers).toEqual({ type: 'aar' })
     })
+
+    test('should parse a valid central.sonatype.com where artefact is not of type JAR', () => {
+        const html = readFileSync(join(__dirname, 'testdata/central-s-c-scalacheck-bundle.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://central.sonatype.com/artifact/org.scalatestplus/scalacheck-1-17_sjs1_3/3.2.17.0'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe('maven')
+        expect(packageURL?.namespace).toBe('org.scalatestplus')
+        expect(packageURL?.name).toBe('scalacheck-1-17_sjs1_3')
+        expect(packageURL?.version).toBe('3.2.17.0')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
+    })
+
+    test('should parse a valid central.sonatype.com where artefact is not of type POM', () => {
+        const html = readFileSync(join(__dirname, 'testdata/central-s-c-log4j-parent.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe('maven')
+        expect(packageURL?.namespace).toBe('org.apache.logging.log4j')
+        expect(packageURL?.name).toBe('log4j')
+        expect(packageURL?.version).toBe('3.0.0-alpha1')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
+    })
 })
