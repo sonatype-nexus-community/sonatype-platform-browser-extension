@@ -27,16 +27,25 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.centralSonatypeCom)
     console.debug('*** REPO TYPE: ', repoType)
     if (repoType) {
+        const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
+        let type = 'jar'
+        if (pomResult?.groups !== undefined) {
+            if (PACKAGING_FORMATS_NOT_JAR.has(pomResult.groups.packaging)) {
+                type = pomResult.groups.packaging
+            }
+        }
+
+        const purlText = $('label[data-test="component-purl"]>span').text()
+        if (purlText != undefined) {
+            const purl = PackageURL.fromString(purlText)
+            purl.qualifiers = { type: type }
+            console.debug('*** Got centralSonatypeCom purl from page: ', purl.toString())
+            return purl
+        }
+        
         if (repoType.pathRegex) {
             const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
-            let type = 'jar'
-            if (pomResult?.groups !== undefined) {
-                if (PACKAGING_FORMATS_NOT_JAR.has(pomResult.groups.packaging)) {
-                    console.debug('    Using packaging from POM ')
-                    type = pomResult.groups.packaging
-                }
-            }
+            
             if (pathResult && pathResult.groups) {
                 return generatePackageURLComplete(
                     FORMATS.maven,
