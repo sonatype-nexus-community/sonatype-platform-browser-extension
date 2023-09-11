@@ -204,4 +204,22 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.version).toBe('9.3.3.1')
         expect(packageURL?.qualifiers).toEqual({ type: 'ear' })
     })
+
+    test('should parse a valid central.sonatype.com where SEO changes made', () => {
+        const html = readFileSync(join(__dirname, 'testdata/central-s-c-commons-io.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://central.sonatype.com/artifact/commons-io/commons-io/overview'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe('maven')
+        expect(packageURL?.namespace).toBe('commons-io')
+        expect(packageURL?.name).toBe('commons-io')
+        expect(packageURL?.version).toBe('20030203.000550')
+        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
+    })
 })
