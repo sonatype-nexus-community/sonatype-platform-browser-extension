@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.7...v2.11.0) (2023-09-11)
+
+
+### Features
+
+* update for Maven Central changes ([#93](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/93)) ([be7527f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/be7527f359c3fa459ac58aedb92a3a97a5517361))
+
 ## [2.10.7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.6...v2.10.7) (2023-09-07)
 
 
