@@ -1,3 +1,10 @@
+# [2.12.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.11.0...v2.12.0) (2023-09-29)
+
+
+### Features
+
+* update page parsing due to npmjs.com HTML changes ([#95](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/95)) ([7ec5a10](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/7ec5a101211a46672b36e56d690414dc7a0531b9))
+
 # [2.11.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.10.7...v2.11.0) (2023-09-11)
 
 
