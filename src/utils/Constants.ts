@@ -225,7 +225,7 @@ export const REPO_TYPES: RepoType[] = [
         appendVersionPath: '/v/{versionNumber}',
         pathRegex:
             /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-        versionDomPath: 'h2 + span',
+        versionDomPath: '#top > div > span',
     },
     {
         url: 'https://www.nuget.org/packages/',

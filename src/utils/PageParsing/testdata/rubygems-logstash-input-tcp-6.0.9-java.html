@@ -1,595 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>logstash-input-tcp | RubyGems.org | your community gem host</title>
-        <meta charset="UTF-8" />
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport" />
-        <meta name="google-site-verification" content="AuesbWQ9MCDMmC1lbDlw25RJzyqWOcDYpuaCjgPxEZY" />
-        <link rel="apple-touch-icon" href="/apple-touch-icons/apple-touch-icon.png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icons/apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icons/apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icons/apple-touch-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icons/apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icons/apple-touch-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icons/apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icons/apple-touch-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icons/apple-touch-icon-180x180.png" />
-        <link rel="mask-icon" href="/rubygems_logo.svg" color="#e9573f" />
-        <link rel="fluid-icon" href="/fluid-icon.png" />
-        <link rel="search" type="application/opensearchdescription+xml" title="RubyGems.org" href="/opensearch.xml" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <head>
+    <title>logstash-input-tcp | RubyGems.org | your community gem host</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+    <meta name="google-site-verification" content="AuesbWQ9MCDMmC1lbDlw25RJzyqWOcDYpuaCjgPxEZY" />
+    <link rel="apple-touch-icon" href="/apple-touch-icons/apple-touch-icon.png" />
+      <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icons/apple-touch-icon-57x57.png" />
+      <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icons/apple-touch-icon-72x72.png" />
+      <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icons/apple-touch-icon-76x76.png" />
+      <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icons/apple-touch-icon-114x114.png" />
+      <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icons/apple-touch-icon-120x120.png" />
+      <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icons/apple-touch-icon-144x144.png" />
+      <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icons/apple-touch-icon-152x152.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icons/apple-touch-icon-180x180.png" />
+    <link rel="mask-icon" href="/rubygems_logo.svg" color="#e9573f">
+    <link rel="fluid-icon" href="/fluid-icon.png"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="RubyGems.org" href="/opensearch.xml">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-        <link
-            rel="stylesheet"
-            href="/assets/application-3b3429247fbc9097512f632b9299acac93d2664bf07b74f5acba50f130580968.css"
-        />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css?family=Roboto:100&amp;subset=greek,latin,cyrillic,latin-ext"
-            rel="stylesheet"
-            type="text/css"
-        />
+    <link rel="stylesheet" href="/assets/application-c62fc2702342911e3298900f6c33c25b4b2c18ff5462872651077fef52415d6c.css" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100&amp;subset=greek,latin,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
+    
+<link rel="alternate" type="application/atom+xml" href="https://feeds.feedburner.com/gemcutter-latest" title="RubyGems.org | Latest Gems">
 
-        <link
-            rel="alternate"
-            type="application/atom+xml"
-            href="https://feeds.feedburner.com/gemcutter-latest"
-            title="RubyGems.org | Latest Gems"
-        />
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Rnyf1HdFK5CPDdfhKuOgTNHnFOKvRpowXY0bzGj8_6MHWiQxkX-YEFCsxZPn717cGX40O6Yj7yed4A08Ct8_XQ" />
+      <link rel="alternate" type="application/atom+xml" title="logstash-input-tcp Version Feed" href="/gems/logstash-input-tcp/versions.atom" />
+    <!-- canonical url -->
+    <link rel="canonical" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java" />
+    <!-- alternative language versions url -->
+      <link rel="alternate" hreflang="en" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=en" />
+      <link rel="alternate" hreflang="nl" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=nl" />
+      <link rel="alternate" hreflang="zh-CN" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-CN" />
+      <link rel="alternate" hreflang="zh-TW" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-TW" />
+      <link rel="alternate" hreflang="pt-BR" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=pt-BR" />
+      <link rel="alternate" hreflang="fr" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=fr" />
+      <link rel="alternate" hreflang="es" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=es" />
+      <link rel="alternate" hreflang="de" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=de" />
+      <link rel="alternate" hreflang="ja" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java?locale=ja" />
+    <!-- unmatched alternative language fallback -->
+    <link rel="alternate" hreflang="x-default" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java" />
 
-        <meta name="csrf-param" content="authenticity_token" />
-        <meta
-            name="csrf-token"
-            content="Hd1KZsy8r3IuFrIW1XiixZLok_m9kLhKku3Fw_yZ-HP1VAYDAnoA254oxTEvLPF0hLAE9mJWodBeaa2p1uxilw"
-        />
-        <link
-            rel="alternate"
-            type="application/atom+xml"
-            title="logstash-input-tcp Version Feed"
-            href="/gems/logstash-input-tcp/versions.atom"
-        />
-        <link rel="canonical" href="https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java" />
-    </head>
+  </head>
 
-    <body class="">
-        <header class="header header--interior">
-            <div class="l-wrap--header">
-                <a title="RubyGems" class="header__logo-wrap" href="/">
-                    <span class="header__logo" data-icon="⬡">⬢</span>
-                    <span class="t-hidden">RubyGems</span>
-                </a>
-                <a class="header__club-sandwich" href="#">
-                    <span class="t-hidden">Navigation menu</span>
-                </a>
+  <body class="">
+    <!-- Top banner -->
+    <header class="header header--interior">
+      <div class="l-wrap--header">
+        <a title="RubyGems" class="header__logo-wrap" href="/">
+          <span class="header__logo" data-icon="⬡">⬢</span>
+          <span class="t-hidden">RubyGems</span>
+</a>        <a class="header__club-sandwich" href="#">
+          <span class="t-hidden">Navigation menu</span>
+        </a>
 
-                <div class="header__nav-links-wrap">
-                    <form class="header__search-wrap" action="/search" accept-charset="UTF-8" method="get">
-                        <input
-                            type="search"
-                            name="query"
-                            id="query"
-                            placeholder="Search Gems&hellip;"
-                            class="header__search"
-                            autocomplete="off"
-                        />
-                        <ul id="suggest" class="suggest-list"></ul>
-                        <label for="query">
-                            <span class="t-hidden">Search Gems&hellip;</span>
-                        </label>
-                        <input
-                            type="submit"
-                            value="⌕"
-                            id="search_submit"
-                            class="header__search__icon"
-                            data-disable-with="⌕"
-                        />
-                    </form>
-                    <nav class="header__nav-links">
-                        <a class="header__nav-link" href="https://rubygems.org/releases">Releases</a>
-                        <a class="header__nav-link" href="https://blog.rubygems.org">Blog</a>
+        <div class="header__nav-links-wrap">
+          <form class="header__search-wrap" action="/search" accept-charset="UTF-8" method="get">
+            <input type="search" name="query" id="query" placeholder="Search Gems&hellip;" class="header__search" autocomplete="off" />
+            <ul id="suggest" class="suggest-list"></ul>
+            <label for="query">
+              <span class="t-hidden">Search Gems&hellip;</span>
+</label>            <input type="submit" value="⌕" id="search_submit" class="header__search__icon" data-disable-with="⌕" />
+</form>
+          <nav class="header__nav-links">
 
-                        <a class="header__nav-link" href="/gems">Gems</a>
+            <a class="header__nav-link " href="https://rubygems.org/releases">Releases</a>
+            <a class="header__nav-link" href="https://blog.rubygems.org">Blog</a>
 
-                        <a class="header__nav-link" href="https://guides.rubygems.org">Guides</a>
+              <a class="header__nav-link" href="/gems">Gems</a>
 
-                        <a class="header__nav-link" href="/sign_in">Sign in</a>
-                        <a class="header__nav-link" href="/sign_up">Sign up</a>
-                    </nav>
-                </div>
+            <a class="header__nav-link" href="https://guides.rubygems.org">Guides</a>
+
+              <a class="header__nav-link " href="/sign_in">Sign in</a>
+                <a class="header__nav-link " href="/sign_up">Sign up</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+
+
+    <main class="main--interior">
+        <div class="l-wrap--b">
+            <h1 class="t-display page__heading">
+              logstash-input-tcp
+
+                <i class="page__subheading">6.0.9-java</i>
+            </h1>
+          
+          
+
+
+<div class="l-overflow">
+  <div class="l-colspan--l colspan--l--has-border">
+      <div class="gem__intro">
+        <div id="markup" class="gem__desc">
+          <p>This gem is a Logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/logstash-plugin install gemname. This gem is not a stand-alone program</p>
+        </div>
+      </div>
+
+      <div class="gem__install">
+        <h2 class="gem__ruby-version__heading t-list__heading">
+          Gemfile:
+          <div class="gem__code-wrap">
+            <input type="text" class="gem__code" id="gemfile_text" value="gem &#39;logstash-input-tcp&#39;, &#39;~&gt; 6.0&#39;, &#39;&gt;= 6.0.9&#39;" readonly="readonly">
+            <span class="gem__code__icon" id="js-gem__code--gemfile" data-clipboard-target="#gemfile_text">=</span>
+            <span class="gem__code__tooltip--copy">Copy to clipboard</span>
+            <span class="gem__code__tooltip--copied">Copied!</span>
+          </div>
+        </h2>
+        <h2 class="gem__ruby-version__heading t-list__heading">
+          install:
+          <div class="gem__code-wrap">
+            <input type="text" class="gem__code" id="install_text" value="gem install logstash-input-tcp -v 6.0.9" readonly="readonly">
+            <span class="gem__code__icon" id="js-gem__code--install" data-clipboard-target="#install_text">=</span>
+          </div>
+        </h2>
+      </div>
+
+      <div class="l-half--l">
+        <div class="versions">
+          <h3 class="t-list__heading">Versions:</h3>
+          <ol class="gem__versions t-list__items">
+            <li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.4.0-java">6.4.0</a>
+  <small class="gem__version__date">- July 06, 2023</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(2.53 MB)</span>
+</li>
+<li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.5-java">6.3.5</a>
+  <small class="gem__version__date">- June 29, 2023</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(2.52 MB)</span>
+</li>
+<li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.4-java">6.3.4</a>
+  <small class="gem__version__date">- June 23, 2023</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(2.35 MB)</span>
+</li>
+<li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.3-java">6.3.3</a>
+  <small class="gem__version__date">- June 01, 2023</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(2.35 MB)</span>
+</li>
+<li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.2-java">6.3.2</a>
+  <small class="gem__version__date">- January 19, 2023</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(2.34 MB)</span>
+</li>
+<li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.0.9-java">6.0.9</a>
+  <small class="gem__version__date">- March 26, 2021</small>
+    <span class="gem__version__date platform">java</span>
+
+  <span class="gem__version__date">(5.31 MB)</span>
+</li>
+
+          </ol>
+            <a class="gem__see-all-versions t-link--gray t-link--has-arrow" href="https://rubygems.org/gems/logstash-input-tcp/versions">Show all versions (76 total)</a>
+        </div>
+      </div>
+
+    <div class = "l-half--l">
+        <div class="dependencies gem__dependencies" id="runtime_dependencies">
+    <h3 class="t-list__heading">Runtime Dependencies (6):</h3>
+    <div class="t-list__items">
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-codec-json"><strong>logstash-codec-json</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-codec-json_lines"><strong>logstash-codec-json_lines</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-codec-line"><strong>logstash-codec-line</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-codec-multiline"><strong>logstash-codec-multiline</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-codec-plain"><strong>logstash-codec-plain</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-core-plugin-api"><strong>logstash-core-plugin-api</strong></a>
+            &gt;= 1.60, &lt;= 2.99
+          </div>
+    </div>
+  </div>
+
+        <div class="dependencies gem__dependencies" id="development_dependencies">
+    <h3 class="t-list__heading">Development Dependencies (4):</h3>
+    <div class="t-list__items">
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/flores"><strong>flores</strong></a>
+            ~&gt; 0.0.6
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/insist"><strong>insist</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/logstash-devutils"><strong>logstash-devutils</strong></a>
+            &gt;= 0
+          </div>
+          <div class="gem__requirement-wrap">
+            <a class="t-list__item" href="/gems/stud"><strong>stud</strong></a>
+            ~&gt; 0.0.22
+          </div>
+    </div>
+  </div>
+
+        <div class="dependencies_list">
+          <a class="gem__see-all-versions t-link--gray t-link--has-arrow push--s" href="/gems/logstash-input-tcp/versions/6.0.9-java/dependencies">Show all transitive dependencies</a>
+        </div>
+    </div>
+
+
+    <div class="gem__members">
+    <h3 class="t-list__heading">Owners:</h3>
+    <div class="gem__users">
+      <a alt="elastic" title="elastic" href="/profiles/elastic"><img id="gravatar-82288" width="48" height="48" src="https://secure.gravatar.com/avatar/28c5329f51137459eed5af3a85ce08c0.png?d=retro&r=PG&s=48" /></a>
+    </div>
+
+
+    <h3 class="t-list__heading">Pushed by:</h3>
+    <div class="gem__users">
+      <a alt="elastic" title="elastic" href="/profiles/elastic"><img id="gravatar-82288" width="48" height="48" src="https://secure.gravatar.com/avatar/28c5329f51137459eed5af3a85ce08c0.png?d=retro&r=PG&s=48" /></a>
+    </div>
+
+
+    <h3 class="t-list__heading">Authors:</h3>
+    <ul class="t-list__items">
+      <li class="t-list__item">
+        <p>Elastic</p>
+      </li>
+    </ul>
+
+    <h3 class="t-list__heading">SHA 256 checksum:</h3>
+    <div class="gem__sha">
+      54cc832461b8fda2a56e12b822853f2a30236fbea230a2730e922cad03533fa4
+    </div>
+
+</div>
+
+    <div class="gem__navigation">
+    <a class="gem__previous__version" href="/gems/logstash-input-tcp/versions/6.0.8">← Previous version</a>
+
+    <a class="gem__next__version" href="/gems/logstash-input-tcp/versions/6.0.10">Next version →</a>
+</div>
+
+  </div>
+
+  <div class="gem__aside l-col--r--pad">
+
+
+
+  <div class="gem__downloads-wrap" data-href="/api/v1/downloads/logstash-input-tcp-6.0.9-java.json">
+    <h2 class="gem__downloads__heading t-text--s">
+      Total downloads
+      <span class="gem__downloads">7,725,426</span>
+    </h2>
+    <h2 class="gem__downloads__heading t-text--s">
+      For this version
+      <span class="gem__downloads">21,529</span>
+    </h2>
+  </div>
+
+  <h2 class="gem__ruby-version__heading t-list__heading">
+    License:
+    <span class="gem__ruby-version">
+      <p>Apache License (2.0)</p>
+    </span>
+  </h2>
+
+  <h2 class="gem__ruby-version__heading t-list__heading">
+    Required Ruby Version:
+    <i class="gem__ruby-version">
+        &gt;= 0
+    </i>
+  </h2>
+
+
+
+
+  <h3 class="t-list__heading">Links:</h3>
+  <div class="t-list__items">
+      <a rel="nofollow" class="gem__link t-list__item" id="home" href="http://www.elastic.co/guide/en/logstash/current/index.html">Homepage</a>
+      <a rel="nofollow" class="gem__link t-list__item" id="docs" href="https://www.rubydoc.info/gems/logstash-input-tcp/6.0.9">Documentation</a>
+      <a rel="nofollow" class="gem__link t-list__item" id="download" href="/downloads/logstash-input-tcp-6.0.9-java.gem">Download</a>
+    <a class="gem__link t-list__item" href="https://my.diffend.io/gems/logstash-input-tcp/prev/6.0.9-java">Review changes</a>
+    <a class="gem__link t-list__item" id="badge" href="https://badge.fury.io/rb/logstash-input-tcp/install">Badge</a>
+    <a class="toggler gem__link t-list__item" id="subscribe" href="/sign_in">Subscribe</a>
+    <a class="gem__link t-list__item" id="rss" href="/gems/logstash-input-tcp/versions.atom">RSS</a>
+    <a class="gem__link t-list__item" href="mailto:support@rubygems.org?subject=Reporting Abuse on logstash-input-tcp">Report abuse</a>
+    <a rel="nofollow" class="gem__link t-list__item" id="reverse_dependencies" href="/gems/logstash-input-tcp/reverse_dependencies">Reverse dependencies</a>
+    
+    
+    
+  </div>
+</div>
+
+</div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+      <div class="l-wrap--footer">
+        <div class="l-overflow">
+          <div class="nav--v l-col--r--pad">
+            <a class="nav--v__link--footer" href="https://status.rubygems.org">Status</a>
+            <a class="nav--v__link--footer" href="https://uptime.rubygems.org">Uptime</a>
+            <a class="nav--v__link--footer" href="https://github.com/rubygems/rubygems.org">Code</a>
+            <a class="nav--v__link--footer" href="/pages/data">Data</a>
+            <a class="nav--v__link--footer" href="https://groups.google.com/group/rubygems-org">Discuss</a>
+            <a class="nav--v__link--footer" href="/stats">Stats</a>
+            <a class="nav--v__link--footer" href="https://guides.rubygems.org/contributing/">Contribute</a>
+              <a class="nav--v__link--footer" href="/pages/about">About</a>
+            <a class="nav--v__link--footer" href="mailto:support@rubygems.org">Help</a>
+            <a class="nav--v__link--footer" href="https://guides.rubygems.org/rubygems-org-api">API</a>
+              <a class="nav--v__link--footer" href="/pages/security">Security</a>
+            <a class="nav--v__link--footer" href="/ownership_calls">maintainers wanted</a>
+          </div>
+          <div class="l-colspan--l colspan--l--has-border">
+            <div class="footer__about">
+              <p>
+                RubyGems.org is the Ruby community&rsquo;s gem hosting service. Instantly <a href="https://guides.rubygems.org/publishing/">publish your gems</a> and then <a href="https://guides.rubygems.org/command-reference/#gem-install">install them</a>. Use <a href="https://guides.rubygems.org/rubygems-org-api/">the API</a> to find out more about <a href="/gems">available gems</a>. <a href="https://guides.rubygems.org/contributing/">Become a contributor</a> and improve the site yourself.
+              </p>
+              <p>
+                RubyGems.org is made possible through a partnership with the greater Ruby community. <a href="https://www.fastly.com/">Fastly</a> provides bandwidth and CDN support, <a href="https://www.rubycentral.org/">Ruby Central</a> covers infrastructure costs, and funds ongoing development and ops work. <a href="/pages/sponsors">Learn more about our sponsors and how they work together</a>.
+              </p>
+              <p>
+                We need your help to fund the developer time that keeps RubyGems.org running smoothly for everyone. <a href="https://rubycentral.org/#/portal/signup">Join Ruby Central today</a>.
+              </p>
             </div>
-        </header>
+          </div>
+        </div>
+      </div>
+      <div class="footer__sponsors">
+        <a class="footer__sponsor footer__sponsor__ruby_central" href="https://rubycentral.org/" target="_blank">
+          Supported by
+          <span class="t-hidden">Ruby Central</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__dockyard" href="https://dockyard.com/ruby-on-rails-consulting" target="_blank">
+          Designed by
+          <span class="t-hidden">DockYard</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__dnsimple" href="https://dnsimple.link/resolving-rubygems" target="_blank">
+          Resolved with
+          <span class="t-hidden">DNSimple</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__datadog" href="https://www.datadoghq.com/" target="_blank">
+          Monitored by
+          <span class="t-hidden">Datadog</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__fastly" href="https://www.fastly.com/" target="_blank">
+          Gems served by
+          <span class="t-hidden">Fastly</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__honeybadger" href="https://www.honeybadger.io/" target="_blank">
+          Monitored by
+          <span class="t-hidden">Honeybadger</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__domainr" href="https://domainr.com/" target="_blank">
+          Verified by
+          <span class="t-hidden">Domainr</span>
+        </a>
+        <a class="footer__sponsor footer__sponsor__whitesource" href="https://www.whitesourcesoftware.com/" target="_blank">
+          Secured by
+          <span class="t-hidden">Whitesource</span>
+        </a>
+      </div>
+      <div class="footer__language_selector">
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=en">English</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=nl">Nederlands</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-CN">简体中文</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-TW">正體中文</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=pt-BR">Português do Brasil</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=fr">Français</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=es">Español</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=de">Deutsch</a>
+          </div>
+          <div class="footer__language">
+            <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=ja">日本語</a>
+          </div>
+      </div>
+    </footer>
 
-        <main class="main--interior">
-            <div class="l-wrap--b">
-                <h1 class="t-display page__heading">
-                    logstash-input-tcp
-
-                    <i class="page__subheading">6.0.9-java</i>
-                </h1>
-
-                <div class="l-overflow">
-                    <div class="l-colspan--l colspan--l--has-border">
-                        <div class="gem__intro">
-                            <div id="markup" class="gem__desc">
-                                <p>
-                                    This gem is a Logstash plugin required to be installed on top of the Logstash core
-                                    pipeline using $LS_HOME/bin/logstash-plugin install gemname. This gem is not a
-                                    stand-alone program
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="gem__install">
-                            <h2 class="gem__ruby-version__heading t-list__heading">
-                                Gemfile:
-                                <div class="gem__code-wrap">
-                                    <input
-                                        type="text"
-                                        class="gem__code"
-                                        id="gemfile_text"
-                                        value="gem &#39;logstash-input-tcp&#39;, &#39;~&gt; 6.0&#39;, &#39;&gt;= 6.0.9&#39;"
-                                        readonly="readonly"
-                                    />
-                                    <span
-                                        class="gem__code__icon"
-                                        id="js-gem__code--gemfile"
-                                        data-clipboard-target="#gemfile_text"
-                                        >=</span
-                                    >
-                                    <span class="gem__code__tooltip--copy">Copy to clipboard</span>
-                                    <span class="gem__code__tooltip--copied">Copied!</span>
-                                </div>
-                            </h2>
-                            <h2 class="gem__ruby-version__heading t-list__heading">
-                                install:
-                                <div class="gem__code-wrap">
-                                    <input
-                                        type="text"
-                                        class="gem__code"
-                                        id="install_text"
-                                        value="gem install logstash-input-tcp -v 6.0.9"
-                                        readonly="readonly"
-                                    />
-                                    <span
-                                        class="gem__code__icon"
-                                        id="js-gem__code--install"
-                                        data-clipboard-target="#install_text"
-                                        >=</span
-                                    >
-                                </div>
-                            </h2>
-                        </div>
-
-                        <div class="l-half--l">
-                            <div class="versions">
-                                <h3 class="t-list__heading">Versions:</h3>
-                                <ol class="gem__versions t-list__items">
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.4.0-java"
-                                            >6.4.0</a
-                                        >
-                                        <small class="gem__version__date">- July 06, 2023</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(2.53 MB)</span>
-                                    </li>
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.5-java"
-                                            >6.3.5</a
-                                        >
-                                        <small class="gem__version__date">- June 29, 2023</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(2.52 MB)</span>
-                                    </li>
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.4-java"
-                                            >6.3.4</a
-                                        >
-                                        <small class="gem__version__date">- June 23, 2023</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(2.35 MB)</span>
-                                    </li>
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.3-java"
-                                            >6.3.3</a
-                                        >
-                                        <small class="gem__version__date">- June 01, 2023</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(2.35 MB)</span>
-                                    </li>
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.3.2-java"
-                                            >6.3.2</a
-                                        >
-                                        <small class="gem__version__date">- January 19, 2023</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(2.34 MB)</span>
-                                    </li>
-                                    <li class="gem__version-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-input-tcp/versions/6.0.9-java"
-                                            >6.0.9</a
-                                        >
-                                        <small class="gem__version__date">- March 26, 2021</small>
-                                        <span class="gem__version__date platform">java</span>
-
-                                        <span class="gem__version__date">(5.31 MB)</span>
-                                    </li>
-                                </ol>
-                                <a
-                                    class="gem__see-all-versions t-link--gray t-link--has-arrow"
-                                    href="https://rubygems.org/gems/logstash-input-tcp/versions"
-                                    >Show all versions (76 total)</a
-                                >
-                            </div>
-                        </div>
-
-                        <div class="l-half--l">
-                            <div class="dependencies gem__dependencies" id="runtime_dependencies">
-                                <h3 class="t-list__heading">Runtime Dependencies (6):</h3>
-                                <div class="t-list__items">
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-codec-json"
-                                            ><strong>logstash-codec-json</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-codec-json_lines"
-                                            ><strong>logstash-codec-json_lines</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-codec-line"
-                                            ><strong>logstash-codec-line</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-codec-multiline"
-                                            ><strong>logstash-codec-multiline</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-codec-plain"
-                                            ><strong>logstash-codec-plain</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-core-plugin-api"
-                                            ><strong>logstash-core-plugin-api</strong></a
-                                        >
-                                        &gt;= 1.60, &lt;= 2.99
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="dependencies gem__dependencies" id="development_dependencies">
-                                <h3 class="t-list__heading">Development Dependencies (4):</h3>
-                                <div class="t-list__items">
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/flores"><strong>flores</strong></a>
-                                        ~&gt; 0.0.6
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/insist"><strong>insist</strong></a>
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/logstash-devutils"
-                                            ><strong>logstash-devutils</strong></a
-                                        >
-                                        &gt;= 0
-                                    </div>
-                                    <div class="gem__requirement-wrap">
-                                        <a class="t-list__item" href="/gems/stud"><strong>stud</strong></a>
-                                        ~&gt; 0.0.22
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="dependencies_list">
-                                <a
-                                    class="gem__see-all-versions t-link--gray t-link--has-arrow push--s"
-                                    href="/gems/logstash-input-tcp/versions/6.0.9-java/dependencies"
-                                    >Show all transitive dependencies</a
-                                >
-                            </div>
-                        </div>
-
-                        <div class="gem__members">
-                            <h3 class="t-list__heading">Owners:</h3>
-                            <div class="gem__users">
-                                <a alt="elastic" title="elastic" href="/profiles/elastic"
-                                    ><img
-                                        id="gravatar-82288"
-                                        width="48"
-                                        height="48"
-                                        src="https://secure.gravatar.com/avatar/28c5329f51137459eed5af3a85ce08c0.png?d=retro&r=PG&s=48"
-                                /></a>
-                            </div>
-
-                            <h3 class="t-list__heading">Pushed by:</h3>
-                            <div class="gem__users">
-                                <a alt="elastic" title="elastic" href="/profiles/elastic"
-                                    ><img
-                                        id="gravatar-82288"
-                                        width="48"
-                                        height="48"
-                                        src="https://secure.gravatar.com/avatar/28c5329f51137459eed5af3a85ce08c0.png?d=retro&r=PG&s=48"
-                                /></a>
-                            </div>
-
-                            <h3 class="t-list__heading">Authors:</h3>
-                            <ul class="t-list__items">
-                                <li class="t-list__item">
-                                    <p>Elastic</p>
-                                </li>
-                            </ul>
-
-                            <h3 class="t-list__heading">SHA 256 checksum:</h3>
-                            <div class="gem__sha">54cc832461b8fda2a56e12b822853f2a30236fbea230a2730e922cad03533fa4</div>
-                        </div>
-
-                        <div class="gem__navigation">
-                            <a class="gem__previous__version" href="/gems/logstash-input-tcp/versions/6.0.8"
-                                >← Previous version</a
-                            >
-
-                            <a class="gem__next__version" href="/gems/logstash-input-tcp/versions/6.0.10"
-                                >Next version →</a
-                            >
-                        </div>
-                    </div>
-
-                    <div class="gem__aside l-col--r--pad">
-                        <div
-                            class="gem__downloads-wrap"
-                            data-href="/api/v1/downloads/logstash-input-tcp-6.0.9-java.json"
-                        >
-                            <h2 class="gem__downloads__heading t-text--s">
-                                Total downloads
-                                <span class="gem__downloads">7,600,228</span>
-                            </h2>
-                            <h2 class="gem__downloads__heading t-text--s">
-                                For this version
-                                <span class="gem__downloads">21,366</span>
-                            </h2>
-                        </div>
-
-                        <h2 class="gem__ruby-version__heading t-list__heading">
-                            License:
-                            <span class="gem__ruby-version">
-                                <p>Apache License (2.0)</p>
-                            </span>
-                        </h2>
-
-                        <h2 class="gem__ruby-version__heading t-list__heading">
-                            Required Ruby Version:
-                            <i class="gem__ruby-version"> &gt;= 0 </i>
-                        </h2>
-
-                        <h3 class="t-list__heading">Links:</h3>
-                        <div class="t-list__items">
-                            <a
-                                rel="nofollow"
-                                class="gem__link t-list__item"
-                                id="home"
-                                href="http://www.elastic.co/guide/en/logstash/current/index.html"
-                                >Homepage</a
-                            >
-                            <a
-                                rel="nofollow"
-                                class="gem__link t-list__item"
-                                id="docs"
-                                href="https://www.rubydoc.info/gems/logstash-input-tcp/6.0.9"
-                                >Documentation</a
-                            >
-                            <a
-                                rel="nofollow"
-                                class="gem__link t-list__item"
-                                id="download"
-                                href="/downloads/logstash-input-tcp-6.0.9-java.gem"
-                                >Download</a
-                            >
-                            <a
-                                class="gem__link t-list__item"
-                                href="https://my.diffend.io/gems/logstash-input-tcp/prev/6.0.9-java"
-                                >Review changes</a
-                            >
-                            <a
-                                class="gem__link t-list__item"
-                                id="badge"
-                                href="https://badge.fury.io/rb/logstash-input-tcp/install"
-                                >Badge</a
-                            >
-                            <a class="toggler gem__link t-list__item" id="subscribe" href="/sign_in">Subscribe</a>
-                            <a class="gem__link t-list__item" id="rss" href="/gems/logstash-input-tcp/versions.atom"
-                                >RSS</a
-                            >
-                            <a
-                                class="gem__link t-list__item"
-                                href="mailto:support@rubygems.org?subject=Reporting Abuse on logstash-input-tcp"
-                                >Report abuse</a
-                            >
-                            <a
-                                rel="nofollow"
-                                class="gem__link t-list__item"
-                                id="reverse_dependencies"
-                                href="/gems/logstash-input-tcp/reverse_dependencies"
-                                >Reverse dependencies</a
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <div class="l-wrap--footer">
-                <div class="l-overflow">
-                    <div class="nav--v l-col--r--pad">
-                        <a class="nav--v__link--footer" href="https://status.rubygems.org">Status</a>
-                        <a class="nav--v__link--footer" href="https://uptime.rubygems.org">Uptime</a>
-                        <a class="nav--v__link--footer" href="https://github.com/rubygems/rubygems.org">Code</a>
-                        <a class="nav--v__link--footer" href="/pages/data">Data</a>
-                        <a class="nav--v__link--footer" href="https://groups.google.com/group/rubygems-org">Discuss</a>
-                        <a class="nav--v__link--footer" href="/stats">Stats</a>
-                        <a class="nav--v__link--footer" href="https://guides.rubygems.org/contributing/">Contribute</a>
-                        <a class="nav--v__link--footer" href="/pages/about">About</a>
-                        <a class="nav--v__link--footer" href="mailto:support@rubygems.org">Help</a>
-                        <a class="nav--v__link--footer" href="https://guides.rubygems.org/rubygems-org-api">API</a>
-                        <a class="nav--v__link--footer" href="/pages/security">Security</a>
-                        <a class="nav--v__link--footer" href="/ownership_calls">maintainers wanted</a>
-                    </div>
-                    <div class="l-colspan--l colspan--l--has-border">
-                        <div class="footer__about">
-                            <p>
-                                RubyGems.org is the Ruby community&rsquo;s gem hosting service. Instantly
-                                <a href="https://guides.rubygems.org/publishing/">publish your gems</a> and then
-                                <a href="https://guides.rubygems.org/command-reference/#gem-install">install them</a>.
-                                Use <a href="https://guides.rubygems.org/rubygems-org-api/">the API</a> to find out more
-                                about <a href="/gems">available gems</a>.
-                                <a href="https://guides.rubygems.org/contributing/">Become a contributor</a> and improve
-                                the site yourself.
-                            </p>
-                            <p>
-                                RubyGems.org is made possible through a partnership with the greater Ruby community.
-                                <a href="https://www.fastly.com/">Fastly</a> provides bandwidth and CDN support,
-                                <a href="https://www.rubycentral.org/">Ruby Central</a> covers infrastructure costs, and
-                                funds ongoing development and ops work.
-                                <a href="/pages/sponsors">Learn more about our sponsors and how they work together</a>.
-                            </p>
-                            <p>
-                                We need your help to fund the developer time that keeps RubyGems.org running smoothly
-                                for everyone.
-                                <a href="https://rubycentral.org/#/portal/signup">Join Ruby Central today</a>.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer__sponsors-wrap">
-                <div class="footer__sponsors">
-                    <a
-                        class="footer__sponsor footer__sponsor__ruby_central"
-                        href="https://rubycentral.org/"
-                        target="_blank"
-                    >
-                        Supported by
-                        <span class="t-hidden">Ruby Central</span>
-                    </a>
-                    <a
-                        class="footer__sponsor footer__sponsor__dockyard"
-                        href="https://dockyard.com/ruby-on-rails-consulting"
-                        target="_blank"
-                    >
-                        Designed by
-                        <span class="t-hidden">DockYard</span>
-                    </a>
-                    <a
-                        class="footer__sponsor footer__sponsor__dnsimple"
-                        href="https://dnsimple.link/resolving-rubygems"
-                        target="_blank"
-                    >
-                        Resolved with
-                        <span class="t-hidden">DNSimple</span>
-                    </a>
-                    <a
-                        class="footer__sponsor footer__sponsor__datadog"
-                        href="https://www.datadoghq.com/"
-                        target="_blank"
-                    >
-                        Monitored by
-                        <span class="t-hidden">Datadog</span>
-                    </a>
-                    <a class="footer__sponsor footer__sponsor__fastly" href="https://www.fastly.com/" target="_blank">
-                        Gems served by
-                        <span class="t-hidden">Fastly</span>
-                    </a>
-                    <a
-                        class="footer__sponsor footer__sponsor__honeybadger"
-                        href="https://www.honeybadger.io/"
-                        target="_blank"
-                    >
-                        Monitored by
-                        <span class="t-hidden">Honeybadger</span>
-                    </a>
-                    <a class="footer__sponsor footer__sponsor__domainr" href="https://domainr.com/" target="_blank">
-                        Verified by
-                        <span class="t-hidden">Domainr</span>
-                    </a>
-                    <a
-                        class="footer__sponsor footer__sponsor__whitesource"
-                        href="https://www.whitesourcesoftware.com/"
-                        target="_blank"
-                    >
-                        Secured by
-                        <span class="t-hidden">Whitesource</span>
-                    </a>
-                </div>
-            </div>
-            <div class="footer__language_selector">
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=en"
-                        >English</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=nl"
-                        >Nederlands</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-CN"
-                        >简体中文</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=zh-TW"
-                        >正體中文</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=pt-BR"
-                        >Português do Brasil</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=fr"
-                        >Français</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=es"
-                        >Español</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=de"
-                        >Deutsch</a
-                    >
-                </div>
-                <div class="footer__language">
-                    <a class="nav--v__link--footer" href="/gems/logstash-input-tcp/versions/6.0.9-java?locale=ja"
-                        >日本語</a
-                    >
-                </div>
-            </div>
-        </footer>
-
-        <script src="/assets/application-d1a682178ac4f4ef8d615f9dbd96a0d969350049c0eafa2cc73c28afd4343893.js"></script>
-
-        <script
-            type="text/javascript"
-            defer
-            src="https://www.fastly-insights.com/insights.js?k=3e63c3cd-fc37-4b19-80b9-65ce64af060a"
-        ></script>
-    </body>
+    <script src="/assets/application-d1a682178ac4f4ef8d615f9dbd96a0d969350049c0eafa2cc73c28afd4343893.js"></script>
+    
+    <script type="text/javascript" defer src="https://www.fastly-insights.com/insights.js?k=3e63c3cd-fc37-4b19-80b9-65ce64af060a"></script>
+  </body>
 </html>
