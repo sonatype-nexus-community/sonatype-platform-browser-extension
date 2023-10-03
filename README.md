@@ -17,6 +17,8 @@ To use this extension you will need access to a licensed installation of either:
 -   A license with [Advanced Legal Pack](https://www.sonatype.com/products/advanced-legal-pack) provides additional license information
 -   [Sonatype Repository Firewall](https://www.sonatype.com/products/sonatype-repository-firewall)
 
+In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as supported with this extension.
+
 **Contents**
 
 - [Format Support](#format-support)
