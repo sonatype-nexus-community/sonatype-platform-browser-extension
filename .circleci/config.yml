@@ -83,7 +83,7 @@ jobs:
             - slack/notify:
                   channel: C05MTRX6EF8
                   event: fail
-                  mentions: @spbe-maintainers 
+                  mentions: '@spbe-maintainers'
                   template: basic_fail_1
 
     release_build:
