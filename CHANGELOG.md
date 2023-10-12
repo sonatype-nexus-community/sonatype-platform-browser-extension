@@ -1,3 +1,11 @@
+## [2.12.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.12.0...v2.12.1) (2023-10-12)
+
+
+### Bug Fixes
+
+* Maven Central page parsing updates ([#101](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/101)) ([5260fa7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/5260fa75c7af6318fe702e8d8467707ca8fb51bd))
+* page annotation for npmjs.org change due to page html updates ([#100](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/100)) ([9a17066](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/9a1706622426612b3fb305afa7a453a72f4629d3))
+
 # [2.12.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.11.0...v2.12.0) (2023-09-29)
 
 
