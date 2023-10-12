@@ -46,7 +46,8 @@ get_data "packagist-laravel-its-lte-4.23.0.html" "https://packagist.org/packages
 get_data "packagist-laravel-its-lte-4.22.html" "https://packagist.org/packages/fomvasss/laravel-its-lte#4.22"
 
 # PyPi
-get_data "" "https://pypi.org/project/Django/4.2.1/"
+get_data "pypi-Django-4.2.1.html" "https://pypi.org/project/Django/4.2.1/"
+get_data "pypi-numpy-1.14.0.html" "https://pypi.org/project/numpy/1.14.0/"
 
 # RubyGems
 get_data "rubygems-chelsea-0.0.32.html" "https://rubygems.org/gems/chelsea/versions/0.0.32"
