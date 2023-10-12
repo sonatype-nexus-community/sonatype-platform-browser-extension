@@ -15,6 +15,7 @@ version: 2.1
 
 orbs:
     node: circleci/node@5.1.0
+    slack: circleci/slack@4.12.5
 
 jobs:
     build_and_test:
@@ -79,6 +80,11 @@ jobs:
             - run:
                   name: Test
                   command: yarn run test
+            - slack/notify:
+                  channel: C05MTRX6EF8
+                  event: fail
+                  mentions: '@spbe-maintainers'
+                  template: basic_fail_1
 
     release_build:
         docker:
@@ -112,6 +118,10 @@ jobs:
             - run:
                   name: Semantic Release
                   command: npx semantic-release
+            - slack/notify:
+                  channel: C05MTRX6EF8
+                  event: pass
+                  template: success_tagged_deploy_1
 
 workflows:
     ci:
@@ -119,6 +129,7 @@ workflows:
             - build_and_test:
                   context:
                       - sonatype-browser-extension-build
+                      - slack_community_oss_fun
                   filters:
                       branches:
                           ignore: main
@@ -140,6 +151,7 @@ workflows:
                   context:
                       - sonatype-browser-extension
                       - sonatype-browser-extension-build
+                      - slack_community_oss_fun
                   filters:
                       branches:
                           only: main

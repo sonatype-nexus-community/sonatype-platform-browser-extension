@@ -35,11 +35,11 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
             }
         }
 
-        const purlText = $('label[data-test="component-purl"]>span').text()
+        const purlText = $('label[data-test="component-purl"]>span').last().text()
         if (purlText != undefined) {
             const purl = PackageURL.fromString(purlText)
             purl.qualifiers = { type: type }
-            console.debug('*** Got centralSonatypeCom purl from page: ', purl.toString())
+            console.debug(`*** Got centralSonatypeCom purl from page purlText '${purlText} : ${purl.toString()}`)
             return purl
         }
         
