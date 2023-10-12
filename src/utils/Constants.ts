@@ -220,7 +220,7 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://www.npmjs.com/package/',
         repoFormat: FORMATS.npm,
         repoID: REPOS.npmJs,
-        titleSelector: '#top > div > h2 > span',
+        titleSelector: '#top > div > h1 > span',
         versionPath: '{url}/{packagename}/v/{versionNumber}',
         appendVersionPath: '/v/{versionNumber}',
         pathRegex:
