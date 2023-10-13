@@ -60,6 +60,7 @@ const _browser: any = chrome ? chrome : browser
 export interface IqServerOptionsPageInterface {
     setExtensionConfig: (settings: ExtensionConfiguration) => void
     install: boolean
+    invalidCredentials: boolean
 }
 
 export default function IQServerOptionsPage(props: IqServerOptionsPageInterface) {
@@ -406,6 +407,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <p className='nx-p'>
                                         <strong>2)</strong> {_browser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                                     </p>
+                                    {props.invalidCredentials === true && iqAuthenticated !== true && (
+                                        <NxStatefulErrorAlert>
+                                            Your credentials are invalid - please update them
+                                        </NxStatefulErrorAlert>
+                                    )}
                                     <div className='nx-form-row'>
                                         <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
                                             <NxStatefulTextInput

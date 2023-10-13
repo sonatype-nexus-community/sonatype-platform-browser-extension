@@ -24,6 +24,13 @@ export class ExtensionError extends Error {
 }
 
 /**
+ * Base class for general connectivity errors with Sonatype IQ Server.
+ * 
+ * These may be specialised in later releases.
+ */
+export class GeneralConnectivityError extends ExtensionError {}
+
+/**
  * Error thrown when configuration of the extension is invalid.
  *
  * For example - attempting to access IQ configuration when data source is set to OSS INDEX.
@@ -37,3 +44,9 @@ export class InvalidConfigurationError extends ExtensionError {}
  * For example - attempting to access IQ configuration when data source is set to OSS INDEX.
  */
 export class IncompleteConfigurationError extends ExtensionError {}
+
+/**
+ * Error thrown when the configured credentials are invalid.
+ *
+ */
+export class UserAuthenticationError extends ExtensionError {}

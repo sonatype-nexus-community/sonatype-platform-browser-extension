@@ -46,6 +46,7 @@ enum OPTIONS_PAGE_MODE {
 export default function Options() {
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const search = window.location.search
+    const fragment = window.location.hash
     const params = new URLSearchParams(search)
     let pageMode: OPTIONS_PAGE_MODE = OPTIONS_PAGE_MODE.SONATYPE
 
@@ -56,6 +57,7 @@ export default function Options() {
     }
 
     const install = params.has('install')
+    const invalidCredentials = fragment === '#invalid-credentials'
 
     useMemo(
         () =>
@@ -146,7 +148,11 @@ export default function Options() {
                     <GeneralOptionsPage setExtensionConfig={handleNewExtensionConfig} />
                 )}
                 {pageMode === OPTIONS_PAGE_MODE.SONATYPE && (
-                    <IQServerOptionsPage install={install} setExtensionConfig={handleNewExtensionConfig} />
+                    <IQServerOptionsPage
+                        install={install}
+                        invalidCredentials={invalidCredentials}
+                        setExtensionConfig={handleNewExtensionConfig}
+                    />
                 )}
             </ExtensionConfigurationContext.Provider>
         </React.StrictMode>
