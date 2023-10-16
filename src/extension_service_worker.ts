@@ -29,7 +29,7 @@ import {
 } from './messages/IqMessages'
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { ComponentState, getForComponentPolicyViolations, getIconForComponentState } from './types/Component'
-import { IncompleteConfigurationError } from './error/ExtensionError'
+import { IncompleteConfigurationError, UserAuthenticationError } from './error/ExtensionError'
 import { Analytics, ANALYTICS_EVENT_TYPES } from './utils/Analytics'
 import { PackageURL } from 'packageurl-js'
 import { readExtensionConfiguration, updateExtensionConfiguration } from './messages/SettingsMessages'
@@ -203,8 +203,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                             params: {
                                 purls: [response.data.purl],
                             },
-                        })
-                            .then((r2) => {
+                        }).then((r2) => {
                                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                 if (_browser.runtime.lastError) {
                                     logger.logMessage(
@@ -289,8 +288,23 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                             path: getIconForComponentState(ComponentState.UNKNOWN),
                                         })
                                     })
+                                } else if (err instanceof UserAuthenticationError) {
+                                    logger.logMessage(`UserAuthenticationError: ${err}`, LogLevel.ERROR)
+                                    propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
+                                    logger.logMessage(
+                                        `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
+                                        LogLevel.ERROR
+                                    )
+                                    _browser.action.disable(tabId, () => {
+                                        _browser.action.setIcon({
+                                            tabId: tabId,
+                                            path: getIconForComponentState(ComponentState.UNKNOWN),
+                                        })
+                                    })
+                                    _browser.tabs.create({ url: 'options.html#invalid-credentials' })
+                                } else {
+                                    logger.logMessage(`Error in r2: ${err}`, LogLevel.ERROR)
                                 }
-                                logger.logMessage(`Error in r2: ${err}`, LogLevel.ERROR)
                             })
                     } else {
                         logger.logMessage(

@@ -219,6 +219,10 @@
         "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications.",
         "description": "Second point of configuration for Sonatype IQ Server"
     },
+    "OPTIONS_EXISTING_CREDENTIALS_INVALID": {
+        "message": "Your existing credentials are invalid - please update them",
+        "description": "If during use the configured credentials become invalid, this message is used to ask the user to update their credentials."
+    },
     "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
         "message": "Connect",
         "description": "Button text for 'Connect' button"

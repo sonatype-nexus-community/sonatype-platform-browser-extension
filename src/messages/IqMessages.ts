@@ -27,7 +27,7 @@ import {
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
-import { IncompleteConfigurationError, InvalidConfigurationError } from '../error/ExtensionError'
+import { GeneralConnectivityError, IncompleteConfigurationError, InvalidConfigurationError, UserAuthenticationError } from '../error/ExtensionError'
 import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { DATA_SOURCE } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
@@ -404,24 +404,10 @@ function _handle_iq_error_repsonse(err) {
     if (err instanceof ResponseError) {
         logger.logMessage(`   IQ Error: ${err.response.status}: ${err.response.statusText}`, LogLevel.WARN)
         if (err.response.status > 400 && err.response.status < 404) {
-            return {
-                status: MESSAGE_RESPONSE_STATUS.AUTH_ERROR,
-            }
+            return Promise.reject(new UserAuthenticationError('User credentials invalid'))
         } else {
-            return {
-                status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                status_detail: {
-                    message: 'Failed to call Sonatype IQ Server',
-                    detail: `${err.response.status}: ${err.message}`,
-                },
-            }
+            return Promise.reject(new GeneralConnectivityError(`${err.response.status}: ${err.message}`))
         }
     }
-    return {
-        status: MESSAGE_RESPONSE_STATUS.FAILURE,
-        status_detail: {
-            message: 'Failed to call Sonatype IQ Server',
-            detail: err,
-        },
-    }
+    return Promise.reject(new GeneralConnectivityError(`${err}`))
 }
