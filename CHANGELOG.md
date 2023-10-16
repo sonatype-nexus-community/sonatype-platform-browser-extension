@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.13.0...v2.13.1) (2023-10-16)
+
+
+### Bug Fixes
+
+* more accurate DOM parsing for NPMJS which resolves navigation during brower history buttons ([#105](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/105)) ([36a6f87](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/36a6f8769ce32906d45f4f7f096f6dc85c84bbe2))
+
 # [2.13.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.12.1...v2.13.0) (2023-10-16)
 
 
