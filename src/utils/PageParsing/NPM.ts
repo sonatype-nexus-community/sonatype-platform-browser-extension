@@ -28,8 +28,8 @@ const parseNPM = (url: string): PackageURL | undefined => {
             const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
             console.debug(pathResult?.groups)
             if (pathResult && pathResult.groups) {
-                console.debug(`"${stripHtmlComments($(repoType.versionDomPath).text())}"`)
-                const pageVersion = stripHtmlComments($(repoType.versionDomPath).text()).split('•')[0].trim()
+                console.debug(`"${stripHtmlComments($(repoType.versionDomPath).first().text())}"`)
+                const pageVersion = stripHtmlComments($(repoType.versionDomPath).first().text()).split('•')[0].trim()
 
                 return generatePackageURLWithNamespace(
                     FORMATS.npm,
