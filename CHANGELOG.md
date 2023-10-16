@@ -1,3 +1,10 @@
+# [2.13.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.12.1...v2.13.0) (2023-10-16)
+
+
+### Features
+
+* automatically prompt user for updated credentials if they become invalid during use ([#103](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/103)) ([f3273bf](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f3273bf5ca1986d678be3f89f192c96a1c3bc798))
+
 ## [2.12.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.12.0...v2.12.1) (2023-10-12)
 
 
