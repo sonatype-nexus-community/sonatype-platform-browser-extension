@@ -1605,10 +1605,10 @@
     in-publish "^2.0.0"
     prop-types "^15.5.10"
 
-"@sonatype/react-shared-components@12.16.10":
-  version "12.16.10"
-  resolved "http://mcupitt-demo:8081/repository/npm-proxy/@sonatype/react-shared-components/-/react-shared-components-12.16.10.tgz#2db88cafbe366e9ebf8084d0a955be07a55bb9c0"
-  integrity sha512-KZGKEm3JWKHqQB1e7Z/+MnX3YAVTrvY/ANEPYVMgkgl9dolWvyS3uyhGtyNHXOeJ7tGbToqEONCwNJGPLbrugw==
+"@sonatype/react-shared-components@12.16.2":
+  version "12.16.2"
+  resolved "https://registry.yarnpkg.com/@sonatype/react-shared-components/-/react-shared-components-12.16.2.tgz#ee82483a8c1cac3f67ec2fcf28fab50acfa651c2"
+  integrity sha512-5SFU9k35jtOyGXdHh+ZTokkwJ+B7wHRDoCdhoNu0BQZQBU8VaFbbEWnEEOjt1M1ERCkTix6ogaUlzoUL5UI1Ug==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "1.2.36"
     "@fortawesome/free-regular-svg-icons" "^5.15.4"
