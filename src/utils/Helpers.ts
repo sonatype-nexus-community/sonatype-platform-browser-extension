@@ -62,7 +62,6 @@ function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string)
     if (currentPurlVersion !== undefined && currentTabUrl !== undefined) {
         const newUrl = replaceOrAppend(currentTabUrl?.toString(), currentPurlVersion, version)
         logger.logMessage(`Remediation Details: Generated new URL ${newUrl}`, LogLevel.DEBUG)
-        window.alert(newUrl)
         _browser.tabs.update({
             url: newUrl,
         })
