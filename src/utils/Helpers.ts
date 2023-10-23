@@ -44,22 +44,32 @@ function stripTrailingSlash(url: string): string {
     return url.endsWith('/') ? url.slice(0, -1) : url
 }
 
+function replaceOrAppend(originalString: string, searchValue: string, replacementValue: string): string {
+    const index = originalString.indexOf(searchValue);
+  
+    if (index !== -1) {
+      return originalString.slice(0, index) + replacementValue + originalString.slice(index + searchValue.length);
+    } else {
+      return originalString + '/v/' + replacementValue;
+    }
+  }
+
 function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string) {
     const currentTabUrl = currentTab.url
     // const currentPurlVersion = popupContext.currentPurl?.version
 
     logger.logMessage(`Remediation Details: Replacing URL with ${version}`, LogLevel.DEBUG)
     if (currentPurlVersion !== undefined && currentTabUrl !== undefined) {
-        const currentVersion = new RegExp(currentPurlVersion as string)
-        const newUrl = currentTabUrl?.toString().replace(currentVersion, version)
+        const newUrl = replaceOrAppend(currentTabUrl?.toString(), currentPurlVersion, version)
         logger.logMessage(`Remediation Details: Generated new URL ${newUrl}`, LogLevel.DEBUG)
+        window.alert(newUrl)
         _browser.tabs.update({
             url: newUrl,
         })
         window.close()
     } else {
         logger.logMessage(
-            `Remediation Details: currentTabURL or currentPul are undefined when trying to replace with ${version}`,
+            `Remediation Details: currentTabURL or currentPurl are undefined when trying to replace with ${version}`,
             LogLevel.ERROR
         )
     }

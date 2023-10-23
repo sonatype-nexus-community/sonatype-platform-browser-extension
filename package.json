@@ -27,7 +27,7 @@
         "@agney/react-loading": "^0.1.2",
         "@fortawesome/free-solid-svg-icons": "^6.3.0",
         "@sonatype/nexus-iq-api-client": "^0.156.5",
-        "@sonatype/react-shared-components": "12.16.2",
+        "@sonatype/react-shared-components": "12.16.10",
         "@types/chrome": "^0.0.218",
         "@types/firefox-webext-browser": "^109.0.0",
         "cash-dom": "^8.1.0",
