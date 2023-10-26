@@ -33,6 +33,9 @@ import { getNewSelectedVersionUrl } from '../../../../../../utils/Helpers'
 import { Tooltip } from '@material-ui/core'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 function IqAllVersionDetails() {
     const popupContext = useContext(ExtensionPopupContext)
     const allVersions = popupContext.iq?.allVersions
@@ -174,20 +177,26 @@ function IqAllVersionDetails() {
             <NxList id='all-versions-list'>
                 {allVersions.map((version) => {
                     const versionPurl = PackageURL.fromString(version.component?.packageUrl as string)
+                    const currentUrl = new URL(popupContext.currentTab?.url as string)
+                    const versionUrl = getNewSelectedVersionUrl(
+                        currentUrl,
+                        popupContext.currentPurl as PackageURL,
+                        versionPurl.version as string | undefined
+                    )
+                    const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
 
                     return (
                         <NxList.ButtonItem
                             key={version.component?.packageUrl}
                             selected={versionPurl.version == currentPurl?.version}>
                             <NxList.Text
-                                // @todo : Only allow click if the RepoType defines supportsVersionNavigation === true
-                                onClick={() =>
-                                    getNewSelectedVersionUrl(
-                                        new URL(popupContext.currentTab?.url as string),
-                                        popupContext.currentPurl as PackageURL,
-                                        versionPurl.version as string | undefined
-                                    )
-                                }
+                                {...(clickable && {
+                                    onClick: () => {
+                                        _browser.tabs.update({
+                                            url: versionUrl.toString(),
+                                        })
+                                    },
+                                })}
                                 ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
                                 <NxGrid.Row
                                     style={{
@@ -196,7 +205,6 @@ function IqAllVersionDetails() {
                                     }}>
                                     <NxGrid.Column className='nx-grid-col-50'>
                                         <NxGrid.Header>
-                                            {/* <strong>{versionPurl.version}</strong> */}
                                             <NxPolicyViolationIndicator
                                                 style={{ marginBottom: '16px !important' }}
                                                 policyThreatLevel={
@@ -210,7 +218,6 @@ function IqAllVersionDetails() {
                                             </NxPolicyViolationIndicator>
 
                                             <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
-                                                {/* <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span> */}
                                                 <span className='nx-pull-right'>
                                                     {catalogDateDifference(version.catalogDate)}
                                                 </span>

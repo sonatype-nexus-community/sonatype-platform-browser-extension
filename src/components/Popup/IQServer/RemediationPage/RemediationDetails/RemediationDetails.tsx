@@ -22,6 +22,9 @@ import './RemediationDetails.css'
 import { getNewSelectedVersionUrl } from '../../../../../utils/Helpers'
 import { PackageURL } from 'packageurl-js'
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 function IqRemediationDetails() {
     const popupContext = useContext(ExtensionPopupContext)
     const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
@@ -31,19 +34,26 @@ function IqRemediationDetails() {
             <NxList emptyMessage="No newer version is available based on this application's policy.">
                 {versionChanges?.map((change, id) => {
                     const version = change.data?.component?.componentIdentifier?.coordinates?.version as string
+                    const currentUrl = new URL(popupContext.currentTab?.url as string)
+                    const versionUrl = getNewSelectedVersionUrl(
+                        currentUrl,
+                        popupContext.currentPurl as PackageURL,
+                        version
+                    )
+                    const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
+
                     if (change !== undefined) {
                         return (
                             <NxList.LinkItem
                                 href='#'
                                 key={`${change}-${id}`}
-                                // @todo : Only allow click if the RepoType defines supportsVersionNavigation === true
-                                onClick={() =>
-                                    getNewSelectedVersionUrl(
-                                        new URL(popupContext.currentTab?.url as string),
-                                        popupContext.currentPurl as PackageURL,
-                                        version
-                                    )
-                                }>
+                                {...(clickable && {
+                                    onClick: () => {
+                                        _browser.tabs.update({
+                                            url: versionUrl.toString(),
+                                        })
+                                    },
+                                })}>
                                 <NxList.Text>
                                     <small>{REMEDIATION_LABELS[change.type as string]}</small>
                                 </NxList.Text>

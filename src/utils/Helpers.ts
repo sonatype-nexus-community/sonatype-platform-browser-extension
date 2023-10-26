@@ -33,6 +33,16 @@ function stripTrailingSlash(url: string): string {
     return url.endsWith('/') ? url.slice(0, -1) : url
 }
 
+/**
+ * Attempts to calculate the URL to the newVersion (if supplied). Returns the currentUrl 
+ * where either no newVersion is supplied or the OSS Registry in question is defined as 
+ * not supporting navigation to specific versions.
+ * 
+ * @param currentUrl 
+ * @param currentPurl 
+ * @param newVersion 
+ * @returns
+ */
 function getNewSelectedVersionUrl(currentUrl: URL, currentPurl: PackageURL, newVersion?: string): URL {
     let nextUrl = currentUrl.toString()
     if (newVersion !== undefined) {
