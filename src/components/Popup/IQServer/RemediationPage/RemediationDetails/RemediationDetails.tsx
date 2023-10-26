@@ -19,12 +19,12 @@ import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupCont
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE, REMEDIATION_LABELS } from '../../../../../utils/Constants'
 import './RemediationDetails.css'
-import { getNewUrlandGo } from '../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../utils/Helpers'
+import { PackageURL } from 'packageurl-js'
 
 function IqRemediationDetails() {
     const popupContext = useContext(ExtensionPopupContext)
     const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
-    const currentPurlVersion: string = popupContext.currentPurl?.version as string
 
     return (
         <React.Fragment>
@@ -36,7 +36,13 @@ function IqRemediationDetails() {
                             <NxList.LinkItem
                                 href='#'
                                 key={`${change}-${id}`}
-                                onClick={() => getNewUrlandGo(popupContext.currentTab, currentPurlVersion, version)}>
+                                onClick={() =>
+                                    getNewSelectedVersionUrl(
+                                        new URL(popupContext.currentTab?.url as string),
+                                        popupContext.currentPurl as PackageURL,
+                                        version
+                                    )
+                                }>
                                 <NxList.Text>
                                     <small>{REMEDIATION_LABELS[change.type as string]}</small>
                                 </NxList.Text>

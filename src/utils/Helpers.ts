@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-// import crypto from 'crypto'
 import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from '../logger/Logger'
 import { findPublicOssRepoType } from './UrlParsing'
-
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
 
 function ensure<T>(argument: T | undefined | null, message = 'This value was promised to be there.'): T {
     if (argument === undefined || argument === null) {
@@ -66,25 +61,4 @@ function getNewSelectedVersionUrl(currentUrl: URL, currentPurl: PackageURL, newV
     return new URL(nextUrl)
 }
 
-function getNewUrlandGo(currentTab: chrome.tabs.Tab | browser.tabs.Tab, currentPurlVersion: string, version: string) {
-    const currentTabUrl = currentTab.url
-    // const currentPurlVersion = popupContext.currentPurl?.version
-
-    logger.logMessage(`Remediation Details: Replacing URL with ${version}`, LogLevel.DEBUG)
-    if (currentPurlVersion !== undefined && currentTabUrl !== undefined) {
-        const currentVersion = new RegExp(currentPurlVersion as string)
-        const newUrl = currentTabUrl?.toString().replace(currentVersion, version)
-        logger.logMessage(`Remediation Details: Generated new URL ${newUrl}`, LogLevel.DEBUG)
-        _browser.tabs.update({
-            url: newUrl,
-        })
-        window.close()
-    } else {
-        logger.logMessage(
-            `Remediation Details: currentTabURL or currentPul are undefined when trying to replace with ${version}`,
-            LogLevel.ERROR
-        )
-    }
-}
-
-export { ensure, stripHtmlComments, getNewSelectedVersionUrl, getNewUrlandGo, stripTrailingSlash }
+export { ensure, stripHtmlComments, getNewSelectedVersionUrl, stripTrailingSlash }
