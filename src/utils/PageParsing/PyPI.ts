@@ -25,25 +25,23 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.pypiOrg)
     console.debug('*** REPO TYPE: ', repoType)
     if (repoType) {
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            console.debug(pathResult?.groups)
-            if (pathResult && pathResult.groups) {
-                console.debug($(repoType.versionDomPath))
-                const pageVersion = $(repoType.versionDomPath).text().trim().split(' ')[1]
-                console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
-                const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
-                let extension = PYPI_DEFAULT_EXTENSION
-                if (firstDistributionFilename !== undefined && !firstDistributionFilename.endsWith(PYPI_DEFAULT_EXTENSION)) {
-                    extension = firstDistributionFilename.split('.').pop() as string
-                }
-                return generatePackageURL(
-                    FORMATS.pypi,
-                    pathResult.groups.artifactId,
-                    pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                    { extension: extension }
-                )
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        console.debug(pathResult?.groups)
+        if (pathResult && pathResult.groups) {
+            console.debug($(repoType.versionDomPath))
+            const pageVersion = $(repoType.versionDomPath).text().trim().split(' ')[1]
+            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
+            const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
+            let extension = PYPI_DEFAULT_EXTENSION
+            if (firstDistributionFilename !== undefined && !firstDistributionFilename.endsWith(PYPI_DEFAULT_EXTENSION)) {
+                extension = firstDistributionFilename.split('.').pop() as string
             }
+            return generatePackageURL(
+                FORMATS.pypi,
+                pathResult.groups.artifactId,
+                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
+                { extension: extension }
+            )
         }
     } else {
         console.error('Unable to determine REPO TYPE.')

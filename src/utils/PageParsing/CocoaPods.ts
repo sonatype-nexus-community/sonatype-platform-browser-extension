@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../../logger/Logger'
@@ -23,12 +24,10 @@ export const parseCocoaPods = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cocoaPodsOrg)
     logger.logMessage(`Parsing CocoaPods ${repoType?.repoID}`, LogLevel.DEBUG)
     if (repoType) {
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-                const version = $(repoType.versionDomPath).first().text().trim()
-                return generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResult.groups.artifactId), version)
-            }
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
+            const version = $(repoType.versionDomPath).first().text().trim()
+            return generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResult.groups.artifactId), version)
         }
     } else {
         logger.logMessage('Unable to determine REPO TYPE.', LogLevel.INFO)
