@@ -185,85 +185,158 @@ function IqAllVersionDetails() {
                     )
                     const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
 
-                    return (
-                        <NxList.ButtonItem
-                            key={version.component?.packageUrl}
-                            selected={versionPurl.version == currentPurl?.version}>
-                            <NxList.Text
-                                {...(clickable && {
-                                    onClick: () => {
-                                        _browser.tabs.update({
-                                            url: versionUrl.toString(),
-                                        })
-                                    },
-                                })}
-                                ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
-                                <NxGrid.Row
-                                    style={{
-                                        marginTop: '0px',
-                                        marginBottom: '0px',
-                                    }}>
-                                    <NxGrid.Column className='nx-grid-col-50'>
-                                        <NxGrid.Header>
-                                            <NxPolicyViolationIndicator
-                                                style={{ marginBottom: '16px !important' }}
-                                                policyThreatLevel={
-                                                    Math.round(
-                                                        getMaxViolation(
-                                                            version.policyData as ApiComponentPolicyViolationListDTOV2
-                                                        )
-                                                    ) as ThreatLevelNumber
-                                                }>
-                                                {versionPurl.version}
-                                            </NxPolicyViolationIndicator>
-
-                                            <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
-                                                <span className='nx-pull-right'>
-                                                    {catalogDateDifference(version.catalogDate)}
-                                                </span>
-                                            </Tooltip>
-                                        </NxGrid.Header>
-                                        {version.policyData != undefined && (
-                                            <React.Fragment>
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Security'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'License'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Architecture'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Other'}
-                                                />
-                                            </React.Fragment>
-                                        )}
-                                    </NxGrid.Column>
-                                    {version.relativePopularity !== undefined && (
+                    if (clickable) {
+                        return (
+                            <NxList.ButtonItem
+                                key={version.component?.packageUrl}
+                                selected={versionPurl.version == currentPurl?.version}>
+                                <NxList.Text
+                                    {...(clickable && {
+                                        onClick: () => {
+                                            _browser.tabs.update({
+                                                url: versionUrl.toString(),
+                                            })
+                                        },
+                                    })}
+                                    ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
+                                    <NxGrid.Row
+                                        style={{
+                                            marginTop: '0px',
+                                            marginBottom: '0px',
+                                        }}>
                                         <NxGrid.Column className='nx-grid-col-50'>
-                                            <Tooltip title={`Popularity: ${version.relativePopularity}`}>
-                                                <div>
-                                                    <NxMeter
-                                                        value={version.relativePopularity as number}
-                                                        max={100}
-                                                        children={''}
-                                                        style={{
-                                                            color: 'rgb(139, 199, 62) !important',
-                                                        }}
+                                            <NxGrid.Header>
+                                                <NxPolicyViolationIndicator
+                                                    style={{ marginBottom: '16px !important' }}
+                                                    policyThreatLevel={
+                                                        Math.round(
+                                                            getMaxViolation(
+                                                                version.policyData as ApiComponentPolicyViolationListDTOV2
+                                                            )
+                                                        ) as ThreatLevelNumber
+                                                    }>
+                                                    {versionPurl.version}
+                                                </NxPolicyViolationIndicator>
+
+                                                <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                                                    <span className='nx-pull-right'>
+                                                        {catalogDateDifference(version.catalogDate)}
+                                                    </span>
+                                                </Tooltip>
+                                            </NxGrid.Header>
+                                            {version.policyData != undefined && (
+                                                <React.Fragment>
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Security'}
                                                     />
-                                                </div>
-                                            </Tooltip>
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'License'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Architecture'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Other'}
+                                                    />
+                                                </React.Fragment>
+                                            )}
                                         </NxGrid.Column>
-                                    )}
-                                </NxGrid.Row>
-                            </NxList.Text>
-                        </NxList.ButtonItem>
-                    )
+                                        {version.relativePopularity !== undefined && (
+                                            <NxGrid.Column className='nx-grid-col-50'>
+                                                <Tooltip title={`Popularity: ${version.relativePopularity}`}>
+                                                    <div>
+                                                        <NxMeter
+                                                            value={version.relativePopularity as number}
+                                                            max={100}
+                                                            children={''}
+                                                            style={{
+                                                                color: 'rgb(139, 199, 62) !important',
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Tooltip>
+                                            </NxGrid.Column>
+                                        )}
+                                    </NxGrid.Row>
+                                </NxList.Text>
+                            </NxList.ButtonItem>
+                        )
+                    } else {
+                        return (
+                            <NxList.Item key={version.component?.packageUrl}>
+                                <NxList.Text
+                                    ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
+                                    <NxGrid.Row
+                                        style={{
+                                            marginTop: '0px',
+                                            marginBottom: '0px',
+                                        }}>
+                                        <NxGrid.Column className='nx-grid-col-50'>
+                                            <NxGrid.Header>
+                                                <NxPolicyViolationIndicator
+                                                    style={{ marginBottom: '16px !important' }}
+                                                    policyThreatLevel={
+                                                        Math.round(
+                                                            getMaxViolation(
+                                                                version.policyData as ApiComponentPolicyViolationListDTOV2
+                                                            )
+                                                        ) as ThreatLevelNumber
+                                                    }>
+                                                    {versionPurl.version}
+                                                </NxPolicyViolationIndicator>
+
+                                                <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                                                    <span className='nx-pull-right'>
+                                                        {catalogDateDifference(version.catalogDate)}
+                                                    </span>
+                                                </Tooltip>
+                                            </NxGrid.Header>
+                                            {version.policyData != undefined && (
+                                                <React.Fragment>
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Security'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'License'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Architecture'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Other'}
+                                                    />
+                                                </React.Fragment>
+                                            )}
+                                        </NxGrid.Column>
+                                        {version.relativePopularity !== undefined && (
+                                            <NxGrid.Column className='nx-grid-col-50'>
+                                                <Tooltip title={`Popularity: ${version.relativePopularity}`}>
+                                                    <div>
+                                                        <NxMeter
+                                                            value={version.relativePopularity as number}
+                                                            max={100}
+                                                            children={''}
+                                                            style={{
+                                                                color: 'rgb(139, 199, 62) !important',
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Tooltip>
+                                            </NxGrid.Column>
+                                        )}
+                                    </NxGrid.Row>
+                                </NxList.Text>
+                            </NxList.Item>
+                        )
+                    }
                 })}
             </NxList>
         )

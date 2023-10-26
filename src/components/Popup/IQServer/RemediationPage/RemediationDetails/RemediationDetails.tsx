@@ -43,27 +43,46 @@ function IqRemediationDetails() {
                     const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
 
                     if (change !== undefined) {
-                        return (
-                            <NxList.LinkItem
-                                href='#'
-                                key={`${change}-${id}`}
-                                {...(clickable && {
-                                    onClick: () => {
-                                        _browser.tabs.update({
-                                            url: versionUrl.toString(),
-                                        })
-                                    },
-                                })}>
-                                <NxList.Text>
-                                    <small>{REMEDIATION_LABELS[change.type as string]}</small>
-                                </NxList.Text>
-                                <NxList.Subtext>
-                                    <strong>
-                                        {change.data?.component?.componentIdentifier?.coordinates ? version : 'UNKNOWN'}
-                                    </strong>
-                                </NxList.Subtext>
-                            </NxList.LinkItem>
-                        )
+                        if (clickable) {
+                            return (
+                                <NxList.LinkItem
+                                    href='#'
+                                    key={`${change}-${id}`}
+                                    {...(clickable && {
+                                        onClick: () => {
+                                            _browser.tabs.update({
+                                                url: versionUrl.toString(),
+                                            })
+                                        },
+                                    })}>
+                                    <NxList.Text>
+                                        <small>{REMEDIATION_LABELS[change.type as string]}</small>
+                                    </NxList.Text>
+                                    <NxList.Subtext>
+                                        <strong>
+                                            {change.data?.component?.componentIdentifier?.coordinates
+                                                ? version
+                                                : 'UNKNOWN'}
+                                        </strong>
+                                    </NxList.Subtext>
+                                </NxList.LinkItem>
+                            )
+                        } else {
+                            return (
+                                <NxList.Item key={`${change}-${id}`}>
+                                    <NxList.Text>
+                                        <small>{REMEDIATION_LABELS[change.type as string]}</small>
+                                    </NxList.Text>
+                                    <NxList.Subtext>
+                                        <strong>
+                                            {change.data?.component?.componentIdentifier?.coordinates
+                                                ? version
+                                                : 'UNKNOWN'}
+                                        </strong>
+                                    </NxList.Subtext>
+                                </NxList.Item>
+                            )
+                        }
                     }
                 })}
             </NxList>
