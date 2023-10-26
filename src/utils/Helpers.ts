@@ -15,7 +15,9 @@
  */
 
 // import crypto from 'crypto'
+import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
+import { findPublicOssRepoType } from './UrlParsing'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -28,14 +30,6 @@ function ensure<T>(argument: T | undefined | null, message = 'This value was pro
     return argument
 }
 
-// function simpleHash(input: string): string {
-//     console.log('HASHING: ', input)
-//     if (input.length > 0) {
-//         return crypto.createHash('sha1').update(input).digest('hex')
-//     }
-//     throw new Error('Cannot SHA empty string')
-// }
-
 function stripHtmlComments(html: string): string {
     return html.replace(/<!--[\s\S]*?(?:-->)/g, '')
 }
@@ -44,7 +38,35 @@ function stripTrailingSlash(url: string): string {
     return url.endsWith('/') ? url.slice(0, -1) : url
 }
 
-function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string) {
+function getNewSelectedVersionUrl(currentUrl: URL, currentPurl: PackageURL, newVersion?: string): URL {
+    let nextUrl = currentUrl.toString()
+    if (newVersion !== undefined) {
+        const repoType = findPublicOssRepoType(currentUrl.toString())
+
+        if (repoType !== undefined) {
+            let groupAndArtifactId = `${currentPurl.namespace}/${currentPurl.name}`
+            if (currentPurl.namespace === undefined || currentPurl.namespace === null) {
+                groupAndArtifactId = currentPurl.name
+            }
+            const mapUrlReplacements = {
+                '{artifactId}': currentPurl.name,
+                '{groupAndArtifactId}': groupAndArtifactId,
+                '{groupId}': currentPurl.namespace,
+                '{version}': newVersion
+            }
+            if (currentPurl.qualifiers && 'extension' in currentPurl.qualifiers) {
+                mapUrlReplacements['{extension}'] = currentPurl.qualifiers['extension']
+            }
+
+            const re = new RegExp(Object.keys(mapUrlReplacements).join('|'), 'gi')
+            const nextUrlPath = repoType.versionPath.replace(re, (matched) => mapUrlReplacements[matched])
+            nextUrl = `${repoType.url}${nextUrlPath}`
+        }
+    }
+    return new URL(nextUrl)
+}
+
+function getNewUrlandGo(currentTab: chrome.tabs.Tab | browser.tabs.Tab, currentPurlVersion: string, version: string) {
     const currentTabUrl = currentTab.url
     // const currentPurlVersion = popupContext.currentPurl?.version
 
@@ -65,4 +87,4 @@ function getNewUrlandGo(currentTab, currentPurlVersion: string, version: string)
     }
 }
 
-export { ensure, stripHtmlComments, getNewUrlandGo, stripTrailingSlash }
+export { ensure, stripHtmlComments, getNewSelectedVersionUrl, getNewUrlandGo, stripTrailingSlash }

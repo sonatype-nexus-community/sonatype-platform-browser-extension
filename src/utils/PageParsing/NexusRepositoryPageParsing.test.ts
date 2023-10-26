@@ -16,15 +16,19 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { FORMATS } from '../Constants'
+import { FORMATS, RepoType } from '../Constants'
 import { getArtifactDetailsFromNxrmDom } from './NexusRepositoryPageParsing'
-import exp from 'constants'
 
 describe('NXRM3 Page Parsing', () => {
-    const repoType = {
+    const repoType: RepoType = {
         url: 'https://repo.tld/',
         repoFormat: FORMATS.NXRM,
         repoID: 'NXRM-https://repo.tld/',
+        titleSelector: '',
+        versionPath: '',
+        pathRegex: /^$/,
+        versionDomPath: '',
+        supportsVersionNavigation: false
     }
 
     /**
