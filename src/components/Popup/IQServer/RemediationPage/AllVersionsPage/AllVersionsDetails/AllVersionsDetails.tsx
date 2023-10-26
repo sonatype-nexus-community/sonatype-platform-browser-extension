@@ -180,6 +180,7 @@ function IqAllVersionDetails() {
                             key={version.component?.packageUrl}
                             selected={versionPurl.version == currentPurl?.version}>
                             <NxList.Text
+                                // @todo : Only allow click if the RepoType defines supportsVersionNavigation === true
                                 onClick={() =>
                                     getNewSelectedVersionUrl(
                                         new URL(popupContext.currentTab?.url as string),

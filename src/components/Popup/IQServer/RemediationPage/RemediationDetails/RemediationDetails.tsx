@@ -36,6 +36,7 @@ function IqRemediationDetails() {
                             <NxList.LinkItem
                                 href='#'
                                 key={`${change}-${id}`}
+                                // @todo : Only allow click if the RepoType defines supportsVersionNavigation === true
                                 onClick={() =>
                                     getNewSelectedVersionUrl(
                                         new URL(popupContext.currentTab?.url as string),

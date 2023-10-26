@@ -21,11 +21,6 @@ export enum DATA_SOURCE {
     OSSINDEX = 'Sonatype OSS Index',
 }
 
-export const REPOSITORY_MANAGERS = {
-    NEXUS: 'nexus',
-    ARTIFACTORY: 'artifactory',
-}
-
 export const REMEDIATION_LABELS = {
     'next-no-violations': 'Next version with no policy violation(s)',
     'next-non-failing': 'Next version with no policy action failure(s)',
@@ -87,9 +82,7 @@ export interface RepoType {
     repoFormat: string          // Repo Format
     repoID: string              // Unique ID for this Repo
     titleSelector: string       // DOM selector to find the Package Title - used to annotate the page
-    // versionSelector?: string
     versionPath: string         // URL format with placeholders
-    // appendVersionPath?: string
     pathRegex: RegExp           // Regex for parsing URL
     versionDomPath: string      // DOM selector to find component version on the page (not always in the URL)
     supportsVersionNavigation: boolean // Whether to allow navigation using this extension to different versions
