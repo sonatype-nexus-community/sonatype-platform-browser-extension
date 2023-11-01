@@ -1,3 +1,10 @@
+# [2.14.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.13.1...v2.14.0) (2023-11-01)
+
+
+### Features
+
+* support navigation to versions of components for supported Public Registries ([#108](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/108)) ([2dbcc12](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/2dbcc12d2775cc90bb3447a263929aad9edde3a0))
+
 ## [2.13.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.13.0...v2.13.1) (2023-10-16)
 
 
