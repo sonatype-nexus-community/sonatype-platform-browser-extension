@@ -57,7 +57,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ❌                              |
 | Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                              |
 | CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ❌                              |
-| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | ✅                              |
+| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | N/A                             |
 | Go.dev                 | Go                  | ❌ ^2   | `https://pkg.go.dev/`            | N/A                             |
 | Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                              |
 | Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ❌                              |
