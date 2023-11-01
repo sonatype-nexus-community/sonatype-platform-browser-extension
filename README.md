@@ -73,7 +73,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 
 _Notes:_
 
-1. See issue [#237](https://github.com/sonatype-nexus-community/nexus-iq-chrome-extension/issues/237)
+1. See issue [#110](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/110)
 2. See issue [#130](https://github.com/sonatype-nexus-community/nexus-iq-chrome-extension/issues/130)
 3. Run on a public instance of jFrog Artifactory - support coming soon
 4. Where the Public Registry maintains pages for all versions, navigation to specific versions can be supported
