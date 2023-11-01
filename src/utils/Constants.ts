@@ -21,11 +21,6 @@ export enum DATA_SOURCE {
     OSSINDEX = 'Sonatype OSS Index',
 }
 
-export const REPOSITORY_MANAGERS = {
-    NEXUS: 'nexus',
-    ARTIFACTORY: 'artifactory',
-}
-
 export const REMEDIATION_LABELS = {
     'next-no-violations': 'Next version with no policy violation(s)',
     'next-non-failing': 'Next version with no policy action failure(s)',
@@ -83,199 +78,184 @@ export const REPOS = {
 }
 
 export interface RepoType {
-    url: string
-    repoFormat?: string
-    repoID: string
-    titleSelector?: string
-    versionSelector?: string
-    versionPath?: string
-    appendVersionPath?: string
-    pathRegex?: RegExp
-    versionDomPath?: string
+    url: string                 // URL to the repo without package or version
+    repoFormat: string          // Repo Format
+    repoID: string              // Unique ID for this Repo
+    titleSelector: string       // DOM selector to find the Package Title - used to annotate the page
+    versionPath: string         // URL format with placeholders
+    pathRegex: RegExp           // Regex for parsing URL
+    versionDomPath: string      // DOM selector to find component version on the page (not always in the URL)
+    supportsVersionNavigation: boolean // Whether to allow navigation using this extension to different versions
 }
 
 export const REPO_TYPES: RepoType[] = [
     {
-        repoID: REPOS.alpineLinux,
         url: 'https://pkgs.alpinelinux.org/package/',
         repoFormat: FORMATS.alpine,
+        repoID: REPOS.alpineLinux,       
         titleSelector: 'th.header ~ td',
         versionPath: '',
-        appendVersionPath: '',
         pathRegex:
             /^(?<releaseName>[^/]*)\/(?<releaseFeed>[^/]*)\/(?<architecture>[^/]*)\/(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#package > tbody > tr:nth-child(2) > td',
+        supportsVersionNavigation: false
     },
-    // {
-    //     url: 'https://clojars.org/',
-    //     repoFormat: FORMATS.clojars,
-    //     repoID: REPOS.clojarsOrg,
-    //     titleSelector: '#jar-title > h1 > a',
-    //     versionPath: '',
-    //     appendVersionPath: '/versions/{version}',
-    // },
     {
         url: 'https://cocoapods.org/pods/',
         repoFormat: FORMATS.cocoapods,
         repoID: REPOS.cocoaPodsOrg,
         titleSelector: 'h1',
-        versionPath: '',
-        appendVersionPath: '',
+        versionPath: '{artifactId}',
         pathRegex: /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'h1 > span',
+        supportsVersionNavigation: false
     },
     {
         url: 'https://conan.io/center/recipes/',
         repoFormat: FORMATS.conan,
         repoID: REPOS.conanIo,
         titleSelector: 'h1',
-        versionPath: '',
-        appendVersionPath: '',
+        versionPath: '{artifactId}?version={version}',
         pathRegex: /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'h1',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://cran.r-project.org/',
         repoFormat: FORMATS.cran,
         repoID: REPOS.cranRProject,
-        titleSelector: 'h2', //"h2.title",?
-        versionPath: '',
-        appendVersionPath: '',
+        titleSelector: 'h2',
+        versionPath: 'web/packages/{artifactId}/index.html',
         pathRegex: /^web\/packages\/(?<artifactId>[^/]*)\/index\.html(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'table tr:nth-child(1) td:nth-child(2)',
+        supportsVersionNavigation: false
     },
     {
-        repoID: REPOS.cratesIo,
         url: 'https://crates.io/crates/',
         repoFormat: FORMATS.cargo,
+        repoID: REPOS.cratesIo,       
         titleSelector: "div[class*='heading'] h1",
-        versionPath: '{url}/{packagename}/{versionNumber}', // https://crates.io/crates/claxon/0.4.0
-        appendVersionPath: '/{versionNumber}',
+        versionPath: '{artifactId}/{version}', // https://crates.io/crates/claxon/0.4.0
+        pathRegex: /^(?<artifactId>[^/#?]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: 'h1 small',
+        supportsVersionNavigation: true
     },
     {
-        url: 'https://pkg.go.dev/',
         //old gocenter path ->// https://search.gocenter.io/github.com~2Fgo-gitea~2Fgitea/info?version=v1.5.1
         //https://pkg.go.dev/github.com/etcd-io/etcd
         //https://pkg.go.dev/github.com/etcd-io/etcd@v3.3.25+incompatible
+        url: 'https://pkg.go.dev/',
         repoFormat: FORMATS.golang,
         repoID: REPOS.pkgGoDev,
-        titleSelector:
-            'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1',
-        versionPath: '{url}/{packagename}/@{versionNumber}',
-        appendVersionPath: '@{versionNumber}',
+        titleSelector: 'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1',
+        versionPath: '{groupAndArtifactId}/@{version}',
         pathRegex:
             /^(?<groupId>.+)\/(?<artifactId>[^/]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '',
+        supportsVersionNavigation: false
     },
     {
         url: 'https://central.sonatype.com/artifact/',
         repoFormat: FORMATS.maven,
         repoID: REPOS.centralSonatypeCom,
         titleSelector: 'h1',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}/{extension}',
-        appendVersionPath: '',
+        versionPath: '{groupId}/{artifactId}/{version}',
         pathRegex:
             /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\/[^#?]*)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://repo.maven.apache.org/maven2/',
         repoFormat: FORMATS.maven,
         repoID: REPOS.repoMavenApacheOrg,
         titleSelector: 'h1',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        appendVersionPath: '',
+        versionPath: '{groupId}/{artifactId}/{version}',
         pathRegex:
             /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)?\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
+        versionDomPath: '',
+        supportsVersionNavigation: false
     },
     {
         url: 'https://repo1.maven.org/maven2/',
         repoFormat: FORMATS.maven,
         repoID: REPOS.repo1MavenOrg,
         titleSelector: 'h1',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        appendVersionPath: '',
+        versionPath: '{groupId}/{artifactId}/{version}',
         pathRegex:
             /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/,
+        versionDomPath: '',
+        supportsVersionNavigation: false
     },
     {
         url: 'https://search.maven.org/artifact/',
         repoFormat: FORMATS.maven,
         repoID: REPOS.searchMavenOrg,
         titleSelector: '.artifact-title',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}/{extension}',
-        appendVersionPath: '',
+        versionPath: '{groupId}/{artifactId}/{version}/{extension}',
         pathRegex:
             /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)(\/(?<version>[^/#?]*)\/(?<type>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://mvnrepository.com/artifact/',
         repoFormat: FORMATS.maven,
         repoID: REPOS.mvnRepositoryCom,
         titleSelector: 'h2.im-title',
-        versionPath: '{url}/{groupid}/{artifactid}/{versionNumber}',
-        appendVersionPath: '',
-        pathRegex:
-            /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionPath: '{groupId}/{artifactId}/{version}',
+        pathRegex: /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://www.npmjs.com/package/',
         repoFormat: FORMATS.npm,
         repoID: REPOS.npmJs,
         titleSelector: '#top > div > h1 > span',
-        versionPath: '{url}/{packagename}/v/{versionNumber}',
-        appendVersionPath: '/v/{versionNumber}',
-        pathRegex:
-            /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionPath: '{groupAndArtifactId}/v/{version}',
+        pathRegex: /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#top > div > span',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://www.nuget.org/packages/',
         repoFormat: FORMATS.nuget,
         repoID: REPOS.nugetOrg,
         titleSelector: '.package-title > h1',
-        versionSelector: 'span.version-title',
-        versionPath: '{url}/{packagename}/{versionNumber}',
-        appendVersionPath: '/{versionNumber}',
+        versionPath: '{artifactId}/{version}',
         pathRegex: /^(?<artifactId>[^/?#]*)(\/(?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'span.version-title',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://packagist.org/packages/',
         repoFormat: FORMATS.composer,
         repoID: REPOS.packagistOrg,
         titleSelector: 'h2.title',
-        versionPath: '{url}/{packagename}#{versionNumber}',
-        appendVersionPath: '#{versionNumber}',
+        versionPath: '{groupAndArtifactId}#{version}',
         pathRegex: /^(?<groupId>[^/]*)\/(?<artifactId>[^/?#]*)(\?(?<query>([^#]*)))?(#(?<version>(.*)))?$/,
         versionDomPath: '#view-package-page .versions-section .title .version-number',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://pypi.org/project/',
         repoFormat: FORMATS.pypi,
         repoID: REPOS.pypiOrg,
         titleSelector: 'h1.package-header__name',
-        versionPath: '{url}/{packagename}/{versionNumber}',
-        appendVersionPath: '{versionNumber}',
+        versionPath: '{artifactId}/{version}',
         pathRegex: /^(?<artifactId>[^/?#]*)\/((?<version>[^?#]*)\/)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#content > div.banner > div > div.package-header__left > h1',
+        supportsVersionNavigation: true
     },
     {
         url: 'https://rubygems.org/gems/',
         repoFormat: FORMATS.gem,
         repoID: REPOS.rubyGemsOrg,
         titleSelector: 'h1.t-display',
-        versionSelector: 'body > main > div > h1 > i',
-        versionPath: '{url}/{packagename}/versions/{versionNumber}',
-        appendVersionPath: '/versions/{versionNumber}',
-        pathRegex:
-            /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionPath: '{artifactId}/versions/{version}',
+        pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '.page__subheading',
-    },
-    // {
-    //     url: '/#browse/browse:',
-    //     repoID: REPOS.nexusRepository,
-    //     titleSelector: "div[id*='-coreui-component-componentinfo-'",
-    //     versionPath: '',
-    //     dataSource: DATA_SOURCES.NEXUSIQ,
-    //     appendVersionPath: '',
-    // },
+        supportsVersionNavigation: true
+    }
 ]

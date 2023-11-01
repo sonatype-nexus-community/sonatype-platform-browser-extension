@@ -19,34 +19,70 @@ import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupCont
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE, REMEDIATION_LABELS } from '../../../../../utils/Constants'
 import './RemediationDetails.css'
-import { getNewUrlandGo } from '../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../utils/Helpers'
+import { PackageURL } from 'packageurl-js'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
 
 function IqRemediationDetails() {
     const popupContext = useContext(ExtensionPopupContext)
     const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
-    const currentPurlVersion: string = popupContext.currentPurl?.version as string
 
     return (
         <React.Fragment>
             <NxList emptyMessage="No newer version is available based on this application's policy.">
                 {versionChanges?.map((change, id) => {
                     const version = change.data?.component?.componentIdentifier?.coordinates?.version as string
+                    const currentUrl = new URL(popupContext.currentTab?.url as string)
+                    const versionUrl = getNewSelectedVersionUrl(
+                        currentUrl,
+                        popupContext.currentPurl as PackageURL,
+                        version
+                    )
+                    const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
+
                     if (change !== undefined) {
-                        return (
-                            <NxList.LinkItem
-                                href='#'
-                                key={`${change}-${id}`}
-                                onClick={() => getNewUrlandGo(popupContext.currentTab, currentPurlVersion, version)}>
-                                <NxList.Text>
-                                    <small>{REMEDIATION_LABELS[change.type as string]}</small>
-                                </NxList.Text>
-                                <NxList.Subtext>
-                                    <strong>
-                                        {change.data?.component?.componentIdentifier?.coordinates ? version : 'UNKNOWN'}
-                                    </strong>
-                                </NxList.Subtext>
-                            </NxList.LinkItem>
-                        )
+                        if (clickable) {
+                            return (
+                                <NxList.LinkItem
+                                    href='#'
+                                    key={`${change}-${id}`}
+                                    {...(clickable && {
+                                        onClick: () => {
+                                            _browser.tabs.update({
+                                                url: versionUrl.toString(),
+                                            })
+                                        },
+                                    })}>
+                                    <NxList.Text>
+                                        <small>{REMEDIATION_LABELS[change.type as string]}</small>
+                                    </NxList.Text>
+                                    <NxList.Subtext>
+                                        <strong>
+                                            {change.data?.component?.componentIdentifier?.coordinates
+                                                ? version
+                                                : 'UNKNOWN'}
+                                        </strong>
+                                    </NxList.Subtext>
+                                </NxList.LinkItem>
+                            )
+                        } else {
+                            return (
+                                <NxList.Item key={`${change}-${id}`}>
+                                    <NxList.Text>
+                                        <small>{REMEDIATION_LABELS[change.type as string]}</small>
+                                    </NxList.Text>
+                                    <NxList.Subtext>
+                                        <strong>
+                                            {change.data?.component?.componentIdentifier?.coordinates
+                                                ? version
+                                                : 'UNKNOWN'}
+                                        </strong>
+                                    </NxList.Subtext>
+                                </NxList.Item>
+                            )
+                        }
                     }
                 })}
             </NxList>

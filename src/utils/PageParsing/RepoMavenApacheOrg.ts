@@ -20,21 +20,19 @@ import { generatePackageURLComplete } from './PurlUtils'
 import { FORMATS, REPOS, REPO_TYPES, RepoType } from '../Constants'
 
 function parseMavenOrg(repoType: RepoType, url: string): PackageURL | undefined {
-    if (repoType.pathRegex) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        if (pathResult && pathResult.groups) {
-            const gaParts = pathResult.groups.groupArtifactId.trim().split('/')
-            const artifactId = gaParts.pop()
-            const groupId = gaParts.join('.')
-            return generatePackageURLComplete(
-                FORMATS.maven,
-                encodeURIComponent(artifactId as string),
-                encodeURIComponent(pathResult.groups.version),
-                encodeURIComponent(groupId),
-                { type: 'jar' },
-                undefined
-            )
-        }
+    const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+    if (pathResult && pathResult.groups) {
+        const gaParts = pathResult.groups.groupArtifactId.trim().split('/')
+        const artifactId = gaParts.pop()
+        const groupId = gaParts.join('.')
+        return generatePackageURLComplete(
+            FORMATS.maven,
+            encodeURIComponent(artifactId as string),
+            encodeURIComponent(pathResult.groups.version),
+            encodeURIComponent(groupId),
+            { type: 'jar' },
+            undefined
+        )
     }
 
     return undefined

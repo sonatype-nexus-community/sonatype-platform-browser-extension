@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
@@ -22,13 +23,11 @@ const parseAlpine = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.alpineLinux)
     console.debug('*** REPO TYPE: ', repoType)
     if (repoType) {
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            console.debug(pathResult?.groups)
-            if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-                const version = $(repoType.versionDomPath).text().trim()
-                return generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResult.groups.artifactId), version)
-            }
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        console.debug(pathResult?.groups)
+        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
+            const version = $(repoType.versionDomPath).text().trim()
+            return generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResult.groups.artifactId), version)
         }
     } else {
         console.error('Unable to determine REPO TYPE.')

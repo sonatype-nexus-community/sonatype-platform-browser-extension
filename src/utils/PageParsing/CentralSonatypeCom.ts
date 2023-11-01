@@ -22,7 +22,6 @@ import { generatePackageURLComplete } from './PurlUtils'
 const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
-//pkg:type/namespace/name@version?qualifiers#subpath
 const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.centralSonatypeCom)
     console.debug('*** REPO TYPE: ', repoType)
@@ -43,19 +42,16 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
             return purl
         }
         
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            
-            if (pathResult && pathResult.groups) {
-                return generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(pathResult.groups.artifactId),
-                    encodeURIComponent(pathResult.groups.version),
-                    encodeURIComponent(pathResult.groups.groupId),
-                    { type: type },
-                    undefined
-                )
-            }
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        if (pathResult && pathResult.groups) {
+            return generatePackageURLComplete(
+                FORMATS.maven,
+                encodeURIComponent(pathResult.groups.artifactId),
+                encodeURIComponent(pathResult.groups.version),
+                encodeURIComponent(pathResult.groups.groupId),
+                { type: type },
+                undefined
+            )
         }
     } else {
         console.error('Unable to determine REPO TYPE.')

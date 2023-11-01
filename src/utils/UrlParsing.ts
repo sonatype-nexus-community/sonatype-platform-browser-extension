@@ -19,12 +19,24 @@ import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { MESSAGE_RESPONSE_STATUS } from '../types/Message'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 
-const findRepoType = async (url: string): Promise<RepoType | undefined> => {
+const findPublicOssRepoType = (url: string): RepoType | undefined => {
     for (let i = 0; i < REPO_TYPES.length; i++) {
-        if (url.search(REPO_TYPES[i].url) >= 0) {
-            logger.logMessage(`Current URL ${url} matches ${REPO_TYPES[i].repoID}`, LogLevel.INFO)
-            return REPO_TYPES[i]
+        const repoType = REPO_TYPES[i]
+        if (url.search(repoType.url) >= 0) {
+            logger.logMessage(`Current URL ${url} matches ${repoType.repoID}`, LogLevel.INFO)
+            return repoType
+        } else {
+            logger.logMessage(`Current URL ${url} does not match ${repoType.repoID}`, LogLevel.TRACE)
         }
+    }
+    return undefined
+}
+
+const findRepoType = async (url: string): Promise<RepoType | undefined> => {
+    const repoType = findPublicOssRepoType(url)
+
+    if (repoType !== undefined) {
+        return repoType
     }
 
     return await findNxrmRepoType(url)
@@ -44,6 +56,10 @@ function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
                             repoFormat: FORMATS.NXRM,
                             repoID: `NXRM-${nxrmHost.id}`,
                             titleSelector: "[id^='nx-coreui-component-componentassetinfo'][id$='header-title-textEl']",
+                            versionPath: '',
+                            pathRegex: /^$/,
+                            versionDomPath: '',
+                            supportsVersionNavigation: false
                         }
                     }
                 }
@@ -53,4 +69,4 @@ function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
     })
 }
 
-export { findRepoType }
+export { findPublicOssRepoType, findRepoType }

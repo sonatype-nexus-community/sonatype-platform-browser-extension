@@ -29,9 +29,12 @@ import { ExtensionConfigurationContext } from '../../../../../../context/Extensi
 import './AllVersionsDetails.css'
 import { DATA_SOURCE } from '../../../../../../utils/Constants'
 import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
-import { getNewUrlandGo } from '../../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../../utils/Helpers'
 import { Tooltip } from '@material-ui/core'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
 
 function IqAllVersionDetails() {
     const popupContext = useContext(ExtensionPopupContext)
@@ -79,27 +82,28 @@ function IqAllVersionDetails() {
         const differenceInMinutes = differenceInSeconds / 60
         const differenceInHours = Math.round(differenceInMinutes / 60)
         const differenceInDays = Math.round(differenceInHours / 24)
-        const differenceInMonths = (endDate.getMonth() - startDate.getMonth()) + (12 * (endDate.getFullYear() - startDate.getFullYear()))
+        const differenceInMonths =
+            endDate.getMonth() - startDate.getMonth() + 12 * (endDate.getFullYear() - startDate.getFullYear())
         const differenceInWeeks = Math.round(differenceInDays / 7)
-        
+
         let yearsDiff = endDate.getFullYear() - startDate.getFullYear()
 
         if (
             endDate.getMonth() < startDate.getMonth() ||
             (endDate.getMonth() === startDate.getMonth() && endDate.getDate() < startDate.getDate())
-          ) {
+        ) {
             yearsDiff -= 1
-          }
-      
+        }
+
         const difference = {
-          milliseconds: differenceInMilliseconds,
-          seconds: differenceInSeconds,
-          minutes: differenceInMinutes,
-          hours: differenceInHours,
-          days: differenceInDays,
-          months: differenceInMonths,
-          weeks: differenceInWeeks,
-          years: yearsDiff,
+            milliseconds: differenceInMilliseconds,
+            seconds: differenceInSeconds,
+            minutes: differenceInMinutes,
+            hours: differenceInHours,
+            days: differenceInDays,
+            months: differenceInMonths,
+            weeks: differenceInWeeks,
+            years: yearsDiff,
         }
 
         if (difference.years !== undefined && difference.years > 0) {
@@ -108,27 +112,27 @@ function IqAllVersionDetails() {
                 const remainingMonths = 12 - startDate.getMonth() - 1
                 const monthString = `${remainingMonths} mo${remainingMonths !== 1 ? 's' : ''}`
                 return `${yearString} ${monthString}`
-              }
+            }
             return yearString
-          } else if (difference.months !== undefined && difference.months > 0) {
+        } else if (difference.months !== undefined && difference.months > 0) {
             return `${difference.months} mo${difference.months !== 1 ? 's' : ''}`
-          } else if (difference.weeks !== undefined && difference.weeks >= 1 ) {
+        } else if (difference.weeks !== undefined && difference.weeks >= 1) {
             return `${difference.weeks} wk${difference.weeks !== 1 ? 's' : ''}`
-          } else if (difference.days !== undefined && difference.days >= 2) {
+        } else if (difference.days !== undefined && difference.days >= 2) {
             return `${difference.days} day${difference.days !== 1 ? 's' : ''}`
-          } else if (difference.hours !== undefined && difference.hours > 0) {
+        } else if (difference.hours !== undefined && difference.hours > 0) {
             return `${difference.hours} hr${difference.hours !== 1 ? 's' : ''}`
-          } else if (difference.minutes !== undefined && difference.minutes > 0) {
+        } else if (difference.minutes !== undefined && difference.minutes > 0) {
             return `${difference.minutes} min${difference.minutes !== 1 ? 's' : ''}`
-          } else {
+        } else {
             return `${difference.seconds} sec${difference.seconds !== 1 ? 's' : ''}`
-          }
-      }
+        }
+    }
 
     function GetPolicyViolationsIndicator({ policyData, policyType }) {
         let filteredPolicies: ApiPolicyViolationDTOV2[] | undefined = []
         const policyTypes = ['Security', 'License', 'Architecture']
-    
+
         if (policyType === 'All Policies') {
             filteredPolicies = policyData.policyViolations
         } else if (policyType === 'Other') {
@@ -138,34 +142,32 @@ function IqAllVersionDetails() {
         } else {
             filteredPolicies = policyData.policyViolations?.filter((policy) => policy.policyName?.includes(policyType))
         }
-    
+
         const policyTypeLabel = policyType === 'Architecture' ? 'Quality' : policyType
-    
+
         if (filteredPolicies !== undefined && filteredPolicies.length > 0) {
             const maxPolicyThreatLevel = Math.round(
                 getMaxThreatLevelForPolicyViolations(filteredPolicies)
             ) as ThreatLevelNumber
             return (
                 <React.Fragment>
-                <Tooltip
-                    arrow
-                    title={`The highest ${policyTypeLabel} policy threat level: ${maxPolicyThreatLevel}`}>
+                    <Tooltip
+                        arrow
+                        title={`The highest ${policyTypeLabel} policy threat level: ${maxPolicyThreatLevel}`}>
                         <span>
-                    <NxThreatIndicator policyThreatLevel={maxPolicyThreatLevel}/>
-                    </span>
+                            <NxThreatIndicator policyThreatLevel={maxPolicyThreatLevel} />
+                        </span>
                     </Tooltip>
-                    
                 </React.Fragment>
             )
         }
         return (
             <React.Fragment>
-                <Tooltip
-                    arrow
-                    title={`No ${policyTypeLabel} policy violations`}>
-                        <span>
-                <NxThreatIndicator />
-                </span></Tooltip>
+                <Tooltip arrow title={`No ${policyTypeLabel} policy violations`}>
+                    <span>
+                        <NxThreatIndicator />
+                    </span>
+                </Tooltip>
             </React.Fragment>
         )
     }
@@ -175,86 +177,166 @@ function IqAllVersionDetails() {
             <NxList id='all-versions-list'>
                 {allVersions.map((version) => {
                     const versionPurl = PackageURL.fromString(version.component?.packageUrl as string)
+                    const currentUrl = new URL(popupContext.currentTab?.url as string)
+                    const versionUrl = getNewSelectedVersionUrl(
+                        currentUrl,
+                        popupContext.currentPurl as PackageURL,
+                        versionPurl.version as string | undefined
+                    )
+                    const clickable: boolean = versionUrl.toString() !== currentUrl.toString()
 
-                    return (
-                        <NxList.ButtonItem
-                            key={version.component?.packageUrl}
-                            selected={versionPurl.version == currentPurl?.version}>
-                            <NxList.Text
-                                onClick={() =>
-                                    getNewUrlandGo(
-                                        popupContext.currentTab,
-                                        currentPurl?.version as string,
-                                        versionPurl.version as string
-                                    )
-                                }
-                                ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
-                                <NxGrid.Row
-                                    style={{
-                                        marginTop: '0px',
-                                        marginBottom: '0px',
-                                    }}>
-                                    <NxGrid.Column className='nx-grid-col-50'>
-                                        <NxGrid.Header>
-                                            {/* <strong>{versionPurl.version}</strong> */}
-                                            <NxPolicyViolationIndicator
+                    if (clickable) {
+                        return (
+                            <NxList.ButtonItem
+                                key={version.component?.packageUrl}
+                                selected={versionPurl.version == currentPurl?.version}>
+                                <NxList.Text
+                                    {...(clickable && {
+                                        onClick: () => {
+                                            _browser.tabs.update({
+                                                url: versionUrl.toString(),
+                                            })
+                                        },
+                                    })}
+                                    ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
+                                    <NxGrid.Row
+                                        style={{
+                                            marginTop: '0px',
+                                            marginBottom: '0px',
+                                        }}>
+                                        <NxGrid.Column className='nx-grid-col-50'>
+                                            <NxGrid.Header>
+                                                <NxPolicyViolationIndicator
                                                     style={{ marginBottom: '16px !important' }}
                                                     policyThreatLevel={
                                                         Math.round(
-                                                            getMaxViolation(version.policyData as ApiComponentPolicyViolationListDTOV2)
+                                                            getMaxViolation(
+                                                                version.policyData as ApiComponentPolicyViolationListDTOV2
+                                                            )
                                                         ) as ThreatLevelNumber
                                                     }>
                                                     {versionPurl.version}
                                                 </NxPolicyViolationIndicator>
 
-                                            <Tooltip
-                                                title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
-                                                {/* <span className='nx-pull-right'>{calculateAge(version.catalogDate)} Yrs</span> */}
-                                                <span className='nx-pull-right'>{catalogDateDifference(version.catalogDate)}</span>
-                                                
-                                            </Tooltip>
-                                        </NxGrid.Header>
-                                        {version.policyData != undefined && (
-                                            <React.Fragment>
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Security'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'License'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Architecture'}
-                                                />
-                                                <GetPolicyViolationsIndicator
-                                                    policyData={version.policyData}
-                                                    policyType={'Other'}
-                                                />
-                                            </React.Fragment>
-                                        )}
-                                    </NxGrid.Column>
-                                    {version.relativePopularity !== undefined && (
-                                        <NxGrid.Column className='nx-grid-col-50'>
-                                            <Tooltip title={`Popularity: ${version.relativePopularity}`}>
-                                            <div>
-                                                <NxMeter
-                                                    value={version.relativePopularity as number}
-                                                    max={100}
-                                                    children={''}
-                                                    style={{
-                                                        color: 'rgb(139, 199, 62) !important',
-                                                    }}
-                                                />
-                                              </div>
-                                            </Tooltip>
+                                                <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                                                    <span className='nx-pull-right'>
+                                                        {catalogDateDifference(version.catalogDate)}
+                                                    </span>
+                                                </Tooltip>
+                                            </NxGrid.Header>
+                                            {version.policyData != undefined && (
+                                                <React.Fragment>
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Security'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'License'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Architecture'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Other'}
+                                                    />
+                                                </React.Fragment>
+                                            )}
                                         </NxGrid.Column>
-                                    )}
-                                </NxGrid.Row>
-                            </NxList.Text>
-                        </NxList.ButtonItem>
-                    )
+                                        {version.relativePopularity !== undefined && (
+                                            <NxGrid.Column className='nx-grid-col-50'>
+                                                <Tooltip title={`Popularity: ${version.relativePopularity}`}>
+                                                    <div>
+                                                        <NxMeter
+                                                            value={version.relativePopularity as number}
+                                                            max={100}
+                                                            children={''}
+                                                            style={{
+                                                                color: 'rgb(139, 199, 62) !important',
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Tooltip>
+                                            </NxGrid.Column>
+                                        )}
+                                    </NxGrid.Row>
+                                </NxList.Text>
+                            </NxList.ButtonItem>
+                        )
+                    } else {
+                        return (
+                            <NxList.Item key={version.component?.packageUrl}>
+                                <NxList.Text
+                                    ref={currentPurl?.version == versionPurl.version ? currentVersionRef : null}>
+                                    <NxGrid.Row
+                                        style={{
+                                            marginTop: '0px',
+                                            marginBottom: '0px',
+                                        }}>
+                                        <NxGrid.Column className='nx-grid-col-50'>
+                                            <NxGrid.Header>
+                                                <NxPolicyViolationIndicator
+                                                    style={{ marginBottom: '16px !important' }}
+                                                    policyThreatLevel={
+                                                        Math.round(
+                                                            getMaxViolation(
+                                                                version.policyData as ApiComponentPolicyViolationListDTOV2
+                                                            )
+                                                        ) as ThreatLevelNumber
+                                                    }>
+                                                    {versionPurl.version}
+                                                </NxPolicyViolationIndicator>
+
+                                                <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
+                                                    <span className='nx-pull-right'>
+                                                        {catalogDateDifference(version.catalogDate)}
+                                                    </span>
+                                                </Tooltip>
+                                            </NxGrid.Header>
+                                            {version.policyData != undefined && (
+                                                <React.Fragment>
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Security'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'License'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Architecture'}
+                                                    />
+                                                    <GetPolicyViolationsIndicator
+                                                        policyData={version.policyData}
+                                                        policyType={'Other'}
+                                                    />
+                                                </React.Fragment>
+                                            )}
+                                        </NxGrid.Column>
+                                        {version.relativePopularity !== undefined && (
+                                            <NxGrid.Column className='nx-grid-col-50'>
+                                                <Tooltip title={`Popularity: ${version.relativePopularity}`}>
+                                                    <div>
+                                                        <NxMeter
+                                                            value={version.relativePopularity as number}
+                                                            max={100}
+                                                            children={''}
+                                                            style={{
+                                                                color: 'rgb(139, 199, 62) !important',
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </Tooltip>
+                                            </NxGrid.Column>
+                                        )}
+                                    </NxGrid.Row>
+                                </NxList.Text>
+                            </NxList.Item>
+                        )
+                    }
                 })}
             </NxList>
         )

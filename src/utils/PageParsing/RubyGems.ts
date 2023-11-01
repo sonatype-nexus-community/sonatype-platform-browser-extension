@@ -23,20 +23,18 @@ const parseRuby = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.rubyGemsOrg)
     console.debug('*** REPO TYPE: ', repoType)
     if (repoType) {
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            console.debug(pathResult?.groups)
-            if (pathResult && pathResult.groups) {
-                console.debug($(repoType.versionDomPath))
-                const pageVersion = $(repoType.versionDomPath).text().trim()
-                console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
-                return generatePackageURL(
-                    FORMATS.gem,
-                    pathResult.groups.artifactId,
-                    pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                    pathResult.groups.platform !== undefined ? { platform: pathResult.groups.platform } : undefined
-                )
-            }
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        console.debug(pathResult?.groups)
+        if (pathResult && pathResult.groups) {
+            console.debug($(repoType.versionDomPath))
+            const pageVersion = $(repoType.versionDomPath).text().trim()
+            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
+            return generatePackageURL(
+                FORMATS.gem,
+                pathResult.groups.artifactId,
+                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
+                pathResult.groups.platform !== undefined ? { platform: pathResult.groups.platform } : undefined
+            )
         }
     } else {
         console.error('Unable to determine REPO TYPE.')

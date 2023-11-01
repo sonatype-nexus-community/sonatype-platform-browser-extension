@@ -50,32 +50,33 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 
 ### Public Registries
 
-| Registry               | Language            | Enabled | URL                              | Sonatype Lifecycle |
-| ---------------------- | ------------------- | ------- | -------------------------------- | ------------------ |
-| Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ✅                 |
-| Clojars                | Java                | ❌      | `https://clojars.org/`           | ✅                 |
-| CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ✅                 |
-| Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                 |
-| CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ✅                 |
-| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | ✅                 |
-| Go.dev                 | Go                  | ❌ ^2   | `https://pkg.go.dev/`            | ✅                 |
-| Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                 |
-| Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ✅                 |
-| Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ✅                 |
-| Maven Central (old)    | Java                | ✅      | `https://search.maven.org/`      | ✅                 |
-| MVN Repository         | Java                | ✅      | `https://mvnrepository.com/`     | ✅                 |
-| NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                 |
-| NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                 |
-| Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                 |
-| PyPI                   | Python              | ✅      | `https://pypi.org/`              | ✅                 |
-| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                 |
-| Spring.io              | Java                | ❌ ^3   | `https://repo.spring.io/list/`   | ✅                 |
+| Registry               | Language            | Enabled | URL                              | Component Version Navigation ^4 |
+| ---------------------- | ------------------- | ------- | -------------------------------- | ------------------------------- |
+| Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ❌                              |
+| Clojars                | Java                | ❌      | `https://clojars.org/`           | N/A                             |
+| CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ❌                              |
+| Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                              |
+| CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ❌                              |
+| Crates.io              | Rust                | ❌ ^1   | `https://crates.io/`             | N/A                             |
+| Go.dev                 | Go                  | ❌ ^2   | `https://pkg.go.dev/`            | N/A                             |
+| Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                              |
+| Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ❌                              |
+| Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ❌                              |
+| Maven Central (old)    | Java                | ✅      | `https://search.maven.org/`      | ✅                              |
+| MVN Repository         | Java                | ✅      | `https://mvnrepository.com/`     | ✅                              |
+| NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                              |
+| NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                              |
+| Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                              |
+| PyPI                   | Python              | ✅      | `https://pypi.org/`              | ✅                              |
+| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
+| Spring.io              | Java                | ❌ ^3   | `https://repo.spring.io/list/`   | N/A                             |
 
 _Notes:_
 
-1. See issue [#237](https://github.com/sonatype-nexus-community/nexus-iq-chrome-extension/issues/237)
+1. See issue [#110](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/110)
 2. See issue [#130](https://github.com/sonatype-nexus-community/nexus-iq-chrome-extension/issues/130)
 3. Run on a public instance of jFrog Artifactory - support coming soon
+4. Where the Public Registry maintains pages for all versions, navigation to specific versions can be supported
 
 ### Private Hosted Registries
 
@@ -193,6 +194,9 @@ When you acess the Sonatype Platform Browser Extension, you'll be shown the info
 Accessing the "Remediation" tab will provide easy access to recommended versions along with a timeline of all known versions and how they stack up against your organisations policies in your Sonatype IQ Server.
 
 ![Remediation Information](./docs/images/extension-open-02.png)
+
+For Open Source Registries that support navigation to specific versions, you can click on the Remediation or Version to have your browser navigate to that version easily.
+See [this table](#public-registries) to see which Registries we have support for this.
 
 ### Policy Violation(s)
 

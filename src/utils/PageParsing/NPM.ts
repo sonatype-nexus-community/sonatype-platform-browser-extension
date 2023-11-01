@@ -24,20 +24,18 @@ const parseNPM = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.npmJs)
     console.debug('*** REPO TYPE: ', repoType)
     if (repoType) {
-        if (repoType.pathRegex) {
-            const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-            console.debug(pathResult?.groups)
-            if (pathResult && pathResult.groups) {
-                console.debug(`"${stripHtmlComments($(repoType.versionDomPath).first().text())}"`)
-                const pageVersion = stripHtmlComments($(repoType.versionDomPath).first().text()).split('•')[0].trim()
+        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
+        console.debug(pathResult?.groups)
+        if (pathResult && pathResult.groups) {
+            console.debug(`"${stripHtmlComments($(repoType.versionDomPath).first().text())}"`)
+            const pageVersion = stripHtmlComments($(repoType.versionDomPath).first().text()).split('•')[0].trim()
 
-                return generatePackageURLWithNamespace(
-                    FORMATS.npm,
-                    pathResult.groups.artifactId,
-                    pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                    pathResult.groups.groupId
-                )
-            }
+            return generatePackageURLWithNamespace(
+                FORMATS.npm,
+                pathResult.groups.artifactId,
+                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
+                pathResult.groups.groupId
+            )
         }
     } else {
         console.error('Unable to determine REPO TYPE.')
