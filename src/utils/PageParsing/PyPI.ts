@@ -19,6 +19,10 @@ import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
 
 const PYPI_DEFAULT_EXTENSION = 'tar.gz'
+const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [
+    PYPI_DEFAULT_EXTENSION,
+    'tar.bz2'
+]
 const PYPI_EXTENSION_SELECTOR = '#files > div.file div.card A:nth-child(1)'
 
 const parsePyPIURL = (url: string): PackageURL | undefined => {
@@ -32,9 +36,22 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
             const pageVersion = $(repoType.versionDomPath).text().trim().split(' ')[1]
             console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
             const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
-            let extension = PYPI_DEFAULT_EXTENSION
-            if (firstDistributionFilename !== undefined && !firstDistributionFilename.endsWith(PYPI_DEFAULT_EXTENSION)) {
-                extension = firstDistributionFilename.split('.').pop() as string
+            let extension = ''
+            if (firstDistributionFilename !== undefined) {
+                // Loop all known source distribution extensions checking if the first Source Distribution matches
+                // If it does, use that known extension
+                for (const i in PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS) {
+                    if (firstDistributionFilename.endsWith(PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i])) {
+                        extension = PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i]
+                        break
+                    }
+                }
+
+                // If we still haven't identified an extension for the Source Distribution, pop the last part of the filename
+                // as the extension
+                if (extension === '' && !firstDistributionFilename.endsWith(PYPI_DEFAULT_EXTENSION)) {
+                    extension = firstDistributionFilename.split('.').pop() as string
+                }
             }
             return generatePackageURL(
                 FORMATS.pypi,
