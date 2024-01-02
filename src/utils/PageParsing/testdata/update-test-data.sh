@@ -48,6 +48,7 @@ get_data "packagist-laravel-its-lte-4.22.html" "https://packagist.org/packages/f
 # PyPi
 get_data "pypi-Django-4.2.1.html" "https://pypi.org/project/Django/4.2.1/"
 get_data "pypi-numpy-1.14.0.html" "https://pypi.org/project/numpy/1.14.0/"
+get_data "pypi-Twisted-19.2.0.html" "https://pypi.org/project/Twisted/19.2.0/"
 
 # RubyGems
 get_data "rubygems-chelsea-0.0.32.html" "https://rubygems.org/gems/chelsea/versions/0.0.32"

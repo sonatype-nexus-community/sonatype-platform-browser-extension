@@ -69,7 +69,7 @@ describe('PyPI Page Parsing', () => {
         expect(packageURL?.qualifiers).toEqual({ extension: 'tar.gz' })
     })
 
-    test('should parse valid PyPI page where the SOURCE format is not .tar.gz', () => {
+    test('should parse valid PyPI page where the SOURCE format is .zip', () => {
         const html = readFileSync(join(__dirname, 'testdata/pypi-numpy-1.14.0.html'))
 
         window.document.body.innerHTML = html.toString()
@@ -84,5 +84,22 @@ describe('PyPI Page Parsing', () => {
         expect(packageURL?.name).toBe('numpy')
         expect(packageURL?.version).toBe('1.14.0')
         expect(packageURL?.qualifiers).toEqual({ extension: 'zip' })
+    })
+
+    test('should parse valid PyPI page where the SOURCE format is .tar.bz2', () => {
+        const html = readFileSync(join(__dirname, 'testdata/pypi-Twisted-19.2.0.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://pypi.org/project/Twisted/19.2.0/'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('Twisted')
+        expect(packageURL?.version).toBe('19.2.0')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'tar.bz2' })
     })
 })
