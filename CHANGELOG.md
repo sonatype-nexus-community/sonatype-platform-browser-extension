@@ -1,3 +1,15 @@
+# [2.15.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.14.0...v2.15.0) (2024-01-02)
+
+
+### Bug Fixes
+
+* support Python Projects where Source Distribution is not `.tar.gz` as per PEP-0625 ([8a883df](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/8a883df5b5340d0d186c80220140949a1dff0f18))
+
+
+### Features
+
+* bump dependencies to latest to mitigate any known security issues ([2919810](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/29198106d60bd1d0fbb7ff4f132ed3d66b945f41))
+
 # [2.14.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.13.1...v2.14.0) (2023-11-01)
 
 
