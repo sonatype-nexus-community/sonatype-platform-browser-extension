@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.15.0...v2.15.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* not all versions reported for some Python Packages [#113](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/113) ([1aab858](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/1aab858a17e8cd3c4c993b47d68c5ec22e82407b))
+
 # [2.15.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.14.0...v2.15.0) (2024-01-02)
 
 
