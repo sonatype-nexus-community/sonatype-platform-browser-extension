@@ -50,6 +50,14 @@ export interface MessageRequest {
     params?: object
 }
 
+type GetAllComponentVersionsParams = {
+    purl: string
+}
+
+export interface MessageRequestGetAllComponentVersions extends MessageRequest {
+    params: GetAllComponentVersionsParams
+}
+
 /**
  * All Message Responses must conform to this structure.
  */

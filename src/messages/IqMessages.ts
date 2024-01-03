@@ -23,14 +23,16 @@ import {
     GetSuggestedRemediationForComponentOwnerTypeEnum,
     LicenseLegalMetadataApi,
     GetLicenseLegalComponentReportOwnerTypeEnum,
+    ApiComponentOrPurlIdentifierDTOV2,
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 import { GeneralConnectivityError, IncompleteConfigurationError, InvalidConfigurationError, UserAuthenticationError } from '../error/ExtensionError'
-import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
-import { DATA_SOURCE } from '../utils/Constants'
+import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS, MessageRequestGetAllComponentVersions } from '../types/Message'
+import { DATA_SOURCE, FORMATS } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
+import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -145,7 +147,7 @@ export function pollForComponentEvaluationResult(applicationId: string, resultId
     return { promise, stopPolling }
 }
 
-export async function getAllComponentVersions(request: MessageRequest): Promise<MessageResponse> {
+export async function getAllComponentVersions(request: MessageRequestGetAllComponentVersions): Promise<MessageResponse> {
     return _get_iq_api_configuration()
         .then((apiConfig) => {
             return apiConfig
@@ -157,15 +159,19 @@ export async function getAllComponentVersions(request: MessageRequest): Promise<
             logger.logMessage('Making API Call ComponentsApi::getComponentVersions()', LogLevel.DEBUG, apiConfig)
             const apiClient = new ComponentsApi(apiConfig)
 
+            const payloadPurl = PackageURL.fromString(request.params.purl)
+            const payload: ApiComponentOrPurlIdentifierDTOV2 = {
+                packageUrl: request.params.purl
+            }
+            if (payloadPurl.type == FORMATS.pypi) {
+                // Fix for #112 where qualifiers of source distributions can vary over time for a Python Project
+                payloadPurl.qualifiers = {}
+                payload.packageUrl = payloadPurl.toString()
+            }
+
             return apiClient
                 .getComponentVersions(
-                    {
-                        apiComponentOrPurlIdentifierDTOV2: {
-                            packageUrl: (request.params !== undefined && 'purl' in request.params
-                                ? request.params.purl
-                                : '') as string,
-                        },
-                    },
+                    { apiComponentOrPurlIdentifierDTOV2: payload },
                     { credentials: 'omit' }
                 )
                 .then((componentVersions) => {
