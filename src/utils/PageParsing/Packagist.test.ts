@@ -31,7 +31,7 @@ describe('Packagist Page Parsing', () => {
 
         const PackageURL = getArtifactDetailsFromDOM(
             ensure(repoType),
-            'https://packagist.org/packages/fomvasss/laravel-its-lte'
+            'https://packagist.org/packages/fomvasss/laravel-its-lte#4.23.0'
         )
 
         expect(PackageURL).toBeDefined()

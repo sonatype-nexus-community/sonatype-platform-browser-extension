@@ -219,7 +219,7 @@ describe('central.sonatype.com Page Parsing', () => {
         expect(packageURL?.type).toBe('maven')
         expect(packageURL?.namespace).toBe('commons-io')
         expect(packageURL?.name).toBe('commons-io')
-        expect(packageURL?.version).toBe('2.14.0')
+        expect(packageURL?.version).toBe('2.15.1')
         expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 })
