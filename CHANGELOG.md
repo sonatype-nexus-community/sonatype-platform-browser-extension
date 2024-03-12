@@ -1,3 +1,11 @@
+# [2.16.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.15.1...v2.16.0) (2024-03-12)
+
+
+### Features
+
+* build with Node 20 (LTS) ([fffe2d1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/fffe2d14bc9020080960655d4460d05c8d4c176b))
+* updated dependencies as part of cadence ([11626cf](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/11626cf147e6fb5bd29a381c98907da281a8087d))
+
 ## [2.15.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.15.0...v2.15.1) (2024-01-03)
 
 
