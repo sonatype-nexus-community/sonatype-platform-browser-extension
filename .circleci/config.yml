@@ -14,7 +14,7 @@
 version: 2.1
 
 orbs:
-    node: circleci/node@5.1.0
+    node: circleci/node@5.2.0
     slack: circleci/slack@4.12.5
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
             - checkout
             - node/install:
                   install-yarn: true
-                  node-version: '18.14.2' # LTS of 18 @ 24-Feb-2023
+                  node-version: '20.11.1' # LTS @ 12-Mar-2024
             - node/install-packages:
                   pkg-manager: yarn
             - run:
@@ -61,7 +61,7 @@ jobs:
             - checkout
             - node/install:
                   install-yarn: true
-                  node-version: '18.18.0' # LTS of 18 @ 29-Sep-2023
+                  node-version: '20.11.1' # LTS @ 12-Mar-2024
             - node/install-packages:
                   pkg-manager: yarn
             - run:
@@ -94,7 +94,7 @@ jobs:
             - checkout
             - node/install:
                   install-yarn: true
-                  node-version: '18.18.0' # LTS of 18 @ 29-Sep-2023
+                  node-version: '20.11.1' # LTS @ 12-Mar-2024
             - node/install-packages:
                   pkg-manager: yarn
             - run:
