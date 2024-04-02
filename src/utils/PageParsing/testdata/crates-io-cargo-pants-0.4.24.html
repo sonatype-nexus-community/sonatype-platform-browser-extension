@@ -1,0 +1,557 @@
+<html lang="en" class="notranslate" translate="no" data-theme="classic"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>cargo-pants - crates.io: Rust Package Registry</title>
+
+    <meta name="crates-io/config/environment" content="%7B%22modulePrefix%22%3A%22crates-io%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22locationType%22%3A%22history%22%2C%22historySupportMiddleware%22%3Atrue%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%22name%22%3A%22crates-io%22%2C%22version%22%3A%2228b4ee3%22%7D%2C%22ember-cli-notifications%22%3A%7B%22autoClear%22%3Atrue%2C%22clearDuration%22%3A10000%7D%2C%22sentry%22%3A%7B%22release%22%3A%2228b4ee3%22%7D%2C%22ember-cli-app-version%22%3A%7B%22version%22%3A%2228b4ee3%22%7D%2C%22ember-cli-mirage%22%3A%7B%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%7D">
+<meta name="theme-color" content="#f9f7ec">
+<link rel="apple-touch-icon" href="/assets/cargo.png" sizes="227x227">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="crates.io: Rust Package Registry">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    
+
+<link rel="stylesheet" href="/assets/vendor.fdd22d3fb8e4abd36fcefa63c2736527.css">
+    
+
+<link rel="stylesheet" href="/assets/crates-io.7a18eaf4a3d0ef56956b62d15ba96351.css">
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/cargo.png" type="image/png">
+    <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Cargo">
+
+    <meta name="google" content="notranslate">
+
+    <meta property="og:image" content="https://crates.io/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+  
+<link href="/assets/chunk.49f72af9d0941dd69c87.css" rel="stylesheet"><script src="chrome-extension://nngceckbapebfimnlniiiahkandclblb/content/fido2/page-script.js" id="bw-fido2-page-script"></script>  <meta name="ember-cli-head-start" content=""><meta name="description" content="cargo-pants is a cargo subcommand application that provides a bill of materials and a list of which dependencies have a vulnerability, powered by Sonatype OSSIndex"><meta name="ember-cli-head-end" content="">
+</head>
+  <body class="ember-application">
+    <noscript>
+      For full functionality of this site it is necessary to enable JavaScript.
+    </noscript>
+
+    
+
+    <!-- if you change the following inline script make sure to change the CSP settings of nginx! -->
+    <script>window.onerror=function(){document.body.innerHTML='<p style="width: 70%;background: var(--main-bg);padding: 10px;">Sorry, it looks like we were not able to load the page. Please make sure your network connection works and you are using an up-to-date browser. If the issue persists, please visit our <a href="https://github.com/rust-lang/crates.io/issues/new/choose">issue tracker</a> to report the problem.</p>'}</script>
+    
+<script src="/assets/vendor.7bf6d16b8a64f764dd1071d55b34b50c.js"></script>
+
+    
+<script src="/assets/chunk.58a19eb3dc37691f1954.js"></script>
+<script src="/assets/chunk.49f72af9d0941dd69c87.js"></script>
+
+
+    
+  
+
+<!---->
+
+
+
+
+<div class="_progress-bar_14e9bq" style="transition: opacity 400ms linear; width: 100%; opacity: 0"></div>
+<div class="ember-cli-notifications-notification__container ember-cli-notifications-notification__container--top-right" style="z-index: 1060;">
+<!----></div>
+
+<header class="_header_1hc36y">
+  <div class="_header-inner_1hc36y _width-limit_17u5gr">
+    <a id="ember4" class="ember-view _index-link_1hc36y" href="/">
+      <img class="_logo_1hc36y" src="/assets/cargo.png" role="none" alt="">
+      <h1>crates.io</h1>
+    </a>
+
+    <div class="_search-form_1hc36y">
+      <h1 class="_hero-title_1hc36y">
+        The Rust community’s crate registry
+      </h1>
+
+      <form class="_form_17hnvp" action="/search" role="search" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+
+
+  <input class="_input-lg_17hnvp _input_17hnvp" inputmode="search" name="q" id="cargo-desktop-search" placeholder="Press 'S' to focus this searchbox..." autofocus="autofocus" required="" aria-label="Search" type="text">
+
+  <input class="_input-sm_17hnvp _input_17hnvp" inputmode="search" name="q" placeholder="Search" required="" aria-label="Search" type="text">
+
+  <button class="_submit-button_17hnvp _button-reset_g91299" type="submit">
+    <span class="_submit-label_17hnvp _sr-only_1igkyf">Submit</span>
+    <svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="_submit-icon_17hnvp"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
+  </button>
+
+  
+  
+  
+</form>
+
+    </div>
+
+    <nav class="_nav_1hc36y">
+      <a id="ember5" class="ember-view" href="/crates">
+        Browse All Crates
+      </a>
+      <span class="_sep_1hc36y">|</span>
+        <button class="_login-button_1hc36y _button-reset_g91299" type="button">
+            <svg width="10" height="13" viewBox="0 0 10 13" xmlns="http://www.w3.org/2000/svg" class="_login-icon_1hc36y"><path d="M1.01 6c.03-1.666.128-2.508.412-3.4C1.956.926 3.143 0 5 0c1.857 0 3.044.926 3.578 2.6.284.892.383 1.734.412 3.4H10v7H0V6h1.01zM3 6h4c0-1.809-.058-2.506-.328-3.122C6.396 2.247 5.96 2 5 2c-1.675 0-2 .74-2 4z" fill="currentColor"></path></svg>
+          Log in with GitHub
+        </button>
+    </nav>
+
+    <div class="_menu_1hc36y">
+      <div class="_container_j1fcml">
+  
+        <button class="_button_x5sxkq _dropdown-button_1hc36y" type="button">
+  
+          Menu
+        
+  <span class="_arrow_x5sxkq"></span>
+</button>
+        <div class="_dropdown_16sxmz _current-user-links_1hc36y">
+  <ul class="_list_12bw3u">
+    
+          <li class="_item_1xureq"><a id="ember6" class="ember-view" href="/crates">Browse All Crates</a></li>
+            <li class="_item_1xureq">
+              <button class="_login-menu-item_1hc36y _button-reset_g91299" type="button">
+<!---->                Log in with GitHub
+              </button>
+            </li>
+        
+  </ul>
+</div>
+      
+</div>
+    </div>
+  </div>
+</header>
+
+<main class="_main_17u5gr">
+  <div class="_inner-main_17u5gr _width-limit_17u5gr">
+    
+
+<div class="_header_81knqv _header_y99ls5">
+    
+  <h1 class="_heading_y99ls5">
+    <span>cargo-pants</span>
+      <small>v0.4.24</small>
+
+<!---->  </h1>
+
+    <div class="_description_y99ls5">
+      cargo-pants is a cargo subcommand application that provides a bill of materials and a list of which dependencies have a vulnerability, powered by Sonatype OSSIndex
+    </div>
+
+<!---->
+<!---->
+</div>
+
+<nav class="_nav_y99ls5" aria-label="cargo-pants crate subpages">
+  <ul class="_list_1mso79">
+    
+  <li>
+  <a class="_link_y1a82m _active_y1a82m" href="/crates/cargo-pants/0.4.24">
+    
+    Readme
+  
+  </a>
+</li>
+
+  <li>
+  <a class="_link_y1a82m" href="/crates/cargo-pants/versions">
+    
+    66 Versions
+  
+  </a>
+</li>
+
+  <li>
+  <a class="_link_y1a82m" href="/crates/cargo-pants/0.4.24/dependencies">
+    
+    Dependencies
+  
+  </a>
+</li>
+
+  <li>
+  <a class="_link_y1a82m" href="/crates/cargo-pants/reverse_dependencies">
+    
+    Dependents
+  
+  </a>
+</li>
+
+<!---->
+  </ul>
+</nav>
+
+<div class="_crate-info_1ph5zq">
+  <div class="_docs_1ph5zq">
+      <article aria-label="Readme">
+        <div class="_wrapper_g1cur3">
+  
+  
+<p align="center">
+    <img src="https://raw.githubusercontent.com/sonatype-nexus-community/cargo-pants/main/docs/images/pants.png" width="350">
+</p>
+<p align="center">
+    <a href="https://circleci.com/gh/sonatype-nexus-community/cargo-pants" rel="nofollow noopener noreferrer"><img src="https://circleci.com/gh/sonatype-nexus-community/cargo-pants.svg?style=shield" alt="Circle CI Build Status"></a>
+    <a href="https://crates.io/crates/cargo-pants" rel="nofollow noopener noreferrer"><img src="https://img.shields.io/crates/v/cargo-pants.svg"></a>
+</p>
+<h1><a href="#cargo-pants" id="user-content-cargo-pants" rel="nofollow noopener noreferrer"></a>cargo pants</h1>
+<p><code>cargo-pants</code> is a Cargo subcommand that provides a bill of materials in a project, and any vulnerabilities that are found on those dependencies, powered by <a href="https://ossindex.sonatype.org/" rel="nofollow noopener noreferrer">Sonatype OSS Index</a>.</p>
+<h2><a href="#why-pants" id="user-content-why-pants" rel="nofollow noopener noreferrer"></a>Why pants?</h2>
+<p>Don't you check your pants for holes? Similarly, we think you should check your app's dependencies for vulnerabilities, and that's what <code>cargo-pants</code> does! As well, we provide a Bill Of Materials from parsing your <code>Cargo.lock</code> file, so you can see all the dependencies you are using.</p>
+<h2><a href="#requirements" id="user-content-requirements" rel="nofollow noopener noreferrer"></a>Requirements</h2>
+<p><code>cargo-pants</code> was built with Rust 1.49.0, you should likely start there.</p>
+<h2><a href="#installation" id="user-content-installation" rel="nofollow noopener noreferrer"></a>Installation</h2>
+<p><code>cargo-pants</code> is a Cargo subcommand, and can be installed using <code>cargo install</code>:</p>
+<pre><code class="no-highlight">$ cargo install cargo-pants
+</code></pre>
+<p>Set an environment variable <code>OSS_INDEX_API_KEY</code> to auth requests with your key.</p>
+<p>Once you have installed <code>cargo-pants</code>, you can run it like so:</p>
+<pre><code class="no-highlight">$ cargo pants
+</code></pre>
+<h2><a href="#usage" id="user-content-usage" rel="nofollow noopener noreferrer"></a>Usage</h2>
+<pre><code class="no-highlight">cargo-pants 0.3.2
+Glenn Mohre &lt;glennmohre@gmail.com&gt;
+A library for auditing your cargo dependencies for vulnerabilities and checking your pants
+
+USAGE:
+    cargo pants [FLAGS] [OPTIONS]
+
+FLAGS:
+    -h, --help        Prints help information
+        --dev         A flag to include dev dependencies
+    -v, --verbose     Set the verbosity of the logger, more is more verbose, so -vvvv is more verbose than -v
+    -d, --loud        Also show non-vulnerable dependencies
+    -m, --no-color    Disable color output
+    -V, --version     Prints version information
+
+OPTIONS:
+        --ignore-file &lt;ignore-file&gt;           The path to your .pants-ignore file [default: .pants-ignore]
+        --ossi-api-key &lt;oss-index-api-key&gt;    OSS Index API Key [env: OSS_INDEX_API_KEY]
+    -s, --pants_style &lt;pants-style&gt;           Your pants style
+        --tomlfile &lt;toml-file&gt;                The path to your Cargo.toml file [default: Cargo.toml]
+</code></pre>
+<p><code>cargo pants</code> can be run in your builds context, or ran separately.</p>
+<p>We will also inform you of our opinions of your pants style choice:</p>
+<pre><code class="no-highlight">$ cargo pants --pants_style JNCO
+</code></pre>
+<p>We are very serious about pants.</p>
+<p>There are also two command line flags that affect the output further:</p>
+<pre><code class="no-highlight">$ cargo pants --loud
+</code></pre>
+<p>This shows all non-vulnerable dependencies for a complete Bill of Materials.</p>
+<pre><code class="no-highlight">$ cargo pants --no-color
+</code></pre>
+<p>This disables any coloring of the output.</p>
+<p>If vulnerabilities are found, <code>cargo-pants</code> exits with status code 3, and prints the Bill Of Materials/Found Vulnerabilities. If there are no issues, it will exit with status code 0.</p>
+<h3><a href="#excluding-vulnerabilities" id="user-content-excluding-vulnerabilities" rel="nofollow noopener noreferrer"></a>Excluding Vulnerabilities</h3>
+<p>Exclusion of vulnerabilities can be done! To accomplish this thus far we have implemented the ability to have a file named <code>.pants-ignore</code> checked in to your repo ideally, so that it would be at the root where you run <code>cargo-pants</code>. Alternatively you can run <code>cargo-pants</code> with a exclusion file at a different location, with an example such as:</p>
+<pre><code class="no-highlight">$ cargo pants --ignore-file /Users/cooldeveloperperson/code/sonatype-nexus-community/cargo-pants/.pants-ignore
+</code></pre>
+<p>The file should look like:</p>
+<pre><code class="language-json hljs" data-highlighted="yes"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"ignore"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"78a61524-80c5-4371-b6d1-6b32af349043"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"reason"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Insert reason here"</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>The only field that actually matters is id and that is the ID you receive from OSS Index for a vulnerability. You can add fields such as reason so that you later can understand why you whitelisted a vulnerability.</p>
+<p>Any id that is excluded will be squelched from the results, and not cause a failure.</p>
+<h2><a href="#iq-usage" id="user-content-iq-usage" rel="nofollow noopener noreferrer"></a>IQ Usage</h2>
+<p>More TBD, but experimental usage for Nexus IQ Server now exists:</p>
+<pre><code class="no-highlight">cargo-iq 0.3.1
+Glenn Mohre &lt;glennmohre@gmail.com&gt;
+A library for auditing your cargo dependencies for vulnerabilities and checking your pants
+
+USAGE:
+    cargo iq [FLAGS] [OPTIONS] --iq-application &lt;application&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+        --dev        A flag to include dev dependencies
+    -v, --verbose    Set the verbosity of the logger, more is more verbose, so -vvvv is more verbose than -v
+    -V, --version    Prints version information
+
+OPTIONS:
+    -a, --iq-application &lt;application&gt;    Specify Nexus IQ public application ID for request
+    -t, --iq-attempts &lt;attempts&gt;          Specify Nexus IQ attempts in seconds [default: 60]
+    -x, --iq-server-url &lt;server-url&gt;      Specify Nexus IQ server url for request [default: http://localhost:8070]
+    -s, --iq-stage &lt;stage&gt;                Specify Nexus IQ stage for request [default: develop]
+    -k, --iq-token &lt;token&gt;                Specify Nexus IQ token for request [env: TOKEN=]  [default: admin123]
+        --tomlfile &lt;toml-file&gt;            The path to your Cargo.toml file [default: Cargo.toml]
+    -l, --iq-username &lt;username&gt;          Specify Nexus IQ username for request [default: admin]
+</code></pre>
+<h2><a href="#ci-usage" id="user-content-ci-usage" rel="nofollow noopener noreferrer"></a>CI Usage</h2>
+<p>Similar to <code>cargo audit</code> but with more pants, you can run <code>cargo pants</code> on your builds on Travis CI using this example config:</p>
+<pre><code class="language-yaml hljs" data-highlighted="yes"><span class="hljs-attr">language:</span> <span class="hljs-string">rust</span>
+<span class="hljs-attr">before_script:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">cargo</span> <span class="hljs-string">install</span> <span class="hljs-string">--force</span> <span class="hljs-string">cargo-pants</span>
+<span class="hljs-attr">script:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">cargo</span> <span class="hljs-string">pants</span>
+</code></pre>
+<p>We use <a href="https://circleci.com" rel="nofollow noopener noreferrer">CircleCI</a> to build this project. See our CircleCI config: <a href="https://github.com/sonatype-nexus-community/cargo-pants/blob/HEAD/.circleci/config.yml" rel="nofollow noopener noreferrer">.circleci/config.yml</a>
+for how we use cargo-pants in our CI build. This file is also a good reference for a number of useful cargo commands.</p>
+<h2><a href="#contributing" id="user-content-contributing" rel="nofollow noopener noreferrer"></a>Contributing</h2>
+<p>We care a lot about making the world a safer place, and that's why we created <code>cargo-pants</code>. If you as well want to
+speed up the pace of software development by working on this project, jump on in! Before you start work, create
+a new issue, or comment on an existing issue, to let others know you are!</p>
+<h2><a href="#acknowledgements" id="user-content-acknowledgements" rel="nofollow noopener noreferrer"></a>Acknowledgements</h2>
+<p>The code for <code>cargo-pants</code> was largely written by Glenn Mohre, and we want to give ultimate thanks, kudos, congratulations to Glenn for contributing this to the community. Open Source is awesome, and you help make it better!</p>
+<p>The <code>cargo-pants</code> logo was grabbed from <a href="https://www.pexels.com" rel="nofollow noopener noreferrer">www.pexels.com</a>, specifically from <a href="https://www.pexels.com/photo/people-wearing-denim-jeans-1353361/" rel="nofollow noopener noreferrer">this image</a>.</p>
+<p>Code for <code>cargo-pants</code> was influenced by <code>cargo-audit</code>, and we acknowledge we stand on the shoulders of giants.</p>
+<h2><a href="#development" id="user-content-development" rel="nofollow noopener noreferrer"></a>Development</h2>
+<p>You can run your local changes without installing the package via:</p>
+<pre><code class="no-highlight">cargo run --bin cargo-pants pants
+</code></pre>
+<p>or</p>
+<pre><code class="no-highlight">cargo run --bin cargo-iq iq --iq-application sandbox-application
+</code></pre>
+<p>Use the commands below to build and install the package locally:</p>
+<pre><code class="no-highlight">cargo build --all --all-targets
+cargo install cargo-pants --force --path .
+</code></pre>
+<h3><a href="#release-process" id="user-content-release-process" rel="nofollow noopener noreferrer"></a>Release Process</h3>
+<p>The Continuous Integration build will automatically perform a new release with every commit to the <code>main</code> branch.</p>
+<p>To skip performing a release from <code>main</code> be sure your commit message includes: <code>[skip ci]</code>.</p>
+<h2><a href="#the-fine-print" id="user-content-the-fine-print" rel="nofollow noopener noreferrer"></a>The Fine Print</h2>
+<p>It is worth noting that this is <strong>NOT SUPPORTED</strong> by Sonatype, and is a contribution of ours
+to the open source community (read: you!)</p>
+<p>Remember:</p>
+<ul>
+<li>Use this contribution at the risk tolerance that you have</li>
+<li>Do NOT file Sonatype support tickets related to <code>cargo-pants</code> support in regard to this project</li>
+<li>DO file issues here on GitHub, so that the community can pitch in</li>
+</ul>
+<p>Phew, that was easier than I thought. Last but not least of all:</p>
+<p>Have fun creating and using <code>cargo-pants</code> and the <a href="https://ossindex.sonatype.org/" rel="nofollow noopener noreferrer">Sonatype OSS Index</a>, we are glad to have you here!</p>
+<h2><a href="#getting-help" id="user-content-getting-help" rel="nofollow noopener noreferrer"></a>Getting help</h2>
+<p>Looking to contribute to our code but need some help? There's a few ways to get information:</p>
+<ul>
+<li>Chat with us on <a href="https://gitter.im/sonatype/nexus-developers" rel="nofollow noopener noreferrer">Gitter</a></li>
+</ul>
+
+
+</div>
+      </article>
+  </div>
+
+  <section class="_sidebar_1nmwg6 _sidebar_1ph5zq" aria-label="Crate metadata">
+  <div class="_metadata_1nmwg6">
+    <h2 class="_heading_1nmwg6">Metadata</h2>
+
+    <time class="_date_1nmwg6" datetime="2023-12-11T16:56:05Z">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100" height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)--><path d="M35.156 56.25h-7.812A2.35 2.35 0 0125 53.906v-7.812a2.35 2.35 0 012.344-2.344h7.812a2.35 2.35 0 012.344 2.344v7.812a2.35 2.35 0 01-2.344 2.344zm21.094-2.344v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812a2.35 2.35 0 002.344 2.344h7.812a2.35 2.35 0 002.344-2.344zm18.75 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812a2.35 2.35 0 002.344 2.344h7.812A2.35 2.35 0 0075 53.906zm-18.75 18.75v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812A2.35 2.35 0 0046.094 75h7.812a2.35 2.35 0 002.344-2.344zm-18.75 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812A2.35 2.35 0 0025 64.844v7.812A2.35 2.35 0 0027.344 75h7.812a2.35 2.35 0 002.344-2.344zm37.5 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812A2.35 2.35 0 0064.844 75h7.812A2.35 2.35 0 0075 72.656zm18.75-50.781v68.75c0 5.176-4.2 9.375-9.375 9.375h-68.75c-5.176 0-9.375-4.2-9.375-9.375v-68.75c0-5.176 4.2-9.375 9.375-9.375H25V2.344A2.35 2.35 0 0127.344 0h7.812A2.35 2.35 0 0137.5 2.344V12.5h25V2.344A2.35 2.35 0 0164.844 0h7.812A2.35 2.35 0 0175 2.344V12.5h9.375c5.176 0 9.375 4.2 9.375 9.375zm-9.375 67.578V31.25h-68.75v58.203c0 .645.527 1.172 1.172 1.172h66.406c.645 0 1.172-.527 1.172-1.172z"></path></svg>
+      <span class="ember-tooltip-target">
+        4 months ago
+        <div id="ember8" class="ember-tooltip-base ember-view">  <div>
+<!---->  </div>
+</div>
+      </span>
+    </time>
+
+      <div class="_msrv_1nmwg6">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.52 249.75l-21.82-13.51c-.17-2-.34-3.93-.55-5.88l18.72-17.5a7.35 7.35 0 00-2.44-12.25l-24-9c-.54-1.88-1.08-3.78-1.67-5.64l15-20.83a7.35 7.35 0 00-4.79-11.54l-25.42-4.15c-.9-1.73-1.79-3.45-2.73-5.15l10.68-23.42a7.35 7.35 0 00-6.95-10.39l-25.82.91q-1.79-2.22-3.61-4.4L439 81.84a7.36 7.36 0 00-8.84-8.84L405 78.93q-2.17-1.83-4.4-3.61l.91-25.82a7.35 7.35 0 00-10.39-7L367.7 53.23c-1.7-.94-3.43-1.84-5.15-2.73l-4.15-25.42a7.35 7.35 0 00-11.54-4.79L326 35.26c-1.86-.59-3.75-1.13-5.64-1.67l-9-24a7.35 7.35 0 00-12.25-2.44l-17.5 18.72c-1.95-.21-3.91-.38-5.88-.55L262.25 3.48a7.35 7.35 0 00-12.5 0L236.24 25.3c-2 .17-3.93.34-5.88.55l-17.5-18.72a7.35 7.35 0 00-12.25 2.44l-9 24c-1.89.55-3.79 1.08-5.66 1.68l-20.82-15a7.35 7.35 0 00-11.54 4.79l-4.15 25.41c-1.73.9-3.45 1.79-5.16 2.73l-23.4-10.63a7.35 7.35 0 00-10.39 7l.92 25.81c-1.49 1.19-3 2.39-4.42 3.61L81.84 73A7.36 7.36 0 0073 81.84L78.93 107c-1.23 1.45-2.43 2.93-3.62 4.41l-25.81-.91a7.42 7.42 0 00-6.37 3.26 7.35 7.35 0 00-.57 7.13l10.66 23.41c-.94 1.7-1.83 3.43-2.73 5.16l-25.41 4.14a7.35 7.35 0 00-4.79 11.54l15 20.82c-.59 1.87-1.13 3.77-1.68 5.66l-24 9a7.35 7.35 0 00-2.44 12.25l18.72 17.5c-.21 1.95-.38 3.91-.55 5.88l-21.86 13.5a7.35 7.35 0 000 12.5l21.82 13.51c.17 2 .34 3.92.55 5.87l-18.72 17.5a7.35 7.35 0 002.44 12.25l24 9c.55 1.89 1.08 3.78 1.68 5.65l-15 20.83a7.35 7.35 0 004.79 11.54l25.42 4.15c.9 1.72 1.79 3.45 2.73 5.14l-10.63 23.43a7.35 7.35 0 00.57 7.13 7.13 7.13 0 006.37 3.26l25.83-.91q1.77 2.22 3.6 4.4L73 430.16a7.36 7.36 0 008.84 8.84l25.16-5.93q2.18 1.83 4.41 3.61l-.92 25.82a7.35 7.35 0 0010.39 6.95l23.43-10.68c1.69.94 3.42 1.83 5.14 2.73l4.15 25.42a7.34 7.34 0 0011.54 4.78l20.83-15c1.86.6 3.76 1.13 5.65 1.68l9 24a7.36 7.36 0 0012.25 2.44l17.5-18.72c1.95.21 3.92.38 5.88.55l13.51 21.82a7.35 7.35 0 0012.5 0l13.51-21.82c2-.17 3.93-.34 5.88-.56l17.5 18.73a7.36 7.36 0 0012.25-2.44l9-24c1.89-.55 3.78-1.08 5.65-1.68l20.82 15a7.34 7.34 0 0011.54-4.78l4.15-25.42c1.72-.9 3.45-1.79 5.15-2.73l23.42 10.68a7.35 7.35 0 0010.39-6.95l-.91-25.82q2.22-1.79 4.4-3.61l25.15 5.93a7.36 7.36 0 008.84-8.84L433.07 405q1.83-2.17 3.61-4.4l25.82.91a7.23 7.23 0 006.37-3.26 7.35 7.35 0 00.58-7.13l-10.68-23.42c.94-1.7 1.83-3.43 2.73-5.15l25.42-4.15a7.35 7.35 0 004.79-11.54l-15-20.83c.59-1.87 1.13-3.76 1.67-5.65l24-9a7.35 7.35 0 002.44-12.25l-18.72-17.5c.21-1.95.38-3.91.55-5.87l21.82-13.51a7.35 7.35 0 000-12.5zm-151 129.08A13.91 13.91 0 00341 389.51l-7.64 35.67a187.51 187.51 0 01-156.36-.74l-7.64-35.66a13.87 13.87 0 00-16.46-10.68l-31.51 6.76a187.38 187.38 0 01-16.26-19.21H258.3c1.72 0 2.89-.29 2.89-1.91v-54.19c0-1.57-1.17-1.91-2.89-1.91h-44.83l.05-34.35H262c4.41 0 23.66 1.28 29.79 25.87 1.91 7.55 6.17 32.14 9.06 40 2.89 8.82 14.6 26.46 27.1 26.46H407a187.3 187.3 0 01-17.34 20.09zm25.77 34.49A15.24 15.24 0 11368 398.08h.44a15.23 15.23 0 0114.8 15.24zm-225.62-.68a15.24 15.24 0 11-15.25-15.25h.45a15.25 15.25 0 0114.75 15.25zm-88.1-178.49l32.83-14.6a13.88 13.88 0 007.06-18.33L102.69 186h26.56v119.73h-53.6a187.65 187.65 0 01-6.08-71.58zm-11.26-36.06a15.24 15.24 0 0115.23-15.25H74a15.24 15.24 0 11-15.67 15.24zm155.16 24.49l.05-35.32h63.26c3.28 0 23.07 3.77 23.07 18.62 0 12.29-15.19 16.7-27.68 16.7zM399 306.71c-9.8 1.13-20.63-4.12-22-10.09-5.78-32.49-15.39-39.4-30.57-51.4 18.86-11.95 38.46-29.64 38.46-53.26 0-25.52-17.49-41.59-29.4-49.48-16.76-11-35.28-13.23-40.27-13.23h-198.9a187.49 187.49 0 01104.89-59.19l23.47 24.6a13.82 13.82 0 0019.6.44l26.26-25a187.51 187.51 0 01128.37 91.43l-18 40.57a14 14 0 007.09 18.33l34.59 15.33a187.12 187.12 0 01.4 32.54h-19.28c-1.91 0-2.69 1.27-2.69 3.13v8.82C421 301 409.31 305.58 399 306.71zM240 60.21A15.24 15.24 0 01255.21 45h.45A15.24 15.24 0 11240 60.21zM436.84 214a15.24 15.24 0 110-30.48h.44a15.24 15.24 0 01-.44 30.48z" fill="currentColor"></path></svg>
+        <span class="ember-tooltip-target">
+          v1.69.0
+          <div id="ember9" class="ember-tooltip-base ember-view">  <div>
+<!---->  </div>
+</div>
+        </span>
+      </div>
+
+      <div class="_license_1nmwg6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100" height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)--><path d="M40 62.5h-.003c0-2.528.21-1.364-13.29-28.36-2.757-5.515-10.654-5.526-13.416 0C-.322 61.366.003 60.051.003 62.5H0C0 69.403 8.955 75 20 75s20-5.597 20-12.5zm-20-25L31.25 60H8.75zm79.997 25c0-2.528.21-1.364-13.29-28.36-2.757-5.515-10.654-5.526-13.416 0C59.678 61.366 60.003 60.051 60.003 62.5H60C60 69.403 68.955 75 80 75s20-5.597 20-12.5zM68.75 60L80 37.5 91.25 60zM82.5 80H55V33.945c3.673-1.608 6.431-4.918 7.248-8.945H82.5a2.5 2.5 0 002.5-2.5v-5a2.5 2.5 0 00-2.5-2.5H59.944c-2.282-3.019-5.867-5-9.944-5-4.077 0-7.662 1.981-9.944 5H17.5a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 002.5 2.5h20.252c.817 4.025 3.573 7.337 7.248 8.945V80H17.5a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 002.5 2.5h65a2.5 2.5 0 002.5-2.5v-5a2.5 2.5 0 00-2.5-2.5z"></path></svg>
+        <span>
+              <a href="https://choosealicense.com/licenses/apache-2.0" rel="noreferrer">
+      Apache-2.0
+    </a>
+
+        </span>
+      </div>
+
+      <div class="_bytes_1nmwg6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100" height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)--><path d="M50.002 0c-10.356 0-18.75 8.394-18.75 18.75 0 2.203.45 4.287 1.148 6.25H20.633c-2.819 0-5.29 2.059-6.03 5.023L.337 87.082C-1.291 93.588 3.199 100 9.38 100h81.24c6.18 0 10.67-6.412 9.043-12.918L85.4 30.023C84.658 27.057 82.19 25 79.371 25H67.604c.697-1.963 1.148-4.047 1.148-6.25C68.752 8.394 60.357 0 50.002 0zM50 12.498a6.258 6.258 0 016.25 6.25 6.258 6.258 0 01-6.25 6.25 6.258 6.258 0 01-6.25-6.25 6.258 6.258 0 016.25-6.25zM23.908 34.793h52.41l13.693 54.809H10.279z"></path></svg>
+        79.4 KiB
+      </div>
+  </div>
+
+    <div>
+      <h2 class="_heading_1nmwg6">Install</h2>
+
+      <p class="_copy-help_1nmwg6">Run the following Cargo command in your project directory:</p>
+        <button class="_copy-button_1nmwg6" title="Copy command to clipboard" type="button">
+  
+          <span class="_selectable_1nmwg6">cargo add cargo-pants@=0.4.24</span>
+          <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="_copy-icon_1nmwg6"><path d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z"></path><path d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z"></path></svg>
+        
+</button>
+
+      <p class="_copy-help_1nmwg6">Or add the following line to your Cargo.toml:</p>
+        <button class="_copy-button_1nmwg6" title="Copy Cargo.toml snippet to clipboard" type="button">
+  
+          <span class="_selectable_1nmwg6">cargo-pants = "=0.4.24"</span>
+          <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="_copy-icon_1nmwg6"><path d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z"></path><path d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z"></path></svg>
+        
+</button>
+    </div>
+
+    <div class="_links_1nmwg6">
+<!---->
+        <div>
+  <h2 class="_title_iw1br3 _heading_1nmwg6">Documentation</h2>
+  <div class="_content_iw1br3">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="currentColor" class="_icon_iw1br3"><path d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z"></path></svg>
+
+    <a class="_link_iw1br3" href="https://docs.rs/cargo-pants/0.4.24">
+      docs.rs/cargo-pants/0.4.24
+    </a>
+  </div>
+</div>
+
+        <div>
+  <h2 class="_title_iw1br3 _heading_1nmwg6">Repository</h2>
+  <div class="_content_iw1br3">
+      <svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="_icon_iw1br3"><path d="M256 0C114.61 0 0 114.61 0 256c0 113.1 73.345 209.05 175.07 242.91 12.81 2.35 17.48-5.56 17.48-12.35 0-6.06-.22-22.17-.35-43.53-71.21 15.46-86.23-34.32-86.23-34.32-11.645-29.58-28.429-37.45-28.429-37.45-23.244-15.88 1.76-15.56 1.76-15.56 25.699 1.8 39.209 26.38 39.209 26.38 22.84 39.12 59.92 27.82 74.51 21.27 2.32-16.54 8.93-27.82 16.25-34.22-56.84-6.45-116.611-28.43-116.611-126.52 0-27.94 9.981-50.8 26.351-68.7-2.64-6.47-11.42-32.5 2.5-67.74 0 0 21.5-6.889 70.41 26.24 20.41-5.69 42.32-8.52 64.09-8.61 21.73.1 43.64 2.92 64.09 8.61 48.87-33.129 70.32-26.24 70.32-26.24 13.97 35.24 5.19 61.27 2.55 67.74 16.41 17.9 26.32 40.76 26.32 68.7 0 98.35-59.86 119.99-116.89 126.32 9.19 7.91 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.22 0 6.85 4.6 14.82 17.6 12.32C438.72 464.96 512 369.08 512 256 512 114.61 397.37 0 255.98 0"></path></svg>
+
+    <a class="_link_iw1br3" href="https://github.com/sonatype-nexus-community/cargo-pants">
+      github.com/sonatype-nexus-community/cargo-pants
+    </a>
+  </div>
+</div>
+    </div>
+
+  <div>
+    <h2 class="_heading_1nmwg6">Owners</h2>
+    <ul class="_list_1ipg5d _detailed_1ipg5d" role="list">
+    <li class="">
+      <a id="ember14" class="ember-view _link_1ipg5d" href="/users/DarthHater">
+        <img src="https://avatars.githubusercontent.com/u/5544326?v=4&amp;s=64" width="32" height="32" alt="Jeffry Hesse (DarthHater)" title="Jeffry Hesse" decoding="async" class="_avatar_1ipg5d" aria-hidden="true">
+        <span class="_name_1ipg5d">Jeffry Hesse</span>
+      </a>
+    </li>
+    <li class="">
+      <a id="ember15" class="ember-view _link_1ipg5d" href="/users/brent-spiner">
+        <img src="https://avatars2.githubusercontent.com/u/62454951?v=4&amp;s=64" width="32" height="32" alt="Brent Spiner bot (brent-spiner)" title="Brent Spiner bot" decoding="async" class="_avatar_1ipg5d" aria-hidden="true">
+        <span class="_name_1ipg5d">Brent Spiner bot</span>
+      </a>
+    </li>
+</ul>
+  </div>
+
+<!---->
+<!----></section>
+</div>
+
+<div class="_crate-downloads_1ph5zq">
+  <div class="_stats_1ph5zq">
+      <h3>
+        Stats Overview for 0.4.24
+        <a id="ember10" class="ember-view active" href="/crates/cargo-pants">(see all)</a>
+      </h3>
+
+    <div class="_stat_1ph5zq">
+      <span class="_num_1ph5zq">
+        <svg width="32" height="33" viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg"><circle fill="#FFF" cx="16" cy="16" r="16"></circle><path fill="#B13B89" d="M10 21h12v2H10zM14 10h4v5h3l-5 4.996L11 15h3z"></path></svg>
+        <span class="_num__align_1ph5zq">182</span>
+      </span>
+      <span class="_stat-description_1ph5zq _small_1oyocj">Downloads all time</span>
+    </div>
+    <div class="_stat_1ph5zq">
+      <span class="_num_1ph5zq">
+        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 32.107c8.837 0 16-7.164 16-16 0-8.837-7.163-16-16-16s-16 7.163-16 16c0 8.836 7.163 16 16 16z" fill="#FFF"></path><path d="M20.247 12.548L16 10l-4.224 2.535 4.247 2.452 4.224-2.439zM21 14.423l-4 2.31V21.4l4-2.4v-4.577zm-10-.027V19l4 2.4v-4.695l-4-2.309zM16 8l7 4v8l-7 4-7-4v-8l7-4z" fill="#B13B89"></path></svg>
+        <span class="_num__align_1ph5zq">66</span>
+      </span>
+      <span class="_stat-description_1ph5zq _small_1oyocj">Versions published</span>
+    </div>
+  </div>
+  <div class="_graph_1ph5zq">
+    <h4>Downloads over the last 90 days</h4>
+    <div class="_toggle-stacked_1ph5zq">
+      <span class="">Display as </span>
+      <div class="_container_j1fcml">
+  
+        <button class="_button_x5sxkq _trigger_1ph5zq" type="button">
+  
+          <span class="_trigger-label_1ph5zq">
+              Stacked
+          </span>
+        
+  <span class="_arrow_x5sxkq"></span>
+</button>
+        <div class="_dropdown_16sxmz">
+  <ul class="_list_12bw3u">
+    
+          <li class="_item_1xureq">
+            <button class="_dropdown-button_1ph5zq" type="button">
+              Stacked
+            </button>
+          </li>
+          <li class="_item_1xureq">
+            <button class="_dropdown-button_1ph5zq" type="button">
+              Unstacked
+            </button>
+          </li>
+        
+  </ul>
+</div>
+      
+</div>
+    </div>
+    <div class="_wrapper_27k3er _graph-data_1ph5zq">
+    <canvas width="921" height="398" style="display: block; box-sizing: border-box; height: 398px; width: 921px;"></canvas>
+</div>
+  </div>
+</div>
+  </div>
+</main>
+
+<footer class="_footer_hautyr">
+  <div class="_content_hautyr _width-limit_17u5gr">
+    <div>
+      <h1>Rust</h1>
+      <ul role="list">
+        <li><a href="https://www.rust-lang.org/">rust-lang.org</a></li>
+        <li><a href="https://foundation.rust-lang.org/">Rust Foundation</a></li>
+        <li><a href="https://www.rust-lang.org/governance/teams/crates-io">The crates.io team</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h1>Get Help</h1>
+      <ul role="list">
+        <li><a href="https://doc.rust-lang.org/cargo/">The Cargo Book</a></li>
+        <li><a href="mailto:help@crates.io">Email Support</a></li>
+        <li><a href="https://status.crates.io/">System Status</a></li>
+        <li><a href="https://github.com/rust-lang/crates.io/issues/new/choose">Report a bug</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h1>Policies</h1>
+      <ul role="list">
+        <li><a id="ember11" class="ember-view" href="/policies">Usage Policy</a></li>
+        <li><a href="https://www.rust-lang.org/policies/security">Security</a></li>
+        <li><a href="https://foundation.rust-lang.org/policies/privacy-policy/">Privacy Policy</a></li>
+        <li><a href="https://www.rust-lang.org/policies/code-of-conduct">Code of Conduct</a></li>
+        <li><a id="ember12" class="ember-view" href="/data-access">Data Access</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h1>Social</h1>
+      <ul role="list">
+        <li><a href="https://github.com/rust-lang/crates.io/"><svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M256 0C114.61 0 0 114.61 0 256c0 113.1 73.345 209.05 175.07 242.91 12.81 2.35 17.48-5.56 17.48-12.35 0-6.06-.22-22.17-.35-43.53-71.21 15.46-86.23-34.32-86.23-34.32-11.645-29.58-28.429-37.45-28.429-37.45-23.244-15.88 1.76-15.56 1.76-15.56 25.699 1.8 39.209 26.38 39.209 26.38 22.84 39.12 59.92 27.82 74.51 21.27 2.32-16.54 8.93-27.82 16.25-34.22-56.84-6.45-116.611-28.43-116.611-126.52 0-27.94 9.981-50.8 26.351-68.7-2.64-6.47-11.42-32.5 2.5-67.74 0 0 21.5-6.889 70.41 26.24 20.41-5.69 42.32-8.52 64.09-8.61 21.73.1 43.64 2.92 64.09 8.61 48.87-33.129 70.32-26.24 70.32-26.24 13.97 35.24 5.19 61.27 2.55 67.74 16.41 17.9 26.32 40.76 26.32 68.7 0 98.35-59.86 119.99-116.89 126.32 9.19 7.91 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.22 0 6.85 4.6 14.82 17.6 12.32C438.72 464.96 512 369.08 512 256 512 114.61 397.37 0 255.98 0"></path></svg> rust-lang/crates.io</a></li>
+        <li><a href="https://twitter.com/cratesiostatus"><svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M160.768 460.8c193.126 0 298.803-160.154 298.803-298.803 0-4.506 0-9.011-.205-13.517 20.48-14.746 38.298-33.382 52.43-54.477-18.842 8.397-39.118 13.927-60.417 16.589 21.709-12.902 38.298-33.587 46.285-58.163-20.275 12.083-42.803 20.685-66.765 25.395-19.251-20.48-46.49-33.178-76.595-33.178-57.958 0-105.062 47.104-105.062 105.063 0 8.192 1.024 16.179 2.662 23.961-87.245-4.3-164.66-46.284-216.474-109.772-9.01 15.564-14.13 33.587-14.13 52.838 0 36.454 18.636 68.608 46.694 87.45a106.224 106.224 0 01-47.514-13.108v1.434c0 50.79 36.25 93.389 84.173 103.014-8.807 2.458-18.023 3.687-27.648 3.687-6.759 0-13.312-.615-19.661-1.843 13.312 41.779 52.224 72.09 98.1 72.908-36.046 28.263-81.306 45.056-130.458 45.056-8.397 0-16.794-.41-24.986-1.433C46.285 443.392 101.58 460.8 160.768 460.8"></path></svg> @cratesiostatus</a></li>
+        <li><a href="https://rust-lang.zulipchat.com/#streams/318791/t-crates-io"><svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M485.686 76.557c0 25.792-11.583 48.707-29.236 62.61L285.082 292.209c-3.182 2.728-7.32-1.67-5.024-5.342l62.86-125.855c1.761-3.523-.524-7.854-4.138-7.854H94.97c-37.76 0-68.656-34.465-68.656-76.58C26.314 34.453 57.21 0 94.971 0h322.058c37.761-.023 68.657 34.442 68.657 76.556zM94.97 512h322.058c37.761 0 68.657-34.464 68.657-76.58 0-42.125-30.896-76.578-68.657-76.578H173.22c-3.614 0-5.899-4.33-4.137-7.854l62.859-125.855c2.296-3.671-1.842-8.07-5.024-5.342L55.55 372.812c-17.653 13.89-29.236 36.819-29.236 62.61 0 42.115 30.896 76.579 68.657 76.579z"></path></svg> #t-crates-io</a></li>
+      </ul>
+    </div>
+  </div>
+</footer></body></html>

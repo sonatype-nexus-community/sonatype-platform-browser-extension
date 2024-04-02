@@ -30,6 +30,7 @@ import { parseCentralSonatypeCom } from './PageParsing/CentralSonatypeCom'
 import { parseCocoaPods } from './PageParsing/CocoaPods'
 import { parseConanIo } from './PageParsing/ConanIo'
 import { parseRepo1MavenOrg, parseRepoMavenApacheOrg } from './PageParsing/RepoMavenApacheOrg'
+import { parseCratesIo } from './PageParsing/CratesIo'
 
 export const getArtifactDetailsFromDOM = (repoFormat: RepoType, url: string): PackageURL | undefined => {
     logger.logMessage('In getArtifactDetailsFromDOM', LogLevel.TRACE, repoFormat, url)
@@ -78,6 +79,9 @@ export const getArtifactDetailsFromDOM = (repoFormat: RepoType, url: string): Pa
         }
         case REPOS.centralSonatypeCom: {
             return parseCentralSonatypeCom(url)
+        }
+        case REPOS.cratesIo: {
+            return parseCratesIo(url)
         }
 
         default: {
