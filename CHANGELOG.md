@@ -1,3 +1,15 @@
+# [2.17.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.16.0...v2.17.0) (2024-04-02)
+
+
+### Bug Fixes
+
+* updated Page Parsing test data to be more deterministic ([dc922bb](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/dc922bb6a5b768defcf39b672026cde966a26e6b))
+
+
+### Features
+
+* support crates.io for Cargo ([c0b09e3](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/c0b09e303b69a74e7988282cd0d22fc2471b1271))
+
 # [2.16.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.15.1...v2.16.0) (2024-03-12)
 
 
