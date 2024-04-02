@@ -18,7 +18,7 @@ get_data "central-s-c-log4j-parent.html" "https://central.sonatype.com/artifact/
 get_data "central-s-c-custom-properties-maven-plugin.html" "https://central.sonatype.com/artifact/net.sf.czsem/custom-properties-maven-plugin/4.0.3"
 get_data "central-s-c-cool-jconon.html" "https://central.sonatype.com/artifact/it.cnr.si.cool.jconon/cool-jconon/5.2.44"
 get_data "central-s-c-jakarta-ivt.html" "https://central.sonatype.com/artifact/com.ibm.mq/wmq.jakarta.jmsra.ivt/9.3.3.1"
-get_data "central-s-c-commons-io.html" "https://central.sonatype.com/artifact/commons-io/commons-io/overview"
+get_data "central-s-c-commons-io.html" "https://central.sonatype.com/artifact/commons-io/commons-io/2.15.1/overview"
 
 # CocoaPods
 

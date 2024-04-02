@@ -10,9 +10,9 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="shortcut icon" href="/favicon.ico?v=1710176595" />
+        <link rel="shortcut icon" href="/favicon.ico?v=1711529455" />
 
-        <link rel="stylesheet" href="/build/app.css?v=1710176595" />
+        <link rel="stylesheet" href="/build/app.css?v=1711529455" />
         
             <link rel="alternate" type="application/rss+xml" title="New Releases - fomvasss/laravel-its-lte" href="https://packagist.org/feeds/package.fomvasss/laravel-its-lte.rss" />
     <link rel="alternate" type="application/rss+xml" title="New Releases - fomvasss" href="https://packagist.org/feeds/vendor.fomvasss.rss" />
@@ -20,35 +20,24 @@
         <link rel="alternate" type="application/rss+xml" title="New Releases - Packagist" href="https://packagist.org/feeds/releases.rss" />
         
 
-        <link rel="search" type="application/opensearchdescription+xml" href="/search.osd?v=1710176595" title="Packagist" />
+        <link rel="search" type="application/opensearchdescription+xml" href="/search.osd?v=1711529455" title="Packagist" />
 
-        
-        <script nonce="Ackq4hhr7uk61JfRz/al1Q==">
+        <script nonce="1O9QH8QC5+umLJR17Vr5Ag==">
             var onloadRecaptchaCallback = function() {
-                const forms = [
-                    {submit: '_submit', form: 'page_login'},
-                    {submit: '_request_password_submit', form: 'request_password'},
-                    {submit: '_register_submit', form: 'register_form'},
-                    {submit: '_submit_mini', form: 'nav_login'},
-                    {submit: '_reset_password_submit', form: 'reset_password'},
-                    {submit: '_change_password_submit', form: 'change_password'},
-                    {submit: '_edit_profile_submit', form: 'edit_profile'},
-                ];
-
-                forms.forEach(({submit, form}) => {
-                    if (document.getElementById(submit)) {
+                document.querySelectorAll('.recaptcha-protected').forEach((el) => {
+                    el.closest('form').querySelectorAll('button, input[type="submit"]').forEach((submit) => {
                         grecaptcha.render(submit, {
                             'sitekey' : '6LfKiPoUAAAAAGlKWkhEEx7X8muIVYy6oA0GNdX0',
                             'callback' : function (token) {
-                                document.getElementById(form).submit();
+                                submit.form.submit();
                             }
                         });
-                    }
+                    })
                 });
             };
         </script>
-
-            <link rel="stylesheet" href="/css/github/markdown.css?v=1710176595">
+        
+            <link rel="stylesheet" href="/css/github/markdown.css?v=1711529455">
         </head>
 
     <body>
@@ -143,7 +132,7 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div id="powered-by">
-                                    Search by <a href="https://www.algolia.com/"><img src="/img/algolia-logo-light.svg?v=1710176595"></a>
+                                    Search by <a href="https://www.algolia.com/"><img src="/img/algolia-logo-light.svg?v=1711529455"></a>
                                 </div>
                                 <div id="pagination-container">
                                     <div class="pagination"></div>
@@ -247,33 +236,6 @@
                 </div>
             </div>
 
-                            <div class="row">
-                                            <form name="add_maintainer_form" method="post" action="/packages/fomvasss/laravel-its-lte/maintainers/" id="add-maintainer-form" class="col-sm-6 col-md-3 col-md-offset-9 hidden">
-                            <div>
-                                <h4>Add Maintainer</h4>
-                                <p>
-                                    <label for="add_maintainer_form_user">Username</label>
-                                    
-                                    <input type="text" id="add_maintainer_form_user" name="add_maintainer_form[user]" class="form-control" />
-                                </p>
-                                <input type="hidden" id="add_maintainer_form__token" name="add_maintainer_form[_token]" value="72d36a2c393d621cae.EYS_CGPRKknRDtlPjs4UPxStPNTB8-1eWKQdoanCfbs.WbzORAi2TBmiV7185P9CRnD_S76yhqgyPsppxM-nTI1k_fs5UrxAe71JnA" />
-                                <input class="btn btn-block btn-success btn-lg" type="submit" value="Add Maintainer" />
-                            </div>
-                        </form>
-                    
-                                            <form name="remove_maintainer_form" method="post" action="/packages/fomvasss/laravel-its-lte/maintainers/delete" id="remove-maintainer-form" class="col-sm-6 col-md-3 col-md-offset-9 hidden">
-                            <div>
-                                <h4>Remove Maintainer</h4>
-                                <p>
-                                    <label for="remove_maintainer_form_user" class="required">Username</label>
-                                    
-                                    <select id="remove_maintainer_form_user" name="remove_maintainer_form[user]"><option value="139000">fomvasss</option></select>
-                                </p>
-                                <input type="hidden" id="remove_maintainer_form__token" name="remove_maintainer_form[_token]" value="88706e8edf.ic44-b3TCtfIlEP_-L2qXdWQ_AzuhJBEHSwetfy-kmo.4ax8wI2FW5yerDmpgdbmEb_YplmF1vYAXkpu5LqL3iPro2er2bdFppLQBg" />
-                                <input class="btn btn-block btn-danger btn-lg" type="submit" value="Remove Maintainer" />
-                            </div>
-                        </form>
-                                    </div>
             
                             <div class="row versions-section">
                     <div class="version-details col-md-9">
@@ -907,7 +869,7 @@
 
     <div class="last-update">
                     <p class="auto-update-success">This package is auto-updated.</p>
-                <p>Last update: 2024-02-12 10:57:53 UTC </p>
+                <p>Last update: 2024-03-12 11:13:01 UTC </p>
             </div>
                     </div>
                 </div>
@@ -915,7 +877,7 @@
                             <hr class="clearfix">
                 <div class="readme markdown-body">
                     <h1>README</h1>
-                    
+                    <a id="user-content-laravel-its-lte" class="anchor" href="#user-content-laravel-its-lte" rel="nofollow noindex noopener external ugc"></a>
 <p><a href="https://packagist.org/packages/fomvasss/laravel-its-lte" rel="nofollow noindex noopener external ugc"><img src="https://camo.githubusercontent.com/d23eba2d1b570889e55eabeba5de028bdb806caab593ee218f66ba50cb839a79/68747470733a2f2f696d672e736869656c64732e696f2f7061636b61676973742f6c2f666f6d76617373732f6c61726176656c2d6974732d6c74652e7376673f7374796c653d666f722d7468652d6261646765" alt="License"></a>
 <a href="https://github.com/fomvasss/laravel-its-lte" rel="nofollow noindex noopener external ugc"><img src="https://camo.githubusercontent.com/56a135e5b3299b24d19c547fa241acb01f6003fae8988b85db484cef1d87d35e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f666f6d76617373732f6c61726176656c2d6974732d6c74652e7376673f7374796c653d666f722d7468652d6261646765" alt="Build Status"></a>
 <a href="https://packagist.org/packages/fomvasss/laravel-its-lte" rel="nofollow noindex noopener external ugc"><img src="https://camo.githubusercontent.com/3410f56635eda31d7daf2d72dcfcd0ef72b28de276af8ddce05e156905f65ce9/68747470733a2f2f696d672e736869656c64732e696f2f7061636b61676973742f762f666f6d76617373732f6c61726176656c2d6974732d6c74652e7376673f7374796c653d666f722d7468652d6261646765" alt="Latest Stable Version"></a>
@@ -924,13 +886,13 @@
 <p>Base Admin LTE Control Panel Templates</p>
 <p><a target="_blank" href="https://github.com/fomvasss/laravel-its-lte/blob/HEAD/public/img/screen.png" rel="nofollow noindex noopener external ugc"><img src="https://rawcdn.githack.com/fomvasss/laravel-its-lte/HEAD/public/img/screen.png" alt="screenshot"></a></p>
 
-<h2><a id="user-content-installation" class="anchor" href="#user-content-installation" rel="nofollow noindex noopener external ugc"></a>Installation</h2>
+<h2 class="heading-element">Installation</h2><a id="user-content-installation" class="anchor" href="#user-content-installation" rel="nofollow noindex noopener external ugc"></a>
 <p>Run from the command line:</p>
 <pre>composer require fomvasss/laravel-its-lte</pre>
 <pre>php artisan lte:install</pre>
 <p>That's all. You can usage ITS LTE in your project :)</p>
 <p>Visit the path <code>http://your-site.test/lte</code></p>
-<h2><a id="user-content-publishing-optional" class="anchor" href="#user-content-publishing-optional" rel="nofollow noindex noopener external ugc"></a>Publishing (optional)</h2>
+<h2 class="heading-element">Publishing (optional)</h2><a id="user-content-publishing-optional" class="anchor" href="#user-content-publishing-optional" rel="nofollow noindex noopener external ugc"></a>
 <p>Of course, you can publish only the necessary system components:</p>
 <ul>
 <li>views:
@@ -941,10 +903,10 @@
 <pre>php artisan lte:publish --tag=lte-view-fields --force</pre>
 <p>or all components</p>
 <pre>php artisan lte:publish</pre>
-<h3><a id="user-content-updating" class="anchor" href="#user-content-updating" rel="nofollow noindex noopener external ugc"></a>Updating</h3>
+<h3 class="heading-element">Updating</h3><a id="user-content-updating" class="anchor" href="#user-content-updating" rel="nofollow noindex noopener external ugc"></a>
 <p>When updating this package, you should re-publish the assets (css, js, images):</p>
 <pre>php artisan lte:publish --tag=lte-assets --force</pre>
-<h2><a id="user-content-configuration" class="anchor" href="#user-content-configuration" rel="nofollow noindex noopener external ugc"></a>Configuration</h2>
+<h2 class="heading-element">Configuration</h2><a id="user-content-configuration" class="anchor" href="#user-content-configuration" rel="nofollow noindex noopener external ugc"></a>
 <p>After publishing assets, its primary configuration file will be located at <code>config/its-lte.php</code></p>
 <pre><span class="pl-ent">&lt;?php</span>
 
@@ -1040,7 +1002,7 @@
 <p>For correct work navigation in dashboard, apply next middleware for routes to dashboard:</p>
 <pre class="notranslate"><code>\Fomvasss\ItsLte\Http\Middleware\ApplyRequestOptions::class,
 </code></pre>
-<h2><a id="user-content-structure" class="anchor" href="#user-content-structure" rel="nofollow noindex noopener external ugc"></a>Structure</h2>
+<h2 class="heading-element">Structure</h2><a id="user-content-structure" class="anchor" href="#user-content-structure" rel="nofollow noindex noopener external ugc"></a>
 <p>After installation, you can work with the following files:</p>
 <ul>
 <li><code>config/its-lte.php</code> - configs</li>
@@ -1057,7 +1019,7 @@
 </ul>
 </li>
 </ul>
-<h3><a id="user-content-laravel-file-manager-v2" class="anchor" href="#user-content-laravel-file-manager-v2" rel="nofollow noindex noopener external ugc"></a>Laravel File Manager (v2)</h3>
+<h3 class="heading-element">Laravel File Manager (v2)</h3><a id="user-content-laravel-file-manager-v2" class="anchor" href="#user-content-laravel-file-manager-v2" rel="nofollow noindex noopener external ugc"></a>
 <p>If needed, install <a href="https://github.com/UniSharp/laravel-filemanager" rel="nofollow noindex noopener external ugc">LFM</a>:</p>
 <pre>composer require unisharp/laravel-filemanager</pre>
 <p>Publish LFM files: <code>config/lfm.php</code>, <code>public/vendor/laravel-filemanager</code>:</p>
@@ -1076,10 +1038,10 @@ php artisan vendor:publish --tag=lfm_public</pre>
             <span class="pl-c">//...</span>
         ],      
     ],</pre>
-<h2><a id="user-content-usage" class="anchor" href="#user-content-usage" rel="nofollow noindex noopener external ugc"></a>Usage</h2>
+<h2 class="heading-element">Usage</h2><a id="user-content-usage" class="anchor" href="#user-content-usage" rel="nofollow noindex noopener external ugc"></a>
 <p>In dir <code>resources/views/vendor/lte</code> you can edit, create, delete blade-files.</p>
 <p>For simple manage file-fields use <a href="https://github.com/fomvasss/laravel-medialibrary-extension" rel="nofollow noindex noopener external ugc">fomvasss/laravel-medialibrary-extension</a></p>
-<h2><a id="user-content-credits" class="anchor" href="#user-content-credits" rel="nofollow noindex noopener external ugc"></a>Credits</h2>
+<h2 class="heading-element">Credits</h2><a id="user-content-credits" class="anchor" href="#user-content-credits" rel="nofollow noindex noopener external ugc"></a>
 <ul>
 <li><a href="https://github.com/web-west/itslte" rel="nofollow noindex noopener external ugc">web-west/itslte</a></li>
 <li><a href="https://github.com/ColorlibHQ/AdminLTE" rel="nofollow noindex noopener external ugc">ColorlibHQ/AdminLTE</a></li>
@@ -1134,14 +1096,14 @@ php artisan vendor:publish --tag=lfm_public</pre>
             </nav>
         </footer>
 
-        <script nonce="Ackq4hhr7uk61JfRz/al1Q==">
+        <script nonce="1O9QH8QC5+umLJR17Vr5Ag==">
             var algoliaConfig = {"app_id":"M58222SH95","search_key":"5ae4d03c98685bd7364c2e0fd819af05","index_name":"packagist"};
                         window.process = {
                 env: { DEBUG: undefined },
             };
         </script>
         
-        <script nonce="Ackq4hhr7uk61JfRz/al1Q==" src="/build/app.js?v=1710176595"></script>
+        <script nonce="1O9QH8QC5+umLJR17Vr5Ag==" src="/build/app.js?v=1711529455"></script>
 
             </body>
 </html>
