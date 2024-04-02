@@ -134,9 +134,9 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://crates.io/crates/',
         repoFormat: FORMATS.cargo,
         repoID: REPOS.cratesIo,       
-        titleSelector: "div[class*='heading'] h1",
+        titleSelector: "H1[class*='heading']",
         versionPath: '{artifactId}/{version}', // https://crates.io/crates/claxon/0.4.0
-        pathRegex: /^(?<artifactId>[^/#?]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        pathRegex: /^(?<artifactId>[^/#?]*)(\/(?<version>[^/#?]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'h1 small',
         supportsVersionNavigation: true
     },
