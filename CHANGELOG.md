@@ -1,3 +1,10 @@
+## [2.17.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.17.0...v2.17.1) (2024-04-26)
+
+
+### Bug Fixes
+
+* handle npmjs.com when package flagged as deprecated [#120](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/120) ([72087a8](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/72087a8d1117011a6c84c75b5f10b5d0ccabc3ad))
+
 # [2.17.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.16.0...v2.17.0) (2024-04-02)
 
 
