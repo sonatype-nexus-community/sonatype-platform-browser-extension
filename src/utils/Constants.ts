@@ -215,7 +215,7 @@ export const REPO_TYPES: RepoType[] = [
         titleSelector: '#top > div > h1 > span',
         versionPath: '{groupAndArtifactId}/v/{version}',
         pathRegex: /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-        versionDomPath: '#top > div > span',
+        versionDomPath: '#top > div:not(.bg-washed-red) > span',
         supportsVersionNavigation: true
     },
     {
