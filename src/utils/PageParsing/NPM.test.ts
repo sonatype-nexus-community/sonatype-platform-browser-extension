@@ -133,4 +133,21 @@ describe('NPM Page Parsing', () => {
         expect(PackageURL?.name).toBe('policy-demo')
         expect(PackageURL?.version).toBe('2.3.0')
     })
+
+    test('Valid NPM page for deprecated component: path-is-absolute', () => {
+        const html = readFileSync(join(__dirname, 'testdata/npm-deprecated.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const PackageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://www.npmjs.com/package/path-is-absolute'
+        )
+
+        expect(PackageURL).toBeDefined()
+        expect(PackageURL?.type).toBe(FORMATS.npm)
+        expect(PackageURL?.namespace).toBeUndefined()
+        expect(PackageURL?.name).toBe('path-is-absolute')
+        expect(PackageURL?.version).toBe('2.0.0')
+    })
 })

@@ -36,6 +36,7 @@ get_data "MVNRepository.html" "https://mvnrepository.com/artifact/org.apache.str
 # NPM
 get_data "npm.html" "https://www.npmjs.com/package/@sonatype/react-shared-components/v/6.0.1"
 get_data "npm2.html" "https://www.npmjs.com/package/@sonatype/policy-demo/v/2.3.0"
+get_data "npm-deprecated.html" "https://www.npmjs.com/package/path-is-absolute/v/2.0.0"
 
 # NuGet
 get_data "nuget-Newtonsoft.JSON-v13.0.1.html" "https://www.nuget.org/packages/Newtonsoft.Json/13.0.1"
