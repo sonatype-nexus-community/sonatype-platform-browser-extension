@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Faça um Shift Left na sua segurança instalando a extensão da Plataforma Sonatype -  Escaneie repositórios de código aberto em busca de vulnerabilidades conhecidas.",
+        "message": "Aprimore sua segurança instalando a extensão da Plataforma Sonatype - saiba onde estão as vulnerabilidades no código aberto.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
