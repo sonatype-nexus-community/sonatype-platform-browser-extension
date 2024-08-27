@@ -1,16 +1,3 @@
-## [2.18.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.18.0...v2.18.1) (2024-08-27)
-
-
-### Bug Fixes
-
-* attempt to resolve [#126](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/126) by pinning version of `semantic-release` ([ca6ba79](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ca6ba79e5a21174ad16720dba993e81957672af5))
-
-# [2.18.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.17.1...v2.18.0) (2024-08-27)
-
-
-### Features
-
-* support PyPi packages where there is no source distribution published ([3d652f7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/3d652f72f38b0c7f5c9fddce8ba7aec65194283c))
 
 ## [2.17.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.17.0...v2.17.1) (2024-04-26)
 
