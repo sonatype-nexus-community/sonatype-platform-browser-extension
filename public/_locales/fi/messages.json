@@ -25,6 +25,18 @@
         "message": "Luettelon päivämäärä",
         "description": "Päivämäärä, jolloin tämä komponenttiversio lisättiin Sonatype-tietoluetteloon"
     },
+    "INTEGRITY_RATING": {
+        "message": "Eheyden Arvo",
+        "description": "Component's Release Integrity Score"
+    },
+    "HYGIENE_RATING": {
+        "message": "Hygieniataso",
+        "description": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software."
+    },
+    "HYGIENE_RATING_DESC": {
+        "message": "Avoimen lähdekoodin projektin laatu (Jälkeenjäänyt, Esimerkki, Neutraali). Tämä lasketaan perustuen projekteihin, jotka osoittavat parhaat ja huonoimmat käytännöt laadukkaan avoimen lähdekoodin ohjelmiston tuottamisessa.",
+        "description": "The tooltip description of Hygiene Rating"
+    },
     "SONATYPE_IQ_SERVER": {
         "message": "Sonatype IQ Server",
         "description": "Brändätty tuotenimi Sonatype IQ Serverille"
