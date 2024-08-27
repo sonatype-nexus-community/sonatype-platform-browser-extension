@@ -117,7 +117,7 @@ jobs:
                   command: yarn run test
             - run:
                   name: Semantic Release
-                  command: npx semantic-release
+                  command: npx semantic-release@v22.0.12
             - slack/notify:
                   channel: C05MTRX6EF8
                   event: pass
