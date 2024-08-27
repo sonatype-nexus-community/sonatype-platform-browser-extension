@@ -1,3 +1,10 @@
+## [2.18.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.18.0...v2.18.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* attempt to resolve [#126](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/126) by pinning version of `semantic-release` ([ca6ba79](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/ca6ba79e5a21174ad16720dba993e81957672af5))
+
 # [2.18.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.17.1...v2.18.0) (2024-08-27)
 
 
