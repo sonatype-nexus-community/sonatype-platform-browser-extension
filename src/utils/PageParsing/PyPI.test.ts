@@ -102,4 +102,21 @@ describe('PyPI Page Parsing', () => {
         expect(packageURL?.version).toBe('19.2.0')
         expect(packageURL?.qualifiers).toEqual({ extension: 'tar.bz2' })
     })
+
+    test('should parse valid PyPI page where there is no SOURCE distribution', () => {
+        const html = readFileSync(join(__dirname, 'testdata/pypi-mediapipe-0.10.14.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            'https://pypi.org/project/mediapipe/0.10.14/'
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pypi)
+        expect(packageURL?.name).toBe('mediapipe')
+        expect(packageURL?.version).toBe('0.10.14')
+        expect(packageURL?.qualifiers).toEqual({ extension: 'whl', qualifier: 'cp312-cp312-win_amd64' })
+    })
 })
