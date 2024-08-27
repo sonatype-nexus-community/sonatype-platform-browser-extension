@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Intégrez la sécurité dès le départ avec l'extension Sonatype - Analysez les repositories Open Source pour les vulnérabilités.",
+        "message": "Intégrez la sécurité au plus tôt - Analysez les repositories Open Source et affichez les vulnérabilités des composants",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
