@@ -41,6 +41,8 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
   - [Known Security Issues](#known-security-issues)
   - [Open Source License(s)](#open-source-licenses)
 - [Additional Feature Support](#additional-feature-support)
+- [Caveats](#caveats)
+  - [PyPi Packages with No Source Distribution](#pypi-packages-with-no-source-distribution)
 - [Development](#development)
 - [Uninstallation](#uninstallation)
 - [Version History](#version-history)
@@ -67,7 +69,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                              |
 | NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                              |
 | Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                              |
-| PyPI                   | Python              | ✅      | `https://pypi.org/`              | ✅                              |
+| PyPI                   | Python              | ✅ ^3   | `https://pypi.org/`              | ✅                              |
 | RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
 | Spring.io              | Java                | ❌ ^2   | `https://repo.spring.io/list/`   | N/A                             |
 
@@ -75,7 +77,7 @@ _Notes:_
 
 1. See issue [#36](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/36)
 2. Run on a public instance of jFrog Artifactory - support coming soon
-3. Where the Public Registry maintains pages for all versions, navigation to specific versions can be supported
+3. By default we lookup the Source Distribution. Where no Source Distribution is published we lookup the first Built Distribution - this can lead to an incomplete view of risk - [read more](#pypi-packages-with-no-source-distribution)
 
 ### Private Hosted Registries
 
@@ -222,6 +224,18 @@ Current and future additional features are available based on the additional cap
 [Advanced Legal Pack](https://help.sonatype.com/iqserver/product-information/add-on-packs/advanced-legal-pack-quickstart)
 
 -   [Extended Observed License Detections](https://help.sonatype.com/iqserver/configuring/advanced-legal-pack-extended-observed-license-detections) - When enabled, the browser extenstion shows the observed licenses detected for that component.
+
+## Caveats
+
+### PyPi Packages with No Source Distribution
+
+There are a few examples of projects published to PyPi (such as [mediapipe](https://pypi.org/project/mediapipe/)) that have not published a Source Distribution.
+
+By default, when the Sonatype Platform Browser Extension looks up data on PyPi packages, we default to looking up information based on it's Source Distribution - 
+this has no consideration as to your Python Version or Architecture.
+
+When looking up data based on a Built Distribution, this can include the Python Version and/or Architecture, and this may not provide an accurate representation
+of the risks associated with your use of the Package if your Python Version and/or Architrecture differ from the first Build Distribution in the list.
 
 ## Development
 
