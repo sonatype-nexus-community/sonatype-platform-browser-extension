@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Cambie la seguridad a la izquierda con la extensión del navegador de la plataforma Sonatype: analice los repositorios de código abierto en busca de vulnerabilidades conocidas.",
+        "message": "Refuerce la seguridad con la extensión de Sonatype: analice repositorios de código abierto en busca de vulnerabilidades conocidas.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
