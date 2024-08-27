@@ -16,8 +16,8 @@
     <title>Django · PyPI</title>
     <meta name="description" content="A high-level Python web framework that encourages rapid development and clean, pragmatic design.">
 
-    <link rel="stylesheet" href="/static/css/warehouse-ltr.6d3ae9c8.css">
-    <link rel="stylesheet" href="/static/css/fontawesome.7f817476.css">
+    <link rel="stylesheet" href="/static/css/warehouse-ltr.da224ee8.css">
+    <link rel="stylesheet" href="/static/css/fontawesome.da0464c1.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+3:400,400italic,600,600italic,700,700italic%7CSource+Code+Pro:500">
     <noscript>
       <link rel="stylesheet" href="/static/css/noscript.0673c9ea.css">
@@ -42,7 +42,7 @@
     <script async
 data-ga-id="UA-55961911-1"
 data-ga4-id="G-RW7D75DF8V"
-            src="/static/js/warehouse.33271ebb.js">
+            src="/static/js/warehouse.aee26c54.js">
     </script>
 <script>
 MathJax = {
@@ -161,12 +161,6 @@ Menu      <span class="dropdown__trigger-caret">
     </div>
 
     <main id="content">
-<div class="hidden"
-  data-controller="github-repo-stats"
-  data-github-repo-stats-github-repo-info-outlet=".github-repo-info"
-  data-github-repo-stats-url-value="https://api.github.com/repos/django/django"
-  data-github-repo-stats-issue-url-value="https://api.github.com/search/issues?q=repo:django/django+type:issue+state:open&amp;per_page=1">
-</div>
 
 <div class="banner">
   <div class="package-header">
@@ -188,7 +182,7 @@ Menu      <span class="dropdown__trigger-caret">
 
     <div class="package-header__right">
       <a class="status-badge status-badge--bad" href="/project/Django/">
-        <span>Newer version available (5.0.4)</span>
+        <span>Newer version available (5.1)</span>
       </a>
       <p class="package-header__date">
 Released: <time datetime="2023-05-03T12:58:27+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
@@ -235,6 +229,7 @@ Download files                </a>
 <div class="sidebar-section verified">
   <h3 class="sidebar-section__title">Verified details</h3>
   <small><i>These details have been verified by PyPI</i></small>
+
     <h6>Maintainers</h6>
       <span class="sidebar-section__maintainer">
         <a href="/user/felixx/" aria-label="">
@@ -278,7 +273,7 @@ Download files                </a>
       </span>
 </div>
 
-<div class="sidebar-section verified">
+<div class="sidebar-section unverified">
   <h3 class="sidebar-section__title">Unverified details</h3>
   <small><i>These details have <b>not</b> been verified by PyPI</i></small>
   <h6>Project links</h6>
@@ -327,56 +322,28 @@ Download files                </a>
     </li>
   </ul>
 
-  <h6>GitHub Statistics</h6>
-  <div class="hidden github-repo-info" data-controller="github-repo-info">
-    <ul class="vertical-tabs__list">
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="stargazersUrl" rel="noopener">
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <strong>Stars:</strong>
-          <span data-github-repo-info-target="stargazersCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="forksUrl" rel="noopener">
-          <i class="fa fa-code-branch" aria-hidden="true"></i>
-          <strong>Forks:</strong>
-          <span data-github-repo-info-target="forksCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="openIssuesUrl" rel="noopener">
-          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-          <strong>Open issues:</strong>
-          <span data-github-repo-info-target="openIssuesCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="openPRsUrl" rel="noopener">
-          <i class="fa fa-code-pull-request" aria-hidden="true"></i>
-          <strong>Open PRs:</strong>
-          <span data-github-repo-info-target="openPRsCount"></span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <p>
-View statistics for this project via <a href="https://libraries.io/pypi/Django" title="External link" target="_blank" rel="noopener">Libraries.io</a>, or by using <a href="https://packaging.python.org/guides/analyzing-pypi-package-downloads/" target="_blank" rel="noopener">our public dataset on Google BigQuery</a>  </p>
-
-<div class="sidebar-section">
+<div class="sidebar-section unverified">
   <h6>Meta</h6>
-  <p><strong>License:</strong> BSD License (BSD-3-Clause)</p>
-    <p><strong>Author:</strong> <a href="mailto:foundation@djangoproject.com">Django Software Foundation</a></p>
-  <p>
-    <strong>Requires:</strong> Python &gt;=3.8
-  </p>
+  <ul class="vertical-tabs__list">
+    <li>
+      <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+        <strong>License:</strong> BSD License (BSD-3-Clause)
+      </span>
+    </li>
+    <li>
+      <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+        <strong>Author:</strong> <a href="mailto:foundation@djangoproject.com">Django Software Foundation</a>
+      </span>
+    </li>
+  <li>
+    <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+      <strong>Requires:</strong> Python &gt;=3.8
+    </span>
+  </li>
+  </ul>
 </div>
 
-<div class="sidebar-section">
+<div class="sidebar-section unverified">
   <h6 class="sidebar-section__title">Classifiers</h6>
   <ul class="sidebar-section__classifiers">
     <li>
@@ -595,6 +562,7 @@ information about getting involved.</li>
 <div class="sidebar-section verified">
   <h3 class="sidebar-section__title">Verified details</h3>
   <small><i>These details have been verified by PyPI</i></small>
+
     <h6>Maintainers</h6>
       <span class="sidebar-section__maintainer">
         <a href="/user/felixx/" aria-label="">
@@ -638,7 +606,7 @@ information about getting involved.</li>
       </span>
 </div>
 
-<div class="sidebar-section verified">
+<div class="sidebar-section unverified">
   <h3 class="sidebar-section__title">Unverified details</h3>
   <small><i>These details have <b>not</b> been verified by PyPI</i></small>
   <h6>Project links</h6>
@@ -687,56 +655,28 @@ information about getting involved.</li>
     </li>
   </ul>
 
-  <h6>GitHub Statistics</h6>
-  <div class="hidden github-repo-info" data-controller="github-repo-info">
-    <ul class="vertical-tabs__list">
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="stargazersUrl" rel="noopener">
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <strong>Stars:</strong>
-          <span data-github-repo-info-target="stargazersCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="forksUrl" rel="noopener">
-          <i class="fa fa-code-branch" aria-hidden="true"></i>
-          <strong>Forks:</strong>
-          <span data-github-repo-info-target="forksCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="openIssuesUrl" rel="noopener">
-          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-          <strong>Open issues:</strong>
-          <span data-github-repo-info-target="openIssuesCount"></span>
-        </a>
-      </li>
-      <li>
-        <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed"
-           data-github-repo-info-target="openPRsUrl" rel="noopener">
-          <i class="fa fa-code-pull-request" aria-hidden="true"></i>
-          <strong>Open PRs:</strong>
-          <span data-github-repo-info-target="openPRsCount"></span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <p>
-View statistics for this project via <a href="https://libraries.io/pypi/Django" title="External link" target="_blank" rel="noopener">Libraries.io</a>, or by using <a href="https://packaging.python.org/guides/analyzing-pypi-package-downloads/" target="_blank" rel="noopener">our public dataset on Google BigQuery</a>  </p>
-
-<div class="sidebar-section">
+<div class="sidebar-section unverified">
   <h6>Meta</h6>
-  <p><strong>License:</strong> BSD License (BSD-3-Clause)</p>
-    <p><strong>Author:</strong> <a href="mailto:foundation@djangoproject.com">Django Software Foundation</a></p>
-  <p>
-    <strong>Requires:</strong> Python &gt;=3.8
-  </p>
+  <ul class="vertical-tabs__list">
+    <li>
+      <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+        <strong>License:</strong> BSD License (BSD-3-Clause)
+      </span>
+    </li>
+    <li>
+      <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+        <strong>Author:</strong> <a href="mailto:foundation@djangoproject.com">Django Software Foundation</a>
+      </span>
+    </li>
+  <li>
+    <span class="vertical-tabs__tab vertical-tabs__tab--condensed">
+      <strong>Requires:</strong> Python &gt;=3.8
+    </span>
+  </li>
+  </ul>
 </div>
 
-<div class="sidebar-section">
+<div class="sidebar-section unverified">
   <h6 class="sidebar-section__title">Classifiers</h6>
   <ul class="sidebar-section__classifiers">
     <li>
@@ -885,6 +825,178 @@ View statistics for this project via <a href="https://libraries.io/pypi/Django" 
 
           <div class="release-timeline">
             <div class="release release--latest">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.1/">
+                <p class="release__version">
+                  5.1
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-08-07T13:33:52+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Aug 7, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.1rc1/">
+                <p class="release__version">
+                  5.1rc1
+                  <span class="badge badge--warning">
+pre-release                  </span>
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-07-24T14:09:23+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Jul 24, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.1b1/">
+                <p class="release__version">
+                  5.1b1
+                  <span class="badge badge--warning">
+pre-release                  </span>
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-06-26T15:35:14+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Jun 26, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.1a1/">
+                <p class="release__version">
+                  5.1a1
+                  <span class="badge badge--warning">
+pre-release                  </span>
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-05-22T16:41:39+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  May 22, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.0.8/">
+                <p class="release__version">
+                  5.0.8
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-08-06T13:28:41+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Aug 6, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.0.7/">
+                <p class="release__version">
+                  5.0.7
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-07-09T14:07:00+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Jul 9, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.0.6/">
+                <p class="release__version">
+                  5.0.6
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-05-07T16:55:41+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  May 7, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/5.0.5/">
+                <p class="release__version">
+                  5.0.5
+                  <span class="badge badge--danger">
+yanked                  </span>
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-05-06T16:46:37+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  May 6, 2024
+</time>
+                </p>
+                  <div class="callout-block callout-block--danger release__yanked-reason">
+                    <p>Reason this release was yanked:</p>
+                    <p>Release files have Windows end-of-line characters and are missing executable bits.</p>
+                  </div>
+              </a>
+            </div>
+            <div class="release">
               <div class="release__meta">
               </div>
 
@@ -1048,6 +1160,92 @@ pre-release                  </span>
   Sep 18, 2023
 </time>
                 </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/4.2.15/">
+                <p class="release__version">
+                  4.2.15
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-08-06T13:16:35+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Aug 6, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/4.2.14/">
+                <p class="release__version">
+                  4.2.14
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-07-09T14:03:07+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  Jul 9, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/4.2.13/">
+                <p class="release__version">
+                  4.2.13
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-05-07T17:22:58+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  May 7, 2024
+</time>
+                </p>
+              </a>
+            </div>
+            <div class="release">
+              <div class="release__meta">
+              </div>
+
+              <div class="release__graphic">
+                <div class="release__line"></div>
+                <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+              </div>
+
+              <a class="card release__card" href="/project/Django/4.2.12/">
+                <p class="release__version">
+                  4.2.12
+                  <span class="badge badge--danger">
+yanked                  </span>
+                </p>
+                <p class="release__version-date">
+                  <time datetime="2024-05-06T16:41:14+0000" data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false">
+  May 6, 2024
+</time>
+                </p>
+                  <div class="callout-block callout-block--danger release__yanked-reason">
+                    <p>Reason this release was yanked:</p>
+                    <p>Release files have Windows end-of-line characters and are missing executable bits.</p>
+                  </div>
               </a>
             </div>
             <div class="release">
@@ -8304,11 +8502,11 @@ Copy              </button>
           <h2>Using PyPI</h2>
           <nav aria-label="Using PyPI navigation">
             <ul>
-              <li><a href="https://github.com/pypa/.github/blob/main/CODE_OF_CONDUCT.md" title="External link" target="_blank" rel="noopener">Code of conduct</a></li>
+              <li><a href="https://policies.python.org/python.org/code-of-conduct/" title="External link" target="_blank" rel="noopener">Code of conduct</a></li>
               <li><a href="/security/">Report security issue</a></li>
               <li><a href="https://www.python.org/privacy/" title="External link" target="_blank" rel="noopener">Privacy policy</a></li>
-              <li><a href="/policy/terms-of-use/">Terms of use</a></li>
-              <li><a href="/policy/acceptable-use-policy/">Acceptable Use Policy</a></li>
+              <li><a href="https://policies.python.org/pypi.org/Terms-of-Use/" title="External link" target="_blank" rel="noopener">Terms of Use</a></li>
+              <li><a href="https://policies.python.org/pypi.org/Acceptable-Use-Policy/" title="External link" target="_blank" rel="noopener">Acceptable Use Policy</a></li>
             </ul>
           </nav>
         </div>
@@ -8432,7 +8630,7 @@ Switch to desktop version        </button>
             <button
               name="locale_id" value="eo" type="submit"
             >
-              esperanto
+              Esperanto
             </button>
           </li>
         </ul>
