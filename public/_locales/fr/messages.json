@@ -25,6 +25,18 @@
         "message": "Date du catalogue",
         "description": "The date this component version was added to the Sonatype data catalog"
     },
+    "INTEGRITY_RATING": {
+        "message": "Évaluation d’Intégrité",
+        "description": "Component's Release Integrity Score"
+    },
+    "HYGIENE_RATING": {
+        "message": "Évaluation de l’Hygiène",
+        "description": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software."
+    },
+    "HYGIENE_RATING_DESC": {
+        "message": "La qualité (Retardataire, Exemplaire, Neutre) d’un projet open-source. Cela est calculé en fonction des projets qui montrent les meilleurs et les pires comportements dans la production de logiciels open-source de qualité.",
+        "description": "The tooltip description of Hygiene Rating"
+    },
     "SONATYPE_IQ_SERVER": {
         "message": "Sonatype IQ Server",
         "description": "Branded product name for Sonatype IQ Server"

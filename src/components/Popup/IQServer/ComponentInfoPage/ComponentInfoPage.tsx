@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import {
-    NxDescriptionList,
     NxFontAwesomeIcon,
     NxLoadingSpinner,
     NxPolicyViolationIndicator,
@@ -171,25 +170,28 @@ function IqComponentInfo() {
                     )}
                     <div className='nx-grid-row'>
                         <div className='nx-grid-col'>
-                            {popupContext.iq?.componentDetails.integrityRating != null && (
-                                <NxDescriptionList emptyMessage={''}>
-                                    <NxDescriptionList.Item>
-                                        <NxDescriptionList.Term>
-                                            <NxTextLink
-                                                external
-                                                href='https://help.sonatype.com/fw/next-gen-firewall-features/protection-from-pending-and-suspicious-components'>
-                                                Integrity Rating
-                                            </NxTextLink>
-                                        </NxDescriptionList.Term>
-                                        <NxDescriptionList.Description>
-                                            {popupContext.iq?.componentDetails.integrityRating}
-                                        </NxDescriptionList.Description>
-                                    </NxDescriptionList.Item>
-                                </NxDescriptionList>
-                            )}
-                        </div>
+                        {(popupContext.iq?.componentDetails.integrityRating != null) && (
+                            <h4 className="nx-h4">
+                            <NxTextLink
+                                external
+                                href='https://help.sonatype.com/en/release-integrity.html'>
+                                {_browser.i18n.getMessage('INTEGRITY_RATING')}
+                            </NxTextLink> : {'\u00A0'}
+                            {popupContext.iq?.componentDetails.integrityRating} 
+                            <br/>
+                            </h4>
+                        )}
+                        {popupContext.iq?.componentDetails.hygieneRating != null && (
+                            <Tooltip title={_browser.i18n.getMessage('HYGIENE_RATING_DESC')}>
+                            <h4 className="nx-h4">
+                                {_browser.i18n.getMessage('HYGIENE_RATING')}
+                                : {'\u00A0'} {popupContext.iq?.componentDetails.hygieneRating}
+                            </h4>
+                            </Tooltip>
+                        )}
+                      </div>
                     </div>
-                </div>
+                </div>                
 
                 {popupContext.iq?.componentDetails.projectData &&
                     (popupContext.iq?.componentDetails.projectData.lastReleaseDate ||
