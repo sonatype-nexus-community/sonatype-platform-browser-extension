@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Μετακινήστε την ασφάλεια προς τα αριστερά με την επέκταση προγράμματος περιήγησης της πλατφόρμας Sonatype - Σαρώστε μητρώα ανοιχτού κώδικα για γνωστά θέματα ασφαλείας.",
+        "message": "Μετακινήστε την ασφάλεια αριστερά με την επέκταση του Sonatype - Σαρώστε μητρώα ανοιχτού κώδικα για γνωστά θέματα ασφαλείας.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {

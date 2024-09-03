@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Fangen Sie früher im Softwareentwicklungsprozess mit Ihren Sicherheitschecks an. “Shift Left” mit der Sonatype Plattform Browser Extension - Scannen Sie Open Source Repositories auf bekannte Sicherheitslücken.",
+        "message": "\"Shift Left\" mit der Sonatype Plattform Browser Extension - Scannen Sie Open Source Repositories auf bekannte Sicherheitslücken.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {

@@ -4,7 +4,7 @@
         "description": "Tämän selainlaajennuksen nimi."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Siirrä tietoturva vasemmalle Sonatype Platform-selainlaajennuksella - Skannaa avoimen lähdekoodin arkistoja tunnettujen haavoittuvuuksien varalta.",
+        "message": "Skannaa avoimen lähdekoodin julkaisuja haittaohjelmien ja haavoittuvuuksien varalta Sonatype platform -selainlaajennuksella",
         "description": "Tämän selainlaajennuksen kuvaus."
     },
     "RELEASE_VERSION": {

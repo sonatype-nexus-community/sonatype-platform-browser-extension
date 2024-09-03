@@ -4,7 +4,7 @@
         "description": "The full name for this browser extension."
     },
     "EXTENSION_DESCRIPTION": {
-        "message": "Canvieu la seguretat cap a l'esquerra amb l'extensió del navegador de la plataforma Sonatype: analitzeu els repositoris de còdig obert per detectar vulnerabilitats conegudes.",
+        "message": "Millorar la seguretat amb l'extensió de Sonatype: analitzeu repositoris de codi obert per detectar vulnerabilitats conegudes.",
         "description": "Description of this browser extension."
     },
     "RELEASE_VERSION": {
