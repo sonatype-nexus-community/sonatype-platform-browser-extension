@@ -7,7 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/stargazers)
 
 [![Available on the Chrome Webstore](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png)](https://chrome.google.com/webstore/detail/sonatype-platform-browser/kahnhlonadjlllgnilndafpajaiepdag)
-[<img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Available on the Microsoft Edge Webstore" height="58" style="max-height:58px; width:200px;"/>](https://microsoftedge.microsoft.com/addons/detail/sonatype-platform-browser/eimppjecdnhdmdiohjnkbjgdeaecabmg)
+[<img src="https://learn.microsoft.com/en-us/windows/apps/images/new-badge-dark.png" alt="Available on the Microsoft Edge Webstore" height="58" style="max-height:58px; width:200px;"/>](https://microsoftedge.microsoft.com/addons/detail/sonatype-platform-browser/eimppjecdnhdmdiohjnkbjgdeaecabmg)
 
 The Sonatype Platform Browser Extension supercedes the [Nexus IQ Evaluation Extension](https://chrome.google.com/webstore/detail/mjehedmoboadebjmbmobpedkdgenmlhd?authuser=0&hl=en-GB), and allows Developers to get insight from the [Sonatype Platform](https://www.sonatype.com/products/software-supply-chain-management) for Open Source packages as you browse Public Open Source Registries - i.e. before a package is even downloaded!
 
