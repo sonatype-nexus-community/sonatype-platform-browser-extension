@@ -1,3 +1,22 @@
+# [2.19.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.18.1...v2.19.0) (2024-09-03)
+
+
+### Bug Fixes
+
+* updated CA and ES  description to be less than 132 characters ([3f4d7ff](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/3f4d7ffef8d3014ca97ce4c8ab2a2337d9fec05f))
+* updated EL description to be less than 132 characters ([6401391](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/64013916a4550378307661bb64f9101b7054beca))
+* updated finnish description to be less than 132 characters ([48d881d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/48d881d009413e5ae78cc2c6dafd65810c703b81))
+* updated FR description to be less than 132 characters ([4d1996d](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/4d1996d65268056424dd22212755f3738a103ac6))
+* updated FR description to be less than 132 characters ([b1f0014](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/b1f0014b4d9a6164b0a0e21ae208b9d0aa1de501))
+* updated german description to be less than 132 characters ([386ff9c](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/386ff9cc59a2015858f3e8d64e6dc51ee7efade0))
+* updated PT descriptions to be less than 132 characters ([8690fe4](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/8690fe4299f9a7c0f352426ec91abf15ab4e6d27))
+
+
+### Features
+
+* add Integrity and Hygiene ratings if present ([dc639f5](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/dc639f5d0920a5f553ad9c98ff3561ed4e20d0e2))
+* update translations for integrity and hygiene ratings ([93eb943](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/93eb9431843c32a58060b6245f7853e16e5921e6))
+
 ## [2.18.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.18.0...v2.18.1) (2024-08-27)
 
 
