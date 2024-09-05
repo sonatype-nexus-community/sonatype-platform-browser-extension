@@ -1,0 +1,97 @@
+name: Continuous Integration
+
+# This GitHub action runs your tests for each pull request and push.
+# Optionally, you can turn it on using a schedule for regular testing.
+on:
+    pull_request:
+        paths-ignore:
+            - 'README.md'
+    pull_request_target:
+        branches:
+            - main
+    push:
+        branches:
+            - main
+
+env:
+    LC_APPLICATION_ID: sonatype-platform-browser-extension
+    YARN_VERSION: 1.22.19
+
+# Testing only needs permissions to read the repository contents.
+permissions:
+    contents: read
+
+jobs:
+    build:
+        name: Build & Test
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            - name: Install Yarn
+              run: npm install -g yarn@${{ env.YARN_VERSION }}
+
+            - name: Build
+              run: yarn install && yarn webpack --mode production --env production --no-watch
+
+            - name: Run Tests
+              run: yarn run test
+
+    sonatype:
+        name: Sonatype Lifecycle
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            - name: Install Yarn
+              run: npm install -g yarn@${{ env.YARN_VERSION }}
+
+            # See https://help.sonatype.com/en/npm-application-analysis.html
+            - name: Install Production Node Dependencies
+              run: yarn install --prod
+
+            - name: Sonatype Lifecycle Evaluation
+              id: evaluate
+              uses: sonatype/actions/evaluate@v1.0.3
+              with:
+                  iq-server-url: ${{ vars.SONATYPE_PLATFORM_URL }}
+                  username: ${{ secrets.SONATYPE_LIFECYCLE_USERNAME }}
+                  password: ${{ secrets.SONATYPE_LIFECYCLE_PASSWORD }}
+                  application-id: ${{ env.LC_APPLICATION_ID }}
+                  scan-targets: '.'
+
+    code_quality:
+        name: Code Quality
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+              with:
+                  # Disabling shallow clone is recommended for improving relevancy of reporting
+                  fetch-depth: 0
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            - name: Install Yarn
+              run: npm install -g yarn@${{ env.YARN_VERSION }}
+
+            - name: Run Linter
+              run: yarn install && yarn run lint
