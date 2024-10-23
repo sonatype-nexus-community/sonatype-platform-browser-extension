@@ -38,41 +38,41 @@ describe('NPM Page Parsing', () => {
         expect(PackageURL?.type).toBe(FORMATS.npm)
         expect(PackageURL?.namespace).toBe('@sonatype')
         expect(PackageURL?.name).toBe('react-shared-components')
-        expect(PackageURL?.version).toBe('6.0.1')
+        expect(PackageURL?.version).toBe('13.3.2')
     })
 
-    test('should parse a valid NPM page: @sonatype/react-shared-components/v/12.14.2', () => {
+    test('should parse a valid NPM page: @sonatype/react-shared-components/v/13.3.2', () => {
         const html = readFileSync(join(__dirname, 'testdata/npm.html'))
 
         window.document.body.innerHTML = html.toString()
 
         const PackageURL = getArtifactDetailsFromDOM(
             ensure(repoType),
-            'https://www.npmjs.com/package/@sonatype/react-shared-components/v/12.14.2'
+            'https://www.npmjs.com/package/@sonatype/react-shared-components/v/13.3.2'
         )
 
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.type).toBe(FORMATS.npm)
         expect(PackageURL?.namespace).toBe('@sonatype')
         expect(PackageURL?.name).toBe('react-shared-components')
-        expect(PackageURL?.version).toBe('12.14.2')
+        expect(PackageURL?.version).toBe('13.3.2')
     })
 
-    test('should parse a valid NPM page: @sonatype/react-shared-components/v/12.14.2?something#fragment', () => {
+    test('should parse a valid NPM page: @sonatype/react-shared-components/v/13.3.2?something#fragment', () => {
         const html = readFileSync(join(__dirname, 'testdata/npm.html'))
 
         window.document.body.innerHTML = html.toString()
 
         const PackageURL = getArtifactDetailsFromDOM(
             ensure(repoType),
-            'https://www.npmjs.com/package/@sonatype/react-shared-components/v/12.14.2?something#fragment'
+            'https://www.npmjs.com/package/@sonatype/react-shared-components/v/13.3.2?something#fragment'
         )
 
         expect(PackageURL).toBeDefined()
         expect(PackageURL?.type).toBe(FORMATS.npm)
         expect(PackageURL?.namespace).toBe('@sonatype')
         expect(PackageURL?.name).toBe('react-shared-components')
-        expect(PackageURL?.version).toBe('12.14.2')
+        expect(PackageURL?.version).toBe('13.3.2')
     })
 
     test('should parse a valid NPM page: test', () => {
@@ -86,7 +86,7 @@ describe('NPM Page Parsing', () => {
         expect(PackageURL?.type).toBe(FORMATS.npm)
         expect(PackageURL?.namespace).toBeUndefined()
         expect(PackageURL?.name).toBe('test')
-        expect(PackageURL?.version).toBe('6.0.1')
+        expect(PackageURL?.version).toBe('13.3.2')
     })
 
     test('should parse a valid NPM page: test/v/1.2.3', () => {
