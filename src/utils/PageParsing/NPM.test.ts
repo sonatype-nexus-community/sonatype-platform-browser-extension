@@ -19,12 +19,21 @@ import { join } from 'path'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { ensure } from '../Helpers'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { getTitleTextFromTitleSelector } from './Common.test'
 
 describe('NPM Page Parsing', () => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.npmJs)
     const RSC_VERSION = "13.3.2"
     expect(repoType).toBeDefined()
 
+    test('should parse a valid page title from titleSelector in page: @sonatype/react-shared-components', () => {
+        
+        const pageTitle = getTitleTextFromTitleSelector(repoType, 'testdata/npm.html')
+
+        expect(pageTitle).toBe("@sonatype/react-shared-components")
+        
+    })
+    
     test('should parse a valid NPM page: @sonatype/react-shared-components', () => {
         const html = readFileSync(join(__dirname, 'testdata/npm.html'))
 
