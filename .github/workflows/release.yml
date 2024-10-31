@@ -1,10 +1,10 @@
 name: Release
 
-# This GitHub action runs on each tag created
 on:
     push:
         branches:
             - main
+    workflow_dispatch:
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
@@ -57,12 +57,14 @@ jobs:
             - name: Production Build
               run: yarn install && yarn webpack --mode production --env production --no-watch
 
-            # - name: Semantic Release
-            #   uses: cycjimmy/semantic-release-action@v4
-            #   env:
-            #       EDGE_ACCESS_TOKEN_URL: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
-            #       #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #       #   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
             - name: Semantic Release
-              run: npx semantic-release -d #@v22.0.12 # See https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/129
+              run: npx semantic-release -d
+              env:
+                EDGE_ACCESS_TOKEN_URL: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
+                EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
+                EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
+                EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+                GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+                GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
