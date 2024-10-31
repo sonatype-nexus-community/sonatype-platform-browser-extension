@@ -34,7 +34,7 @@ get_data "cran.html" "https://cran.r-project.org/web/packages/oysteR/index.html"
 get_data "MVNRepository.html" "https://mvnrepository.com/artifact/org.apache.struts/struts2-core/2.2.3"
 
 # NPM
-get_data "npm.html" "https://www.npmjs.com/package/@sonatype/react-shared-components/v/6.0.1"
+get_data "npm.html" "https://www.npmjs.com/package/@sonatype/react-shared-components/v/13.3.2"
 get_data "npm2.html" "https://www.npmjs.com/package/@sonatype/policy-demo/v/2.3.0"
 get_data "npm-deprecated.html" "https://www.npmjs.com/package/path-is-absolute/v/2.0.0"
 
