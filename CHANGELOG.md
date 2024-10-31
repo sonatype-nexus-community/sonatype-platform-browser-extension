@@ -1,3 +1,10 @@
+## [2.19.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.19.0...v2.19.1) (2024-10-24)
+
+
+### Bug Fixes
+
+* update the titleSelector to h2 for npm. [#135](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/135) ([50da737](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/50da7377d4919dd2ce89313505d40effd0aa3f07))
+
 # [2.19.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.18.1...v2.19.0) (2024-09-03)
 
 

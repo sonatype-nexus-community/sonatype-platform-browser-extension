@@ -212,7 +212,7 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://www.npmjs.com/package/',
         repoFormat: FORMATS.npm,
         repoID: REPOS.npmJs,
-        titleSelector: '#top > div > h1 > span',
+        titleSelector: '#top > div > h2 > span',
         versionPath: '{groupAndArtifactId}/v/{version}',
         pathRegex: /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '#top > div:not(.bg-washed-red) > span',
