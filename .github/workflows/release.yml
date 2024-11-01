@@ -19,7 +19,7 @@ permissions:
 
 jobs:
     release:
-        name: Build and Publish Docker Image
+        name: Build, Release and Publish
         runs-on: ubuntu-latest
         timeout-minutes: 15
         steps:
