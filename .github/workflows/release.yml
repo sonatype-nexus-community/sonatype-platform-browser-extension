@@ -70,7 +70,7 @@ jobs:
                 EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
                 EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
                 EDGE_SUBMISSION_NOTES: ${{ secrets.EDGE_SUBMISSION_NOTES }}
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                 GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
                 GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
                 GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
