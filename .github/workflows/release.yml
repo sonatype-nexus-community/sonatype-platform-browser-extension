@@ -39,6 +39,9 @@ jobs:
                   sed -i -r 's|/debug/|/|g' src/utils/AnalyticsConfg.ts && 
                   sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts && 
                   sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/utils/AnalyticsConfg.ts
+              env:
+                GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+                GA_API_SECRET: ${{ secrets.GA_API_SECRET }}
 
             - name: Install Production Dependencies
               run: yarn install --prod
@@ -64,6 +67,7 @@ jobs:
                 EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
                 EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
                 EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
+                EDGE_SUBMISSION_NOTES: ${{ secrets.EDGE_SUBMISSION_NOTES }}
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
                 GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
