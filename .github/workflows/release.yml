@@ -1,0 +1,70 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+env:
+    LC_APPLICATION_ID: sonatype-platform-browser-extension
+    YARN_VERSION: 1.22.19
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        name: Build, Release and Publish
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            - name: Install Yarn
+              run: npm install -g yarn@${{ env.YARN_VERSION }}
+
+            - name: Inject Production Google Analytics Configuration
+              run: |
+                  sed -i -r 's|/debug/|/|g' src/utils/AnalyticsConfg.ts && 
+                  sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts && 
+                  sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/utils/AnalyticsConfg.ts
+
+            - name: Install Production Dependencies
+              run: yarn install --prod
+
+            - name: Sonatype Lifecycle Evaluation
+              id: evaluate
+              uses: sonatype/actions/evaluate@v1
+              with:
+                  iq-server-url: ${{ vars.SONATYPE_PLATFORM_URL }}
+                  username: ${{ secrets.SONATYPE_LIFECYCLE_USERNAME }}
+                  password: ${{ secrets.SONATYPE_LIFECYCLE_PASSWORD }}
+                  application-id: ${{ env.LC_APPLICATION_ID }}
+                  scan-targets: '.'
+                  stage: release
+
+            - name: Production Build
+              run: yarn install && yarn webpack --mode production --env production --no-watch
+
+            - name: Semantic Release
+              run: npx semantic-release -d
+              env:
+                EDGE_ACCESS_TOKEN_URL: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
+                EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
+                EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
+                EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+                GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+                GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}

@@ -20,7 +20,7 @@ import { generatePackageURL } from './PurlUtils'
 
 const PYPI_DEFAULT_EXTENSION = 'tar.gz'
 const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [PYPI_DEFAULT_EXTENSION, 'tar.bz2']
-const PYPI_EXTENSION_SELECTOR = '#files > div.file div.file__card A:nth-child(1)'
+const PYPI_EXTENSION_SELECTOR = '#files > div.file div.file__card a:nth-child(1)'
 
 const parsePyPIURL = (url: string): PackageURL | undefined => {
     const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.pypiOrg)
@@ -40,7 +40,7 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
                     break
                 }
             }
-            let extension
+            let extension: string
             if (candidateExtension === undefined) {
                 extension = firstDistributionFilename.split('.').pop() as string
             } else {

@@ -1,7 +1,9 @@
 # Sonatype Platform Browser Extension
 
-[![CircleCI](https://circleci.com/gh/sonatype-nexus-community/sonatype-platform-browser-extension/tree/main.svg?style=shield)](https://circleci.com/gh/sonatype-nexus-community/sonatype-platform-browser-extension/tree/main)
-[![GitHub license](https://img.shields.io/github/license/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/blob/main/LICENSE)
+<!-- Badges Section -->
+[![shield_gh-workflow-test]][link_gh-workflow-test]
+[![shield_license]][license_file]
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sonatype-nexus-community_sonatype-platform-browser-extension&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=sonatype-nexus-community_sonatype-platform-browser-extension)
 [![GitHub issues](https://img.shields.io/github/issues/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues)
 [![GitHub forks](https://img.shields.io/github/forks/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/network)
 [![GitHub stars](https://img.shields.io/github/stars/sonatype-nexus-community/sonatype-platform-browser-extension)](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/stargazers)
@@ -262,3 +264,10 @@ Our version history is kept in our [change log](CHANGELOG.md).
 ## The Fine Print
 
 Supported by Sonatype Inc.
+
+<!-- Links Section -->
+[shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/sonatype-nexus-community/sonatype-platform-browser-extension/ci.yml?branch=main&logo=GitHub&logoColor=white "build"
+[shield_license]: https://img.shields.io/github/license/sonatype-nexus-community/sonatype-platform-browser-extension?logo=open%20source%20initiative&logoColor=white "license"
+
+[link_gh-workflow-test]: https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/actions/workflows/ci.yml?query=branch%3Amain
+[license_file]: https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/blob/main/LICENSE
