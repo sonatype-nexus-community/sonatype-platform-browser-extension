@@ -1,3 +1,16 @@
+# [2.20.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.19.1...v2.20.0) (2024-11-14)
+
+
+### Bug Fixes
+
+* PyPi Page Parsing tests failing in CI and locally [#138](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/138) ([6c2c2b8](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/6c2c2b83009b0c175c9bd61cd810782d02eae0c8))
+
+
+### Features
+
+* add release workflow in GitHub actions ([d2f1f9c](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/d2f1f9ca17e8fa02bbc67a23463f2d1ec217774d))
+* remove CircleCI configuration ([8bac23f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/8bac23ff065d2d392dc2026661deeab2239a8f27))
+
 ## [2.19.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.19.0...v2.19.1) (2024-10-24)
 
 
