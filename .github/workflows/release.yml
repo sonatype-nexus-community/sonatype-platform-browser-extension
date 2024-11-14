@@ -61,7 +61,7 @@ jobs:
               run: yarn install && yarn webpack --mode production --env production --no-watch
 
             - name: Semantic Release
-              run: npx semantic-release -d
+              run: npx semantic-release
               env:
                 EDGE_ACCESS_TOKEN_URL: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
                 EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
