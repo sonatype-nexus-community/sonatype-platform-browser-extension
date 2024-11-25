@@ -342,5 +342,17 @@
     "DOES_IQ_SUPPORT_FEATURE": {
         "message": "El vostre servidor Sonatype IQ inclou suport per a",
         "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "EXAMPLE": {
+        "message": "Exemple",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Versió suggerida",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Versió daurada",
+        "description": "Golden Version (IQ 184+)"
     }
 }

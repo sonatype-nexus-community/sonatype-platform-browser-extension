@@ -362,5 +362,17 @@
     "DOES_IQ_SUPPORT_FEATURE": {
         "message": "Ο διακομιστής Sonatype IQ περιλαμβάνει υποστήριξη για",
         "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "EXAMPLE": {
+        "message": "Παράδειγμα",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Προτεινόμενη Έκδοση",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Χρυσή Έκδοση",
+        "description": "Golden Version (IQ 184+)"
     }
 }

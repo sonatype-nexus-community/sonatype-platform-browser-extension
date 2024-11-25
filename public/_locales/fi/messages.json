@@ -350,5 +350,17 @@
     "SUPPORTED": {
         "message": "Tuettu",
         "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
+    "EXAMPLE": {
+        "message": "Esimerkki",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Suositeltu versio",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Kultainen versio",
+        "description": "Golden Version (IQ 184+)"
     }
 }

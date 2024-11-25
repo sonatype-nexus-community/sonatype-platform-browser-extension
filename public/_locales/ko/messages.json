@@ -358,5 +358,17 @@
     "SUPPORTED": {
         "message": "지원",
         "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
+    "EXAMPLE": {
+        "message": "예",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "제안된 버전",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "골든 버전",
+        "description": "Golden Version (IQ 184+)"
     }
 }
