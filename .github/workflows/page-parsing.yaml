@@ -1,0 +1,39 @@
+name: Page Parsing Tests
+
+on:
+    schedule:
+        - cron: '0 5 * * *'
+
+env:
+    YARN_VERSION: 1.22.19
+
+# Testing only needs permissions to read the repository contents.
+permissions:
+    contents: read
+
+jobs:
+    page-parsing-tests:
+        name: Test Page Parsing
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            - name: Install Yarn
+              run: npm install -g yarn@${{ env.YARN_VERSION }}
+
+            - name: Install Dependencies
+              run: yarn install
+
+            - name: Update Page Test Data
+              run: ./update-test-data.sh
+              working-directory: src/utils/PageParsing/testdata
+
+            - name: Run Tests
+              run: yarn test
