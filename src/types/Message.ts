@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { ApiComponentRemediationValueDTO } from "@sonatype/nexus-iq-api-client"
+
 /**
  * Enumeration of Message Types that are known.
  */
@@ -65,6 +67,10 @@ export interface MessageResponse {
     status: MESSAGE_RESPONSE_STATUS
     status_detail?: object
     data?: object
+}
+
+export interface MessageResponseGetRemediationDetailsForComponent extends MessageResponse {
+    data: ApiComponentRemediationValueDTO
 }
 
 export type MessageHandlerFunction = {

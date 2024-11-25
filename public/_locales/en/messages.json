@@ -382,5 +382,13 @@
     "EXAMPLE": {
         "message": "Example",
         "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Suggested Version",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Golden Version",
+        "description": "Golden Version (IQ 184+)"
     }
 }

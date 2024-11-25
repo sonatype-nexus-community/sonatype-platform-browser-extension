@@ -20,18 +20,26 @@ import { ExtensionConfigurationContext } from '../../../../context/ExtensionConf
 import AllVersionsDetails from './AllVersionsPage/AllVersionsDetails/AllVersionsDetails'
 import RemediationDetails from './RemediationDetails/RemediationDetails'
 import { DATA_SOURCE } from '../../../../utils/Constants'
+import SuggestedVersionChange from './RemediationDetails/SuggestedVersionChange'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 
 function IqRemediationPage() {
     const popupContext = useContext(ExtensionPopupContext)
-    const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
+    const versionChanges = popupContext.iq?.remediationDetails?.versionChanges
+    const suggestedVersionChange = popupContext.iq?.remediationDetails?.suggestedVersionChange
 
     return (
         <React.Fragment>
             <div className='nx-grid-row'>
                 <section className='nx-grid-col nx-grid-col--33 nx-scrollable'>
+                    {suggestedVersionChange != null && (
+                        <div>
+                            <NxH3>{_browser.i18n.getMessage('SUGGESTED_VERSION')}</NxH3>
+                            <SuggestedVersionChange suggestedVersion={suggestedVersionChange} />
+                        </div>
+                    )}
                     {versionChanges && versionChanges.length > 0 && <NxH3>
                         {_browser.i18n.getMessage('RECOMMENDED_VERSIONS')}
                         </NxH3>}

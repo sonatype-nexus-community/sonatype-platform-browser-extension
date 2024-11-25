@@ -29,7 +29,7 @@ import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 import { GeneralConnectivityError, IncompleteConfigurationError, InvalidConfigurationError, UserAuthenticationError } from '../error/ExtensionError'
-import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS, MessageRequestGetAllComponentVersions } from '../types/Message'
+import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS, MessageRequestGetAllComponentVersions, MessageResponseGetRemediationDetailsForComponent } from '../types/Message'
 import { DATA_SOURCE, FORMATS } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
 import { PackageURL } from 'packageurl-js'
@@ -303,7 +303,7 @@ export async function getComponentLegalDetails(request: MessageRequest): Promise
         })
 }
 
-export async function getRemediationDetailsForComponent(request: MessageRequest): Promise<MessageResponse> {
+export async function getRemediationDetailsForComponent(request: MessageRequest): Promise<MessageResponseGetRemediationDetailsForComponent> {
     return readExtensionConfiguration()
         .then((response) => {
             return response.data as ExtensionConfiguration
@@ -348,9 +348,7 @@ export async function getRemediationDetailsForComponent(request: MessageRequest)
                             )
                             return {
                                 status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-                                data: {
-                                    remediation: remediationDetailsResponse,
-                                },
+                                data: remediationDetailsResponse.remediation,
                             }
                         })
                         .catch(_handle_iq_error_repsonse)

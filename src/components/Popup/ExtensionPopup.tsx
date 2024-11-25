@@ -37,7 +37,7 @@ import {
     ApiComponentDetailsDTOV2,
     ApiComponentEvaluationResultDTOV2,
     ApiComponentEvaluationTicketDTOV2,
-    ApiComponentRemediationDTO,
+    ApiComponentRemediationValueDTO,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
 import { findRepoType } from '../../utils/UrlParsing'
@@ -356,10 +356,7 @@ export default function ExtensionPopup() {
                         )
                         const newPopupContextRemediationDetails = {
                             iq: {
-                                remediationDetails:
-                                    'remediation' in (remediationResponse.data as ApiComponentRemediationDTO)
-                                        ? (remediationResponse.data as ApiComponentRemediationDTO)
-                                        : undefined,
+                                remediationDetails: remediationResponse.data,
                             },
                         }
                         logger.logMessage(

@@ -19,7 +19,7 @@ import React from 'react'
 import { DATA_SOURCE } from '../utils/Constants'
 import {
     ApiComponentDetailsDTOV2,
-    ApiComponentRemediationDTO,
+    ApiComponentRemediationValueDTO,
     ApiLicenseLegalMetadataDTO,
 } from '@sonatype/nexus-iq-api-client'
 
@@ -27,7 +27,7 @@ export interface IqPopupContext {
     allVersions?: Array<ApiComponentDetailsDTOV2>
     componentDetails?: ApiComponentDetailsDTOV2
     componentLegalDetails?: Set<ApiLicenseLegalMetadataDTO>
-    remediationDetails?: ApiComponentRemediationDTO
+    remediationDetails?: ApiComponentRemediationValueDTO
 }
 
 export interface ExtensionPopupContext {
