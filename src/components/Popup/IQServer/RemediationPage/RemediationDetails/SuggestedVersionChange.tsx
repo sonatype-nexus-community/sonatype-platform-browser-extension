@@ -29,6 +29,33 @@ export interface SuggestedVersionChangeProps {
     readonly suggestedVersion: ApiSuggestedVersionChangeOptionDTO
 }
 
+function SuggestedVersionLinkItemContent(props: SuggestedVersionChangeProps) {
+
+    return (
+        <React.Fragment>
+            {props.suggestedVersion.isGolden != null && props.suggestedVersion.isGolden && (
+                <span>
+                    <img
+                        src='/images/golden-star.svg'
+                        alt={_browser.i18n.getMessage('GOLDEN_VERSION')}
+                        title={_browser.i18n.getMessage('GOLDEN_VERSION')}
+                    />
+                </span>
+            )}
+            <NxList.Text>
+                <small>{REMEDIATION_LABELS[props.suggestedVersion.type as string]}</small>
+            </NxList.Text>
+            <NxList.Subtext>
+                <strong>
+                    {props.suggestedVersion.data?.component?.componentIdentifier?.coordinates
+                        ? props.suggestedVersion.data?.component?.componentIdentifier?.coordinates?.version as string
+                        : 'UNKNOWN'}
+                </strong>
+            </NxList.Subtext>
+        </React.Fragment>
+    )
+}
+
 export default function SuggestedVersionChange(props: SuggestedVersionChangeProps) {
 
     const popupContext = useContext(ExtensionPopupContext)
@@ -54,48 +81,12 @@ export default function SuggestedVersionChange(props: SuggestedVersionChangeProp
                             })
                         },
                     })}>
-                    {props.suggestedVersion.isGolden != null && props.suggestedVersion.isGolden && (
-                        <span>
-                            <img
-                                src='/images/golden-star.svg'
-                                alt={_browser.i18n.getMessage('GOLDEN_VERSION')}
-                                title={_browser.i18n.getMessage('GOLDEN_VERSION')}
-                            />
-                        </span>
-                    )}
-                    <NxList.Text>
-                        <small>{REMEDIATION_LABELS[props.suggestedVersion.type as string]}</small>
-                    </NxList.Text>
-                    <NxList.Subtext>
-                        <strong>
-                            {props.suggestedVersion.data?.component?.componentIdentifier?.coordinates
-                                ? version
-                                : 'UNKNOWN'}
-                        </strong>
-                    </NxList.Subtext>
+                    <SuggestedVersionLinkItemContent suggestedVersion={props.suggestedVersion} />
                 </NxList.LinkItem>
             )}
             {clickable !== true && (
                 <NxList.Item key="suggested-change">
-                    {props.suggestedVersion.isGolden == true && (
-                        <span>
-                            <img
-                                src='/images/golden-star.svg'
-                                alt={_browser.i18n.getMessage('GOLDEN_VERSION')}
-                                title={_browser.i18n.getMessage('GOLDEN_VERSION')}
-                            />
-                        </span>
-                    )}
-                    <NxList.Text>
-                        <small>{REMEDIATION_LABELS[props.suggestedVersion.type as string]}</small>
-                    </NxList.Text>
-                    <NxList.Subtext>
-                        <strong>
-                            {props.suggestedVersion.data?.component?.componentIdentifier?.coordinates
-                                ? version
-                                : 'UNKNOWN'}
-                        </strong>
-                    </NxList.Subtext>
+                    <SuggestedVersionLinkItemContent suggestedVersion={props.suggestedVersion} />
                 </NxList.Item>
             )}
         </NxList>
