@@ -37,6 +37,19 @@ describe('Nuget Page Parsing', () => {
         expect(PackageURL?.version).toBe('13.0.1')
     })
 
+    test('Should parse Nuget page /Newtonsoft.Json/', () => {
+        const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.1.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const PackageURL = getArtifactDetailsFromDOM(ensure(repoType), 'https://www.nuget.org/packages/Newtonsoft.Json/')
+
+        expect(PackageURL).toBeDefined()
+        expect(PackageURL?.type).toBe('nuget')
+        expect(PackageURL?.name).toBe('Newtonsoft.Json')
+        expect(PackageURL?.version).toBe('13.0.1')
+    })
+
     test('Should parse Nuget page /Newtonsoft.Json/13.0.3', () => {
         const html = readFileSync(join(__dirname, 'testdata/nuget-Newtonsoft.JSON-v13.0.3.html'))
 

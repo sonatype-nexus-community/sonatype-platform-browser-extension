@@ -225,7 +225,7 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.nugetOrg,
         titleSelector: '.package-title > h1',
         versionPath: '{artifactId}/{version}',
-        pathRegex: /^(?<artifactId>[^/?#]*)(\/(?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        pathRegex: /^(?<artifactId>[^/?#]*)\/?((?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: 'span.version-title',
         supportsVersionNavigation: true
     },

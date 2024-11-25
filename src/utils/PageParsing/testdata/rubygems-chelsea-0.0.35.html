@@ -18,14 +18,14 @@
     <link rel="fluid-icon" href="/fluid-icon.png"/>
     <link rel="search" type="application/opensearchdescription+xml" title="RubyGems.org" href="/opensearch.xml">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/assets/application-e54fe01a.css" />
+    <link rel="stylesheet" href="/assets/application-582326fe.css" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link href='https://fonts.googleapis.com/css?family=Roboto:100&amp;subset=greek,latin,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
     
 <link rel="alternate" type="application/atom+xml" href="https://feeds.feedburner.com/gemcutter-latest" title="RubyGems.org | Latest Gems">
 
     <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="FWRtXdItT5wRea6w7Fm1II6pu4evzN4LubOIEnK_DW1ladqqNW41GtdQ4FZGpa42K9OgQfQkEIpLsuJlpcY5Lw" />
+<meta name="csrf-token" content="eljWHzERfp326m9MAp6aXXL7JoM3OIfckT4aByLF7MpCbgSrehrwnyImynEFnViTzFzM5hDFpCrVsitPekMfYQ" />
       <link rel="alternate" type="application/atom+xml" title="chelsea Version Feed" href="/gems/chelsea/versions.atom" />
     <!-- canonical url -->
     <link rel="canonical" href="https://rubygems.org/gems/chelsea/versions/0.0.35" />
@@ -47,12 +47,13 @@
     "jquery": "/assets/jquery-15a62848.js",
     "@rails/ujs": "/assets/@rails--ujs-2089e246.js",
     "application": "/assets/application-2e68772c.js",
-    "@hotwired/turbo-rails": "/assets/turbo.min-e867e79e.js",
+    "@hotwired/turbo-rails": "/assets/turbo.min-fae85750.js",
     "@hotwired/stimulus": "/assets/@hotwired--stimulus-132cbc23.js",
     "@hotwired/stimulus-loading": "/assets/stimulus-loading-1fc53fe7.js",
     "@stimulus-components/clipboard": "/assets/@stimulus-components--clipboard-d9c44ea9.js",
     "@stimulus-components/dialog": "/assets/@stimulus-components--dialog-74866932.js",
     "@stimulus-components/reveal": "/assets/@stimulus-components--reveal-77f6cb39.js",
+    "@stimulus-components/checkbox-select-all": "/assets/@stimulus-components--checkbox-select-all-e7db6a97.js",
     "github-buttons": "/assets/github-buttons-3337d207.js",
     "webauthn-json": "/assets/webauthn-json-74adc0e8.js",
     "avo.custom": "/assets/avo.custom-6c281208.js",
@@ -62,8 +63,9 @@
     "src/pages": "/assets/src/pages-dadbeada.js",
     "src/transitive_dependencies": "/assets/src/transitive_dependencies-b10fcc2e.js",
     "src/webauthn": "/assets/src/webauthn-2dadaa59.js",
-    "controllers/application": "/assets/controllers/application-61b8e2d5.js",
+    "controllers/application": "/assets/controllers/application-cfc24d46.js",
     "controllers/autocomplete_controller": "/assets/controllers/autocomplete_controller-226b74d2.js",
+    "controllers/counter_controller": "/assets/controllers/counter_controller-0d6816db.js",
     "controllers/dialog_controller": "/assets/controllers/dialog_controller-8ea4210d.js",
     "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-3303a695.js",
     "controllers/dump_controller": "/assets/controllers/dump_controller-1da6eec6.js",
@@ -71,44 +73,52 @@
     "controllers/gem_scope_controller": "/assets/controllers/gem_scope_controller-53c91b5e.js",
     "controllers": "/assets/controllers/index-c3f5d3c4.js",
     "controllers/nav_controller": "/assets/controllers/nav_controller-160990e9.js",
+    "controllers/onboarding_name_controller": "/assets/controllers/onboarding_name_controller-269565d4.js",
+    "controllers/radio_reveal_controller": "/assets/controllers/radio_reveal_controller-141a7658.js",
     "controllers/recovery_controller": "/assets/controllers/recovery_controller-d2c3194e.js",
     "controllers/reveal_controller": "/assets/controllers/reveal_controller-e9860d20.js",
     "controllers/reveal_search_controller": "/assets/controllers/reveal_search_controller-37382e84.js",
+    "controllers/scroll_controller": "/assets/controllers/scroll_controller-046a9677.js",
     "controllers/search_controller": "/assets/controllers/search_controller-64a75d53.js",
     "controllers/stats_controller": "/assets/controllers/stats_controller-cff5134c.js"
   }
 }</script>
-<link rel="modulepreload" href="/assets/jquery-15a62848.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/@rails--ujs-2089e246.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/application-2e68772c.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/turbo.min-e867e79e.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/@hotwired--stimulus-132cbc23.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/stimulus-loading-1fc53fe7.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/@stimulus-components--clipboard-d9c44ea9.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/@stimulus-components--dialog-74866932.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/@stimulus-components--reveal-77f6cb39.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/github-buttons-3337d207.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/webauthn-json-74adc0e8.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/local-time-a331fc59.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/src/oidc_api_key_role_form-4be5b362.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/src/pages-dadbeada.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/src/transitive_dependencies-b10fcc2e.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/src/webauthn-2dadaa59.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/application-61b8e2d5.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/autocomplete_controller-226b74d2.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/dialog_controller-8ea4210d.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/dropdown_controller-3303a695.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/dump_controller-1da6eec6.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/exclusive_checkbox_controller-37e9aee8.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/gem_scope_controller-53c91b5e.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/index-c3f5d3c4.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/nav_controller-160990e9.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/recovery_controller-d2c3194e.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/reveal_controller-e9860d20.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/reveal_search_controller-37382e84.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/search_controller-64a75d53.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<link rel="modulepreload" href="/assets/controllers/stats_controller-cff5134c.js" nonce="9231eba74d211cfaaa291d98a425466e">
-<script type="module" nonce="9231eba74d211cfaaa291d98a425466e">import "application"</script>
+<link rel="modulepreload" href="/assets/jquery-15a62848.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@rails--ujs-2089e246.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/application-2e68772c.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/turbo.min-fae85750.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@hotwired--stimulus-132cbc23.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/stimulus-loading-1fc53fe7.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@stimulus-components--clipboard-d9c44ea9.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@stimulus-components--dialog-74866932.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@stimulus-components--reveal-77f6cb39.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/@stimulus-components--checkbox-select-all-e7db6a97.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/github-buttons-3337d207.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/webauthn-json-74adc0e8.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/local-time-a331fc59.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/src/oidc_api_key_role_form-4be5b362.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/src/pages-dadbeada.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/src/transitive_dependencies-b10fcc2e.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/src/webauthn-2dadaa59.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/application-cfc24d46.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/autocomplete_controller-226b74d2.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/counter_controller-0d6816db.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/dialog_controller-8ea4210d.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-3303a695.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/dump_controller-1da6eec6.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/exclusive_checkbox_controller-37e9aee8.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/gem_scope_controller-53c91b5e.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/index-c3f5d3c4.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/nav_controller-160990e9.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/onboarding_name_controller-269565d4.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/radio_reveal_controller-141a7658.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/recovery_controller-d2c3194e.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/reveal_controller-e9860d20.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/reveal_search_controller-37382e84.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/scroll_controller-046a9677.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/search_controller-64a75d53.js" nonce="216419c7c345eae5406203883f32de7c">
+<link rel="modulepreload" href="/assets/controllers/stats_controller-cff5134c.js" nonce="216419c7c345eae5406203883f32de7c">
+<script type="module" nonce="216419c7c345eae5406203883f32de7c">import "application"</script>
   </head>
 
   <body class="" data-controller="nav" data-nav-expanded-class="mobile-nav-is-expanded">
@@ -194,6 +204,12 @@
           <h3 class="t-list__heading">Versions:</h3>
           <ol class="gem__versions t-list__items">
             <li class="gem__version-wrap">
+  <a class="t-list__item" href="/gems/chelsea/versions/0.0.43">0.0.43</a>
+  <small class="gem__version__date">November 12, 2024</small>
+
+  <span class="gem__version__date">(74.5 KB)</span>
+</li>
+<li class="gem__version-wrap">
   <a class="t-list__item" href="/gems/chelsea/versions/0.0.42">0.0.42</a>
   <small class="gem__version__date">August 26, 2024</small>
 
@@ -218,12 +234,6 @@
   <span class="gem__version__date">(74.5 KB)</span>
 </li>
 <li class="gem__version-wrap">
-  <a class="t-list__item" href="/gems/chelsea/versions/0.0.38">0.0.38</a>
-  <small class="gem__version__date">January 17, 2024</small>
-
-  <span class="gem__version__date">(74.5 KB)</span>
-</li>
-<li class="gem__version-wrap">
   <a class="t-list__item" href="/gems/chelsea/versions/0.0.35">0.0.35</a>
   <small class="gem__version__date">September 28, 2022</small>
 
@@ -231,7 +241,7 @@
 </li>
 
           </ol>
-            <a class="gem__see-all-versions t-link--gray t-link--has-arrow" href="https://rubygems.org/gems/chelsea/versions">Show all versions (42 total)</a>
+            <a class="gem__see-all-versions t-link--gray t-link--has-arrow" href="https://rubygems.org/gems/chelsea/versions">Show all versions (43 total)</a>
         </div>
       </div>
 
@@ -329,6 +339,7 @@
     <h3 class="t-list__heading">SHA 256 checksum:</h3>
     <div class="gem__code-wrap" data-controller="clipboard" data-clipboard-success-content-value="✔"><input type="text" name="gem_sha_256_checksum" id="gem_sha_256_checksum" value="ad2610e8ca2db7b0aaae9f98e607e351004cb73b2fd1d25563143bec085840d9" class="gem__code" readonly="readonly" data-clipboard-target="source" /><span class="gem__code__icon" title="Copy to clipboard" data-action="click-&gt;clipboard#copy" data-clipboard-target="button">=</span></div>
 
+
 </div>
 
     <div class="gem__navigation">
@@ -350,11 +361,11 @@
   <div class="gem__downloads-wrap" data-href="/api/v1/downloads/chelsea-0.0.35.json">
     <h2 class="gem__downloads__heading t-text--s">
       Total downloads
-      <span class="gem__downloads">59,875</span>
+      <span class="gem__downloads">60,370</span>
     </h2>
     <h2 class="gem__downloads__heading t-text--s">
       For this version
-      <span class="gem__downloads">980</span>
+      <span class="gem__downloads">988</span>
     </h2>
   </div>
 
@@ -463,7 +474,7 @@
           Verified by
           <span class="t-hidden">Domainr</span>
         </a>
-        <a class="footer__sponsor footer__sponsor__whitesource" href="https://www.whitesourcesoftware.com/" target="_blank" rel="noopener">
+        <a class="footer__sponsor footer__sponsor__mend" href="https://mend.io/" target="_blank" rel="noopener">
           Secured by
           <span class="t-hidden">Whitesource</span>
         </a>
