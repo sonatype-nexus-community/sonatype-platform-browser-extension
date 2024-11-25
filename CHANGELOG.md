@@ -1,3 +1,10 @@
+## [2.20.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.20.0...v2.20.1) (2024-11-25)
+
+
+### Bug Fixes
+
+* nuget.org parsing pages with no version in URL and ending with `/` ([e7a1cac](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/e7a1cac9cde19b4a83a60c4ae5ed99e9d9117b31))
+
 # [2.20.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.19.1...v2.20.0) (2024-11-14)
 
 
