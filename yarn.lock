@@ -1620,10 +1620,10 @@
     pascalcase "^0.1.1"
     xss-filters "^1.2.6"
 
-"@sonatype/nexus-iq-api-client@^0.184.0":
-  version "0.184.2"
-  resolved "https://registry.yarnpkg.com/@sonatype/nexus-iq-api-client/-/nexus-iq-api-client-0.184.2.tgz#eaf5e5c23e6f69e16475d04590b362ff29b9b4a1"
-  integrity sha512-hn6dtbncDHDKcxYYd3UWMkjLaShmnq5/DcgqjAVzljvAfhkHAfomtfTj0Hb3ycV/wVF4QllLKCtp0KL4g2oC0w==
+"@sonatype/nexus-iq-api-client@^0.184.3":
+  version "0.184.3"
+  resolved "https://registry.npmjs.org/@sonatype/nexus-iq-api-client/-/nexus-iq-api-client-0.184.3.tgz#ace2473797a7fc631c714a86ee981f7577c7950a"
+  integrity sha512-X66Wq2d57SYFdENaAI14/2En77qyM6VOsTSQ837+Ze6u4lERedRVTUgiNOnzO+wyzOqhbqYYB1MgJbOCzhEkWw==
 
 "@sonatype/react-commonmark@^3.0.1":
   version "3.0.1"
