@@ -37,7 +37,6 @@ import {
     ApiComponentDetailsDTOV2,
     ApiComponentEvaluationResultDTOV2,
     ApiComponentEvaluationTicketDTOV2,
-    ApiComponentRemediationValueDTO,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
 import { findRepoType } from '../../utils/UrlParsing'
