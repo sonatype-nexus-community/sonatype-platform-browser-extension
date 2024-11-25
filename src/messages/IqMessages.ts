@@ -18,7 +18,7 @@ import {
     Configuration,
     ApplicationsApi,
     ComponentsApi,
-    EvaluationApi,
+    PolicyEvaluationApi,
     ResponseError,
     GetSuggestedRemediationForComponentOwnerTypeEnum,
     LicenseLegalMetadataApi,
@@ -29,7 +29,7 @@ import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 import { GeneralConnectivityError, IncompleteConfigurationError, InvalidConfigurationError, UserAuthenticationError } from '../error/ExtensionError'
-import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS, MessageRequestGetAllComponentVersions } from '../types/Message'
+import { MessageRequest, MessageResponse, MESSAGE_RESPONSE_STATUS, MessageRequestGetAllComponentVersions, MessageResponseGetRemediationDetailsForComponent } from '../types/Message'
 import { DATA_SOURCE, FORMATS } from '../utils/Constants'
 import { UserAgentHelper } from '../utils/UserAgentHelper'
 import { PackageURL } from 'packageurl-js'
@@ -56,7 +56,7 @@ export async function requestComponentEvaluationByPurls(request: MessageRequest)
                         extensionConfig.iqApplicationInternalId !== undefined
                             ? extensionConfig.iqApplicationInternalId
                             : 'UNKNOWN'
-                    const apiClient = new EvaluationApi(apiConfig)
+                    const apiClient = new PolicyEvaluationApi(apiConfig)
 
                     // @typescript-eslint/strict-boolean-expressions:
                     let purls: Array<string> = []
@@ -114,7 +114,7 @@ export function pollForComponentEvaluationResult(applicationId: string, resultId
         const executePoll = async () => {
             try {
                 const apiConfig = await _get_iq_api_configuration()
-                const apiClient = new EvaluationApi(apiConfig)
+                const apiClient = new PolicyEvaluationApi(apiConfig)
                 const result = await apiClient.getComponentEvaluation(
                     {
                         applicationId: applicationId,
@@ -227,7 +227,7 @@ export async function getComponentDetails(request: MessageRequest): Promise<Mess
             if (request.params && 'purls' in request.params) {
                 purls = request.params['purls'] as Array<string>
             }
-
+            logger.logMessage('Making API Call ComponentsApi::getComponentDetails() sending purls: ', LogLevel.DEBUG, purls)
             return apiClient
                 .getComponentDetails(
                     {
@@ -303,7 +303,7 @@ export async function getComponentLegalDetails(request: MessageRequest): Promise
         })
 }
 
-export async function getRemediationDetailsForComponent(request: MessageRequest): Promise<MessageResponse> {
+export async function getRemediationDetailsForComponent(request: MessageRequest): Promise<MessageResponseGetRemediationDetailsForComponent> {
     return readExtensionConfiguration()
         .then((response) => {
             return response.data as ExtensionConfiguration
@@ -348,9 +348,7 @@ export async function getRemediationDetailsForComponent(request: MessageRequest)
                             )
                             return {
                                 status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-                                data: {
-                                    remediation: remediationDetailsResponse.remediation,
-                                },
+                                data: remediationDetailsResponse.remediation,
                             }
                         })
                         .catch(_handle_iq_error_repsonse)

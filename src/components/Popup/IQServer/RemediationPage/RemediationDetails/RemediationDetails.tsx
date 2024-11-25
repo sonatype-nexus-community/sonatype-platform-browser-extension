@@ -27,7 +27,8 @@ const _browser: any = chrome ? chrome : browser
 
 function IqRemediationDetails() {
     const popupContext = useContext(ExtensionPopupContext)
-    const versionChanges = popupContext.iq?.remediationDetails?.remediation?.versionChanges
+    const versionChanges = popupContext.iq?.remediationDetails?.versionChanges
+    
 
     return (
         <React.Fragment>

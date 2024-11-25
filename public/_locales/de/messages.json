@@ -346,5 +346,17 @@
     "SUPPORTED": {
         "message": "Unterstützt",
         "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
+    "EXAMPLE": {
+        "message": "Beispiel",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Vorgeschlagene Version",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Goldene Version",
+        "description": "Golden Version (IQ 184+)"
     }
 }

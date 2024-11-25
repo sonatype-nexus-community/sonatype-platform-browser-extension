@@ -350,5 +350,17 @@
     "GITHUB_FORKS": {
         "message": "分叉",
         "description": "The number of GitHub forks for the project"
+    },
+    "EXAMPLE": {
+        "message": "例子",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "建议版本",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "黄金版",
+        "description": "Golden Version (IQ 184+)"
     }
 }

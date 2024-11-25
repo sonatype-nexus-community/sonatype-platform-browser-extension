@@ -22,6 +22,7 @@ export enum DATA_SOURCE {
 }
 
 export const REMEDIATION_LABELS = {
+    'recommended-non-breaking-with-dependencies': 'Golden Version',
     'next-no-violations': 'Next version with no policy violation(s)',
     'next-non-failing': 'Next version with no policy action failure(s)',
     'next-no-violations-with-dependencies':
