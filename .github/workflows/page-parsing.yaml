@@ -3,6 +3,7 @@ name: Page Parsing Tests
 on:
     schedule:
         - cron: '0 5 * * *'
+    workflow_dispatch:
 
 env:
     YARN_VERSION: 1.22.19
