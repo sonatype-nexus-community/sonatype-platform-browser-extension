@@ -62,7 +62,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                              |
 | CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ❌                              |
 | Crates.io              | Rust                | ✅      | `https://crates.io/`             | ✅                              |
-| Go.dev                 | Go                  | ❌ ^1   | `https://pkg.go.dev/`            | N/A                             |
+| Go.dev                 | Go                  | ✅      | `https://pkg.go.dev/`            | ✅                              |
 | Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                              |
 | Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ❌                              |
 | Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ❌                              |
@@ -71,15 +71,14 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                              |
 | NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                              |
 | Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                              |
-| PyPI                   | Python              | ✅ ^3   | `https://pypi.org/`              | ✅                              |
+| PyPI                   | Python              | ✅ ^2   | `https://pypi.org/`              | ✅                              |
 | RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
-| Spring.io              | Java                | ❌ ^2   | `https://repo.spring.io/list/`   | N/A                             |
+| Spring.io              | Java                | ❌ ^1   | `https://repo.spring.io/list/`   | N/A                             |
 
 _Notes:_
 
-1. See issue [#36](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/36)
-2. Run on a public instance of jFrog Artifactory - support coming soon
-3. By default we lookup the Source Distribution. Where no Source Distribution is published we lookup the first Built Distribution - this can lead to an incomplete view of risk - [read more](#pypi-packages-with-no-source-distribution)
+1. Run on a public instance of jFrog Artifactory - support coming soon
+2. By default we lookup the Source Distribution. Where no Source Distribution is published we lookup the first Built Distribution - this can lead to an incomplete view of risk - [read more](#pypi-packages-with-no-source-distribution)
 
 ### Private Hosted Registries
 
