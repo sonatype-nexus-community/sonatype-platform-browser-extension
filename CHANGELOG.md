@@ -1,3 +1,15 @@
+# [2.21.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.20.1...v2.21.0) (2024-11-26)
+
+
+### Bug Fixes
+
+* analytics events not well formed in some cases ([dd54e2e](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/dd54e2ee76c88a518a2a8c550006ad82627b5053))
+
+
+### Features
+
+* official support for Golang on `pkg.go.dev` ([e9b1af6](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/e9b1af65a90f4776d98d984bc246590856988279))
+
 ## [2.20.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.20.0...v2.20.1) (2024-11-25)
 
 
