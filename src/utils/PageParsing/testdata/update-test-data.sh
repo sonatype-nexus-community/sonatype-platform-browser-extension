@@ -30,6 +30,11 @@ get_data "conanio-libxft-2.3.6.html" "https://conan.io/center/recipes/libxft?ver
 # CRAN (may break if new version of oysterR is releaseed)
 get_data "cran.html" "https://cran.r-project.org/web/packages/oysteR/index.html"
 
+# Go
+get_data "pkg.go.dev/golang.org-x-text-0.20.0.html" "https://pkg.go.dev/golang.org/x/text@v0.20.0"
+get_data "pkg.go.dev/go.etcd.io-etcd-client-v3-3.5.17.html" "https://pkg.go.dev/go.etcd.io/etcd/client/v3@v3.5.17"
+get_data "pkg.go.dev/gopkg.in-ini.v1-1.67.0.html" "https://pkg.go.dev/gopkg.in/ini.v1@v1.67.0"
+
 # mvnrepository.com
 get_data "MVNRepository.html" "https://mvnrepository.com/artifact/org.apache.struts/struts2-core/2.2.3"
 

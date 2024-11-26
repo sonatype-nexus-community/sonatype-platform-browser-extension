@@ -18,19 +18,10 @@ import { PackageURL } from 'packageurl-js'
 import { FORMATS } from '../Constants'
 import { generatePackageURLWithNamespace } from './PurlUtils'
 
-/*
-  The following coordinates are missing for given format: [version]
-  https://pkg.go.dev/github.com/etcd-io/etcd@v0.3.0 ->CVE-2020-15115, CVE - 2020 - 15136;
-  https://pkg.go.dev/github.com/etcd-io/etcd -> v->v3.3.25+incompatible ->unknown
-  https://pkg.go.dev/github.com/go-gitea/gitea ->Version: v1.8.3 ->CVE-2018-15192 and others
-  https://pkg.go.dev/google.golang.org/protobuf@v1.26.0 ->Version: v1.26.0 ->No vulns, but different namespace
-  https://pkg.go.dev/google.golang.org/protobuf@v1.26.0/runtime/protoimpl ->Todo Version: v1.26.0 ->No vulns, but different namespace and some stuff at the end
-*/
-
-const PKG_GO_DEV_VERSION_SELECTOR =
-    'body > div.Site-content > div > header > div.UnitHeader-content > div > div.UnitHeader-details > span:nth-child(1) > a'
+const PKG_GO_DEV_VERSION_SELECTOR = '#main-content a[href="?tab=versions"]'
 const GO_PKG_IN_V1 = /^gopkg.in\/([^.]+).*/
 const GO_PKG_IN_V2 = /^gopkg.in\/([^/]+)\/([^.]+).*/
+const INCOMPATIBLE_VERSION_SUFFIX = '+incompatible'
 
 const parseGolang = (url: string): PackageURL | undefined => {
     return parsePkgGoDevURLIntoPackageURL(url)
@@ -42,6 +33,9 @@ const parsePkgGoDevURLIntoPackageURL = (url: string): PackageURL | undefined => 
     const nameVersion = uri.pathname.split('@')
 
     let version = getVersionFromURI(uri)
+    if ((version?.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) === true) {
+        return undefined
+    }
 
     if (version !== undefined) {
         nameAndNamespace = getName(handleGoPkgIn(nameVersion[0].replace(/^\//, '')))
@@ -50,8 +44,10 @@ const parsePkgGoDevURLIntoPackageURL = (url: string): PackageURL | undefined => 
 
         if (typeof found !== 'undefined') {
             nameAndNamespace = getName(handleGoPkgIn(uri.pathname.replace(/^\//, '')))
-
             version = found.text().trim().replace('Version: ', '').trim()
+            if ((version?.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) === true) {
+                return undefined
+            }
         }
     }
 

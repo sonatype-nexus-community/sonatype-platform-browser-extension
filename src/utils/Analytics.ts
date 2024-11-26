@@ -32,7 +32,8 @@ export enum ANALYTICS_EVENT_TYPES {
 }
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
+const extension = _browser.runtime.getManifest()
 
 export class Analytics {
     // Returns the client id, or creates a new one if one doesn't exist.
@@ -87,12 +88,15 @@ export class Analytics {
         // Configure session id and engagement time if not present, for more details see:
         // https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if ('session_id' in params) {
-            params.session_id = await this.getOrCreateSessionId()
+        if (!('session_id' in params)) {
+            params['session_id'] = await this.getOrCreateSessionId()
         }
-        if ('engagement_time_msec' in params) {
-            params.engagement_time_msec = DEFAULT_ENGAGEMENT_TIME_MSEC
+        if (!('engagement_time_msec' in params)) {
+            params['engagement_time_msec'] = DEFAULT_ENGAGEMENT_TIME_MSEC
         }
+        
+        // Load in Extension Version
+        params['extension_version'] = extension.version
 
         try {
             await fetch(`${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`, {
