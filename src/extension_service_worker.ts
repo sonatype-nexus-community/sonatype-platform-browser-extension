@@ -88,7 +88,7 @@ _browser.runtime.onInstalled.addListener((details) => {
     } else if (details.reason == 'update') {
         performUpgrade(details.fromVersion, details.reason).then(() => {
             analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_UPDATE, {
-                previousVersion: details.previousVersion,
+                previous_extension_version: details.previousVersion,
                 reason: details.reason,
             })
         })
@@ -190,12 +190,14 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                     if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
                         const packageUrl = PackageURL.fromString(response.data.purl)
                         analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
-                            name: packageUrl.name,
-                            namespace: packageUrl.namespace,
-                            purl: response.data.purl,
-                            qualifiers: packageUrl.qualifiers,
-                            type: packageUrl.type,
-                            version: packageUrl.version,
+                            purl_type: packageUrl.type,
+                            purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
+                            purl_name: packageUrl.name,
+                            purl_version: packageUrl.version,
+                            purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
+                            purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
+                            purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
+                            purl_string: response.data.purl
                         })
 
                         requestComponentEvaluationByPurls({
