@@ -54,7 +54,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 
 ### Public Registries
 
-| Registry               | Language            | Enabled | URL                              | Component Version Navigation ^4 |
+| Registry               | Language            | Enabled | URL                              | Component Version Navigation |
 | ---------------------- | ------------------- | ------- | -------------------------------- | ------------------------------- |
 | Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ❌                              |
 | Clojars                | Java                | ❌      | `https://clojars.org/`           | N/A                             |
