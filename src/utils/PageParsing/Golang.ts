@@ -33,7 +33,7 @@ const parsePkgGoDevURLIntoPackageURL = (url: string): PackageURL | undefined => 
     const nameVersion = uri.pathname.split('@')
 
     let version = getVersionFromURI(uri)
-    if (version != null && version.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) {
+    if ((version?.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) === true) {
         return undefined
     }
 
@@ -45,7 +45,7 @@ const parsePkgGoDevURLIntoPackageURL = (url: string): PackageURL | undefined => 
         if (typeof found !== 'undefined') {
             nameAndNamespace = getName(handleGoPkgIn(uri.pathname.replace(/^\//, '')))
             version = found.text().trim().replace('Version: ', '').trim()
-            if (version != null && version.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) {
+            if ((version?.endsWith(INCOMPATIBLE_VERSION_SUFFIX)) === true) {
                 return undefined
             }
         }
