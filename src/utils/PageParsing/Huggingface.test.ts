@@ -27,7 +27,7 @@ function assertPageParsing(repoType: RepoType, url: string, domFile: string | un
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(repoType, url)
+    const packageURL = getArtifactDetailsFromDOM(repoType, url)
     if (expected) {
         expect(packageURL).toBeDefined()
         expect(packageURL?.version).toBe(expected.version)
@@ -43,7 +43,11 @@ describe('Huggingface Page Parsing', () => {
     expect(repoType).toBeDefined()
 
     test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased', () => {
+        assertPageParsing(ensure(repoType), 'https://huggingface.co/distilbert/distilbert-base-uncased', 'huggingface.co/distilbert-distilbert-base-uncased-home.html', undefined)
+    })
+
+    test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased/tree/main', () => {
         const expectedPackageUrl = PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@1c4513b2eedbda136f57676a34eea67aba266e5c?extension=safetensors&model=model&model_format=safetensors')
-        assertPageParsing(ensure(repoType), 'https://huggingface.co/distilbert/distilbert-base-uncased', 'huggingface.co/distilbert-distilbert-base-uncased-1.html', expectedPackageUrl)
+        assertPageParsing(ensure(repoType), 'https://huggingface.co/distilbert/distilbert-base-uncased/tree/main', 'huggingface.co/distilbert-distilbert-base-uncased-tree-main.html', expectedPackageUrl)
     })
 })

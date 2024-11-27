@@ -30,7 +30,8 @@
                 "https://www.nuget.org/*",
                 "https://packagist.org/*",
                 "https://pypi.org/*",
-                "https://rubygems.org/*"
+                "https://rubygems.org/*",
+                "https://huggingface.co/*"
             ],
             "css": [
                 "/css/pagestyle.css"

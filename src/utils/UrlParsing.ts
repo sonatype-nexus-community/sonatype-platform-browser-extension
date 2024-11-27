@@ -22,7 +22,7 @@ import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 const findPublicOssRepoType = (url: string): RepoType | undefined => {
     for (let i = 0; i < REPO_TYPES.length; i++) {
         const repoType = REPO_TYPES[i]
-        if (url.search(repoType.url) >= 0) {
+        if (url.startsWith(repoType.url)) {
             logger.logMessage(`Current URL ${url} matches ${repoType.repoID}`, LogLevel.INFO)
             return repoType
         } else {

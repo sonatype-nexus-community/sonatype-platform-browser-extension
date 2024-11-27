@@ -265,10 +265,10 @@ export const REPO_TYPES: RepoType[] = [
         url: 'https://huggingface.co/',
         repoFormat: FORMATS.huggingface,
         repoID: REPOS.huggingfaceCo,
-        titleSelector: 'h1.t-display',
-        versionPath: '{artifactId}/versions/{version}',
-        pathRegex: /^(?<namespace>[^/?#]*)\/(?<artifactId>[^/?#]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
-        versionDomPath: '.page__subheading',
+        titleSelector: 'header h1',
+        versionPath: '',
+        pathRegex: /^(?<namespace>[^/?#]*)\/(?<artifactId>[^/?#]*)(?<subpath>\/([^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '',
         supportsVersionNavigation: false
     }
 ]

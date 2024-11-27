@@ -19,7 +19,7 @@ import { ComponentState } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE } from '../types/Message'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 export async function propogateCurrentComponentState(tabId: number, componentState: ComponentState): Promise<void> {
     logger.logMessage(`Propogating Component State ${componentState}`, LogLevel.DEBUG)

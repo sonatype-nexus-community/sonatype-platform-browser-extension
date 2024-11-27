@@ -36,7 +36,7 @@ import { readExtensionConfiguration, updateExtensionConfiguration } from './mess
 import { ExtensionConfiguration } from './types/ExtensionConfiguration'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 const extension = _browser.runtime.getManifest()
 const analytics = new Analytics()
 
@@ -158,7 +158,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
 
         if (repoType !== undefined) {
             // We support this Repository!
-            logger.logMessage(`Enabling Sonatype Browser Extension for ${url}`, LogLevel.DEBUG)
+            logger.logMessage(`Enabling Sonatype Browser Extension for ${url} (tabId ${tabId})`, LogLevel.DEBUG)
             propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
             _browser.tabs
                 .sendMessage(tabId, {
@@ -348,7 +348,8 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
  * Fired when the current tab changes, but the tab may itself not change
  */
 _browser.tabs.onActivated.addListener(({ tabId }: { tabId: number }) => {
-    _browser.tabs.get(tabId, (tab) => {
+    logger.logMessage(`tabs.onActivated for tabId ${tabId}`, LogLevel.DEBUG)
+    _browser.tabs.get(tabId, (tab: chrome.tabs.Tab | browser.tabs.Tab) => {
         if (tab.url !== undefined) {
             enableDisableExtensionForUrl(tab.url, tabId)
         }

@@ -16,7 +16,7 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURL, generatePackageURLComplete, generatePackageURLWithNamespace } from './PurlUtils'
+import { generatePackageURLComplete } from './PurlUtils'
 import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
 
