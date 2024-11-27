@@ -45,6 +45,7 @@ export const FORMATS = {
     gem: 'gem',
     github: 'github',
     golang: 'golang',
+    huggingface: 'huggingface',
     maven: 'maven',
     npm: 'npm',
     nuget: 'nuget',
@@ -76,6 +77,7 @@ export const REPOS = {
     searchMavenOrg: 'searchMavenOrg',
     repo1MavenOrg: 'repo1MavenOrg',
     centralSonatypeCom: 'centralSonatypeCom',
+    huggingfaceCo: 'huggingfaceCo'
 }
 
 export interface RepoType {
@@ -258,5 +260,15 @@ export const REPO_TYPES: RepoType[] = [
         pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '.page__subheading',
         supportsVersionNavigation: true
+    },
+    {
+        url: 'https://huggingface.co/',
+        repoFormat: FORMATS.huggingface,
+        repoID: REPOS.huggingfaceCo,
+        titleSelector: 'h1.t-display',
+        versionPath: '{artifactId}/versions/{version}',
+        pathRegex: /^(?<namespace>[^/?#]*)\/(?<artifactId>[^/?#]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: '.page__subheading',
+        supportsVersionNavigation: false
     }
 ]
