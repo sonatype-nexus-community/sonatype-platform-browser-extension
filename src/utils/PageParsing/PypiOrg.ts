@@ -15,48 +15,20 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
-import { BaseRepo } from '../Types'
 import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
 const PYPI_DEFAULT_EXTENSION = 'tar.gz'
 const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [PYPI_DEFAULT_EXTENSION, 'tar.bz2']
 const PYPI_EXTENSION_SELECTOR = '#files > div.file div.file__card a:nth-child(1)'
 
-export class PypiOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.pypiOrg
-    }
-    format(): string {
-        return FORMATS.pypi
-    }
-    baseUrl(): string {
-        return 'https://pypi.org/project/'
-    }
-    titleSelector(): string {
-        return 'h1.package-header__name1'
-    }
-    versionPath(): string {
-        return '{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/?#]*)\/((?<version>[^?#]*)\/)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return '#content > div.banner > div > div.package-header__left > h1'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class PypiOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim().split(' ')[1]
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim().split(' ')[1]
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
 
             const thisVersion = pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion

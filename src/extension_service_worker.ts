@@ -18,7 +18,6 @@
 import 'node-window-polyfill/register' // New line ensures this Polyfill is first!
 
 import { logger, LogLevel } from './logger/Logger'
-import { findRepoType } from './utils/UrlParsing'
 import { compareVersions } from 'compare-versions'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { propogateCurrentComponentState } from './messages/ComponentStateMessages'
@@ -153,10 +152,10 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
      *
      */
     const repoType = DefaultRepoRegistry.getRepoForUrl(url)
+    
     /**
      * Make sure we get a valid PURL before we ENABLE - this may require DOM access (via Message)
      */
-
     if (repoType !== undefined) {
         // We support this Repository!
         logger.logMessage(`Enabling Sonatype Browser Extension for ${url} (tabId ${tabId})`, LogLevel.DEBUG)
@@ -315,7 +314,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         LogLevel.DEBUG
                     )
                     analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
-                        repo: repoType.url,
+                        repo_id: repoType.id(),
                         url: url,
                     })
                     propogateCurrentComponentState(tabId, ComponentState.CLEAR)

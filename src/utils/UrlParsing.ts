@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BaseRepo } from './Types'
+import { BaseRepo } from './RepoType/BaseRepo'
 import { DefaultRepoRegistry } from './RepoRegistry'
 
 export interface RepoDetails {

@@ -17,8 +17,10 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
+import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
 const FILE_EXTENSION_MAP = {
@@ -31,38 +33,7 @@ const FILE_EXTENSION_MAP = {
     }
 }
 
-import { BaseRepo } from '../Types'
-import { logger, LogLevel } from '../../logger/Logger'
-
-export class HuggingfaceCoRepo extends BaseRepo {
-    id(): string {
-        return REPOS.huggingfaceCo
-    }
-    format(): string {
-        return FORMATS.huggingface
-    }
-    baseUrl(): string {
-        return 'https://huggingface.co/'
-    }
-    titleSelector(): string {
-        return 'header h1'
-    }
-    versionPath(): string {
-        return ''
-    }
-    pathRegex(): RegExp {
-        return /^(?<namespace>[^/?#]*)\/(?<artifactId>[^/?#]*)(?<subpath>\/([^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return true
-    }
-    
+export class HuggingfaceCoPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {

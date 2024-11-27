@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLWithNamespace } from './PurlUtils'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
 const PKG_GO_DEV_VERSION_SELECTOR = '#main-content a[href="?tab=versions"]'
 const GO_PKG_IN_V1 = /^gopkg.in\/([^.]+).*/
@@ -29,35 +30,7 @@ interface NamespaceContainer {
     namespace: string
 }
 
-export class PkgGoDevRepo extends BaseRepo {
-    id(): string {
-        return REPOS.pkgGoDev
-    }
-    format(): string {
-        return FORMATS.golang
-    }
-    baseUrl(): string {
-        return 'https://pkg.go.dev/'
-    }
-    titleSelector(): string {
-        return 'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1'
-    }
-    versionPath(): string {
-        return '{groupAndArtifactId}/@{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupId>.+)\/(?<artifactId>[^/]*)\/(?<version>v[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class PkgGoDevPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const uri = new URL(url)
         let nameAndNamespace: NamespaceContainer | undefined

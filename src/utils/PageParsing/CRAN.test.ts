@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
-import { CranRRepo } from './CRAN'
+import { CranRPageParser } from './CRAN'
+import { CranRRepo } from '../RepoType/CRAN'
 
-const repo = new CranRRepo
+const parser = new CranRPageParser(new CranRRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

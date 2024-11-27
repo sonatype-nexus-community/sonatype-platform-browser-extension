@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { PackageURL } from "packageurl-js"
-import { logger, LogLevel } from "../logger/Logger"
+// This is used by Extension Service Worker - cannot directly or indirectly require
+// access to DOM.
 
 export abstract class BaseRepo {
-
     abstract id(): string
     abstract format(): string
     abstract baseUrl(): string
@@ -28,11 +27,4 @@ export abstract class BaseRepo {
     abstract versionDomPath(): string
     abstract supportsVersionNavigation(): boolean
     abstract supportsMultiplePurlsPerPage(): boolean
-    abstract parsePage(url: string): PackageURL[]
-
-    parsePath(url: string): RegExpExecArray | null {
-        const results = this.pathRegex().exec(url.replace(this.baseUrl(), ''))
-        logger.logMessage(`${this.id()} Path Results: ${results}`, LogLevel.DEBUG)
-        return results
-    }
 }

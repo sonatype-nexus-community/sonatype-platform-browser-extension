@@ -15,39 +15,11 @@
  */
 
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
-export class MvnRepositoryComRepo extends BaseRepo {
-    id(): string {
-        return REPOS.mvnRepositoryCom
-    }
-    format(): string {
-        return FORMATS.maven
-    }
-    baseUrl(): string {
-        return 'https://mvnrepository.com/artifact/'
-    }
-    titleSelector(): string {
-        return 'h2.im-title'
-    }
-    versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class MvnRepositoryComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {

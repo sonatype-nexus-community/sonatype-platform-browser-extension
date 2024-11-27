@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-import { REPOS } from '../Constants'
-import { RepoMavenApacheOrgRepo } from './RepoMavenApacheOrg'
+import { RepoMavenApacheOrgPageParser } from './RepoMavenApacheOrg'
 
-export class Repo1MavenOrgRepo extends RepoMavenApacheOrgRepo {
-    id(): string {
-        return REPOS.repo1MavenOrg
-    }
-    baseUrl(): string {
-        return 'https://repo1.maven.org/maven2/'
-    }
-}
+export class Repo1MavenOrgPageParser extends RepoMavenApacheOrgPageParser {}

@@ -17,11 +17,12 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { PackageURL } from 'packageurl-js'
-import { Nxrm3Repo } from './NexusRepositoryPageParsing'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { Nxrm3PageParser } from './NexusRepositoryPageParsing'
+import { Nxrm3Repo } from '../RepoType/NexusRepositoryPageParsing'
 
 const NXRM_BASE_URL = 'https://repo.tld/'
-const repo = new Nxrm3Repo(NXRM_BASE_URL)
+const parser = new Nxrm3PageParser(new Nxrm3Repo(NXRM_BASE_URL))
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -29,7 +30,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

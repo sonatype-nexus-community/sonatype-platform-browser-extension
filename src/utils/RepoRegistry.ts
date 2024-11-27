@@ -14,26 +14,28 @@
  * limitations under the License.
  */
 
-import { BaseRepo } from "./Types"
-import { AlpineLinuxOrgRepo } from "./PageParsing/Alpine"
-import { CentralSonatypeComRepo } from "./PageParsing/CentralSonatypeCom"
-import { CocoaPodsOrgRepo } from "./PageParsing/CocoaPodsOrg"
-import { ConanIoRepo } from "./PageParsing/ConanIo"
-import { CranRRepo } from "./PageParsing/CRAN"
-import { CratesIoRepo } from "./PageParsing/CratesIo"
-import { HuggingfaceCoRepo } from "./PageParsing/HuggingfaceCo"
-import { MvnRepositoryComRepo } from "./PageParsing/MVNRepository"
-import { NpmJsComRepo } from "./PageParsing/NpmJsCom"
-import { NugetOrgRepo } from "./PageParsing/NugetOrg"
-import { PackagistOrgRepo } from "./PageParsing/Packagist"
-import { PkgGoDevRepo } from "./PageParsing/PkgGoDev"
-import { PypiOrgRepo } from "./PageParsing/PypiOrg"
-import { Repo1MavenOrgRepo } from "./PageParsing/Repo1MavenOrg"
-import { RepoMavenApacheOrgRepo } from "./PageParsing/RepoMavenApacheOrg"
-import { RubygemsOrgRepo } from "./PageParsing/RubygemsOrg"
-import { SearchMavenOrgRepo } from "./PageParsing/SearchMavenOrg"
-import { logger, LogLevel } from "../logger/Logger"
+// This is used by Extension Service Worker - cannot directly or indirectly require
+// access to DOM.
 
+import { logger, LogLevel } from "../logger/Logger"
+import { BaseRepo } from "./RepoType/BaseRepo"
+import { AlpineLinuxOrgRepo } from "./RepoType/Alpine"
+import { CentralSonatypeComRepo } from "./RepoType/CentralSonatypeCom"
+import { CocoaPodsOrgRepo } from "./RepoType/CocoaPodsOrg"
+import { ConanIoRepo } from "./RepoType/ConanIo"
+import { CranRRepo } from "./RepoType/CRAN"
+import { CratesIoRepo } from "./RepoType/CratesIo"
+import { HuggingfaceCoRepo } from "./RepoType/HuggingfaceCo"
+import { MvnRepositoryComRepo } from "./RepoType/MVNRepository"
+import { NpmJsComRepo } from "./RepoType/NpmJsCom"
+import { NugetOrgRepo } from "./RepoType/NugetOrg"
+import { PackagistOrgRepo } from "./RepoType/Packagist"
+import { PkgGoDevRepo } from "./RepoType/PkgGoDev"
+import { PypiOrgRepo } from "./RepoType/PypiOrg"
+import { RepoMavenApacheOrgRepo } from "./RepoType/RepoMavenApacheOrg"
+import { Repo1MavenOrgRepo } from "./RepoType/Repo1MavenOrg"
+import { RubygemsOrgRepo } from "./RepoType/RubygemsOrg"
+import { SearchMavenOrgRepo } from "./RepoType/SearchMavenOrg"
 
 class RepoRegistry {
 
@@ -43,7 +45,7 @@ class RepoRegistry {
         return this.repos.size
     }
 
-    getRepoById(id: string): BaseRepo | undefined {
+    getRepoById(id: string): BaseRepo {
         for (const k of this.repos.keys()) {
             const r = this.repos.get(k)
             if (r && r.id() == id) {
@@ -51,7 +53,7 @@ class RepoRegistry {
             }
         }
         
-        return undefined
+        throw new Error(`Unknown Repo requested from RepoRegistry: ${id}`)
     }
 
     getRepoForUrl(url: string): BaseRepo | undefined {

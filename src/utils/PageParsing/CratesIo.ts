@@ -18,42 +18,14 @@ import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export class CratesIoRepo extends BaseRepo {
-    id(): string {
-        return REPOS.cratesIo
-    }
-    format(): string {
-        return FORMATS.cargo
-    }
-    baseUrl(): string {
-        return 'https://crates.io/crates/'
-    }
-    titleSelector(): string {
-        return "h1[class*='heading']"
-    }
-    versionPath(): string {
-        return '{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/#?]*)(\/(?<version>[^/#?]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return 'h1 small'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class CratesIoPageParser extends BasePageParser {   
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim()
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURLComplete(
                 FORMATS.cargo,

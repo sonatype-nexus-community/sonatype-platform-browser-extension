@@ -18,10 +18,11 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
-import { RepoMavenApacheOrgRepo } from './RepoMavenApacheOrg'
 import { logger, LogLevel } from '../../logger/Logger'
+import { RepoMavenApacheOrgPageParser } from './RepoMavenApacheOrg'
+import { RepoMavenApacheOrgRepo } from '../RepoType/RepoMavenApacheOrg'
 
-const repo = new RepoMavenApacheOrgRepo
+const parser = new RepoMavenApacheOrgPageParser(new RepoMavenApacheOrgRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -29,7 +30,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

@@ -16,44 +16,16 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
-import { BaseRepo } from '../Types'
 import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
-export class RubygemsOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.rubyGemsOrg
-    }
-    format(): string {
-        return FORMATS.gem
-    }
-    baseUrl(): string {
-        return 'https://rubygems.org/gems/'
-    }
-    titleSelector(): string {
-        return 'h1.t-display'
-    }
-    versionPath(): string {
-        return '{artifactId}/versions/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return '.page__subheading'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class RubygemsOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim()
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURL(
                 FORMATS.gem,

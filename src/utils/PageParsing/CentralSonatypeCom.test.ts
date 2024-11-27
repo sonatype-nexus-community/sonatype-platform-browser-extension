@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { CentralSonatypeComRepo } from './CentralSonatypeCom'
+import { CentralSonatypeComPageParser } from './CentralSonatypeCom'
+import { CentralSonatypeComRepo } from '../RepoType/CentralSonatypeCom'
 
-const repo = new CentralSonatypeComRepo
+const parser = new CentralSonatypeComPageParser(new CentralSonatypeComRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

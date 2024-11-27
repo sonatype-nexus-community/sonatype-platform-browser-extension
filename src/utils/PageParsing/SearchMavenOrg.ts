@@ -16,44 +16,16 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
-import { BaseRepo } from '../Types'
 import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
-export class SearchMavenOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.searchMavenOrg
-    }
-    format(): string {
-        return FORMATS.maven
-    }
-    baseUrl(): string {
-        return 'https://search.maven.org/artifact/'
-    }
-    titleSelector(): string {
-        return '.artifact-title'
-    }
-    versionPath(): string {
-        return '{groupId}/{artifactId}/{version}/{extension}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)(\/(?<version>[^/#?]*)\/(?<type>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class SearchMavenOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim()
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURLComplete(
                 FORMATS.maven,

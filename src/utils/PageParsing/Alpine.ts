@@ -17,43 +17,15 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export class AlpineLinuxOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.alpineLinux
-    }
-    format(): string {
-        return FORMATS.alpine
-    }
-    baseUrl(): string {
-        return 'https://pkgs.alpinelinux.org/package/'
-    }
-    titleSelector(): string {
-        return 'th.header ~ td'
-    }
-    versionPath(): string {
-        return ''
-    }
-    pathRegex(): RegExp {
-        return /^(?<releaseName>[^/]*)\/(?<releaseFeed>[^/]*)\/(?<architecture>[^/]*)\/(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return '#package > tbody > tr:nth-child(2) > td'
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class AlpineLinuxOrgPageParser extends BasePageParser {  
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
 
         if (pathResults && pathResults.groups) {
-            const version = $(this.versionDomPath()).first().text().trim()
+            const version = $(this.repoType.versionDomPath()).first().text().trim()
             return [generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
 

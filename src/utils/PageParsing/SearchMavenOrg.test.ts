@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { SearchMavenOrgPageParser } from './SearchMavenOrg'
+import { SearchMavenOrgRepo } from '../RepoType/SearchMavenOrg'
 
-const repo = new SearchMavenOrgRepo
+const parser = new SearchMavenOrgPageParser(new SearchMavenOrgRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

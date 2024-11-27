@@ -18,46 +18,13 @@ import { PackageURL } from 'packageurl-js'
 import { FORMATS } from '..//Constants'
 import { LogLevel, logger } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
 const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
 
-export class Nxrm3Repo extends BaseRepo {
-
-    constructor(readonly nxrmBaseUrl: string) {
-        super()
-    }
-
-    id(): string {
-        return `nxrm3-${this.nxrmBaseUrl}`
-    }
-    format(): string {
-        return FORMATS.NXRM
-    }
-    baseUrl(): string {
-        return this.nxrmBaseUrl
-    }
-    titleSelector(): string {
-        return ''
-    }
-    versionPath(): string {
-        return ''
-    }
-    pathRegex(): RegExp {
-        return /^$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class Nxrm3PageParser extends BasePageParser {   
     parsePage(url: string): PackageURL[] {
-        const uriPath = url.replace(this.baseUrl(), '')
+        const uriPath = url.replace(this.repoType.baseUrl(), '')
         logger.logMessage('Normalised URI Path: ', LogLevel.DEBUG, uriPath)
 
         if (uriPath.startsWith('#browse/browse')) {

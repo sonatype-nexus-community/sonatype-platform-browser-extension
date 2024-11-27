@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
-import { HuggingfaceCoRepo } from './HuggingfaceCo'
+import { HuggingfaceCoPageParser } from './HuggingfaceCo'
+import { HuggingfaceCoRepo } from '../RepoType/HuggingfaceCo'
 
-const repo = new HuggingfaceCoRepo
+const parser = new HuggingfaceCoPageParser(new HuggingfaceCoRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

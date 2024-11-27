@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { PkgGoDevRepo } from './PkgGoDev'
+import { PkgGoDevPageParser } from './PkgGoDev'
+import { PkgGoDevRepo } from '../RepoType/PkgGoDev'
 
-const repo = new PkgGoDevRepo
+const parser = new PkgGoDevPageParser(new PkgGoDevRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

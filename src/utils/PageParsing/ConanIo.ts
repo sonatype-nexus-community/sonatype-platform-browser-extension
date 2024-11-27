@@ -17,42 +17,14 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export class ConanIoRepo extends BaseRepo {
-    id(): string {
-        return REPOS.conanIo
-    }
-    format(): string {
-        return FORMATS.conan
-    }
-    baseUrl(): string {
-        return 'https://conan.io/center/recipes/'
-    }
-    titleSelector(): string {
-        return 'h1'
-    }
-    versionPath(): string {
-        return '{artifactId}?version={version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return 'h1'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class ConanIoPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const version = $(this.versionDomPath()).text().trim().split('/')[1]
+            const version = $(this.repoType.versionDomPath()).text().trim().split('/')[1]
             return [generatePackageURL(FORMATS.conan, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
         return []

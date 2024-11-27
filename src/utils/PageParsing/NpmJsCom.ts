@@ -17,43 +17,15 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLWithNamespace } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
-export class NpmJsComRepo extends BaseRepo {
-    id(): string {
-        return REPOS.npmJsCom
-    }
-    format(): string {
-        return FORMATS.npm
-    }
-    baseUrl(): string {
-        return 'https://www.npmjs.com/package/'
-    }
-    titleSelector(): string {
-        return '#top > div > h2 > span'
-    }
-    versionPath(): string {
-        return '{groupAndArtifactId}/v/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return '#top > div:not(.bg-washed-red) > span'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class NpmJsComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = stripHtmlComments($(this.versionDomPath()).first().text()).split('•')[0].trim()
+            const pageVersion = stripHtmlComments($(this.repoType.versionDomPath()).first().text()).split('•')[0].trim()
 
             return [generatePackageURLWithNamespace(
                 FORMATS.npm,

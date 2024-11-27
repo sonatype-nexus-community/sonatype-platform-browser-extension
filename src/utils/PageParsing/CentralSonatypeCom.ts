@@ -16,42 +16,14 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
 const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
-export class CentralSonatypeComRepo extends BaseRepo {
-    id(): string {
-        return REPOS.centralSonatypeCom
-    }
-    format(): string {
-        return FORMATS.maven
-    }
-    baseUrl(): string {
-        return 'https://central.sonatype.com/artifact/'
-    }
-    titleSelector(): string {
-        return 'h1'
-    }
-    versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\/[^#?]*)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class CentralSonatypeComPageParser extends BasePageParser {    
     parsePage(url: string): PackageURL[] {
         const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
         let type = 'jar'

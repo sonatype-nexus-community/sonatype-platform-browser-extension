@@ -17,42 +17,14 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export class CocoaPodsOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.cocoaPodsOrg
-    }
-    format(): string {
-        return FORMATS.cocoapods
-    }
-    baseUrl(): string {
-        return 'https://cocoapods.org/pods/'
-    }
-    titleSelector(): string {
-        return 'h1'
-    }
-    versionPath(): string {
-        return '{artifactId}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return 'h1 > span'
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class CocoaPodsOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const version = $(this.versionDomPath()).first().text().trim()
+            const version = $(this.repoType.versionDomPath()).first().text().trim()
             return [generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
         return []

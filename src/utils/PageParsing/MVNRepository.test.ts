@@ -18,9 +18,10 @@ import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { MvnRepositoryComRepo } from './MVNRepository'
+import { MvnRepositoryComPageParser } from './MVNRepository'
+import { MvnRepositoryComRepo } from '../RepoType/MVNRepository'
 
-const repo = new MvnRepositoryComRepo
+const parser = new MvnRepositoryComPageParser(new MvnRepositoryComRepo)
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -28,7 +29,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

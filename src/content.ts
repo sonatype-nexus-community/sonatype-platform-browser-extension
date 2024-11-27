@@ -20,7 +20,8 @@ import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageR
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'
 import { DefaultRepoRegistry } from './utils/RepoRegistry'
-import { BaseRepo } from './utils/Types'
+import { BaseRepo } from './utils/RepoType/BaseRepo'
+import { DefaultPageParserRegistry } from './utils/PageParserRegistry'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
@@ -59,7 +60,7 @@ function handle_message_received_calculate_purl_for_page(
                 },
             })
         } else {
-            const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
+            const purl = DefaultPageParserRegistry.getParserByRepoId(repoType.id()).parsePage(window.location.href)
             if (purl === undefined) {
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,

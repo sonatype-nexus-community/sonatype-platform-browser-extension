@@ -16,44 +16,16 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLWithNamespace } from './PurlUtils'
-import { BaseRepo } from '../Types'
 import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
-export class PackagistOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.packagistOrg
-    }
-    format(): string {
-        return FORMATS.composer
-    }
-    baseUrl(): string {
-        return 'https://packagist.org/packages/'
-    }
-    titleSelector(): string {
-        return 'h2.title'
-    }
-    versionPath(): string {
-        return '{groupAndArtifactId}#{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/?#]*)(\?(?<query>([^#]*)))?(#(?<version>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return '#view-package-page .versions-section .title .version-number'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class PackagistOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim()
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURLWithNamespace(
                 FORMATS.composer,

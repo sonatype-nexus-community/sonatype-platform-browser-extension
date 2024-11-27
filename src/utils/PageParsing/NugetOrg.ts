@@ -17,43 +17,15 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
 import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
-export class NugetOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.nugetOrg
-    }
-    format(): string {
-        return FORMATS.nuget
-    }
-    baseUrl(): string {
-        return 'https://www.nuget.org/packages/'
-    }
-    titleSelector(): string {
-        return '.package-title > h1'
-    }
-    versionPath(): string {
-        return '{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<artifactId>[^/?#]*)\/?((?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return 'span.version-title'
-    }
-    supportsVersionNavigation(): boolean {
-        return true
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class NugetOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const pageVersion = $(this.versionDomPath()).text().trim()
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURL(
                 FORMATS.nuget,

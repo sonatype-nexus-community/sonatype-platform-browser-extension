@@ -16,43 +16,15 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
-import { BaseRepo } from '../Types'
+import { BasePageParser } from './BasePageParser'
 
-export class CranRRepo extends BaseRepo {
-    id(): string {
-        return REPOS.cranRProject
-    }
-    format(): string {
-        return FORMATS.cran
-    }
-    baseUrl(): string {
-        return 'https://cran.r-project.org/'
-    }
-    titleSelector(): string {
-        return 'h2'
-    }
-    versionPath(): string {
-        return 'web/packages/{artifactId}/index.html'
-    }
-    pathRegex(): RegExp {
-        return /^web\/packages\/(?<artifactId>[^/]*)\/index\.html(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
-    }
-    versionDomPath(): string {
-        return 'table tr:nth-child(1) td:nth-child(2)'
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class CranRPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            const version = $(this.versionDomPath()).first().text().trim()
+            const version = $(this.repoType.versionDomPath()).first().text().trim()
             return [generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
         return []

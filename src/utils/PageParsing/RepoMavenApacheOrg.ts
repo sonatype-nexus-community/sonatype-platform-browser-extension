@@ -16,38 +16,10 @@
 
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS } from '../Constants'
-import { BaseRepo } from '../Types'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export class RepoMavenApacheOrgRepo extends BaseRepo {
-    id(): string {
-        return REPOS.repoMavenApacheOrg
-    }
-    format(): string {
-        return FORMATS.maven
-    }
-    baseUrl(): string {
-        return 'https://repo.maven.apache.org/maven2/'
-    }
-    titleSelector(): string {
-        return 'h1'
-    }
-    versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
-    }
-    pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
-    }
-    versionDomPath(): string {
-        return ''
-    }
-    supportsVersionNavigation(): boolean {
-        return false
-    }
-    supportsMultiplePurlsPerPage(): boolean {
-        return false
-    }
-    
+export class RepoMavenApacheOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
