@@ -16,35 +16,56 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
+import { BaseRepo } from '../Types'
+import { logger, LogLevel } from '../../logger/Logger'
 
-const parseSearchMavenOrg = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.searchMavenOrg)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            console.debug($(repoType.versionDomPath))
-            const pageVersion = $(repoType.versionDomPath).text().trim()
-            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
-            return generatePackageURLComplete(
+export class SearchMavenOrgRepo extends BaseRepo {
+    id(): string {
+        return REPOS.searchMavenOrg
+    }
+    format(): string {
+        return FORMATS.maven
+    }
+    baseUrl(): string {
+        return 'https://search.maven.org/artifact/'
+    }
+    titleSelector(): string {
+        return '.artifact-title'
+    }
+    versionPath(): string {
+        return '{groupId}/{artifactId}/{version}/{extension}'
+    }
+    pathRegex(): RegExp {
+        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)(\/(?<version>[^/#?]*)\/(?<type>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return ''
+    }
+    supportsVersionNavigation(): boolean {
+        return true
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            const pageVersion = $(this.versionDomPath()).text().trim()
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            return [generatePackageURLComplete(
                 FORMATS.maven,
-                encodeURIComponent(pathResult.groups.artifactId),
-                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                encodeURIComponent(pathResult.groups.groupId),
+                encodeURIComponent(pathResults.groups.artifactId),
+                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                encodeURIComponent(pathResults.groups.groupId),
                 {
-                    type: pathResult.groups.type !== undefined ? pathResult.groups.type : 'jar',
+                    type: pathResults.groups.type !== undefined ? pathResults.groups.type : 'jar',
                 },
                 undefined
-            )
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parseSearchMavenOrg }

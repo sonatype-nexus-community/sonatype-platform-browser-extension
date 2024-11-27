@@ -14,35 +14,37 @@
  * limitations under the License.
  */
 
+import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURLComplete } from './PurlUtils'
+import { generatePackageURLWithNamespace } from './PurlUtils'
 import { FORMATS, REPOS } from '../Constants'
+import { stripHtmlComments } from '../Helpers'
 import { BaseRepo } from '../Types'
 
-export class RepoMavenApacheOrgRepo extends BaseRepo {
+export class NpmJsComRepo extends BaseRepo {
     id(): string {
-        return REPOS.repoMavenApacheOrg
+        return REPOS.npmJsCom
     }
     format(): string {
-        return FORMATS.maven
+        return FORMATS.npm
     }
     baseUrl(): string {
-        return 'https://repo.maven.apache.org/maven2/'
+        return 'https://www.npmjs.com/package/'
     }
     titleSelector(): string {
-        return 'h1'
+        return '#top > div > h2 > span'
     }
     versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
+        return '{groupAndArtifactId}/v/{version}'
     }
     pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
+        return /^((?<groupId>@[^/]*)\/)?(?<artifactId>[^/?#]*)(\/v\/(?<version>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
     }
     versionDomPath(): string {
-        return ''
+        return '#top > div:not(.bg-washed-red) > span'
     }
     supportsVersionNavigation(): boolean {
-        return false
+        return true
     }
     supportsMultiplePurlsPerPage(): boolean {
         return false
@@ -51,19 +53,14 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            if (pathResults.groups.version !== undefined) {
-                const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
-                const artifactId = gaParts.pop()
-                const groupId = gaParts.join('.')
-                return [generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(artifactId as string),
-                    encodeURIComponent(pathResults.groups.version),
-                    encodeURIComponent(groupId),
-                    { type: 'jar' },
-                    undefined
-                )]
-            }
+            const pageVersion = stripHtmlComments($(this.versionDomPath()).first().text()).split('•')[0].trim()
+
+            return [generatePackageURLWithNamespace(
+                FORMATS.npm,
+                pathResults.groups.artifactId,
+                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                pathResults.groups.groupId
+            )]
         }
         return []
     }

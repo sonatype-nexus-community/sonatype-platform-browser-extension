@@ -17,23 +17,46 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
+import { BaseRepo } from '../Types'
 
-const parseAlpine = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.alpineLinux)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-            const version = $(repoType.versionDomPath).text().trim()
-            return generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResult.groups.artifactId), version)
-        }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+export class AlpineLinuxOrgRepo extends BaseRepo {
+    id(): string {
+        return REPOS.alpineLinux
     }
+    format(): string {
+        return FORMATS.alpine
+    }
+    baseUrl(): string {
+        return 'https://pkgs.alpinelinux.org/package/'
+    }
+    titleSelector(): string {
+        return 'th.header ~ td'
+    }
+    versionPath(): string {
+        return ''
+    }
+    pathRegex(): RegExp {
+        return /^(?<releaseName>[^/]*)\/(?<releaseFeed>[^/]*)\/(?<architecture>[^/]*)\/(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return '#package > tbody > tr:nth-child(2) > td'
+    }
+    supportsVersionNavigation(): boolean {
+        return false
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
 
-    return undefined
+        if (pathResults && pathResults.groups) {
+            const version = $(this.versionDomPath()).first().text().trim()
+            return [generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version)]
+        }
+
+        return []
+    }
 }
-
-export { parseAlpine }

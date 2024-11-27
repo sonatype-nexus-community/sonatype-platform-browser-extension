@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from '../logger/Logger'
-import { BaseRepo } from './Types'
 
-export const getArtifactDetailsFromDOM = (repoFormat: BaseRepo, url: string): PackageURL[] | undefined => {
-    logger.logMessage('In getArtifactDetailsFromDOM', LogLevel.TRACE, repoFormat, url)
-    return repoFormat.parsePage(url)
-}
+import { describe, expect, test } from '@jest/globals'
+import { DefaultRepoRegistry } from './RepoRegistry'
+
+describe('RepoRegistry', () => { 
+    test('DefaultRepoRegistry', () => { 
+        const drr = DefaultRepoRegistry
+        expect(drr.getCount()).toEqual(17)
+    })
+})

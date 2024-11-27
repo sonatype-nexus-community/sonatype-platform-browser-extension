@@ -18,9 +18,9 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
-import { ConanIoRepo } from './ConanIo'
+import { PypiOrgRepo } from './PypiOrg'
 
-const repo = new ConanIoRepo
+const repo = new PypiOrgRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -37,34 +37,59 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         expect(p).toBeDefined()
         expect(p?.version).toBe(e?.version)
         expect(p?.name).toBe(e?.name)
+        expect(p?.qualifiers).toEqual(e?.qualifiers)
     } else {
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('conan.io Page Parsing', () => {
+describe('pypi.org Page Parsing', () => {
     
-    test('proj no URL version', () => {
+    test('Django/', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/proj',
-            'conan.io/proj-9.5.0.html',
-            [PackageURL.fromString('pkg:conan/proj@9.5.0')]
+            'https://pypi.org/project/Django/',
+            'pypi.org/Django-4.2.1.html',
+            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
         )
     })
 
-    test('proj with URL version', () => {
+    test('Django/4.2.1/', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/proj?version=8.2.1',
-            'conan.io/proj-8.2.1.html',
-            [PackageURL.fromString('pkg:conan/proj@8.2.1')]
+            'https://pypi.org/project/Django/4.2.1/',
+            'pypi.org/Django-4.2.1.html',
+            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
         )
     })
 
-    test('libxft incorrect URL version', () => {
+    test('Django/4.2.1/ + Query & Fragment', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/libxft?version=2.3.8',
-            'conan.io/libxft-2.3.6.html',
-            [PackageURL.fromString('pkg:conan/libxft@2.3.6')]
+            'https://pypi.org/project/Django/4.2.1/?a=c#r',
+            'pypi.org/Django-4.2.1.html',
+            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
+        )
+    })
+
+    test('numpy/1.14.0/ (source = ZIP)', () => {
+        assertPageParsing(
+            'https://pypi.org/project/numpy/1.14.0/',
+            'pypi.org/numpy-1.14.0.html',
+            [PackageURL.fromString('pkg:pypi/numpy@1.14.0?extension=zip')]
+        )
+    })
+
+    test('Twisted/19.2.0/ (source = tar.bz2)', () => {
+        assertPageParsing(
+            'https://pypi.org/project/Twisted/19.2.0/',
+            'pypi.org/Twisted-19.2.0.html',
+            [PackageURL.fromString('pkg:pypi/Twisted@19.2.0?extension=tar.bz2')]
+        )
+    })
+
+    test('mediapipe/0.10.14/ (No Source Dist))', () => {
+        assertPageParsing(
+            'https://pypi.org/project/mediapipe/0.10.14/',
+            'pypi.org/mediapipe-0.10.14.html',
+            [PackageURL.fromString('pkg:pypi/mediapipe@0.10.14?extension=whl&qualifier=cp312-cp312-win_amd64')]
         )
     })
 })

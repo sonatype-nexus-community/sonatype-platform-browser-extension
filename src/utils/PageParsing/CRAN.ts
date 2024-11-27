@@ -16,24 +16,45 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
+import { BaseRepo } from '../Types'
 
-const parseCRAN = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cranRProject)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-            const version = $(repoType.versionDomPath).first().text().trim()
-            return generatePackageURL(FORMATS.cran, encodeURIComponent(pathResult.groups.artifactId), version)
-        }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+export class CranRRepo extends BaseRepo {
+    id(): string {
+        return REPOS.cranRProject
     }
-
-    return undefined
+    format(): string {
+        return FORMATS.cran
+    }
+    baseUrl(): string {
+        return 'https://cran.r-project.org/'
+    }
+    titleSelector(): string {
+        return 'h2'
+    }
+    versionPath(): string {
+        return 'web/packages/{artifactId}/index.html'
+    }
+    pathRegex(): RegExp {
+        return /^web\/packages\/(?<artifactId>[^/]*)\/index\.html(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return 'table tr:nth-child(1) td:nth-child(2)'
+    }
+    supportsVersionNavigation(): boolean {
+        return false
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            const version = $(this.versionDomPath()).first().text().trim()
+            return [generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)]
+        }
+        return []
+    }
 }
-
-export { parseCRAN }

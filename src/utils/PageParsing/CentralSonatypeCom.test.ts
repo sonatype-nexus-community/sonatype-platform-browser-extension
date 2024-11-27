@@ -17,209 +17,120 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
-import { REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { ensure } from '../Helpers'
+import { CentralSonatypeComRepo } from './CentralSonatypeCom'
+
+const repo = new CentralSonatypeComRepo
+
+function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+    if (domFile) {
+        const html = readFileSync(join(__dirname, 'testdata', domFile))
+        window.document.body.innerHTML = html.toString()
+    }
+        
+    const packageURLs = getArtifactDetailsFromDOM(repo, url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.version).toBe(e?.version)
+        expect(p?.namespace).toBe(e?.namespace)
+        expect(p?.name).toBe(e?.name)
+        expect(p?.qualifiers).toEqual(e?.qualifiers)
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
+}
 
 describe('central.sonatype.com Page Parsing', () => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.centralSonatypeCom)
-    expect(repoType).toBeDefined()
-
-    test('should parse a valid central.sonatype.com page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2'
+    
+    test('cyclonedx-core-java/7.3.2 JAR', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2',
+            'central.sonatype.com/cyclonedx-core-java-7.3.2.html',
+            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-core-java@7.3.2?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-core-java')
-        expect(packageURL?.version).toBe('7.3.2')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com page with additional path', () => {
-        const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions'
+    test('cyclonedx-core-java/7.3.2/versions JAR', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions',
+            'central.sonatype.com/cyclonedx-core-java-7.3.2.html',
+            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-core-java@7.3.2?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-core-java')
-        expect(packageURL?.version).toBe('7.3.2')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com page with additional path and query string', () => {
-        const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions?something=else'
+    test('cyclonedx-core-java/7.3.2/versions JAR (+query)', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions?something=else',
+            'central.sonatype.com/cyclonedx-core-java-7.3.2.html',
+            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-core-java@7.3.2?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-core-java')
-        expect(packageURL?.version).toBe('7.3.2')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com page with additional path and fragment', () => {
-        const html = readFileSync(join(__dirname, 'testdata/CentralSonatypeCom.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions#anchor'
+    test('cyclonedx-core-java/7.3.2/versions JAR (+fragment)', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.cyclonedx/cyclonedx-core-java/7.3.2/versions#anchor',
+            'central.sonatype.com/cyclonedx-core-java-7.3.2.html',
+            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-core-java@7.3.2?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-core-java')
-        expect(packageURL?.version).toBe('7.3.2')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com where artefact is AAR', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-android.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/com.fpliu.ndk.pkg.prefab.android.21/curl/7.82.0/overview'
+    test('com.fpliu.ndk.pkg.prefab.android.21.curl/7.82.0 AAR', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/com.fpliu.ndk.pkg.prefab.android.21/curl/7.82.0/overview',
+            'central.sonatype.com/c-f-n-p-p-a-21-curl-7.82.0.html',
+            [PackageURL.fromString('pkg:maven/com.fpliu.ndk.pkg.prefab.android.21/curl@7.82.0?type=aar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('com.fpliu.ndk.pkg.prefab.android.21')
-        expect(packageURL?.name).toBe('curl')
-        expect(packageURL?.version).toBe('7.82.0')
-        expect(packageURL?.qualifiers).toEqual({ type: 'aar' })
     })
 
-    test('should parse a valid central.sonatype.com where artefact is not of type JAR', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-scalacheck-bundle.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.scalatestplus/scalacheck-1-17_sjs1_3/3.2.17.0'
+    test('org.scalatestplus/scalacheck-1-17_sjs1_3/3.2.17.0 packaging=bundle', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.scalatestplus/scalacheck-1-17_sjs1_3/3.2.17.0',
+            'central.sonatype.com/scalacheck-bundle.html',
+            [PackageURL.fromString('pkg:maven/org.scalatestplus/scalacheck-1-17_sjs1_3@3.2.17.0?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.scalatestplus')
-        expect(packageURL?.name).toBe('scalacheck-1-17_sjs1_3')
-        expect(packageURL?.version).toBe('3.2.17.0')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com where artefact is not of type POM', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-log4j-parent.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1'
+    test('org.apache.logging.log4j/log4j/3.0.0-alpha1 packaging=pom', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1',
+            'central.sonatype.com/log4j-parent.html',
+            [PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j@3.0.0-alpha1?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('org.apache.logging.log4j')
-        expect(packageURL?.name).toBe('log4j')
-        expect(packageURL?.version).toBe('3.0.0-alpha1')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com where packaging is maven-plugin', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-custom-properties-maven-plugin.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/net.sf.czsem/custom-properties-maven-plugin/4.0.3'
+    test('custom-properties-maven-plugin/4.0.3 packaging=maven-plugin', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/net.sf.czsem/custom-properties-maven-plugin/4.0.3',
+            'central.sonatype.com/custom-properties-maven-plugin.html',
+            [PackageURL.fromString('pkg:maven/net.sf.czsem/custom-properties-maven-plugin@4.0.3?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('net.sf.czsem')
-        expect(packageURL?.name).toBe('custom-properties-maven-plugin')
-        expect(packageURL?.version).toBe('4.0.3')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid central.sonatype.com where packaging is WAR', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-cool-jconon.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/it.cnr.si.cool.jconon/cool-jconon/5.2.44'
+    test('it.cnr.si.cool.jconon/cool-jconon/5.2.44 packaging=war', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/it.cnr.si.cool.jconon/cool-jconon/5.2.44',
+            'central.sonatype.com/cool-jconon.html',
+            [PackageURL.fromString('pkg:maven/it.cnr.si.cool.jconon/cool-jconon@5.2.44?type=war')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('it.cnr.si.cool.jconon')
-        expect(packageURL?.name).toBe('cool-jconon')
-        expect(packageURL?.version).toBe('5.2.44')
-        expect(packageURL?.qualifiers).toEqual({ type: 'war' })
     })
 
-    test('should parse a valid central.sonatype.com where packaging is EAR', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-jakarta-ivt.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/com.ibm.mq/wmq.jakarta.jmsra.ivt/9.3.3.1'
+    test('com.ibm.mq/wmq.jakarta.jmsra.ivt/9.3.3.1 packaging=ear', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/com.ibm.mq/wmq.jakarta.jmsra.ivt/9.3.3.1',
+            'central.sonatype.com/jakarta-ivt.html',
+            [PackageURL.fromString('pkg:maven/com.ibm.mq/wmq.jakarta.jmsra.ivt@9.3.3.1?type=ear')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('com.ibm.mq')
-        expect(packageURL?.name).toBe('wmq.jakarta.jmsra.ivt')
-        expect(packageURL?.version).toBe('9.3.3.1')
-        expect(packageURL?.qualifiers).toEqual({ type: 'ear' })
     })
 
-    test('should parse a valid central.sonatype.com where SEO changes made', () => {
-        const html = readFileSync(join(__dirname, 'testdata/central-s-c-commons-io.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://central.sonatype.com/artifact/commons-io/commons-io/overview'
+    test('commons-io/commons-io/overview SEO changes made', () => {
+        assertPageParsing(
+            'https://central.sonatype.com/artifact/commons-io/commons-io/overview',
+            'central.sonatype.com/commons-io.html',
+            [PackageURL.fromString('pkg:maven/commons-io/commons-io@2.15.1?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe('maven')
-        expect(packageURL?.namespace).toBe('commons-io')
-        expect(packageURL?.name).toBe('commons-io')
-        expect(packageURL?.version).toBe('2.15.1')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 })

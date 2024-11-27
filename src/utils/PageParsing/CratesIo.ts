@@ -18,30 +18,52 @@ import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
+import { BaseRepo } from '../Types'
 
-export const parseCratesIo = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cratesIo)
-    logger.logMessage(`Parsing crates.io ${repoType?.repoID}`, LogLevel.DEBUG)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            console.debug($(repoType.versionDomPath))
-            const pageVersion = $(repoType.versionDomPath).text().trim()
-            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
-            return generatePackageURLComplete(
+export class CratesIoRepo extends BaseRepo {
+    id(): string {
+        return REPOS.cratesIo
+    }
+    format(): string {
+        return FORMATS.cargo
+    }
+    baseUrl(): string {
+        return 'https://crates.io/crates/'
+    }
+    titleSelector(): string {
+        return "h1[class*='heading']"
+    }
+    versionPath(): string {
+        return '{artifactId}/{version}'
+    }
+    pathRegex(): RegExp {
+        return /^(?<artifactId>[^/#?]*)(\/(?<version>[^/#?]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return 'h1 small'
+    }
+    supportsVersionNavigation(): boolean {
+        return true
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            const pageVersion = $(this.versionDomPath()).text().trim()
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            return [generatePackageURLComplete(
                 FORMATS.cargo,
-                encodeURIComponent(pathResult.groups.artifactId),
-                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion.replace('v', ''),
+                encodeURIComponent(pathResults.groups.artifactId),
+                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion.replace('v', ''),
                 undefined,
                 {},
                 undefined
-            )
+            )]
         }
-    } else {
-        logger.logMessage('Unable to determine REPO TYPE.', LogLevel.INFO)
+        return []
     }
-
-    return undefined
 }

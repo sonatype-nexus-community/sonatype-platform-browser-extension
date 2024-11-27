@@ -16,16 +16,43 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
+import { BaseRepo } from '../Types'
 
 const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
-const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.centralSonatypeCom)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
+export class CentralSonatypeComRepo extends BaseRepo {
+    id(): string {
+        return REPOS.centralSonatypeCom
+    }
+    format(): string {
+        return FORMATS.maven
+    }
+    baseUrl(): string {
+        return 'https://central.sonatype.com/artifact/'
+    }
+    titleSelector(): string {
+        return 'h1'
+    }
+    versionPath(): string {
+        return '{groupId}/{artifactId}/{version}'
+    }
+    pathRegex(): RegExp {
+        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\/[^#?]*)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return ''
+    }
+    supportsVersionNavigation(): boolean {
+        return true
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
         const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
         let type = 'jar'
         if (pomResult?.groups !== undefined) {
@@ -39,25 +66,21 @@ const parseCentralSonatypeCom = (url: string): PackageURL | undefined => {
             const purl = PackageURL.fromString(purlText)
             purl.qualifiers = { type: type }
             console.debug(`*** Got centralSonatypeCom purl from page purlText '${purlText} : ${purl.toString()}`)
-            return purl
+            return [purl]
         }
         
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        if (pathResult && pathResult.groups) {
-            return generatePackageURLComplete(
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            return [generatePackageURLComplete(
                 FORMATS.maven,
-                encodeURIComponent(pathResult.groups.artifactId),
-                encodeURIComponent(pathResult.groups.version),
-                encodeURIComponent(pathResult.groups.groupId),
+                encodeURIComponent(pathResults.groups.artifactId),
+                encodeURIComponent(pathResults.groups.version),
+                encodeURIComponent(pathResults.groups.groupId),
                 { type: type },
                 undefined
-            )
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+
+        return []
     }
-
-    return undefined
 }
-
-export { parseCentralSonatypeCom }

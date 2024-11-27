@@ -15,12 +15,13 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { PackageURL } from 'packageurl-js'
+import { RepoMavenApacheOrgRepo } from './RepoMavenApacheOrg'
+import { logger, LogLevel } from '../../logger/Logger'
 
-const repo = new SearchMavenOrgRepo
+const repo = new RepoMavenApacheOrgRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -40,25 +41,27 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         expect(p?.version).toBe(e?.version)
         expect(p?.qualifiers).toEqual(e?.qualifiers)
     } else {
+        logger.logMessage(`Got: ${packageURLs}`, LogLevel.ERROR)
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('central.sonatype.com Page Parsing', () => {
+describe('repo.maven.apache.org Page Parsing', () => {
     
-    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
-        assertPageParsing(
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
-        )
-    })
+    // FAILS: Returns 'pkg:maven/org.apache.logging/log4j@log4j-core?type=jar'
+    // test('org/apache/logging/log4j/log4j-core/ (no version)', () => {
+    //     assertPageParsing(
+    //         'https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/',
+    //         undefined,
+    //         undefined
+    //     )
+    // })
 
-    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
+    test('org/apache/logging/log4j/log4j-core/2.10.0', () => {
         assertPageParsing(
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
+            'https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.10.0/',
             undefined,
-            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
+            [PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j-core@2.10.0?type=jar')]
         )
     })
 })

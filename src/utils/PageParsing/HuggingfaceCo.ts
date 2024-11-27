@@ -17,7 +17,7 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
@@ -31,17 +31,45 @@ const FILE_EXTENSION_MAP = {
     }
 }
 
-const parseHuggingface = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.huggingfaceCo)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            const artifactName = pathResult.groups.artifactId
-            const artifactNamespace = pathResult.groups.namespace
+import { BaseRepo } from '../Types'
+import { logger, LogLevel } from '../../logger/Logger'
+
+export class HuggingfaceCoRepo extends BaseRepo {
+    id(): string {
+        return REPOS.huggingfaceCo
+    }
+    format(): string {
+        return FORMATS.huggingface
+    }
+    baseUrl(): string {
+        return 'https://huggingface.co/'
+    }
+    titleSelector(): string {
+        return 'header h1'
+    }
+    versionPath(): string {
+        return ''
+    }
+    pathRegex(): RegExp {
+        return /^(?<namespace>[^/?#]*)\/(?<artifactId>[^/?#]*)(?<subpath>\/([^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return ''
+    }
+    supportsVersionNavigation(): boolean {
+        return false
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return true
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            const artifactName = pathResults.groups.artifactId
+            const artifactNamespace = pathResults.groups.namespace
             const pageDomFileRows = $(FILE_ROW_SELECTOR)
-            console.debug(`DOM File Rows: ${pageDomFileRows.length}`)
+            logger.logMessage(`DOM File Rows: ${pageDomFileRows.length}`, LogLevel.DEBUG)
 
             for (const domFileRow of pageDomFileRows) {
                 const domFileRowATags = $('a', domFileRow)
@@ -52,32 +80,26 @@ const parseHuggingface = (url: string): PackageURL | undefined => {
                 const fileName = stripHtmlComments(domFileRowATags.first().text()).trim()
                 const fileDownloadUrl = domFileRowATags.get(3)?.getAttribute('href')
                 const fileVersion = fileDownloadUrl?.split('/').pop()
-                console.debug(`    Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`)
+                logger.logMessage(`    Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
 
                 if (fileVersion != undefined) {
                     for (const i in Object.keys(FILE_EXTENSION_MAP)) {
                         const candidateExtension = Object.keys(FILE_EXTENSION_MAP)[i]
                         if (fileName.endsWith(candidateExtension)) {
-                            return generatePackageURLComplete(
+                            return [generatePackageURLComplete(
                                 FORMATS.huggingface,
                                 artifactName,
                                 fileVersion,
                                 artifactNamespace,
                                 FILE_EXTENSION_MAP[candidateExtension]['qualifiers'],
                                 undefined
-                            )
+                            )]
                         }
                     }
                 }
             }
-
-            return undefined
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+
+        return []
     }
-
-    return undefined
 }
-
-export { parseHuggingface }

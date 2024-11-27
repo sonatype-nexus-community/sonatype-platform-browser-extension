@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, expect, it, test } from '@jest/globals'
-import { getNewSelectedVersionUrl } from './Helpers'
+import { describe, expect, it } from '@jest/globals'
+import { getNewSelectedVersionUrl } from './Version'
 import { PackageURL } from 'packageurl-js'
 
 

@@ -14,35 +14,37 @@
  * limitations under the License.
  */
 
+import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURLComplete } from './PurlUtils'
 import { FORMATS, REPOS } from '../Constants'
+import { generatePackageURL } from './PurlUtils'
 import { BaseRepo } from '../Types'
+import { logger, LogLevel } from '../../logger/Logger'
 
-export class RepoMavenApacheOrgRepo extends BaseRepo {
+export class RubygemsOrgRepo extends BaseRepo {
     id(): string {
-        return REPOS.repoMavenApacheOrg
+        return REPOS.rubyGemsOrg
     }
     format(): string {
-        return FORMATS.maven
+        return FORMATS.gem
     }
     baseUrl(): string {
-        return 'https://repo.maven.apache.org/maven2/'
+        return 'https://rubygems.org/gems/'
     }
     titleSelector(): string {
-        return 'h1'
+        return 'h1.t-display'
     }
     versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
+        return '{artifactId}/versions/{version}'
     }
     pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
+        return /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
     }
     versionDomPath(): string {
-        return ''
+        return '.page__subheading'
     }
     supportsVersionNavigation(): boolean {
-        return false
+        return true
     }
     supportsMultiplePurlsPerPage(): boolean {
         return false
@@ -51,19 +53,14 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            if (pathResults.groups.version !== undefined) {
-                const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
-                const artifactId = gaParts.pop()
-                const groupId = gaParts.join('.')
-                return [generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(artifactId as string),
-                    encodeURIComponent(pathResults.groups.version),
-                    encodeURIComponent(groupId),
-                    { type: 'jar' },
-                    undefined
-                )]
-            }
+            const pageVersion = $(this.versionDomPath()).text().trim()
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            return [generatePackageURL(
+                FORMATS.gem,
+                pathResults.groups.artifactId,
+                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                (pathResults.groups.platform !== undefined && pathResults.groups.platform != '') ? { platform: pathResults.groups.platform } : undefined
+            )]
         }
         return []
     }

@@ -14,32 +14,33 @@
  * limitations under the License.
  */
 
+import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURLComplete } from './PurlUtils'
+import { generatePackageURL } from './PurlUtils'
 import { FORMATS, REPOS } from '../Constants'
 import { BaseRepo } from '../Types'
 
-export class RepoMavenApacheOrgRepo extends BaseRepo {
+export class CocoaPodsOrgRepo extends BaseRepo {
     id(): string {
-        return REPOS.repoMavenApacheOrg
+        return REPOS.cocoaPodsOrg
     }
     format(): string {
-        return FORMATS.maven
+        return FORMATS.cocoapods
     }
     baseUrl(): string {
-        return 'https://repo.maven.apache.org/maven2/'
+        return 'https://cocoapods.org/pods/'
     }
     titleSelector(): string {
         return 'h1'
     }
     versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
+        return '{artifactId}'
     }
     pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
+        return /^(?<artifactId>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
     }
     versionDomPath(): string {
-        return ''
+        return 'h1 > span'
     }
     supportsVersionNavigation(): boolean {
         return false
@@ -51,19 +52,8 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            if (pathResults.groups.version !== undefined) {
-                const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
-                const artifactId = gaParts.pop()
-                const groupId = gaParts.join('.')
-                return [generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(artifactId as string),
-                    encodeURIComponent(pathResults.groups.version),
-                    encodeURIComponent(groupId),
-                    { type: 'jar' },
-                    undefined
-                )]
-            }
+            const version = $(this.versionDomPath()).first().text().trim()
+            return [generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
         return []
     }

@@ -15,23 +15,52 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
+import { BaseRepo } from '../Types'
+import { logger, LogLevel } from '../../logger/Logger'
 
 const PYPI_DEFAULT_EXTENSION = 'tar.gz'
 const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [PYPI_DEFAULT_EXTENSION, 'tar.bz2']
 const PYPI_EXTENSION_SELECTOR = '#files > div.file div.file__card a:nth-child(1)'
 
-const parsePyPIURL = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.pypiOrg)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            console.debug($(repoType.versionDomPath))
-            const pageVersion = $(repoType.versionDomPath).text().trim().split(' ')[1]
-            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
+export class PypiOrgRepo extends BaseRepo {
+    id(): string {
+        return REPOS.pypiOrg
+    }
+    format(): string {
+        return FORMATS.pypi
+    }
+    baseUrl(): string {
+        return 'https://pypi.org/project/'
+    }
+    titleSelector(): string {
+        return 'h1.package-header__name1'
+    }
+    versionPath(): string {
+        return '{artifactId}/{version}'
+    }
+    pathRegex(): RegExp {
+        return /^(?<artifactId>[^/?#]*)\/((?<version>[^?#]*)\/)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return '#content > div.banner > div > div.package-header__left > h1'
+    }
+    supportsVersionNavigation(): boolean {
+        return true
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            const pageVersion = $(this.versionDomPath()).text().trim().split(' ')[1]
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+
+            const thisVersion = pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion
+
             const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
             let candidateExtension: string | undefined = undefined
             for (const i in PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS) {
@@ -47,10 +76,11 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
                 extension = candidateExtension
             }
 
-            console.debug(
-                `Parsing ${firstDistributionFilename} - given: Artifact ID = ${pathResult.groups.artifactId}, Version = ${pageVersion}, Extension = ${extension}`
+            logger.logMessage(
+                `Parsing ${firstDistributionFilename} - given: Artifact ID = ${pathResults.groups.artifactId}, Version = ${pageVersion}, Extension = ${extension}`,
+                LogLevel.DEBUG
             )
-            const start = pathResult.groups.artifactId.length + pageVersion.length + 2
+            const start = pathResults.groups.artifactId.length + thisVersion.length + 2
             const end = firstDistributionFilename.length - extension.length - 1
             const qualifier = firstDistributionFilename.substring(start, end)
 
@@ -61,18 +91,13 @@ const parsePyPIURL = (url: string): PackageURL | undefined => {
                 qualifiers['qualifier'] = qualifier
             }
             
-            return generatePackageURL(
+            return [generatePackageURL(
                 FORMATS.pypi,
-                pathResult.groups.artifactId,
-                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
+                pathResults.groups.artifactId,
+                thisVersion,
                 qualifiers
-            )
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parsePyPIURL }

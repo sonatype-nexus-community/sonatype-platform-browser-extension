@@ -15,12 +15,12 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { PackageURL } from 'packageurl-js'
+import { NpmJsComRepo } from './NpmJsCom'
 
-const repo = new SearchMavenOrgRepo
+const repo = new NpmJsComRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -35,30 +35,50 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         const p = packageURLs?.pop()
         const e = expected.pop()
         expect(p).toBeDefined()
-        expect(p?.namespace).toBe(e?.namespace)
+        if (e?.namespace != undefined) {
+            expect(p?.namespace).toBe(e?.namespace)
+        } else {
+            expect(p?.namespace).toBeUndefined()
+        }
         expect(p?.name).toBe(e?.name)
         expect(p?.version).toBe(e?.version)
-        expect(p?.qualifiers).toEqual(e?.qualifiers)
     } else {
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('central.sonatype.com Page Parsing', () => {
+describe('npmjs.com Page Parsing', () => {
+    const RSC_VERSION = "13.3.2"
     
-    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
+    test('@sonatype/react-shared-components (no version in URL)', () => {
         assertPageParsing(
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
+            'https://www.npmjs.com/package/@sonatype/react-shared-components',
+            `npmjs.com/sonatype-react-shared-components-${RSC_VERSION}.html`,
+            [PackageURL.fromString(`pkg:npm/%40sonatype/react-shared-components@${RSC_VERSION}`)]
         )
     })
 
-    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
+    test(`@sonatype/react-shared-components/v/${RSC_VERSION}`, () => {
         assertPageParsing(
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
+            `https://www.npmjs.com/package/@sonatype/react-shared-components/v/${RSC_VERSION}`,
             undefined,
-            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
+            [PackageURL.fromString(`pkg:npm/%40sonatype/react-shared-components@${RSC_VERSION}`)]
+        )
+    })
+
+    test(`@sonatype/react-shared-components/v/${RSC_VERSION} + query & fragment`, () => {
+        assertPageParsing(
+            `https://www.npmjs.com/package/@sonatype/react-shared-components/v/${RSC_VERSION}?a=b#c`,
+            undefined,
+            [PackageURL.fromString(`pkg:npm/%40sonatype/react-shared-components@${RSC_VERSION}`)]
+        )
+    })
+
+    test('path-is-absolute (deprecated)', () => {
+        assertPageParsing(
+            'https://www.npmjs.com/package/path-is-absolute',
+            `npmjs.com/path-is-absolute-2.0.0.html`,
+            [PackageURL.fromString(`pkg:npm/path-is-absolute@2.0.0`)]
         )
     })
 })

@@ -15,12 +15,12 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { PackageURL } from 'packageurl-js'
+import { NugetOrgRepo } from './NugetOrg'
 
-const repo = new SearchMavenOrgRepo
+const repo = new NugetOrgRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -35,30 +35,52 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         const p = packageURLs?.pop()
         const e = expected.pop()
         expect(p).toBeDefined()
-        expect(p?.namespace).toBe(e?.namespace)
-        expect(p?.name).toBe(e?.name)
         expect(p?.version).toBe(e?.version)
-        expect(p?.qualifiers).toEqual(e?.qualifiers)
+        expect(p?.name).toBe(e?.name)
     } else {
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('central.sonatype.com Page Parsing', () => {
+describe('nuget.org Page Parsing', () => {
     
-    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
+    test('/Newtonsoft.Json (no version in URL)', () => {      
         assertPageParsing(
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
+            'https://www.nuget.org/packages/Newtonsoft.Json',
+            'nuget.org/Newtonsoft.Json-13.0.1.html',
+            [PackageURL.fromString('pkg:nuget/Newtonsoft.Json@13.0.1')]
         )
     })
 
-    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
+    test('/Newtonsoft.Json/ (no version in URL)', () => {      
         assertPageParsing(
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
+            'https://www.nuget.org/packages/Newtonsoft.Json/',
+            'nuget.org/Newtonsoft.Json-13.0.1.html',
+            [PackageURL.fromString('pkg:nuget/Newtonsoft.Json@13.0.1')]
+        )
+    })
+
+    test('/Newtonsoft.Json/13.0.3', () => {      
+        assertPageParsing(
+            'https://www.nuget.org/packages/Newtonsoft.Json/13.0.3',
             undefined,
-            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
+            [PackageURL.fromString('pkg:nuget/Newtonsoft.Json@13.0.3')]
+        )
+    })
+
+    test('/Newtonsoft.Json/13.0.3/', () => {      
+        assertPageParsing(
+            'https://www.nuget.org/packages/Newtonsoft.Json/13.0.3/',
+            undefined,
+            [PackageURL.fromString('pkg:nuget/Newtonsoft.Json@13.0.3')]
+        )
+    })
+
+     test('/Newtonsoft.Json/13.0.3/ + query & fragment', () => {      
+        assertPageParsing(
+            'https://www.nuget.org/packages/Newtonsoft.Json/13.0.3/?c=d#e',
+            undefined,
+            [PackageURL.fromString('pkg:nuget/Newtonsoft.Json@13.0.3')]
         )
     })
 })

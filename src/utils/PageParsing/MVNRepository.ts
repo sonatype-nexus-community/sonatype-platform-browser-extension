@@ -15,30 +15,51 @@
  */
 
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
+import { BaseRepo } from '../Types'
 
-const parseMVNRepository = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.mvnRepositoryCom)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            return generatePackageURLComplete(
+export class MvnRepositoryComRepo extends BaseRepo {
+    id(): string {
+        return REPOS.mvnRepositoryCom
+    }
+    format(): string {
+        return FORMATS.maven
+    }
+    baseUrl(): string {
+        return 'https://mvnrepository.com/artifact/'
+    }
+    titleSelector(): string {
+        return 'h2.im-title'
+    }
+    versionPath(): string {
+        return '{groupId}/{artifactId}/{version}'
+    }
+    pathRegex(): RegExp {
+        return /^(?<groupId>[^/]*)\/(?<artifactId>[^/]*)\/(?<version>[^/#?]*)(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+    }
+    versionDomPath(): string {
+        return ''
+    }
+    supportsVersionNavigation(): boolean {
+        return true
+    }
+    supportsMultiplePurlsPerPage(): boolean {
+        return false
+    }
+    
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults && pathResults.groups) {
+            return [generatePackageURLComplete(
                 FORMATS.maven,
-                encodeURIComponent(pathResult.groups.artifactId),
-                encodeURIComponent(pathResult.groups.version),
-                encodeURIComponent(pathResult.groups.groupId),
+                encodeURIComponent(pathResults.groups.artifactId),
+                encodeURIComponent(pathResults.groups.version),
+                encodeURIComponent(pathResults.groups.groupId),
                 { type: 'jar' },
                 undefined
-            )
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parseMVNRepository }

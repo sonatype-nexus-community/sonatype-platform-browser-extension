@@ -15,12 +15,12 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { PackageURL } from 'packageurl-js'
+import { HuggingfaceCoRepo } from './HuggingfaceCo'
 
-const repo = new SearchMavenOrgRepo
+const repo = new HuggingfaceCoRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -44,21 +44,19 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
     }
 }
 
-describe('central.sonatype.com Page Parsing', () => {
-    
-    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
+describe('huggingface.co Page Parsing', () => {
+    test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased', () => {
         assertPageParsing(
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
-        )
+            'https://huggingface.co/distilbert/distilbert-base-uncased',
+            'huggingface.co/distilbert-distilbert-base-uncased-home.html',
+            undefined)
     })
 
-    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
+    test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased/tree/main', () => {
         assertPageParsing(
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
+            'https://huggingface.co/distilbert/distilbert-base-uncased/tree/main',
+            'huggingface.co/distilbert-distilbert-base-uncased-tree-main.html',
+            [PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@1c4513b2eedbda136f57676a34eea67aba266e5c?extension=safetensors&model=model&model_format=safetensors')]
         )
     })
 })

@@ -15,12 +15,12 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { SearchMavenOrgRepo } from './SearchMavenOrg'
+import { PackageURL } from 'packageurl-js'
+import { CocoaPodsOrgRepo } from './CocoaPodsOrg'
 
-const repo = new SearchMavenOrgRepo
+const repo = new CocoaPodsOrgRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -35,30 +35,17 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         const p = packageURLs?.pop()
         const e = expected.pop()
         expect(p).toBeDefined()
-        expect(p?.namespace).toBe(e?.namespace)
-        expect(p?.name).toBe(e?.name)
         expect(p?.version).toBe(e?.version)
-        expect(p?.qualifiers).toEqual(e?.qualifiers)
+        expect(p?.name).toBe(e?.name)
     } else {
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('central.sonatype.com Page Parsing', () => {
+describe('CocoaPods.org Page Parsing', () => {
     
-    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
-        assertPageParsing(
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
-        )
-    })
-
-    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
-        assertPageParsing(
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
-            undefined,
-            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
-        )
+    test('Log4swift (no version in URL)', () => {
+        const expectedPackageUrl = PackageURL.fromString('pkg:cocoapods/Log4swift@1.2.0')
+        assertPageParsing('https://cocoapods.org/pods/Log4swift', 'cocoapods.org/log4swift-1.2.0.html', [expectedPackageUrl])
     })
 })

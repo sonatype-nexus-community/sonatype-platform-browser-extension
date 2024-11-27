@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from '../logger/Logger'
-import { BaseRepo } from './Types'
 
-export const getArtifactDetailsFromDOM = (repoFormat: BaseRepo, url: string): PackageURL[] | undefined => {
-    logger.logMessage('In getArtifactDetailsFromDOM', LogLevel.TRACE, repoFormat, url)
-    return repoFormat.parsePage(url)
+import { REPOS } from '../Constants'
+import { RepoMavenApacheOrgRepo } from './RepoMavenApacheOrg'
+
+export class Repo1MavenOrgRepo extends RepoMavenApacheOrgRepo {
+    id(): string {
+        return REPOS.repo1MavenOrg
+    }
+    baseUrl(): string {
+        return 'https://repo1.maven.org/maven2/'
+    }
 }

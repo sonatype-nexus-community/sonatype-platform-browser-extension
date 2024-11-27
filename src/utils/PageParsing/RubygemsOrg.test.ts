@@ -18,9 +18,9 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
-import { ConanIoRepo } from './ConanIo'
+import { RubygemsOrgRepo } from './RubygemsOrg'
 
-const repo = new ConanIoRepo
+const repo = new RubygemsOrgRepo
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
@@ -37,34 +37,55 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         expect(p).toBeDefined()
         expect(p?.version).toBe(e?.version)
         expect(p?.name).toBe(e?.name)
+        if (e?.qualifiers) {
+            expect(p?.qualifiers).toEqual(e?.qualifiers)
+        } else {
+            expect(p?.qualifiers).not.toBeDefined()
+        }
     } else {
         expect(packageURLs?.length).toBe(0)
     }
 }
 
-describe('conan.io Page Parsing', () => {
+describe('rubygems.org Page Parsing', () => {
     
-    test('proj no URL version', () => {
+    test('/chelsea (no version in URL)', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/proj',
-            'conan.io/proj-9.5.0.html',
-            [PackageURL.fromString('pkg:conan/proj@9.5.0')]
+            'https://rubygems.org/gems/chelsea',
+            'rubygems.org/chelsea-0.0.35.html',
+            [PackageURL.fromString('pkg:gem/chelsea@0.0.35')]
         )
     })
 
-    test('proj with URL version', () => {
+    test('/chelsea (no version in URL) + query & fragment', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/proj?version=8.2.1',
-            'conan.io/proj-8.2.1.html',
-            [PackageURL.fromString('pkg:conan/proj@8.2.1')]
+            'https://rubygems.org/gems/chelsea?d=e#f',
+            'rubygems.org/chelsea-0.0.35.html',
+            [PackageURL.fromString('pkg:gem/chelsea@0.0.35')]
         )
     })
 
-    test('libxft incorrect URL version', () => {
+    test('/chelsea/0.0.32', () => {
         assertPageParsing(
-            'https://conan.io/center/recipes/libxft?version=2.3.8',
-            'conan.io/libxft-2.3.6.html',
-            [PackageURL.fromString('pkg:conan/libxft@2.3.6')]
+            'https://rubygems.org/gems/chelsea/versions/0.0.32',
+            'rubygems.org/chelsea-0.0.32.html',
+            [PackageURL.fromString('pkg:gem/chelsea@0.0.32')]
+        )
+    })
+
+    test('/chelsea/0.0.32 + query & fragment', () => {
+        assertPageParsing(
+            'https://rubygems.org/gems/chelsea/versions/0.0.32?p=q#o',
+            'rubygems.org/chelsea-0.0.32.html',
+            [PackageURL.fromString('pkg:gem/chelsea@0.0.32')]
+        )
+    })
+
+    test('/logstash-input-tcp/versions/6.0.9-java', () => {
+        assertPageParsing(
+            'https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java',
+            'rubygems.org/logstash-input-tcp-6.0.9-java.html',
+            [PackageURL.fromString('pkg:gem/logstash-input-tcp@6.0.9?platform=java')]
         )
     })
 })

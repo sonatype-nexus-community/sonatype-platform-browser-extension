@@ -14,35 +14,37 @@
  * limitations under the License.
  */
 
+import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURLComplete } from './PurlUtils'
+import { generatePackageURL } from './PurlUtils'
 import { FORMATS, REPOS } from '../Constants'
 import { BaseRepo } from '../Types'
+import { logger, LogLevel } from '../../logger/Logger'
 
-export class RepoMavenApacheOrgRepo extends BaseRepo {
+export class NugetOrgRepo extends BaseRepo {
     id(): string {
-        return REPOS.repoMavenApacheOrg
+        return REPOS.nugetOrg
     }
     format(): string {
-        return FORMATS.maven
+        return FORMATS.nuget
     }
     baseUrl(): string {
-        return 'https://repo.maven.apache.org/maven2/'
+        return 'https://www.nuget.org/packages/'
     }
     titleSelector(): string {
-        return 'h1'
+        return '.package-title > h1'
     }
     versionPath(): string {
-        return '{groupId}/{artifactId}/{version}'
+        return '{artifactId}/{version}'
     }
     pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
+        return /^(?<artifactId>[^/?#]*)\/?((?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
     }
     versionDomPath(): string {
-        return ''
+        return 'span.version-title'
     }
     supportsVersionNavigation(): boolean {
-        return false
+        return true
     }
     supportsMultiplePurlsPerPage(): boolean {
         return false
@@ -51,19 +53,15 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults && pathResults.groups) {
-            if (pathResults.groups.version !== undefined) {
-                const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
-                const artifactId = gaParts.pop()
-                const groupId = gaParts.join('.')
-                return [generatePackageURLComplete(
-                    FORMATS.maven,
-                    encodeURIComponent(artifactId as string),
-                    encodeURIComponent(pathResults.groups.version),
-                    encodeURIComponent(groupId),
-                    { type: 'jar' },
-                    undefined
-                )]
-            }
+            const pageVersion = $(this.versionDomPath()).text().trim()
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            return [generatePackageURL(
+                FORMATS.nuget,
+                encodeURIComponent(pathResults.groups.artifactId),
+                encodeURIComponent(
+                    pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion
+                )
+            )]
         }
         return []
     }
