@@ -30,10 +30,10 @@ export class SearchMavenOrgPageParser extends BasePageParser {
             return [generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),
-                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                pathResults.groups.version ?? pageVersion,
                 encodeURIComponent(pathResults.groups.groupId),
                 {
-                    type: pathResults.groups.type !== undefined ? pathResults.groups.type : 'jar',
+                    type: pathResults.groups.type ?? 'jar',
                 },
                 undefined
             )]

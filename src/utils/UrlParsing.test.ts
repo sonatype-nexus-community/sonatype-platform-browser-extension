@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { describe, expect, test, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { findRepoType } from './UrlParsing'
 import { FORMATS, REPOS } from './Constants'
 

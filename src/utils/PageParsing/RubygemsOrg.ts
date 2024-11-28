@@ -30,7 +30,7 @@ export class RubygemsOrgPageParser extends BasePageParser {
             return [generatePackageURL(
                 FORMATS.gem,
                 pathResults.groups.artifactId,
-                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                pathResults.groups.version ?? pageVersion,
                 (pathResults.groups.platform !== undefined && pathResults.groups.platform != '') ? { platform: pathResults.groups.platform } : undefined
             )]
         }

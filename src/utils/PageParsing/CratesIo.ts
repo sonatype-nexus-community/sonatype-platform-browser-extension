@@ -30,7 +30,7 @@ export class CratesIoPageParser extends BasePageParser {
             return [generatePackageURLComplete(
                 FORMATS.cargo,
                 encodeURIComponent(pathResults.groups.artifactId),
-                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion.replace('v', ''),
+                pathResults.groups.version ?? pageVersion.replace('v', ''),
                 undefined,
                 {},
                 undefined
