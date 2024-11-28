@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import $ from 'cash-dom'
+import $, { Cash } from 'cash-dom'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
-import { ComponentState } from './types/Component'
+import { ComponentState, ComponentStateUtil } from './types/Component'
 import { DefaultRepoRegistry } from './utils/RepoRegistry'
 import { BaseRepo } from './utils/RepoType/BaseRepo'
 import { DefaultPageParserRegistry } from './utils/PageParserRegistry'
@@ -76,44 +76,6 @@ function handle_message_received_calculate_purl_for_page(
                 })
             }
         }
-        //  else if (repoType.repoFormat == FORMATS.NXRM) {
-        //     logger.logMessage(`Calculating PURL for a Sonatype Nexus Repository`, LogLevel.DEBUG)
-        //     const
-        //     const purl = getArtifactDetailsFromNxrmDom(repoType, window.location.href)
-
-        //     if (purl === undefined) {
-        //         sendResponse({
-        //             status: MESSAGE_RESPONSE_STATUS.FAILURE,
-        //             status_detail: {
-        //                 message: `Unable to determine PackageURL for Sonatype Nexus Repository ${window.location.href}`,
-        //             },
-        //         })
-        //     } else {
-        //         sendResponse({
-        //             status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-        //             data: {
-        //                 purl: purl.toString(),
-        //             },
-        //         })
-        //     }
-        // } else {
-        //     const purl = getArtifactDetailsFromDOM(repoType, window.location.href)
-        //     if (purl === undefined) {
-        //         sendResponse({
-        //             status: MESSAGE_RESPONSE_STATUS.FAILURE,
-        //             status_detail: {
-        //                 message: `Unable to determine PackageURL for ${window.location.href}`,
-        //             },
-        //         })
-        //     } else {
-        //         sendResponse({
-        //             status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-        //             data: {
-        //                 purl: purl.toString(),
-        //             },
-        //         })
-        //     }
-        // }
     }
 }
 
@@ -139,30 +101,8 @@ function handle_message_received_propogate_component_state(request: MessageReque
                 }
 
                 logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
-                let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
-                switch (componentState) {
-                    case ComponentState.CRITICAL:
-                        vulnClass = 'sonatype-iq-extension-vuln-critical'
-                        break
-                    case ComponentState.SEVERE:
-                        vulnClass = 'sonatype-iq-extension-vuln-severe'
-                        break
-                    case ComponentState.MODERATE:
-                        vulnClass = 'sonatype-iq-extension-vuln-moderate'
-                        break
-                    case ComponentState.LOW:
-                        vulnClass = 'sonatype-iq-extension-vuln-low'
-                        break
-                    case ComponentState.NONE:
-                        vulnClass = 'sonatype-iq-extension-vuln-none'
-                        break
-                    case ComponentState.EVALUATING:
-                        vulnClass = 'sonatype-iq-extension-vuln-evaluating'
-                        break
-                    case ComponentState.INCOMPLETE_CONFIG:
-                        vulnClass = 'sonatype-iq-extension-vuln-invalid-config'
-                        break
-                }
+                // let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
+                const vulnClass = ComponentStateUtil.toCssClass(componentState)
 
                 logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
                 if (domElement.length > 0) {
@@ -175,15 +115,10 @@ function handle_message_received_propogate_component_state(request: MessageReque
     }
 }
 
-const removeClasses = (element) => {
-    logger.logMessage(`Remving Sonatype added classes`, LogLevel.DEBUG, element)
+const removeClasses = (element: Cash) => {
+    logger.logMessage(`Removing Sonatype added classes`, LogLevel.DEBUG, element)
     element.removeClass('sonatype-iq-extension-vuln')
-    element.removeClass('sonatype-iq-extension-vuln-severe')
-    element.removeClass('sonatype-iq-extension-vuln-high')
-    element.removeClass('sonatype-iq-extension-vuln-med')
-    element.removeClass('sonatype-iq-extension-vuln-low')
-    element.removeClass('sonatype-iq-extension-vuln-none')
-    element.removeClass('sonatype-iq-extension-vuln-evaluating')
-    element.removeClass('sonatype-iq-extension-vuln-invalid-config')
-    element.removeClass('sonatype-iq-extension-vuln-unspecified')
+    Object.values(ComponentState).forEach((v) => { 
+        element.removeClass(ComponentStateUtil.toCssClass(v))
+    })
 }

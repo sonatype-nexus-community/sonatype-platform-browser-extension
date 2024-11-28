@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import $ from 'cash-dom'
+import $, { Cash } from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from './PurlUtils'
 import { FORMATS } from '../Constants'
@@ -43,30 +43,38 @@ export class HuggingfaceCoPageParser extends BasePageParser {
             logger.logMessage(`DOM File Rows: ${pageDomFileRows.length}`, LogLevel.DEBUG)
 
             for (const domFileRow of pageDomFileRows) {
-                const domFileRowATags = $('a', domFileRow)
-                if (domFileRowATags.length < 4) {
-                    continue
+                const purls = this.processDomRowATags(artifactName, artifactNamespace, $('a', domFileRow))
+                if (purls.length > 0) {
+                    return purls
                 }
+            }
+        }
 
-                const fileName = stripHtmlComments(domFileRowATags.first().text()).trim()
-                const fileDownloadUrl = domFileRowATags.get(3)?.getAttribute('href')
-                const fileVersion = fileDownloadUrl?.split('/').pop()
-                logger.logMessage(`    Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
+        return []
+    }
 
-                if (fileVersion != undefined) {
-                    for (const i in Object.keys(FILE_EXTENSION_MAP)) {
-                        const candidateExtension = Object.keys(FILE_EXTENSION_MAP)[i]
-                        if (fileName.endsWith(candidateExtension)) {
-                            return [generatePackageURLComplete(
-                                FORMATS.huggingface,
-                                artifactName,
-                                fileVersion,
-                                artifactNamespace,
-                                FILE_EXTENSION_MAP[candidateExtension]['qualifiers'],
-                                undefined
-                            )]
-                        }
-                    }
+    private processDomRowATags(artifactName: string, artifactNamespace: string, domFileRowATags: Cash): PackageURL[] {
+        if (domFileRowATags.length < 4) {
+            return []
+        }
+
+        const fileName = stripHtmlComments(domFileRowATags.first().text()).trim()
+        const fileDownloadUrl = domFileRowATags.get(3)?.getAttribute('href')
+        const fileVersion = fileDownloadUrl?.split('/').pop()
+        logger.logMessage(`    Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
+
+        if (fileVersion != undefined) {
+            for (const i in Object.keys(FILE_EXTENSION_MAP)) {
+                const candidateExtension = Object.keys(FILE_EXTENSION_MAP)[i]
+                if (fileName.endsWith(candidateExtension)) {
+                    return [generatePackageURLComplete(
+                        FORMATS.huggingface,
+                        artifactName,
+                        fileVersion,
+                        artifactNamespace,
+                        FILE_EXTENSION_MAP[candidateExtension]['qualifiers'],
+                        undefined
+                    )]
                 }
             }
         }
