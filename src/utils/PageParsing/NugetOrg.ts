@@ -31,7 +31,7 @@ export class NugetOrgPageParser extends BasePageParser {
                 FORMATS.nuget,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(
-                    pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion
+                    pathResults.groups.version ?? pageVersion
                 )
             )]
         }

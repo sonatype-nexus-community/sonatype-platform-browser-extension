@@ -30,7 +30,7 @@ export class PackagistOrgPageParser extends BasePageParser {
             return [generatePackageURLWithNamespace(
                 FORMATS.composer,
                 encodeURIComponent(pathResults.groups.artifactId),
-                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                pathResults.groups.version ?? pageVersion,
                 encodeURIComponent(pathResults.groups.groupId)
             )]
         }

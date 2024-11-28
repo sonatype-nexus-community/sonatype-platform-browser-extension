@@ -89,12 +89,12 @@ export class PkgGoDevPageParser extends BasePageParser {
     }
 
     private handleGoPkgIn(namespace: string): string {
-        const foundV2 = namespace.match(GO_PKG_IN_V2)
+        const foundV2 = GO_PKG_IN_V2.exec(namespace)
         if (foundV2) {
             return namespace.replace(GO_PKG_IN_V2, `github.com/$1/$2`)
         }
 
-        const foundV1 = namespace.match(GO_PKG_IN_V1)
+        const foundV1 = GO_PKG_IN_V1.exec(namespace)
         if (foundV1) {
             return namespace.replace(GO_PKG_IN_V1, `github.com/go-$1/$1`)
         }

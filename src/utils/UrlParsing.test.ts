@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { describe, expect, test, it } from '@jest/globals'
 import { findRepoType } from './UrlParsing'
-// import { REPOS } from './Constants'
-import { DefaultRepoRegistry } from './RepoRegistry'
 import { FORMATS, REPOS } from './Constants'
 
 
 describe('Utils: UrlParsing: findRepoType', () => {
-    const drr = DefaultRepoRegistry
-
     it.each([
         {
             url: 'https://pkgs.alpinelinux.org/package/edge/main/x86_64/curl',

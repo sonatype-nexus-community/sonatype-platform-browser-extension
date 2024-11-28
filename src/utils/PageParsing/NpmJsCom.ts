@@ -30,7 +30,7 @@ export class NpmJsComPageParser extends BasePageParser {
             return [generatePackageURLWithNamespace(
                 FORMATS.npm,
                 pathResults.groups.artifactId,
-                pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion,
+                pathResults.groups.version ?? pageVersion,
                 pathResults.groups.groupId
             )]
         }

@@ -31,7 +31,7 @@ export class PypiOrgPageParser extends BasePageParser {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim().split(' ')[1]
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
 
-            const thisVersion = pathResults.groups.version !== undefined ? pathResults.groups.version : pageVersion
+            const thisVersion = pathResults.groups.version ?? pageVersion
 
             const firstDistributionFilename = $(PYPI_EXTENSION_SELECTOR).first().text().trim()
             let candidateExtension: string | undefined = undefined

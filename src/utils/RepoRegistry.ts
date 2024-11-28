@@ -39,7 +39,7 @@ import { SearchMavenOrgRepo } from "./RepoType/SearchMavenOrg"
 
 class RepoRegistry {
 
-    private repos = new Map<string, BaseRepo>
+    private readonly repos = new Map<string, BaseRepo>
 
     getCount(): number {
         return this.repos.size
