@@ -37,7 +37,7 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
         return '{groupId}/{artifactId}/{version}'
     }
     pathRegex(): RegExp {
-        return /^(?<groupArtifactId>([^#?&]*)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?/
+        return /^(?<groupArtifactId>([^#?&]+)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]+)))?(#(?<fragment>(.*)))?/
     }
     versionDomPath(): string {
         return ''
