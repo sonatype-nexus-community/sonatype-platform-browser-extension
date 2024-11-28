@@ -279,7 +279,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         .catch((err) => {
                             if (err instanceof IncompleteConfigurationError) {
                                 logger.logMessage(`Incomplete Extension Configuration: ${err}`, LogLevel.ERROR)
-                                propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
+                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
                                 logger.logMessage(
                                     `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
                                     LogLevel.ERROR
@@ -292,7 +292,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 })
                             } else if (err instanceof UserAuthenticationError) {
                                 logger.logMessage(`UserAuthenticationError: ${err}`, LogLevel.ERROR)
-                                propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
+                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
                                 logger.logMessage(
                                     `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
                                     LogLevel.ERROR
