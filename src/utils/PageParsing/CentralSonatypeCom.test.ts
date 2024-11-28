@@ -108,7 +108,7 @@ describe('central.sonatype.com Page Parsing', () => {
         {
             name: 'commons-io/commons-io/overview SEO changes made',
             url: 'https://central.sonatype.com/artifact/commons-io/commons-io/overview',
-            testFile: 'commons-io.htm',
+            testFile: 'commons-io.html',
             expectedPurls: [
                 PackageURL.fromString('pkg:maven/commons-io/commons-io@2.15.1?type=jar')
             ]
