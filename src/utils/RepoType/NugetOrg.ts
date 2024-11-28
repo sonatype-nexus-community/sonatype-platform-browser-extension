@@ -37,7 +37,7 @@ export class NugetOrgRepo extends BaseRepo {
         return '{artifactId}/{version}'
     }
     pathRegex(): RegExp {
-        return /^(?<artifactId>[^/?#]*)\/?((?<version>[^/?#]*)\/?)?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
+        return /^(?<artifactId>[^/?#]+)\/?((?<version>[^/?#]+)\/?)?(\?(?<query>([^#]+)))?(#(?<fragment>(.*)))?$/
     }
     versionDomPath(): string {
         return 'span.version-title'
