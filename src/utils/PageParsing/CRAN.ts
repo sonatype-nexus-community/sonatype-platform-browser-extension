@@ -23,7 +23,7 @@ import { BasePageParser } from './BasePageParser'
 export class CranRPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).first().text().trim()
             return [generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)]
         }

@@ -24,7 +24,7 @@ import { BasePageParser } from './BasePageParser'
 export class NugetOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             return [generatePackageURL(

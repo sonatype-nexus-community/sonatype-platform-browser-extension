@@ -23,7 +23,7 @@ import { BasePageParser } from './BasePageParser'
 export class ConanIoPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).text().trim().split('/')[1]
             return [generatePackageURL(FORMATS.conan, encodeURIComponent(pathResults.groups.artifactId), version)]
         }

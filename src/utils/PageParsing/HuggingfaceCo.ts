@@ -36,7 +36,7 @@ const FILE_EXTENSION_MAP = {
 export class HuggingfaceCoPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             const artifactName = pathResults.groups.artifactId
             const artifactNamespace = pathResults.groups.namespace
             const pageDomFileRows = $(FILE_ROW_SELECTOR)

@@ -37,7 +37,7 @@ import { DefaultRepoRegistry } from "./RepoRegistry"
 
 class PageParserRegistry {
 
-    private parsers = new Map<string, BasePageParser>
+    private readonly parsers = new Map<string, BasePageParser>
 
     getCount(): number {
         return this.parsers.size

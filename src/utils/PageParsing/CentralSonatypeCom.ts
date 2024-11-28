@@ -42,7 +42,7 @@ export class CentralSonatypeComPageParser extends BasePageParser {
         }
         
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             return [generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),

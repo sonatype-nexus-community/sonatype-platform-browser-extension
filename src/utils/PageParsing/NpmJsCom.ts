@@ -24,7 +24,7 @@ import { BasePageParser } from './BasePageParser'
 export class NpmJsComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             const pageVersion = stripHtmlComments($(this.repoType.versionDomPath()).first().text()).split('•')[0].trim()
 
             return [generatePackageURLWithNamespace(

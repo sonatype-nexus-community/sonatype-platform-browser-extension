@@ -15,7 +15,6 @@
  */
 
 import $ from 'cash-dom'
-import { getArtifactDetailsFromDOM } from './utils/PageParsing'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState } from './types/Component'

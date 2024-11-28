@@ -22,7 +22,7 @@ import { BasePageParser } from './BasePageParser'
 export class MvnRepositoryComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             return [generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),

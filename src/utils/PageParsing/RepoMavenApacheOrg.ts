@@ -22,7 +22,7 @@ import { BasePageParser } from './BasePageParser'
 export class RepoMavenApacheOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
-        if (pathResults && pathResults.groups) {
+        if (pathResults?.groups) {
             if (pathResults.groups.version !== undefined) {
                 const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
                 const artifactId = gaParts.pop()
