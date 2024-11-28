@@ -16,31 +16,24 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLWithNamespace } from './PurlUtils'
+import { logger, LogLevel } from '../../logger/Logger'
+import { BasePageParser } from './BasePageParser'
 
-const parsePackagist = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.packagistOrg)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            console.debug($(repoType.versionDomPath))
-            const pageVersion = $(repoType.versionDomPath).text().trim()
-            console.debug(`URL Version: ${pathResult.groups.version}, Page Version: ${pageVersion}`)
-            return generatePackageURLWithNamespace(
+export class PackagistOrgPageParser extends BasePageParser {
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            const pageVersion = $(this.repoType.versionDomPath()).text().trim()
+            logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            return [generatePackageURLWithNamespace(
                 FORMATS.composer,
-                encodeURIComponent(pathResult.groups.artifactId),
-                pathResult.groups.version !== undefined ? pathResult.groups.version : pageVersion,
-                encodeURIComponent(pathResult.groups.groupId)
-            )
+                encodeURIComponent(pathResults.groups.artifactId),
+                pathResults.groups.version ?? pageVersion,
+                encodeURIComponent(pathResults.groups.groupId)
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parsePackagist }

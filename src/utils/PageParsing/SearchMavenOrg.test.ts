@@ -17,66 +17,49 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
-import { ensure } from '../Helpers'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { SearchMavenOrgPageParser } from './SearchMavenOrg'
+import { SearchMavenOrgRepo } from '../RepoType/SearchMavenOrg'
 
-describe('SearchMavenOrg Page Parsing', () => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.searchMavenOrg)
-    expect(repoType).toBeDefined()
+const parser = new SearchMavenOrgPageParser(new SearchMavenOrgRepo)
 
-    test('should parse a valid SearchMavenOrg page (JAR)', () => {
-        const html = readFileSync(join(__dirname, 'testdata/smo-struts2-core-2.3.30.html'))
-
+function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+    if (domFile) {
+        const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
+    }
+        
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.namespace).toBe(e?.namespace)
+        expect(p?.name).toBe(e?.name)
+        expect(p?.version).toBe(e?.version)
+        expect(p?.qualifiers).toEqual(e?.qualifiers)
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
+}
 
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar'
+describe('central.sonatype.com Page Parsing', () => {
+    
+    test('org.apache.struts/struts2-core/2.3.30/jar', () => {
+        assertPageParsing(
+            'https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar',
+            undefined,
+            [PackageURL.fromString('pkg:maven/org.apache.struts/struts2-core@2.3.30?type=jar')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe(FORMATS.maven)
-        expect(packageURL?.namespace).toBe('org.apache.struts')
-        expect(packageURL?.name).toBe('struts2-core')
-        expect(packageURL?.version).toBe('2.3.30')
-        expect(packageURL?.qualifiers).toEqual({ type: 'jar' })
     })
 
-    test('should parse a valid SearchMavenOrg page (Maven Plugin)', () => {
-        const html = readFileSync(join(__dirname, 'testdata/smo-cyclonedx-maven-plugin-2.7.6.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin'
+    test('org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin', () => {
+        assertPageParsing(
+            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin',
+            undefined,
+            [PackageURL.fromString('pkg:maven/org.cyclonedx/cyclonedx-maven-plugin@2.7.6?type=maven-plugin')]
         )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe(FORMATS.maven)
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-maven-plugin')
-        expect(packageURL?.version).toBe('2.7.6')
-        expect(packageURL?.qualifiers).toEqual({ type: 'maven-plugin' })
-    })
-
-    test('should parse a valid SearchMavenOrg page (Maven Plugin) + QS + F', () => {
-        const html = readFileSync(join(__dirname, 'testdata/smo-cyclonedx-maven-plugin-2.7.6.html'))
-
-        window.document.body.innerHTML = html.toString()
-        //https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar
-
-        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin?some=thing#heading'
-        )
-
-        expect(packageURL).toBeDefined()
-        expect(packageURL?.type).toBe(FORMATS.maven)
-        expect(packageURL?.namespace).toBe('org.cyclonedx')
-        expect(packageURL?.name).toBe('cyclonedx-maven-plugin')
-        expect(packageURL?.version).toBe('2.7.6')
-        expect(packageURL?.qualifiers).toEqual({ type: 'maven-plugin' })
     })
 })

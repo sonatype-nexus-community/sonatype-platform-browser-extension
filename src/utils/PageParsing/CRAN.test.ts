@@ -16,59 +16,47 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { ensure } from '../Helpers'
+import { PackageURL } from 'packageurl-js'
+import { CranRPageParser } from './CRAN'
+import { CranRRepo } from '../RepoType/CRAN'
 
-describe('CRAN Page Parsing', () => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cranRProject)
-    expect(repoType).toBeDefined()
+const parser = new CranRPageParser(new CranRRepo)
 
-    test('should parse a valid CRAN page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/cran.html'))
-
+function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+    if (domFile) {
+        const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
+    }
+        
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.version).toBe(e?.version)
+        expect(p?.name).toBe(e?.name)
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
+}
 
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://cran.r-project.org/web/packages/oysteR/index.html'
-        )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.cran)
-        expect(PackageURL?.name).toBe('oysteR')
-        expect(PackageURL?.version).toBe('0.1.1')
+describe('cran.r-project.org Page Parsing', () => {
+    
+    test('oysteR (no query or fragment)', () => {
+        const expectedPackageUrl = PackageURL.fromString('pkg:cran/oysteR@0.1.1')
+        assertPageParsing('https://cran.r-project.org/web/packages/oysteR/index.html', 'cran.r-project.org/oysteR-0.1.1.html', [expectedPackageUrl])
     })
 
-    test('should parse a valid CRAN page with query string', () => {
-        const html = readFileSync(join(__dirname, 'testdata/cran.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://cran.r-project.org/web/packages/oysteR/index.html?something=else'
-        )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.cran)
-        expect(PackageURL?.name).toBe('oysteR')
-        expect(PackageURL?.version).toBe('0.1.1')
+    test('oysteR (with query no fragment)', () => {
+        const expectedPackageUrl = PackageURL.fromString('pkg:cran/oysteR@0.1.1')
+        assertPageParsing('https://cran.r-project.org/web/packages/oysteR/index.html?something=else', 'cran.r-project.org/oysteR-0.1.1.html', [expectedPackageUrl])
     })
 
-    test('should parse a valid CRAN page with query string and fragment', () => {
-        const html = readFileSync(join(__dirname, 'testdata/cran.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://cran.r-project.org/web/packages/oysteR/index.html?something=else#anchor'
-        )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.cran)
-        expect(PackageURL?.name).toBe('oysteR')
-        expect(PackageURL?.version).toBe('0.1.1')
+    test('oysteR (with query and fragment)', () => {
+        const expectedPackageUrl = PackageURL.fromString('pkg:cran/oysteR@0.1.1')
+        assertPageParsing('https://cran.r-project.org/web/packages/oysteR/index.html?something=other#nothing', 'cran.r-project.org/oysteR-0.1.1.html', [expectedPackageUrl])
     })
 })

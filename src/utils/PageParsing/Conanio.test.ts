@@ -16,59 +16,56 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { ensure } from '../Helpers'
+import { PackageURL } from 'packageurl-js'
+import { ConanIoPageParser } from './ConanIo'
+import { ConanIoRepo } from '../RepoType/ConanIo'
+
+const parser = new ConanIoPageParser(new ConanIoRepo)
+
+function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+    if (domFile) {
+        const html = readFileSync(join(__dirname, 'testdata', domFile))
+        window.document.body.innerHTML = html.toString()
+    }
+        
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.version).toBe(e?.version)
+        expect(p?.name).toBe(e?.name)
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
+}
 
 describe('conan.io Page Parsing', () => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.conanIo)
-    expect(repoType).toBeDefined()
-
-    test('should parse a valid conan.io page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/conanio-proj-8.2.1.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://conan.io/center/recipes/proj?version=8.2.1'
+    
+    test('proj no URL version', () => {
+        assertPageParsing(
+            'https://conan.io/center/recipes/proj',
+            'conan.io/proj-9.5.0.html',
+            [PackageURL.fromString('pkg:conan/proj@9.5.0')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.conan)
-        expect(PackageURL?.name).toBe('proj')
-        expect(PackageURL?.version).toBe('8.2.1')
     })
 
-    test('should parse a valid conan.io page with no version in URL', () => {
-        const html = readFileSync(join(__dirname, 'testdata/conanio-libxft-2.3.8.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://conan.io/center/recipes/libxft'
+    test('proj with URL version', () => {
+        assertPageParsing(
+            'https://conan.io/center/recipes/proj?version=8.2.1',
+            'conan.io/proj-8.2.1.html',
+            [PackageURL.fromString('pkg:conan/proj@8.2.1')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.conan)
-        expect(PackageURL?.name).toBe('libxft')
-        expect(PackageURL?.version).toBe('2.3.8')
     })
 
-    test('should parse a valid conan.io page with incorrect version in URL', () => {
-        const html = readFileSync(join(__dirname, 'testdata/conanio-libxft-2.3.6.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://conan.io/center/recipes/libxft?version=2.3.8'
+    test('libxft incorrect URL version', () => {
+        assertPageParsing(
+            'https://conan.io/center/recipes/libxft?version=2.3.8',
+            'conan.io/libxft-2.3.6.html',
+            [PackageURL.fromString('pkg:conan/libxft@2.3.6')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe(FORMATS.conan)
-        expect(PackageURL?.name).toBe('libxft')
-        expect(PackageURL?.version).toBe('2.3.6')
     })
 })

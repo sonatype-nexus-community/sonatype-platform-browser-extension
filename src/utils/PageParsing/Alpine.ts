@@ -17,23 +17,18 @@
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-const parseAlpine = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.alpineLinux)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-            const version = $(repoType.versionDomPath).text().trim()
-            return generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResult.groups.artifactId), version)
+export class AlpineLinuxOrgPageParser extends BasePageParser {  
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+
+        if (pathResults?.groups) {
+            const version = $(this.repoType.versionDomPath()).first().text().trim()
+            return [generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+
+        return []
     }
-
-    return undefined
 }
-
-export { parseAlpine }

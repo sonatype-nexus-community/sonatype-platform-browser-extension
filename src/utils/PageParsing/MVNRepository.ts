@@ -15,30 +15,23 @@
  */
 
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURLComplete } from './PurlUtils'
+import { BasePageParser } from './BasePageParser'
 
-const parseMVNRepository = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.mvnRepositoryCom)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups) {
-            return generatePackageURLComplete(
+export class MvnRepositoryComPageParser extends BasePageParser {
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            return [generatePackageURLComplete(
                 FORMATS.maven,
-                encodeURIComponent(pathResult.groups.artifactId),
-                encodeURIComponent(pathResult.groups.version),
-                encodeURIComponent(pathResult.groups.groupId),
+                encodeURIComponent(pathResults.groups.artifactId),
+                encodeURIComponent(pathResults.groups.version),
+                encodeURIComponent(pathResults.groups.groupId),
                 { type: 'jar' },
                 undefined
-            )
+            )]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parseMVNRepository }

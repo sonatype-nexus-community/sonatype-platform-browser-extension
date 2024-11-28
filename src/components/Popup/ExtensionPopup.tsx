@@ -39,7 +39,7 @@ import {
     ApiComponentEvaluationTicketDTOV2,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
-import { findRepoType } from '../../utils/UrlParsing'
+import { DefaultRepoRegistry } from '../../utils/RepoRegistry'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -77,12 +77,13 @@ export default function ExtensionPopup() {
             setPopupContext((c) => merge(c, newPopupContextWithTab))
             logger.logMessage(`Requesting PURL from Tab ${tab.url}`, LogLevel.DEBUG)
             if (tab.status != 'unloaded') {
-                findRepoType(tab.url).then((repoType) => {
+                const repoType = DefaultRepoRegistry.getRepoForUrl(tab.url)
+                if (repoType !== undefined) {
                     _browser.tabs
                         .sendMessage(tab.id, {
                             type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
                             params: {
-                                repoType: repoType,
+                                repoId: repoType.id(),
                                 tabId: tab.id,
                                 url: tab.url,
                             },
@@ -100,7 +101,7 @@ export default function ExtensionPopup() {
                                 setPurl(PackageURL.fromString(response.data.purl))
                             }
                         })
-                })
+                }
             }
         })
     }, [])

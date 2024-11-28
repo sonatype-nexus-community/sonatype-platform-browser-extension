@@ -16,22 +16,17 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from '../../logger/Logger'
 import { generatePackageURL } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-export const parseConanIo = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.conanIo)
-    logger.logMessage(`Parsing ConanIo ${repoType?.repoID}`, LogLevel.DEBUG)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-            const version = $(repoType.versionDomPath).text().trim().split('/')[1]
-            return generatePackageURL(FORMATS.conan, encodeURIComponent(pathResult.groups.artifactId), version)
+export class ConanIoPageParser extends BasePageParser {
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            const version = $(this.repoType.versionDomPath()).text().trim().split('/')[1]
+            return [generatePackageURL(FORMATS.conan, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
-    } else {
-        logger.logMessage('Unable to determine REPO TYPE.', LogLevel.INFO)
+        return []
     }
-
-    return undefined
 }

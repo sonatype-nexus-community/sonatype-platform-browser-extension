@@ -15,49 +15,28 @@
  */
 
 import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS, REPOS, REPO_TYPES, RepoType } from '../Constants'
+import { FORMATS } from '../Constants'
+import { BasePageParser } from './BasePageParser'
 
-function parseMavenOrg(repoType: RepoType, url: string): PackageURL | undefined {
-    const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-    if (pathResult && pathResult.groups) {
-        const gaParts = pathResult.groups.groupArtifactId.trim().split('/')
-        const artifactId = gaParts.pop()
-        const groupId = gaParts.join('.')
-        return generatePackageURLComplete(
-            FORMATS.maven,
-            encodeURIComponent(artifactId as string),
-            encodeURIComponent(pathResult.groups.version),
-            encodeURIComponent(groupId),
-            { type: 'jar' },
-            undefined
-        )
+export class RepoMavenApacheOrgPageParser extends BasePageParser {
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            if (pathResults.groups.version !== undefined) {
+                const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
+                const artifactId = gaParts.pop()
+                const groupId = gaParts.join('.')
+                return [generatePackageURLComplete(
+                    FORMATS.maven,
+                    encodeURIComponent(artifactId as string),
+                    encodeURIComponent(pathResults.groups.version),
+                    encodeURIComponent(groupId),
+                    { type: 'jar' },
+                    undefined
+                )]
+            }
+        }
+        return []
     }
-
-    return undefined
-}
-
-export const parseRepo1MavenOrg = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.repo1MavenOrg)
-    logger.logMessage(`Parsing ${repoType?.url}`, LogLevel.DEBUG)
-    if (repoType) {
-        return parseMavenOrg(repoType, url)
-    } else {
-        logger.logMessage('Unable to determine REPO TYPE.', LogLevel.INFO)
-    }
-
-    return undefined
-}
-
-export const parseRepoMavenApacheOrg = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.repoMavenApacheOrg)
-    logger.logMessage(`Parsing ${repoType?.url}`, LogLevel.DEBUG)
-    if (repoType) {
-        return parseMavenOrg(repoType, url)
-    } else {
-        logger.logMessage('Unable to determine REPO TYPE.', LogLevel.INFO)
-    }
-
-    return undefined
 }

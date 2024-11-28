@@ -18,7 +18,7 @@ import { ApiSuggestedVersionChangeOptionDTO } from "@sonatype/nexus-iq-api-clien
 import { PackageURL } from "packageurl-js"
 import React, { useContext } from "react"
 import { ExtensionPopupContext } from "../../../../../context/ExtensionPopupContext"
-import { getNewSelectedVersionUrl } from "../../../../../utils/Helpers"
+import { getNewSelectedVersionUrl } from '../../../../../utils/Version'
 import { NxList } from "@sonatype/react-shared-components"
 import { REMEDIATION_LABELS } from "../../../../../utils/Constants"
 

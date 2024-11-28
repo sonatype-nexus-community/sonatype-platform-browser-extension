@@ -29,7 +29,7 @@ import { ExtensionConfigurationContext } from '../../../../../../context/Extensi
 import './AllVersionsDetails.css'
 import { DATA_SOURCE } from '../../../../../../utils/Constants'
 import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
-import { getNewSelectedVersionUrl } from '../../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../../utils/Version'
 import { Tooltip } from '@material-ui/core'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
 

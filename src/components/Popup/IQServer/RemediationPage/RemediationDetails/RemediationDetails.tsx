@@ -19,7 +19,7 @@ import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupCont
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE, REMEDIATION_LABELS } from '../../../../../utils/Constants'
 import './RemediationDetails.css'
-import { getNewSelectedVersionUrl } from '../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../utils/Version'
 import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any

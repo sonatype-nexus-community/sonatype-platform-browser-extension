@@ -13,60 +13,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { RepoType, REPO_TYPES, FORMATS } from './Constants'
-import { LogLevel, logger } from '../logger/Logger'
-import { readExtensionConfiguration } from '../messages/SettingsMessages'
-import { MESSAGE_RESPONSE_STATUS } from '../types/Message'
-import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
+import { BaseRepo } from './RepoType/BaseRepo'
+import { DefaultRepoRegistry } from './RepoRegistry'
 
-const findPublicOssRepoType = (url: string): RepoType | undefined => {
-    for (let i = 0; i < REPO_TYPES.length; i++) {
-        const repoType = REPO_TYPES[i]
-        if (url.startsWith(repoType.url)) {
-            logger.logMessage(`Current URL ${url} matches ${repoType.repoID}`, LogLevel.INFO)
-            return repoType
-        } else {
-            logger.logMessage(`Current URL ${url} does not match ${repoType.repoID}`, LogLevel.TRACE)
-        }
+export interface RepoDetails {
+    RepoType: BaseRepo
+    RepoBaseUrl: string
+}
+
+// @deprecated
+export function findRepoType(url: string): RepoDetails | undefined {
+    const repo = DefaultRepoRegistry.getRepoForUrl(url)
+    if (repo) {
+        return {RepoType: repo, RepoBaseUrl: repo.baseUrl()}
     }
+
     return undefined
 }
 
-const findRepoType = async (url: string): Promise<RepoType | undefined> => {
-    const repoType = findPublicOssRepoType(url)
+// const findPublicOssRepoType = (url: string): RepoDetails | undefined => {
+//     for (let i = 0; i < REPO_TYPES.length; i++) {
+//         const repoType = REPO_TYPES[i]
+//         if (url.startsWith(repoType.url)) {
+//             logger.logMessage(`Current URL ${url} matches ${repoType.repoID}`, LogLevel.INFO)
+//             return repoType
+//         } else {
+//             logger.logMessage(`Current URL ${url} does not match ${repoType.repoID}`, LogLevel.TRACE)
+//         }
+//     }
+//     return undefined
+// }
 
-    if (repoType !== undefined) {
-        return repoType
-    }
-
-    return await findNxrmRepoType(url)
-}
-
-function findNxrmRepoType(url: string): Promise<RepoType | undefined> {
-    return readExtensionConfiguration().then((response) => {
-        logger.logMessage(`Checking if ${url} matches a configured Sonatype Nexus Repository`, LogLevel.DEBUG)
-        if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-            const extensionConfig = response.data as ExtensionConfiguration
-            if (extensionConfig !== undefined && extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-                for (const nxrmHost of extensionConfig.sonatypeNexusRepositoryHosts) {
-                    logger.logMessage(`Checking ${url} against ${nxrmHost.url}...`, LogLevel.DEBUG)
-                    if (url.startsWith(nxrmHost.url)) {
-                        return {
-                            url: nxrmHost.url,
-                            repoFormat: FORMATS.NXRM,
-                            repoID: `NXRM-${nxrmHost.id}`,
-                            titleSelector: "[id^='nx-coreui-component-componentassetinfo'][id$='header-title-textEl']",
-                            versionPath: '',
-                            pathRegex: /^$/,
-                            versionDomPath: '',
-                            supportsVersionNavigation: false
-                        }
-                    }
-                }
-            }
-        }
-        return undefined
-    })
-}
-
-export { findPublicOssRepoType, findRepoType }
+// function findNxrmRepoType(url: string): Promise<RepoDetails | undefined> {
+//     return readExtensionConfiguration().then((response) => {
+//         logger.logMessage(`Checking if ${url} matches a configured Sonatype Nexus Repository`, LogLevel.DEBUG)
+//         if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+//             const extensionConfig = response.data as ExtensionConfiguration
+//             if (extensionConfig !== undefined && extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
+//                 for (const nxrmHost of extensionConfig.sonatypeNexusRepositoryHosts) {
+//                     logger.logMessage(`Checking ${url} against ${nxrmHost.url}...`, LogLevel.DEBUG)
+//                     if (url.startsWith(nxrmHost.url)) {
+//                         return {
+//                             RepoType: Nxrm3Repo,
+//                             RepoBaseUrl: nxrmHost.url
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//         return undefined
+//     })
+// }

@@ -16,24 +16,17 @@
 
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS, REPOS, REPO_TYPES } from '../Constants'
+import { FORMATS } from '../Constants'
 import { generatePackageURL } from './PurlUtils'
+import { BasePageParser } from './BasePageParser'
 
-const parseCRAN = (url: string): PackageURL | undefined => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.cranRProject)
-    console.debug('*** REPO TYPE: ', repoType)
-    if (repoType) {
-        const pathResult = repoType.pathRegex.exec(url.replace(repoType.url, ''))
-        console.debug(pathResult?.groups)
-        if (pathResult && pathResult.groups && repoType.versionDomPath !== undefined) {
-            const version = $(repoType.versionDomPath).first().text().trim()
-            return generatePackageURL(FORMATS.cran, encodeURIComponent(pathResult.groups.artifactId), version)
+export class CranRPageParser extends BasePageParser {
+    parsePage(url: string): PackageURL[] {
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            const version = $(this.repoType.versionDomPath()).first().text().trim()
+            return [generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)]
         }
-    } else {
-        console.error('Unable to determine REPO TYPE.')
+        return []
     }
-
-    return undefined
 }
-
-export { parseCRAN }

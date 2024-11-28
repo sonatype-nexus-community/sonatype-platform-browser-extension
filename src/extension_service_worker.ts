@@ -18,7 +18,6 @@
 import 'node-window-polyfill/register' // New line ensures this Polyfill is first!
 
 import { logger, LogLevel } from './logger/Logger'
-import { findRepoType } from './utils/UrlParsing'
 import { compareVersions } from 'compare-versions'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
 import { propogateCurrentComponentState } from './messages/ComponentStateMessages'
@@ -34,6 +33,7 @@ import { Analytics, ANALYTICS_EVENT_TYPES } from './utils/Analytics'
 import { PackageURL } from 'packageurl-js'
 import { readExtensionConfiguration, updateExtensionConfiguration } from './messages/SettingsMessages'
 import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { DefaultRepoRegistry } from './utils/RepoRegistry'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
@@ -151,197 +151,196 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
      * Check if URL matches an ecosystem we support, and only then do something
      *
      */
-    findRepoType(url).then((repoType) => {
-        /**
-         * Make sure we get a valid PURL before we ENABLE - this may require DOM access (via Message)
-         */
-
-        if (repoType !== undefined) {
-            // We support this Repository!
-            logger.logMessage(`Enabling Sonatype Browser Extension for ${url} (tabId ${tabId})`, LogLevel.DEBUG)
-            propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
-            _browser.tabs
-                .sendMessage(tabId, {
-                    type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
-                    params: {
-                        repoType: repoType,
-                        tabId: tabId,
-                        url: url,
-                    },
-                })
-                .catch((err) => {
-                    logger.logMessage(`Error caught calling CALCULATE_PURL_FOR_PAGE`, LogLevel.DEBUG, err)
-                    analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
-                        repo: repoType.url,
-                        url: url,
-                    })
-                })
-                .then((response) => {
-                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                    if (_browser.runtime.lastError) {
-                        logger.logMessage('Error response from CALCULATE_PURL_FOR_PAGE', LogLevel.ERROR, response)
-                    }
-                    logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
-
-                    // chrome.sidePanel.setPanelBehavior({
-                    //     openPanelOnActionClick: true,
-                    // })
-
-                    if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                        const packageUrl = PackageURL.fromString(response.data.purl)
-                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
-                            purl_type: packageUrl.type,
-                            purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
-                            purl_name: packageUrl.name,
-                            purl_version: packageUrl.version,
-                            purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
-                            purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
-                            purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
-                            purl_string: response.data.purl
-                        })
-
-                        requestComponentEvaluationByPurls({
-                            type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
-                            params: {
-                                purls: [response.data.purl],
-                            },
-                        }).then((r2) => {
-                                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                if (_browser.runtime.lastError) {
-                                    logger.logMessage(
-                                        'Error handling requestComponentEvaluationByPurls',
-                                        LogLevel.ERROR
-                                    )
-                                }
-
-                                const evaluateRequestTicketResponse = r2.data as ApiComponentEvaluationTicketDTOV2
-
-                                const { promise, stopPolling } = pollForComponentEvaluationResult(
-                                    evaluateRequestTicketResponse.applicationId === undefined
-                                        ? ''
-                                        : evaluateRequestTicketResponse.applicationId,
-                                    evaluateRequestTicketResponse.resultId === undefined
-                                        ? ''
-                                        : evaluateRequestTicketResponse.resultId,
-                                    1000
-                                )
-
-                                promise
-                                    .then((evalResponse) => {
-                                        const componentDetails = (
-                                            evalResponse as ApiComponentEvaluationResultDTOV2
-                                        ).results?.pop()
-
-                                        let componentState: ComponentState = ComponentState.UNKNOWN
-                                        if (
-                                            componentDetails?.matchState != null &&
-                                            componentDetails.matchState != 'unknown'
-                                        ) {
-                                            componentState = getForComponentPolicyViolations(
-                                                componentDetails?.policyData
-                                            )
-                                        }
-
-                                        propogateCurrentComponentState(tabId, componentState)
-
-                                        _browser.action.enable(tabId, () => {
-                                            _browser.action.setIcon({
-                                                tabId: tabId,
-                                                path: getIconForComponentState(componentState),
-                                            })
-                                        })
-
-                                        logger.logMessage(
-                                            `${extension.name} ENABLED for ${url} : ${response.data.purl}`,
-                                            LogLevel.INFO
-                                        )
-
-                                        _browser.storage.local
-                                            .set({
-                                                componentDetails: componentDetails,
-                                            })
-                                            .then(() => {
-                                                logger.logMessage(
-                                                    'We wrote to the session',
-                                                    LogLevel.DEBUG,
-                                                    componentDetails
-                                                )
-                                            })
-                                    })
-                                    .catch((err) => {
-                                        logger.logMessage(`Error in Poll: ${err}`, LogLevel.ERROR)
-                                    })
-                                    .finally(() => {
-                                        logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
-                                        stopPolling()
-                                    })
-                            })
-                            .catch((err) => {
-                                if (err instanceof IncompleteConfigurationError) {
-                                    logger.logMessage(`Incomplete Extension Configuration: ${err}`, LogLevel.ERROR)
-                                    propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
-                                    logger.logMessage(
-                                        `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
-                                        LogLevel.ERROR
-                                    )
-                                    _browser.action.disable(tabId, () => {
-                                        _browser.action.setIcon({
-                                            tabId: tabId,
-                                            path: getIconForComponentState(ComponentState.UNKNOWN),
-                                        })
-                                    })
-                                } else if (err instanceof UserAuthenticationError) {
-                                    logger.logMessage(`UserAuthenticationError: ${err}`, LogLevel.ERROR)
-                                    propogateCurrentComponentState(tabId, ComponentState.INCOMPLETE_CONFIG)
-                                    logger.logMessage(
-                                        `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
-                                        LogLevel.ERROR
-                                    )
-                                    _browser.action.disable(tabId, () => {
-                                        _browser.action.setIcon({
-                                            tabId: tabId,
-                                            path: getIconForComponentState(ComponentState.UNKNOWN),
-                                        })
-                                    })
-                                    _browser.tabs.create({ url: 'options.html#invalid-credentials' })
-                                } else {
-                                    logger.logMessage(`Error in r2: ${err}`, LogLevel.ERROR)
-                                }
-                            })
-                    } else {
-                        logger.logMessage(
-                            `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
-                            LogLevel.DEBUG
-                        )
-                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
-                            repo: repoType.url,
-                            url: url,
-                        })
-                        propogateCurrentComponentState(tabId, ComponentState.CLEAR)
-                        _browser.action.disable(tabId, () => {
-                            logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
-                            _browser.action.setIcon({
-                                tabId: tabId,
-                                path: getIconForComponentState(ComponentState.UNKNOWN),
-                            })
-                        })
-                    }
-                })
-        } else {
-            logger.logMessage(
-                `Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`,
-                LogLevel.DEBUG
-            )
-            propogateCurrentComponentState(tabId, ComponentState.CLEAR)
-            _browser.action.disable(tabId, () => {
-                logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
-                _browser.action.setIcon({
+    const repoType = DefaultRepoRegistry.getRepoForUrl(url)
+    
+    /**
+     * Make sure we get a valid PURL before we ENABLE - this may require DOM access (via Message)
+     */
+    if (repoType !== undefined) {
+        // We support this Repository!
+        logger.logMessage(`Enabling Sonatype Browser Extension for ${url} (tabId ${tabId})`, LogLevel.DEBUG)
+        propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
+        _browser.tabs
+            .sendMessage(tabId, {
+                type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
+                params: {
+                    repoId: repoType.id(),
                     tabId: tabId,
-                    path: getIconForComponentState(ComponentState.UNKNOWN),
+                    url: url,
+                },
+            })
+            .catch((err) => {
+                logger.logMessage(`Error caught calling CALCULATE_PURL_FOR_PAGE`, LogLevel.DEBUG, err)
+                analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
+                    repo_id: repoType.id(),
+                    url: url,
                 })
             })
-        }
-    })
+            .then((response) => {
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                if (_browser.runtime.lastError) {
+                    logger.logMessage('Error response from CALCULATE_PURL_FOR_PAGE', LogLevel.ERROR, response)
+                }
+                logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
+
+                // chrome.sidePanel.setPanelBehavior({
+                //     openPanelOnActionClick: true,
+                // })
+
+                if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                    const packageUrl = PackageURL.fromString(response.data.purl)
+                    analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
+                        purl_type: packageUrl.type,
+                        purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
+                        purl_name: packageUrl.name,
+                        purl_version: packageUrl.version,
+                        purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
+                        purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
+                        purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
+                        purl_string: response.data.purl
+                    })
+
+                    requestComponentEvaluationByPurls({
+                        type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
+                        params: {
+                            purls: [response.data.purl],
+                        },
+                    }).then((r2) => {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                            if (_browser.runtime.lastError) {
+                                logger.logMessage(
+                                    'Error handling requestComponentEvaluationByPurls',
+                                    LogLevel.ERROR
+                                )
+                            }
+
+                            const evaluateRequestTicketResponse = r2.data as ApiComponentEvaluationTicketDTOV2
+
+                            const { promise, stopPolling } = pollForComponentEvaluationResult(
+                                evaluateRequestTicketResponse.applicationId === undefined
+                                    ? ''
+                                    : evaluateRequestTicketResponse.applicationId,
+                                evaluateRequestTicketResponse.resultId === undefined
+                                    ? ''
+                                    : evaluateRequestTicketResponse.resultId,
+                                1000
+                            )
+
+                            promise
+                                .then((evalResponse) => {
+                                    const componentDetails = (
+                                        evalResponse as ApiComponentEvaluationResultDTOV2
+                                    ).results?.pop()
+
+                                    let componentState: ComponentState = ComponentState.UNKNOWN
+                                    if (
+                                        componentDetails?.matchState != null &&
+                                        componentDetails.matchState != 'unknown'
+                                    ) {
+                                        componentState = getForComponentPolicyViolations(
+                                            componentDetails?.policyData
+                                        )
+                                    }
+
+                                    propogateCurrentComponentState(tabId, componentState)
+
+                                    _browser.action.enable(tabId, () => {
+                                        _browser.action.setIcon({
+                                            tabId: tabId,
+                                            path: getIconForComponentState(componentState),
+                                        })
+                                    })
+
+                                    logger.logMessage(
+                                        `${extension.name} ENABLED for ${url} : ${response.data.purl}`,
+                                        LogLevel.INFO
+                                    )
+
+                                    _browser.storage.local
+                                        .set({
+                                            componentDetails: componentDetails,
+                                        })
+                                        .then(() => {
+                                            logger.logMessage(
+                                                'We wrote to the session',
+                                                LogLevel.DEBUG,
+                                                componentDetails
+                                            )
+                                        })
+                                })
+                                .catch((err) => {
+                                    logger.logMessage(`Error in Poll: ${err}`, LogLevel.ERROR)
+                                })
+                                .finally(() => {
+                                    logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
+                                    stopPolling()
+                                })
+                        })
+                        .catch((err) => {
+                            if (err instanceof IncompleteConfigurationError) {
+                                logger.logMessage(`Incomplete Extension Configuration: ${err}`, LogLevel.ERROR)
+                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
+                                logger.logMessage(
+                                    `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
+                                    LogLevel.ERROR
+                                )
+                                _browser.action.disable(tabId, () => {
+                                    _browser.action.setIcon({
+                                        tabId: tabId,
+                                        path: getIconForComponentState(ComponentState.UNKNOWN),
+                                    })
+                                })
+                            } else if (err instanceof UserAuthenticationError) {
+                                logger.logMessage(`UserAuthenticationError: ${err}`, LogLevel.ERROR)
+                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
+                                logger.logMessage(
+                                    `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
+                                    LogLevel.ERROR
+                                )
+                                _browser.action.disable(tabId, () => {
+                                    _browser.action.setIcon({
+                                        tabId: tabId,
+                                        path: getIconForComponentState(ComponentState.UNKNOWN),
+                                    })
+                                })
+                                _browser.tabs.create({ url: 'options.html#invalid-credentials' })
+                            } else {
+                                logger.logMessage(`Error in r2: ${err}`, LogLevel.ERROR)
+                            }
+                        })
+                } else {
+                    logger.logMessage(
+                        `Disabling Sonatype Browser Extension for ${url} - Could not determine PURL.`,
+                        LogLevel.DEBUG
+                    )
+                    analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATE_FAILURE, {
+                        repo_id: repoType.id(),
+                        url: url,
+                    })
+                    propogateCurrentComponentState(tabId, ComponentState.CLEAR)
+                    _browser.action.disable(tabId, () => {
+                        logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
+                        _browser.action.setIcon({
+                            tabId: tabId,
+                            path: getIconForComponentState(ComponentState.UNKNOWN),
+                        })
+                    })
+                }
+            })
+    } else {
+        logger.logMessage(
+            `Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`,
+            LogLevel.DEBUG
+        )
+        propogateCurrentComponentState(tabId, ComponentState.CLEAR)
+        _browser.action.disable(tabId, () => {
+            logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
+            _browser.action.setIcon({
+                tabId: tabId,
+                path: getIconForComponentState(ComponentState.UNKNOWN),
+            })
+        })
+    }
 }
 
 /**

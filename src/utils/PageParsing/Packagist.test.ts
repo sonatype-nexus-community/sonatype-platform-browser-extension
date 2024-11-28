@@ -16,62 +16,58 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { REPOS, REPO_TYPES } from '../Constants'
-import { ensure } from '../Helpers'
+import { PackageURL } from 'packageurl-js'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
+import { PackagistOrgPageParser } from './Packagist'
+import { PackagistOrgRepo } from '../RepoType/Packagist'
 
-describe('Packagist Page Parsing', () => {
-    const repoType = REPO_TYPES.find((e) => e.repoID == REPOS.packagistOrg)
-    expect(repoType).toBeDefined()
+const parser = new PackagistOrgPageParser(new PackagistOrgRepo)
 
-    test('should parse a valid Packagist page', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.23.0.html'))
-
+function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+    if (domFile) {
+        const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
+    }
+        
+    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.namespace).toBe(e?.namespace)
+        expect(p?.name).toBe(e?.name)
+        expect(p?.version).toBe(e?.version)
+        expect(p?.qualifiers).toBeUndefined()
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
+}
 
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://packagist.org/packages/fomvasss/laravel-its-lte#4.23.0'
+describe('packagist.org Page Parsing', () => {
+    
+    test('/fomvasss/laravel-its-lte', () => {
+        assertPageParsing(
+            'https://packagist.org/packages/fomvasss/laravel-its-lte',
+            'packagist.org/fomvasss-laravel-its-lte-4.22.html',
+            [PackageURL.fromString('pkg:composer/fomvasss/laravel-its-lte@4.22')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe('composer')
-        expect(PackageURL?.namespace).toBe('fomvasss')
-        expect(PackageURL?.name).toBe('laravel-its-lte')
-        expect(PackageURL?.version).toBe('4.23.0')
     })
 
-    test('should parse a valid Packagist page, specific version', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.22.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://packagist.org/packages/fomvasss/laravel-its-lte#4.22'
+    test('/fomvasss/laravel-its-lte#4.23.0', () => {
+        assertPageParsing(
+            'https://packagist.org/packages/fomvasss/laravel-its-lte#4.23.0',
+            undefined,
+            [PackageURL.fromString('pkg:composer/fomvasss/laravel-its-lte@4.23.0')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe('composer')
-        expect(PackageURL?.namespace).toBe('fomvasss')
-        expect(PackageURL?.name).toBe('laravel-its-lte')
-        expect(PackageURL?.version).toBe('4.22')
     })
 
-    test('should parse a valid Packagist page, specific version with query string', () => {
-        const html = readFileSync(join(__dirname, 'testdata/packagist-laravel-its-lte-4.22.html'))
-
-        window.document.body.innerHTML = html.toString()
-
-        const PackageURL = getArtifactDetailsFromDOM(
-            ensure(repoType),
-            'https://packagist.org/packages/fomvasss/laravel-its-lte?some=thing#4.22'
+    test('/fomvasss/laravel-its-lte?a=b#4.22', () => {
+        assertPageParsing(
+            'https://packagist.org/packages/fomvasss/laravel-its-lte?a=b#4.22',
+            undefined,
+            [PackageURL.fromString('pkg:composer/fomvasss/laravel-its-lte@4.22')]
         )
-
-        expect(PackageURL).toBeDefined()
-        expect(PackageURL?.type).toBe('composer')
-        expect(PackageURL?.namespace).toBe('fomvasss')
-        expect(PackageURL?.name).toBe('laravel-its-lte')
-        expect(PackageURL?.version).toBe('4.22')
     })
 })

@@ -15,83 +15,10 @@
  */
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
-import { REPOS, RepoType } from './Constants'
-import { parseAlpine } from './PageParsing/Alpine'
-import { parseNPM } from './PageParsing/NPM'
-import { parseNuget } from './PageParsing/Nuget'
-import { parseRuby } from './PageParsing/RubyGems'
-import { parseGolang } from './PageParsing/Golang'
-import { parsePyPIURL } from './PageParsing/PyPI'
-import { parseCRAN } from './PageParsing/CRAN'
-import { parsePackagist } from './PageParsing/Packagist'
-import { parseMVNRepository } from './PageParsing/MVNRepository'
-import { parseSearchMavenOrg } from './PageParsing/SearchMavenOrg'
-import { parseCentralSonatypeCom } from './PageParsing/CentralSonatypeCom'
-import { parseCocoaPods } from './PageParsing/CocoaPods'
-import { parseConanIo } from './PageParsing/ConanIo'
-import { parseRepo1MavenOrg, parseRepoMavenApacheOrg } from './PageParsing/RepoMavenApacheOrg'
-import { parseCratesIo } from './PageParsing/CratesIo'
-import { parseHuggingface } from './PageParsing/Huggingface'
+import { BasePageParser } from './PageParsing/BasePageParser'
 
-export const getArtifactDetailsFromDOM = (repoFormat: RepoType, url: string): PackageURL | undefined => {
+// @deprecated
+export const getArtifactDetailsFromDOM = (repoFormat: BasePageParser, url: string): PackageURL[] | undefined => {
     logger.logMessage('In getArtifactDetailsFromDOM', LogLevel.TRACE, repoFormat, url)
-
-    switch (repoFormat.repoID) {
-        case REPOS.cocoaPodsOrg:
-            return parseCocoaPods(url)
-        case REPOS.conanIo:
-            return parseConanIo(url)
-
-        case REPOS.repo1MavenOrg:
-            return parseRepo1MavenOrg(url)
-
-        case REPOS.repoMavenApacheOrg:
-            return parseRepoMavenApacheOrg(url)
-
-        case REPOS.npmJs: {
-            return parseNPM(url)
-        }
-        case REPOS.alpineLinux: {
-            return parseAlpine(url)
-        }
-        case REPOS.nugetOrg: {
-            return parseNuget(url)
-        }
-        case REPOS.rubyGemsOrg: {
-            return parseRuby(url)
-        }
-        case REPOS.pkgGoDev: {
-            return parseGolang(url)
-        }
-        case REPOS.pypiOrg: {
-            return parsePyPIURL(url)
-        }
-        case REPOS.cranRProject: {
-            return parseCRAN(url)
-        }
-        case REPOS.packagistOrg: {
-            return parsePackagist(url)
-        }
-        case REPOS.mvnRepositoryCom: {
-            return parseMVNRepository(url)
-        }
-        case REPOS.searchMavenOrg: {
-            return parseSearchMavenOrg(url)
-        }
-        case REPOS.centralSonatypeCom: {
-            return parseCentralSonatypeCom(url)
-        }
-        case REPOS.cratesIo: {
-            return parseCratesIo(url)
-        }
-        case REPOS.huggingfaceCo: {
-            return parseHuggingface(url)
-        }
-
-        default: {
-            logger.logMessage(`Unhandled Repotype and URL ${repoFormat.repoID} ${url}`, LogLevel.WARN)
-        }
-    }
-
-    return undefined
+    return repoFormat.parsePage(url)
 }
