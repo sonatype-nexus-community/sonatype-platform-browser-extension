@@ -57,7 +57,7 @@ class FilenameHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
     qualifiers(filename: string): HuggingFaceQualifiers {
         return {
             extension: this.extension,
-            model: filename.substring(0, 0 - this.extension.length - 1),
+            model: filename.substring(0, filename.length - this.extension.length - 1),
             model_format: this.modelFormat
         }
     }
@@ -71,7 +71,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
     constructor(readonly repoType: BaseRepo) {
         super(repoType)
         // Safetensors
-        this.ADAPTER_MAP.set('.safetensors', new BasicHuggingFacePurlAdapter('safetensors', 'model', 'model_format'))
+        this.ADAPTER_MAP.set('.safetensors', new BasicHuggingFacePurlAdapter('safetensors', 'model', 'safetensors'))
         // Tensorflow
         this.ADAPTER_MAP.set('.h5', new BasicHuggingFacePurlAdapter('h5', 'tf_model', 'tensorflow'))
         // GGUF
@@ -107,6 +107,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         const fileName = stripHtmlComments(domFileRowATags.first().text()).trim()
         const fileDownloadUrl = domFileRowATags.get(3)?.getAttribute('href')
         const fileVersion = fileDownloadUrl?.split('/').pop()
+        const matchedPurls: PackageURL[] = []
         if (fileVersion != undefined) {
             this.SUPPORTED_FILE_EXTENSIONS.forEach((candidateExtension: string) => { 
                 if (fileName.endsWith(candidateExtension)) {
@@ -122,28 +123,12 @@ export class HuggingfaceCoPageParser extends BasePageParser {
                             qualifiers,
                             undefined
                         )
-                        return [p]
+                        matchedPurls.push(p)
                     }
                 }
             })
-            
-
-            // this.ADAPTER_MAP.forEach((adapter, candidateExtension) => { 
-            //     if (fileName.endsWith(candidateExtension)) {
-            //         logger.logMessage(`    PURL Match for Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
-            //         const qualifiers = adapter.qualifiers(fileName)
-            //         return [generatePackageURLComplete(
-            //             FORMATS.huggingface,
-            //             artifactName,
-            //             fileVersion,
-            //             artifactNamespace,
-            //             qualifiers,
-            //             undefined
-            //         )]
-            //     }
-            // })
         }
 
-        return []
+        return matchedPurls
     }
 }
