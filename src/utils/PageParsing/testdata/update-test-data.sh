@@ -40,6 +40,11 @@ get_data "pkg.go.dev/golang.org-x-text-0.20.0.html" "https://pkg.go.dev/golang.o
 get_data "pkg.go.dev/go.etcd.io-etcd-client-v3-3.5.17.html" "https://pkg.go.dev/go.etcd.io/etcd/client/v3@v3.5.17"
 get_data "pkg.go.dev/gopkg.in-ini.v1-1.67.0.html" "https://pkg.go.dev/gopkg.in/ini.v1@v1.67.0"
 
+# huggingface.co
+get_data "huggingface.co/distilbert-distilbert-base-uncased-home.html" "https://huggingface.co/distilbert/distilbert-base-uncased"
+get_data "huggingface.co/distilbert-distilbert-base-uncased-tree-main.html" "https://huggingface.co/distilbert/distilbert-base-uncased/tree/main"
+get_data "huggingface.co/OuteTTS-0.2-500M-GGUF-tree-main.html" "https://huggingface.co/OuteAI/OuteTTS-0.2-500M-GGUF/tree/main"
+
 # mvnrepository.com
 
 # npmjs.com (NPM)

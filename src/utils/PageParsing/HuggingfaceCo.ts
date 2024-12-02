@@ -21,20 +21,67 @@ import { FORMATS } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
 import { logger, LogLevel } from '../../logger/Logger'
 import { BasePageParser } from './BasePageParser'
+import { BaseRepo } from '../RepoType/BaseRepo'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
-const FILE_EXTENSION_MAP = {
-    ".safetensors": {
-        "qualifiers": {
-            "extension": "safetensors",
-            "model": "model",
-            "model_format": "safetensors"
+
+interface HuggingFaceQualifiers {
+    [key: string]: string
+}
+
+abstract class BaseHuggingFacePurlAdapter {
+    protected extension: string
+    protected model: string
+    protected modelFormat: string
+
+    constructor(extension: string, model?: string, modelFormat?: string) { 
+        this.extension = extension
+        this.model = model ?? ''
+        this.modelFormat = modelFormat ?? ''
+    }
+    abstract qualifiers(filename: string): HuggingFaceQualifiers
+}
+
+class BasicHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    qualifiers(_filename: string): HuggingFaceQualifiers {
+        return {
+            extension: this.extension,
+            model: this.model,
+            model_format: this.modelFormat
+        }
+    }
+}
+
+class FilenameHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    qualifiers(filename: string): HuggingFaceQualifiers {
+        return {
+            extension: this.extension,
+            model: filename.substring(0, 0 - this.extension.length - 1),
+            model_format: this.modelFormat
         }
     }
 }
 
 export class HuggingfaceCoPageParser extends BasePageParser {
+
+    ADAPTER_MAP: Map<string, BaseHuggingFacePurlAdapter> = new Map<string, BaseHuggingFacePurlAdapter>()
+    SUPPORTED_FILE_EXTENSIONS
+
+    constructor(readonly repoType: BaseRepo) {
+        super(repoType)
+        // Safetensors
+        this.ADAPTER_MAP.set('.safetensors', new BasicHuggingFacePurlAdapter('safetensors', 'model', 'model_format'))
+        // Tensorflow
+        this.ADAPTER_MAP.set('.h5', new BasicHuggingFacePurlAdapter('h5', 'tf_model', 'tensorflow'))
+        // GGUF
+        this.ADAPTER_MAP.set('.gguf', new FilenameHuggingFacePurlAdapter('gguf', undefined, 'gguf'))
+
+        this.SUPPORTED_FILE_EXTENSIONS = Array.from(this.ADAPTER_MAP.keys())
+    }
+
     parsePage(url: string): PackageURL[] {
+        let allPagePurls: PackageURL[] = []
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const artifactName = pathResults.groups.artifactId
@@ -43,14 +90,13 @@ export class HuggingfaceCoPageParser extends BasePageParser {
             logger.logMessage(`DOM File Rows: ${pageDomFileRows.length}`, LogLevel.DEBUG)
 
             for (const domFileRow of pageDomFileRows) {
-                const purls = this.processDomRowATags(artifactName, artifactNamespace, $('a', domFileRow))
-                if (purls.length > 0) {
-                    return purls
-                }
+                const foundPurls = this.processDomRowATags(artifactName, artifactNamespace, $('a', domFileRow))
+                allPagePurls = allPagePurls.concat(foundPurls)
             }
         }
 
-        return []
+        logger.logMessage(`Discovered ${allPagePurls.length} PURLs`, LogLevel.DEBUG)
+        return allPagePurls
     }
 
     private processDomRowATags(artifactName: string, artifactNamespace: string, domFileRowATags: Cash): PackageURL[] {
@@ -61,22 +107,41 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         const fileName = stripHtmlComments(domFileRowATags.first().text()).trim()
         const fileDownloadUrl = domFileRowATags.get(3)?.getAttribute('href')
         const fileVersion = fileDownloadUrl?.split('/').pop()
-        logger.logMessage(`    Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
-
         if (fileVersion != undefined) {
-            for (const i in Object.keys(FILE_EXTENSION_MAP)) {
-                const candidateExtension = Object.keys(FILE_EXTENSION_MAP)[i]
+            this.SUPPORTED_FILE_EXTENSIONS.forEach((candidateExtension: string) => { 
                 if (fileName.endsWith(candidateExtension)) {
-                    return [generatePackageURLComplete(
-                        FORMATS.huggingface,
-                        artifactName,
-                        fileVersion,
-                        artifactNamespace,
-                        FILE_EXTENSION_MAP[candidateExtension]['qualifiers'],
-                        undefined
-                    )]
+                    const adapter = this.ADAPTER_MAP.get(candidateExtension)
+                    if (adapter) {
+                        logger.logMessage(`    PURL Match for Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
+                        const qualifiers = adapter.qualifiers(fileName)
+                        const p = generatePackageURLComplete(
+                            FORMATS.huggingface,
+                            artifactName,
+                            fileVersion,
+                            artifactNamespace,
+                            qualifiers,
+                            undefined
+                        )
+                        return [p]
+                    }
                 }
-            }
+            })
+            
+
+            // this.ADAPTER_MAP.forEach((adapter, candidateExtension) => { 
+            //     if (fileName.endsWith(candidateExtension)) {
+            //         logger.logMessage(`    PURL Match for Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
+            //         const qualifiers = adapter.qualifiers(fileName)
+            //         return [generatePackageURLComplete(
+            //             FORMATS.huggingface,
+            //             artifactName,
+            //             fileVersion,
+            //             artifactNamespace,
+            //             qualifiers,
+            //             undefined
+            //         )]
+            //     }
+            // })
         }
 
         return []

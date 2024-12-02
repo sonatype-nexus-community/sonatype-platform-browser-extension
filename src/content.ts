@@ -59,19 +59,20 @@ function handle_message_received_calculate_purl_for_page(
                 },
             })
         } else {
-            const purl = DefaultPageParserRegistry.getParserByRepoId(repoType.id()).parsePage(window.location.href)
-            if (purl === undefined) {
+            const purls = DefaultPageParserRegistry.getParserByRepoId(repoType.id()).parsePage(window.location.href)
+            if (purls.length == 0) {
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.FAILURE,
                     status_detail: {
-                        message: `Unable to determine PackageURL for ${window.location.href}`,
+                        message: `Unable to determine PackageURLs for ${window.location.href}`,
                     },
                 })
             } else {
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.SUCCESS,
                     data: {
-                        purl: purl.toString(),
+                        purl: purls[0].toString(),
+                        purls: purls.map((p) => p.toString())
                     },
                 })
             }

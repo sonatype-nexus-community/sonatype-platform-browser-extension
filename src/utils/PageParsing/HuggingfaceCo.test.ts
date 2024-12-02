@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, expect, test } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getArtifactDetailsFromDOM } from '../PageParsing'
@@ -23,41 +23,70 @@ import { HuggingfaceCoRepo } from '../RepoType/HuggingfaceCo'
 
 const parser = new HuggingfaceCoPageParser(new HuggingfaceCoRepo)
 
-function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
-    if (domFile) {
-        const html = readFileSync(join(__dirname, 'testdata', domFile))
-        window.document.body.innerHTML = html.toString()
-    }
-        
-    const packageURLs = getArtifactDetailsFromDOM(parser, url)
-    if (expected) {
-        expect(packageURLs).toBeDefined()
-        expect(packageURLs?.length).toBe(expected.length)
-        const p = packageURLs?.pop()
-        const e = expected.pop()
-        expect(p).toBeDefined()
-        expect(p?.namespace).toBe(e?.namespace)
-        expect(p?.name).toBe(e?.name)
-        expect(p?.version).toBe(e?.version)
-        expect(p?.qualifiers).toEqual(e?.qualifiers)
-    } else {
-        expect(packageURLs?.length).toBe(0)
-    }
-}
-
 describe('huggingface.co Page Parsing', () => {
-    test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased', () => {
-        assertPageParsing(
-            'https://huggingface.co/distilbert/distilbert-base-uncased',
-            'huggingface.co/distilbert-distilbert-base-uncased-home.html',
-            undefined)
-    })
+    it.each([
+        {
+            name: 'MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased',
+            url: 'https://huggingface.co/distilbert/distilbert-base-uncased',
+            testFile: 'distilbert-distilbert-base-uncased-home.html',
+            expectedPurls: []
+        },
+        {
+            name: 'MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased/tree/main',
+            url: 'https://huggingface.co/distilbert/distilbert-base-uncased/tree/main',
+            testFile: 'distilbert-distilbert-base-uncased-tree-main.html',
+            expectedPurls: [
+                PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@1c4513b2eedbda136f57676a34eea67aba266e5c?extension=safetensors&model=model&model_format=safetensors'),
+                PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@54625747c4a205b4dd4f2a14a0709eb4382edcb4?extension=h5&model=tf_model&model_format=tensorflow')
+            ]
+        },
+        {
+            name: 'MODEL: Should Parse GGUF from OuteAI/OuteTTS-0.2-500M-GGUF/tree/main',
+            url: 'https://huggingface.co/OuteAI/OuteTTS-0.2-500M-GGUF/tree/main',
+            testFile: 'OuteTTS-0.2-500M-GGUF-tree-main.html',
+            expectedPurls: [
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-FP16&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q2_K&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q3_K_L&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q3_K_M&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q3_K_S&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q4_0&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q4_1&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q4_K_M&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q4_K_S&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q5_0&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q5_1&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q5_K_M&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q5_K_S&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q6_K&model_format=gguf'),
+                PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q8_0&model_format=gguf'),
+            ]
+        }
+    ])('$name', ({url, testFile, expectedPurls}) => { 
+        if (testFile) {
+            const html = readFileSync(join(__dirname, 'testdata', 'huggingface.co', testFile))
+            window.document.body.innerHTML = html.toString()
+        }
+            
+        const packageURLs = getArtifactDetailsFromDOM(parser, url)
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expectedPurls.length)
 
-    test('MODEL: Should Parse Tensorflow from distilbert/distilbert-base-uncased/tree/main', () => {
-        assertPageParsing(
-            'https://huggingface.co/distilbert/distilbert-base-uncased/tree/main',
-            'huggingface.co/distilbert-distilbert-base-uncased-tree-main.html',
-            [PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@1c4513b2eedbda136f57676a34eea67aba266e5c?extension=safetensors&model=model&model_format=safetensors')]
-        )
+        if (expectedPurls.length > 0) {
+            // All expected Purls
+            let allExpectedPurlStrings: string[] = expectedPurls.map((p) => p.toString())
+            let matched = 0
+            packageURLs?.forEach((p) => {
+                if (allExpectedPurlStrings.includes(p.toString())) {
+                    matched += 1
+                    allExpectedPurlStrings = allExpectedPurlStrings.filter((ps) => { return ps !== p.toString() })
+                }
+            })
+            if (allExpectedPurlStrings.length > 0) {
+                console.error("Unmatched PURLS:", allExpectedPurlStrings)
+                console.error("Discovered PURLS:", packageURLs?.map((p) => p.toString()))
+            }
+            expect(matched).toEqual(expectedPurls.length)
+        }
     })
 })

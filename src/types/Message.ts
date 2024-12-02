@@ -69,14 +69,20 @@ export interface MessageResponse {
     data?: object
 }
 
+interface CalculatePurlForPage {
+    // For temporary backwards compatability
+    purl?: string
+    purls: string[]
+}
+
+export interface MessageResponseCalculatePurlForPage extends MessageResponse {
+    data: CalculatePurlForPage
+}
+
 export interface MessageResponseGetRemediationDetailsForComponent extends MessageResponse {
     data: ApiComponentRemediationValueDTO
 }
 
-export type MessageHandlerFunction = {
-    (request: MessageRequest): MessageResponse
-}
+export type MessageHandlerFunction = (request: MessageRequest) => MessageResponse
 
-export type MessageResponseFunction = {
-    (response: MessageResponse): void
-}
+export type MessageResponseFunction = (response: MessageResponse) => void
