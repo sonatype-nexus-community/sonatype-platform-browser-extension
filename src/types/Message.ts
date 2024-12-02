@@ -15,6 +15,7 @@
  */
 
 import { ApiComponentRemediationValueDTO } from "@sonatype/nexus-iq-api-client"
+import { ComponentState } from "react"
 
 /**
  * Enumeration of Message Types that are known.
@@ -58,6 +59,15 @@ type GetAllComponentVersionsParams = {
 
 export interface MessageRequestGetAllComponentVersions extends MessageRequest {
     params: GetAllComponentVersionsParams
+}
+
+interface PropogateComponentState {
+    purl: string
+    componentState: ComponentState
+}
+
+export interface MessageRequestPropogateComponentState extends MessageRequest {
+    params: PropogateComponentState
 }
 
 /**

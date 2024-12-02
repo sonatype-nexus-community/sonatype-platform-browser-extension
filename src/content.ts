@@ -15,12 +15,14 @@
  */
 
 import $, { Cash } from 'cash-dom'
-import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
+import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageRequestPropogateComponentState, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState, ComponentStateUtil } from './types/Component'
 import { DefaultRepoRegistry } from './utils/RepoRegistry'
 import { BaseRepo } from './utils/RepoType/BaseRepo'
 import { DefaultPageParserRegistry } from './utils/PageParserRegistry'
+import { getPurlHash } from './utils/Helpers'
+import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
@@ -85,33 +87,32 @@ function handle_message_received_calculate_purl_for_page(
  *
  * This always returns True to cause handling to be asynchronous.
  */
-function handle_message_received_propogate_component_state(request: MessageRequest): void {
+function handle_message_received_propogate_component_state(request: MessageRequestPropogateComponentState): void {
     if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
         logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type)
         const repoType = DefaultRepoRegistry.getRepoForUrl(window.location.href)
 
         if (repoType !== undefined) {
             logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
-            if (request.params !== undefined && 'componentState' in request.params) {
-                const domElement = $(repoType.titleSelector())
-                const componentState = request.params.componentState as ComponentState
+            const domClass = `purl-${getPurlHash(PackageURL.fromString(request.params.purl))}`
+            const domElement = $(`.${domClass}`)
 
-                if (componentState == ComponentState.CLEAR) {
-                    removeClasses(domElement)
-                    return
-                }
-
-                logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, ComponentState)
-                // let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
-                const vulnClass = ComponentStateUtil.toCssClass(componentState)
-
-                logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
-                if (domElement.length > 0) {
-                    removeClasses(domElement)
-                    domElement.addClass('sonatype-iq-extension-vuln')
-                    domElement.addClass(vulnClass)
-                }
+            if (request.params.componentState == ComponentState.CLEAR) {
+                removeClasses(domElement)
+                return
             }
+
+            logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, request.params.componentState)
+            // let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
+            const vulnClass = ComponentStateUtil.toCssClass(request.params.componentState)
+
+            logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
+            if (domElement.length > 0) {
+                removeClasses(domElement)
+                domElement.addClass('sonatype-iq-extension-vuln')
+                domElement.addClass(vulnClass)
+            }
+            logger.logMessage("CSS CLASSES ARE NOW: ", LogLevel.DEBUG, domElement.attr('class'))
         }
     }
 }

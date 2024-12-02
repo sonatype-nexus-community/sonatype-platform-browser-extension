@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
 import { ComponentState } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE } from '../types/Message'
@@ -21,13 +22,14 @@ import { MESSAGE_REQUEST_TYPE } from '../types/Message'
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
 
-export async function propogateCurrentComponentState(tabId: number, componentState: ComponentState): Promise<void> {
-    logger.logMessage(`Propogating Component State ${componentState}`, LogLevel.DEBUG)
+export async function propogateCurrentComponentState(tabId: number, componentState: ComponentState, purl?: PackageURL): Promise<void> {
+    logger.logMessage(`Propogating Component State ${componentState} for PURL: ${purl?.toString()}`, LogLevel.DEBUG)
     _browser.tabs
         .sendMessage(tabId, {
             type: MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE,
             params: {
                 componentState: componentState,
+                purl: purl?.toString()
             },
         })
         .catch((err) => {

@@ -159,7 +159,6 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
     if (repoType !== undefined) {
         // We support this Repository!
         logger.logMessage(`Enabling Sonatype Browser Extension for ${url} (tabId ${tabId})`, LogLevel.DEBUG)
-        propogateCurrentComponentState(tabId, ComponentState.EVALUATING)
         _browser.tabs
             .sendMessage(tabId, {
                 type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
@@ -176,7 +175,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                     url: url,
                 })
             })
-            .then((response: MessageResponseCalculatePurlForPage) => {
+            .then((response?: MessageResponseCalculatePurlForPage) => {
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (_browser.runtime.lastError) {
                     logger.logMessage('Error response from CALCULATE_PURL_FOR_PAGE', LogLevel.ERROR, response)
@@ -187,19 +186,22 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                 //     openPanelOnActionClick: true,
                 // })
 
-                if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                    const packageUrl = PackageURL.fromString(response.data.purls.at(0) ?? '')
-                    analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
-                        purl_type: packageUrl.type,
-                        purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
-                        purl_name: packageUrl.name,
-                        purl_version: packageUrl.version,
-                        purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
-                        purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
-                        purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
-                        purl_string: response.data.purls.at(0) ?? ''
+                if (response && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
+                    response.data.purls.forEach((p) => { 
+                        const packageUrl = PackageURL.fromString(p)
+                        propogateCurrentComponentState(tabId, ComponentState.EVALUATING, packageUrl)
+                        analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
+                            purl_type: packageUrl.type,
+                            purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
+                            purl_name: packageUrl.name,
+                            purl_version: packageUrl.version,
+                            purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
+                            purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
+                            purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
+                            purl_string: p
+                        })
                     })
-
+                    
                     requestComponentEvaluationByPurls({
                         type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
                         params: {
@@ -227,11 +229,22 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                             )
 
                             promise
-                                .then((evalResponse) => {
-                                    const componentDetails = (
-                                        evalResponse as ApiComponentEvaluationResultDTOV2
-                                    ).results?.pop()
+                                .then((evalResponse) => {                                        
+                                    (evalResponse as ApiComponentEvaluationResultDTOV2).results?.forEach((cResult) => { 
+                                        let componentState: ComponentState = ComponentState.UNKNOWN
+                                        if (cResult.matchState != null && cResult.matchState != 'unknown') {
+                                            componentState = getForComponentPolicyViolations(
+                                                cResult?.policyData
+                                            )
+                                        }
+                                        propogateCurrentComponentState(
+                                            tabId,
+                                            componentState,
+                                            PackageURL.fromString(cResult?.component?.packageUrl ?? '')
+                                        )
+                                    })
 
+                                    const componentDetails = (evalResponse as ApiComponentEvaluationResultDTOV2).results?.pop()
                                     let componentState: ComponentState = ComponentState.UNKNOWN
                                     if (
                                         componentDetails?.matchState != null &&
@@ -241,8 +254,6 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                             componentDetails?.policyData
                                         )
                                     }
-
-                                    propogateCurrentComponentState(tabId, componentState)
 
                                     _browser.action.enable(tabId, () => {
                                         _browser.action.setIcon({
@@ -279,7 +290,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         .catch((err) => {
                             if (err instanceof IncompleteConfigurationError) {
                                 logger.logMessage(`Incomplete Extension Configuration: ${err}`, LogLevel.ERROR)
-                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
+                                // propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
                                 logger.logMessage(
                                     `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
                                     LogLevel.ERROR
@@ -292,7 +303,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                                 })
                             } else if (err instanceof UserAuthenticationError) {
                                 logger.logMessage(`UserAuthenticationError: ${err}`, LogLevel.ERROR)
-                                propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
+                                // propogateCurrentComponentState(tabId, ComponentState.INVALID_CONFIG)
                                 logger.logMessage(
                                     `Disabling ${extension.name} - Incompolete Extension Configuration: ${err}`,
                                     LogLevel.ERROR
@@ -332,7 +343,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
             `Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`,
             LogLevel.DEBUG
         )
-        propogateCurrentComponentState(tabId, ComponentState.CLEAR)
+        // propogateCurrentComponentState(tabId, ComponentState.CLEAR)
         _browser.action.disable(tabId, () => {
             logger.logMessage(`Sonatype Extension DISABLED for ${url}`, LogLevel.INFO)
             _browser.action.setIcon({
