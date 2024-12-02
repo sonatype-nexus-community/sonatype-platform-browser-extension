@@ -37,6 +37,7 @@ describe('huggingface.co Page Parsing', () => {
             testFile: 'distilbert-distilbert-base-uncased-tree-main.html',
             expectedPurls: [
                 PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@1c4513b2eedbda136f57676a34eea67aba266e5c?extension=safetensors&model=model&model_format=safetensors'),
+                PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@00c3efe70d39bd4d70341e7ac77ad94e2d95783f?extension=bin&model=pytorch_model&model_format=pytorch'),
                 PackageURL.fromString('pkg:huggingface/distilbert/distilbert-base-uncased@54625747c4a205b4dd4f2a14a0709eb4382edcb4?extension=h5&model=tf_model&model_format=tensorflow')
             ]
         },
@@ -61,7 +62,15 @@ describe('huggingface.co Page Parsing', () => {
                 PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q6_K&model_format=gguf'),
                 PackageURL.fromString('pkg:huggingface/OuteAI/OuteTTS-0.2-500M-GGUF@ee3de04a4d6ca4b41d7f2598734636c08c82c713?extension=gguf&model=OuteTTS-0.2-500M-Q8_0&model_format=gguf'),
             ]
-        }
+        },
+        {
+            name: 'MODEL: Should Parse Pytorch BIN from mohsen2/pytorch_model.bin/tree/main',
+            url: 'https://huggingface.co/mohsen2/pytorch_model.bin/tree/main',
+            testFile: 'mohsen2-pytorch-tree-main.html',
+            expectedPurls: [
+                PackageURL.fromString('pkg:huggingface/mohsen2/pytorch_model.bin@802c755142cb8be0c10e3673c0bddc8004791f81?extension=bin&model=pytorch_model&model_format=pytorch')
+            ]
+         }
     ])('$name', ({url, testFile, expectedPurls}) => { 
         if (testFile) {
             const html = readFileSync(join(__dirname, 'testdata', 'huggingface.co', testFile))

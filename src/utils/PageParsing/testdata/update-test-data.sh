@@ -44,6 +44,7 @@ get_data "pkg.go.dev/gopkg.in-ini.v1-1.67.0.html" "https://pkg.go.dev/gopkg.in/i
 get_data "huggingface.co/distilbert-distilbert-base-uncased-home.html" "https://huggingface.co/distilbert/distilbert-base-uncased"
 get_data "huggingface.co/distilbert-distilbert-base-uncased-tree-main.html" "https://huggingface.co/distilbert/distilbert-base-uncased/tree/main"
 get_data "huggingface.co/OuteTTS-0.2-500M-GGUF-tree-main.html" "https://huggingface.co/OuteAI/OuteTTS-0.2-500M-GGUF/tree/main"
+get_data "huggingface.co/mohsen2-pytorch-tree-main.html" "https://huggingface.co/mohsen2/pytorch_model.bin/tree/main"
 
 # mvnrepository.com
 
