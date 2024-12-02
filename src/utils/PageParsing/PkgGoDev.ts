@@ -56,12 +56,14 @@ export class PkgGoDevPageParser extends BasePageParser {
         }
 
         if (nameAndNamespace && version != null) {
-            return [generatePackageURLWithNamespace(
+            const p = generatePackageURLWithNamespace(
                 FORMATS.golang,
                 nameAndNamespace.name,
                 version,
                 nameAndNamespace.namespace
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
 
         return []

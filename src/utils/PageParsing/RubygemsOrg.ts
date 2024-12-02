@@ -27,12 +27,14 @@ export class RubygemsOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
-            return [generatePackageURL(
+            const p = generatePackageURL(
                 FORMATS.gem,
                 pathResults.groups.artifactId,
                 pathResults.groups.version ?? pageVersion,
                 (pathResults.groups.platform !== undefined && pathResults.groups.platform != '') ? { platform: pathResults.groups.platform } : undefined
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

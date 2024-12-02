@@ -63,12 +63,14 @@ export class PypiOrgPageParser extends BasePageParser {
                 qualifiers['qualifier'] = qualifier
             }
             
-            return [generatePackageURL(
+            const p = generatePackageURL(
                 FORMATS.pypi,
                 pathResults.groups.artifactId,
                 thisVersion,
                 qualifiers
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

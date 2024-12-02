@@ -23,14 +23,16 @@ export class MvnRepositoryComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
-            return [generatePackageURLComplete(
+            const p = generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(pathResults.groups.version),
                 encodeURIComponent(pathResults.groups.groupId),
                 { type: 'jar' },
                 undefined
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

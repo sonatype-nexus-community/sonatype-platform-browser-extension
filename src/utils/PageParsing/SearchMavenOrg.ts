@@ -27,7 +27,7 @@ export class SearchMavenOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
-            return [generatePackageURLComplete(
+            const p = generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),
                 pathResults.groups.version ?? pageVersion,
@@ -36,7 +36,9 @@ export class SearchMavenOrgPageParser extends BasePageParser {
                     type: pathResults.groups.type ?? 'jar',
                 },
                 undefined
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

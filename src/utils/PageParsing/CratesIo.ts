@@ -27,14 +27,16 @@ export class CratesIoPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
-            return [generatePackageURLComplete(
+            const p = generatePackageURLComplete(
                 FORMATS.cargo,
                 encodeURIComponent(pathResults.groups.artifactId),
                 pathResults.groups.version ?? pageVersion.replace('v', ''),
                 undefined,
                 {},
                 undefined
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

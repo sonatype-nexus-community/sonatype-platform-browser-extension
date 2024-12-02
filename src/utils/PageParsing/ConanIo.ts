@@ -25,7 +25,9 @@ export class ConanIoPageParser extends BasePageParser {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).text().trim().split('/')[1]
-            return [generatePackageURL(FORMATS.conan, encodeURIComponent(pathResults.groups.artifactId), version)]
+            const p = generatePackageURL(FORMATS.conan, encodeURIComponent(pathResults.groups.artifactId), version)
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
+import { PackageURL } from "packageurl-js"
+
+function getPurlHash(purl: PackageURL): number {
+    const purlString = purl.toString()
+    let hash = 0, i, chr
+    
+    if (purlString.length === 0) return hash;
+    for (i = 0; i < purlString.length; i++) {
+        chr = purlString.charCodeAt(i)
+        hash = ((hash << 5) - hash) + chr
+        hash |= 0 // Convert to 32bit integer
+    }
+    return hash
+}
+
 function ensure<T>(argument: T | undefined | null, message = 'This value was promised to be there.'): T {
     if (argument === undefined || argument === null) {
         throw new TypeError(message)
@@ -30,4 +45,4 @@ function stripTrailingSlash(url: string): string {
     return url.endsWith('/') ? url.slice(0, -1) : url
 }
 
-export { ensure, stripHtmlComments, stripTrailingSlash }
+export { ensure, getPurlHash, stripHtmlComments, stripTrailingSlash }

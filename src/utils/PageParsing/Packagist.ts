@@ -27,12 +27,14 @@ export class PackagistOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
-            return [generatePackageURLWithNamespace(
+            const p = generatePackageURLWithNamespace(
                 FORMATS.composer,
                 encodeURIComponent(pathResults.groups.artifactId),
                 pathResults.groups.version ?? pageVersion,
                 encodeURIComponent(pathResults.groups.groupId)
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

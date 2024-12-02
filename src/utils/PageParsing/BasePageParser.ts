@@ -17,6 +17,8 @@
 import { PackageURL } from "packageurl-js"
 import { logger, LogLevel } from "../../logger/Logger"
 import { BaseRepo } from "../RepoType/BaseRepo"
+import $, { Cash } from "cash-dom"
+import { getPurlHash } from "../Helpers"
 
 export abstract class BasePageParser {
 
@@ -24,6 +26,15 @@ export abstract class BasePageParser {
         if (repoType === undefined) {
             throw new Error("RepoType cannot be undefined")
         }
+    }
+
+    annotateDomForPurl(purl: PackageURL, e?: Cash) {
+        const domClass = `purl-${getPurlHash(purl)}`
+        if (e === undefined) {
+            e = $(this.repoType.titleSelector())
+        }
+        logger.logMessage(`Adding class '${domClass}' to `, LogLevel.DEBUG, e)
+        e?.addClass(domClass)
     }
 
     abstract parsePage(url: string): PackageURL[]

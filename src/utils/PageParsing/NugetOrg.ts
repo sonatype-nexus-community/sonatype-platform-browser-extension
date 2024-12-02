@@ -27,13 +27,15 @@ export class NugetOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath()).text().trim()
             logger.logMessage(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
-            return [generatePackageURL(
+            const p = generatePackageURL(
                 FORMATS.nuget,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(
                     pathResults.groups.version ?? pageVersion
                 )
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

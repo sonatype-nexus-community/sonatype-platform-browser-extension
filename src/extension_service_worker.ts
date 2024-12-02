@@ -19,7 +19,7 @@ import 'node-window-polyfill/register' // New line ensures this Polyfill is firs
 
 import { logger, LogLevel } from './logger/Logger'
 import { compareVersions } from 'compare-versions'
-import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from './types/Message'
+import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseCalculatePurlForPage, MessageResponseFunction } from './types/Message'
 import { propogateCurrentComponentState } from './messages/ComponentStateMessages'
 import {
     requestComponentEvaluationByPurls,
@@ -176,7 +176,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                     url: url,
                 })
             })
-            .then((response) => {
+            .then((response: MessageResponseCalculatePurlForPage) => {
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (_browser.runtime.lastError) {
                     logger.logMessage('Error response from CALCULATE_PURL_FOR_PAGE', LogLevel.ERROR, response)
@@ -188,7 +188,7 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                 // })
 
                 if (response !== undefined && response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                    const packageUrl = PackageURL.fromString(response.data.purl)
+                    const packageUrl = PackageURL.fromString(response.data.purls.at(0) ?? '')
                     analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
                         purl_type: packageUrl.type,
                         purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
@@ -197,13 +197,13 @@ function enableDisableExtensionForUrl(url: string, tabId: number): void {
                         purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
                         purl_qualifier_qualifier: (packageUrl.qualifiers ? packageUrl.qualifiers['qualifier'] : ''),
                         purl_qualifier_type: (packageUrl.qualifiers ? packageUrl.qualifiers['type'] : ''),
-                        purl_string: response.data.purl
+                        purl_string: response.data.purls.at(0) ?? ''
                     })
 
                     requestComponentEvaluationByPurls({
                         type: MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS,
                         params: {
-                            purls: [response.data.purl],
+                            purls: response.data.purls,
                         },
                     }).then((r2) => {
                             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

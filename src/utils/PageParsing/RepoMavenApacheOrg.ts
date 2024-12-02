@@ -27,14 +27,16 @@ export class RepoMavenApacheOrgPageParser extends BasePageParser {
                 const gaParts = pathResults.groups.groupArtifactId.trim().split('/')
                 const artifactId = gaParts.pop()
                 const groupId = gaParts.join('.')
-                return [generatePackageURLComplete(
+                const p = generatePackageURLComplete(
                     FORMATS.maven,
                     encodeURIComponent(artifactId as string),
                     encodeURIComponent(pathResults.groups.version),
                     encodeURIComponent(groupId),
                     { type: 'jar' },
                     undefined
-                )]
+                )
+                this.annotateDomForPurl(p)
+                return [p]
             }
         }
         return []

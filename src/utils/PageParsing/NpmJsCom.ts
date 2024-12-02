@@ -26,13 +26,14 @@ export class NpmJsComPageParser extends BasePageParser {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const pageVersion = stripHtmlComments($(this.repoType.versionDomPath()).first().text()).split('•')[0].trim()
-
-            return [generatePackageURLWithNamespace(
+            const p = generatePackageURLWithNamespace(
                 FORMATS.npm,
                 pathResults.groups.artifactId,
                 pathResults.groups.version ?? pageVersion,
                 pathResults.groups.groupId
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

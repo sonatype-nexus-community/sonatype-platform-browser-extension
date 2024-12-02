@@ -26,7 +26,11 @@ export class AlpineLinuxOrgPageParser extends BasePageParser {
 
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).first().text().trim()
-            return [generatePackageURL(FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version)]
+            const p = generatePackageURL(
+                FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version
+            )
+            this.annotateDomForPurl(p)
+            return []
         }
 
         return []

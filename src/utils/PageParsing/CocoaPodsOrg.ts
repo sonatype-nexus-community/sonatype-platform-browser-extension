@@ -25,7 +25,9 @@ export class CocoaPodsOrgPageParser extends BasePageParser {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).first().text().trim()
-            return [generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResults.groups.artifactId), version)]
+            const p = generatePackageURL(FORMATS.cocoapods, encodeURIComponent(pathResults.groups.artifactId), version)
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

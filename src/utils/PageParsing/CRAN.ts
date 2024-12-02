@@ -25,7 +25,9 @@ export class CranRPageParser extends BasePageParser {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath()).first().text().trim()
-            return [generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)]
+            const p = generatePackageURL(FORMATS.cran, encodeURIComponent(pathResults.groups.artifactId), version)
+            this.annotateDomForPurl(p)
+            return [p]
         }
         return []
     }

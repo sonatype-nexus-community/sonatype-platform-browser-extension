@@ -56,7 +56,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
             logger.logMessage(`DOM File Rows: ${pageDomFileRows.length}`, LogLevel.DEBUG)
 
             for (const domFileRow of pageDomFileRows) {
-                const foundPurls = this.processDomRowATags(artifactName, artifactNamespace, $('a', domFileRow))
+                const foundPurls = this.processDomRowATags(artifactName, artifactNamespace, $(domFileRow))
                 allPagePurls = allPagePurls.concat(foundPurls)
             }
         }
@@ -65,7 +65,8 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         return allPagePurls
     }
 
-    private processDomRowATags(artifactName: string, artifactNamespace: string, domFileRowATags: Cash): PackageURL[] {
+    private processDomRowATags(artifactName: string, artifactNamespace: string, domFileRow: Cash): PackageURL[] {
+        const domFileRowATags = $('a', domFileRow)
         if (domFileRowATags.length < 4) {
             return []
         }
@@ -87,6 +88,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
                         qualifiers,
                         undefined
                     )
+                    this.annotateDomForPurl(p, domFileRow)
                     matchedPurls.push(p)
                 }
             })

@@ -43,14 +43,16 @@ export class CentralSonatypeComPageParser extends BasePageParser {
         
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
-            return [generatePackageURLComplete(
+            const p = generatePackageURLComplete(
                 FORMATS.maven,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(pathResults.groups.version),
                 encodeURIComponent(pathResults.groups.groupId),
                 { type: type },
                 undefined
-            )]
+            )
+            this.annotateDomForPurl(p)
+            return [p]
         }
 
         return []
