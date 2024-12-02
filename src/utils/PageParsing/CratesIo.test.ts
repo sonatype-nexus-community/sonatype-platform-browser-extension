@@ -16,7 +16,6 @@
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
 import { CratesIoPageParser } from './CratesIo'
 import { CratesIoRepo } from '../RepoType/CratesIo'
@@ -29,7 +28,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    const packageURLs = parser.parsePage(url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

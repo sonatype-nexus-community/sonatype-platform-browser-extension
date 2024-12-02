@@ -16,7 +16,6 @@
 import { describe, expect, it } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackageURL } from 'packageurl-js'
 import { HuggingfaceCoPageParser } from './HuggingfaceCo'
 import { HuggingfaceCoRepo } from '../RepoType/HuggingfaceCo'
@@ -77,7 +76,7 @@ describe('huggingface.co Page Parsing', () => {
             window.document.body.innerHTML = html.toString()
         }
             
-        const packageURLs = getArtifactDetailsFromDOM(parser, url)
+        const packageURLs = parser.parsePage(url)
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expectedPurls.length)
 

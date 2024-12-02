@@ -17,7 +17,6 @@ import { describe, expect, it } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { PackageURL } from 'packageurl-js'
 import { join } from 'path'
-import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { CentralSonatypeComPageParser } from './CentralSonatypeCom'
 import { CentralSonatypeComRepo } from '../RepoType/CentralSonatypeCom'
 
@@ -119,7 +118,7 @@ describe('central.sonatype.com Page Parsing', () => {
             window.document.body.innerHTML = html.toString()
         }
             
-        const packageURLs = getArtifactDetailsFromDOM(parser, url)
+        const packageURLs = parser.parsePage(url)
         if (expectedPurls) {
             expect(packageURLs).toBeDefined()
             expect(packageURLs?.length).toBe(expectedPurls.length)

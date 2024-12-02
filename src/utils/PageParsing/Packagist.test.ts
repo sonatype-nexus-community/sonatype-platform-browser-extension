@@ -17,7 +17,6 @@ import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { PackageURL } from 'packageurl-js'
-import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { PackagistOrgPageParser } from './Packagist'
 import { PackagistOrgRepo } from '../RepoType/Packagist'
 
@@ -29,7 +28,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = getArtifactDetailsFromDOM(parser, url)
+    const packageURLs = parser.parsePage(url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)
