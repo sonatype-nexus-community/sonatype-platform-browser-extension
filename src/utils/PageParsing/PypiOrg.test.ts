@@ -49,7 +49,7 @@ describe('pypi.org Page Parsing', () => {
         assertPageParsing(
             'https://pypi.org/project/Django/',
             'pypi.org/Django-4.2.1.html',
-            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
+            [PackageURL.fromString('pkg:pypi/django@4.2.1?extension=tar.gz')]
         )
     })
 
@@ -57,7 +57,7 @@ describe('pypi.org Page Parsing', () => {
         assertPageParsing(
             'https://pypi.org/project/Django/4.2.1/',
             'pypi.org/Django-4.2.1.html',
-            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
+            [PackageURL.fromString('pkg:pypi/django@4.2.1?extension=tar.gz')]
         )
     })
 
@@ -65,7 +65,7 @@ describe('pypi.org Page Parsing', () => {
         assertPageParsing(
             'https://pypi.org/project/Django/4.2.1/?a=c#r',
             'pypi.org/Django-4.2.1.html',
-            [PackageURL.fromString('pkg:pypi/Django@4.2.1?extension=tar.gz')]
+            [PackageURL.fromString('pkg:pypi/django@4.2.1?extension=tar.gz')]
         )
     })
 
@@ -81,7 +81,7 @@ describe('pypi.org Page Parsing', () => {
         assertPageParsing(
             'https://pypi.org/project/Twisted/19.2.0/',
             'pypi.org/Twisted-19.2.0.html',
-            [PackageURL.fromString('pkg:pypi/Twisted@19.2.0?extension=tar.bz2')]
+            [PackageURL.fromString('pkg:pypi/twisted@19.2.0?extension=tar.bz2')]
         )
     })
 

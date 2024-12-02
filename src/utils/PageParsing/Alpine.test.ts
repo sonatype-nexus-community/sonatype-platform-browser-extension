@@ -45,8 +45,11 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
 describe('pkgs.alpinelinux.org Page Parsing', () => {
     
     test('openssl', () => {
-        const expectedPackageUrl = PackageURL.fromString('pkg:alpine/openssl@3.3.2-r4')
-        assertPageParsing('https://pkgs.alpinelinux.org/package/edge/main/x86/openssl', 'pkgs.alpinelinux.org/openssl-3.3.2-r4.html', [expectedPackageUrl])
+        assertPageParsing(
+            'https://pkgs.alpinelinux.org/package/edge/main/x86/openssl',
+            'pkgs.alpinelinux.org/openssl-3.3.2-r4.html',
+            [PackageURL.fromString('pkg:alpine/openssl@3.3.2-r4')]
+        )
     })
 
     test('openssl with query string', () => {

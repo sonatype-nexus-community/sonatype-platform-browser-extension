@@ -30,7 +30,7 @@ export class AlpineLinuxOrgPageParser extends BasePageParser {
                 FORMATS.alpine, encodeURIComponent(pathResults.groups.artifactId), version
             )
             this.annotateDomForPurl(p)
-            return []
+            return [p]
         }
 
         return []
