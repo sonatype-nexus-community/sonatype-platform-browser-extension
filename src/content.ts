@@ -89,13 +89,16 @@ function handle_message_received_calculate_purl_for_page(
  */
 function handle_message_received_propogate_component_state(request: MessageRequestPropogateComponentState): void {
     if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
-        logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type)
+        logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type, request.params)
         const repoType = DefaultRepoRegistry.getRepoForUrl(window.location.href)
 
         if (repoType !== undefined) {
             logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
-            const domClass = `purl-${getPurlHash(PackageURL.fromString(request.params.purl))}`
-            const domElement = $(`.${domClass}`)
+            // const domClass = `purl-${getPurlHash(PackageURL.fromString(request.params.purl))}`
+            // $(function () { console.debug('DOM READY', $(`.${domClass}`)) })
+            const domElement = DefaultPageParserRegistry.getParserByRepoId(repoType.id())
+                .getDomNodeForPurl(window.location.href, PackageURL.fromString(request.params.purl))
+            logger.logMessage(`Finding DOM Element for PURL '${request.params.purl}' yields...`, LogLevel.DEBUG, domElement)
 
             if (request.params.componentState == ComponentState.CLEAR) {
                 removeClasses(domElement)

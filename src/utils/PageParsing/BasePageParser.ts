@@ -37,6 +37,12 @@ export abstract class BasePageParser {
         e?.addClass(domClass)
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getDomNodeForPurl(url: string, purl: PackageURL): Cash {
+        const e = $(this.repoType.titleSelector())
+        return e
+    }
+
     abstract parsePage(url: string): PackageURL[]
 
     parsePath(url: string): RegExpExecArray | null {

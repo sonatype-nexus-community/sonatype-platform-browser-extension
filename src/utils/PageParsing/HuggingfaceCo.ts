@@ -65,6 +65,32 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         return allPagePurls
     }
 
+    getDomNodeForPurl(url: string, purl: PackageURL): Cash {
+        let targetDomNode: Cash | undefined
+        const pathResults = this.parsePath(url)
+        if (pathResults?.groups) {
+            const artifactName = pathResults.groups.artifactId
+            const artifactNamespace = pathResults.groups.namespace
+            const pageDomFileRows = $(FILE_ROW_SELECTOR)
+            logger.logMessage(`DOM File Rows: ${pageDomFileRows.length}`, LogLevel.DEBUG)
+
+            for (const domFileRow of pageDomFileRows) {
+                const foundPurls = this.processDomRowATags(artifactName, artifactNamespace, $(domFileRow))
+                foundPurls.forEach((p) => {
+                    if (p.toString() == purl.toString()) {
+                        targetDomNode = $(domFileRow)
+                    }
+                })
+            }
+        }
+
+        if (targetDomNode) {
+            return targetDomNode
+        }
+
+        return super.getDomNodeForPurl(url, purl)
+    }
+
     private processDomRowATags(artifactName: string, artifactNamespace: string, domFileRow: Cash): PackageURL[] {
         const domFileRowATags = $('a', domFileRow)
         if (domFileRowATags.length < 4) {
