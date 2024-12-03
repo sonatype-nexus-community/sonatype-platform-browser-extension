@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import $, { Cash } from 'cash-dom'
+import { Cash } from 'cash-dom'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageRequestPropogateComponentState, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
 import { ComponentState, ComponentStateUtil } from './types/Component'
 import { DefaultRepoRegistry } from './utils/RepoRegistry'
 import { BaseRepo } from './utils/RepoType/BaseRepo'
 import { DefaultPageParserRegistry } from './utils/PageParserRegistry'
-import { getPurlHash } from './utils/Helpers'
 import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any

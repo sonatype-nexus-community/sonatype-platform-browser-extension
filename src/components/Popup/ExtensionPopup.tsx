@@ -380,7 +380,6 @@ export default function ExtensionPopup() {
     return (
         <ExtensionConfigurationContext.Provider value={extensionConfig}>
             <ExtensionPopupContext.Provider value={popupContext}>
-                {/* {popupContext.supportsLicensing && <AlpDrawer />} */}
                 <Popup />
             </ExtensionPopupContext.Provider>
         </ExtensionConfigurationContext.Provider>
