@@ -42,8 +42,9 @@ function IqRemediationPage() {
                     )}
                     {versionChanges && versionChanges.length > 0 && <NxH3>
                         {_browser.i18n.getMessage('RECOMMENDED_VERSIONS')}
+                        <RemediationDetails />
                         </NxH3>}
-                    <RemediationDetails />
+                    
                 </section>
                 <section className='nx-grid-col nx-grid-col--67 nx-scrollable'>
                     <NxH3>
