@@ -36,6 +36,8 @@ import { RepoMavenApacheOrgRepo } from "./RepoType/RepoMavenApacheOrg"
 import { Repo1MavenOrgRepo } from "./RepoType/Repo1MavenOrg"
 import { RubygemsOrgRepo } from "./RepoType/RubygemsOrg"
 import { SearchMavenOrgRepo } from "./RepoType/SearchMavenOrg"
+import { SonatypeNexusRepostitoryHost } from "../types/ExtensionConfiguration"
+import { Nxrm3Repo } from "./RepoType/Nxrm3"
 
 class RepoRegistry {
 
@@ -68,6 +70,12 @@ class RepoRegistry {
         }
         
         return undefined
+    }
+
+    registerNxrm3(nxrmHost: SonatypeNexusRepostitoryHost): Nxrm3Repo {
+        const repo = new Nxrm3Repo(nxrmHost.url)
+        this.registerRepo(repo)
+        return repo
     }
 
     registerRepo(repo: BaseRepo) {

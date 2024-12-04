@@ -18,8 +18,8 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { PackageURL } from 'packageurl-js'
 // import { getArtifactDetailsFromDOM } from '../PageParsing'
-import { Nxrm3PageParser } from './NexusRepositoryPageParsing'
-import { Nxrm3Repo } from '../RepoType/NexusRepositoryPageParsing'
+import { Nxrm3PageParser } from './Nxrm3'
+import { Nxrm3Repo } from '../RepoType/Nxrm3'
 
 const NXRM_BASE_URL = 'https://repo.tld/'
 const parser = new Nxrm3PageParser(new Nxrm3Repo(NXRM_BASE_URL))
@@ -30,18 +30,18 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         window.document.body.innerHTML = html.toString()
     }
         
-    // const packageURLs = getArtifactDetailsFromDOM(parser, url)
-    // if (expected) {
-    //     expect(packageURLs).toBeDefined()
-    //     expect(packageURLs?.length).toBe(expected.length)
-    //     const p = packageURLs?.pop()
-    //     const e = expected.pop()
-    //     expect(p).toBeDefined()
-    //     expect(p?.version).toBe(e?.version)
-    //     expect(p?.name).toBe(e?.name)
-    // } else {
-    //     expect(packageURLs?.length).toBe(0)
-    // }
+    const packageURLs = parser.parsePage(url)
+    if (expected) {
+        expect(packageURLs).toBeDefined()
+        expect(packageURLs?.length).toBe(expected.length)
+        const p = packageURLs?.pop()
+        const e = expected.pop()
+        expect(p).toBeDefined()
+        expect(p?.version).toBe(e?.version)
+        expect(p?.name).toBe(e?.name)
+    } else {
+        expect(packageURLs?.length).toBe(0)
+    }
 }
 
 describe('NXRM3 Page Parsing', () => {

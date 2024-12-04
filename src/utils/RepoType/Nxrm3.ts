@@ -17,8 +17,8 @@
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
 
-import { FORMATS } from '..//Constants'
-import { BaseRepo } from '../RepoType/BaseRepo'
+import { FORMATS } from '../Constants'
+import { BaseRepo } from './BaseRepo'
 
 export class Nxrm3Repo extends BaseRepo {
 

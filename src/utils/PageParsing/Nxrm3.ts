@@ -15,7 +15,7 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { FORMATS } from '..//Constants'
+import { FORMATS } from '../Constants'
 import { LogLevel, logger } from '../../logger/Logger'
 import { generatePackageURLComplete } from './PurlUtils'
 import { BasePageParser } from './BasePageParser'
