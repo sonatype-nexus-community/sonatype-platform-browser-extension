@@ -390,5 +390,9 @@
     "GOLDEN_VERSION": {
         "message": "Golden Version",
         "description": "Golden Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION_TOOLTIP": {
+        "message": "This is a safe-to-use version of the component, including its dependencies, with no resulting breaking changes, that can be used for upgrade to remediate the reported policy violation.",
+        "description": "Golden Version (IQ 184+) Tooltip from https://help.sonatype.com/en/golden-versions-and-prs.html#golden-versions"
     }
 }

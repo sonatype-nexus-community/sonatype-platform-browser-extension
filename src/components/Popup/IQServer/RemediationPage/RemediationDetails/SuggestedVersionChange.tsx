@@ -21,6 +21,7 @@ import { ExtensionPopupContext } from "../../../../../context/ExtensionPopupCont
 import { getNewSelectedVersionUrl } from "../../../../../utils/Helpers"
 import { NxList } from "@sonatype/react-shared-components"
 import { REMEDIATION_LABELS } from "../../../../../utils/Constants"
+import { Tooltip } from '@material-ui/core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
@@ -36,15 +37,19 @@ function SuggestedVersionLinkItemContent(props: SuggestedVersionChangeProps) {
             {props.suggestedVersion.isGolden != null && props.suggestedVersion.isGolden && (
                 <span>
                     <img
+                        style={{ paddingBottom: '3px', paddingRight: '7px', verticalAlign:'middle' }}
                         src='/images/golden-star.svg'
                         alt={_browser.i18n.getMessage('GOLDEN_VERSION')}
                         title={_browser.i18n.getMessage('GOLDEN_VERSION')}
                     />
                 </span>
             )}
-            <NxList.Text>
-                <small>{REMEDIATION_LABELS[props.suggestedVersion.type as string]}</small>
+            <Tooltip title={_browser.i18n.getMessage('GOLDEN_VERSION_TOOLTIP')}>
+            <NxList.Text
+                style={{ paddingRight: '0px' }}>
+                {REMEDIATION_LABELS[props.suggestedVersion.type as string]}
             </NxList.Text>
+            </Tooltip>
             <NxList.Subtext>
                 <strong>
                     {props.suggestedVersion.data?.component?.componentIdentifier?.coordinates
@@ -85,7 +90,9 @@ export default function SuggestedVersionChange(props: SuggestedVersionChangeProp
                 </NxList.LinkItem>
             )}
             {clickable !== true && (
-                <NxList.Item key="suggested-change">
+                <NxList.Item 
+                style={{ paddingRight: '0px !important' }}
+                    key="suggested-change">
                     <SuggestedVersionLinkItemContent suggestedVersion={props.suggestedVersion} />
                 </NxList.Item>
             )}

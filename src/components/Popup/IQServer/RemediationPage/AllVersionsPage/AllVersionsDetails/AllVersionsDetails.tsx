@@ -19,6 +19,7 @@ import {
     NxLoadingSpinner,
     NxMeter,
     NxPolicyViolationIndicator,
+    NxSmallTag,
     NxThreatIndicator,
     ThreatLevelNumber,
 } from '@sonatype/react-shared-components'
@@ -220,7 +221,7 @@ function IqAllVersionDetails() {
 
                                                 <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
                                                     <span className='nx-pull-right'>
-                                                        {catalogDateDifference(version.catalogDate)}
+                                                        <small>{catalogDateDifference(version.catalogDate)}</small>
                                                     </span>
                                                 </Tooltip>
                                             </NxGrid.Header>
@@ -291,7 +292,7 @@ function IqAllVersionDetails() {
 
                                                 <Tooltip title={`Catalog Date: ${formatDate(version.catalogDate)}`}>
                                                     <span className='nx-pull-right'>
-                                                        {catalogDateDifference(version.catalogDate)}
+                                                        <small>{catalogDateDifference(version.catalogDate)}</small>
                                                     </span>
                                                 </Tooltip>
                                             </NxGrid.Header>

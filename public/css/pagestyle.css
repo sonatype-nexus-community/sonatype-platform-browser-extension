@@ -2,6 +2,11 @@
     max-width: unset !important;
 }
 
+.sonatype-iq-extension-golden {
+    padding-right: 15px !important;
+    vertical-align: bottom !important;;
+}
+
 .sonatype-iq-extension-vuln {
     padding-right: 15px !important;
     padding-left: 10px !important;
