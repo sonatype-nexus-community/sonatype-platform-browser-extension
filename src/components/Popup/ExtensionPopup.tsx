@@ -35,7 +35,6 @@ import {
 } from '../../messages/IqMessages'
 import {
     ApiComponentDetailsDTOV2,
-    ApiComponentEvaluationResultDTOV2,
     ApiComponentEvaluationTicketDTOV2,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
