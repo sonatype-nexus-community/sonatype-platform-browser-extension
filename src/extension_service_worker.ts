@@ -45,7 +45,7 @@ _browser.runtime.onInstalled.addListener((details: object): void => {
  * BOOTSTRAP
  */
 readExtensionConfiguration().then((response) => {
-    logger.logMessage(`Service Worker has loaded Extension Config`, LogLevel.INFO, response)
+    logger.logMessage(`Service Worker has loaded Extension Config`, LogLevel.DEBUG, response)
     const extensionConfigurationContainer = new ExtensionConfigurationStateServiceWorker(response.data as ExtensionConfiguration, analytics)
 
     _browser.storage.onChanged.addListener((changes: object, areaName: string): void => {
