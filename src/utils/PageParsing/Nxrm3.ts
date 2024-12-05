@@ -133,7 +133,7 @@ export class Nxrm3PageParser extends BasePageParser {
                 FORMATS.npm,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
-                componentNamespace === undefined ? undefined : componentNamespace,
+                componentNamespace ?? componentNamespace,
                 undefined,
                 undefined
             )]

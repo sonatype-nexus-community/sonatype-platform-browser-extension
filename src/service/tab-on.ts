@@ -140,7 +140,7 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
                 propogateCurrentComponentState(tabId, ComponentState.EVALUATING, packageUrl)
                 this.analytics.fireEvent(ANALYTICS_EVENT_TYPES.PURL_CALCULATED, {
                     purl_type: packageUrl.type,
-                    purl_namespace: ((packageUrl.namespace != null) ? packageUrl.namespace : ''),
+                    purl_namespace: packageUrl.namespace ?? '',
                     purl_name: packageUrl.name,
                     purl_version: packageUrl.version,
                     purl_qualifier_extension: (packageUrl.qualifiers ? packageUrl.qualifiers['extension'] : ''),
@@ -171,7 +171,7 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
             const evaluateRequestTicketResponse = r2.data as ApiComponentEvaluationTicketDTOV2
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { promise, stopPolling } = pollForComponentEvaluationResult(
+            const { promise } = pollForComponentEvaluationResult(
                 evaluateRequestTicketResponse.applicationId === undefined
                     ? ''
                     : evaluateRequestTicketResponse.applicationId,

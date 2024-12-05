@@ -42,11 +42,9 @@ export abstract class ExtensionConfigurationState {
 
     protected ensureNxrmServersRegistered(): void {
         if (this.extensionConfig !== undefined) {
-            // const allNxrmHostsForContentScript: string[] = []
             this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
                 logger.logMessage(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
                 DefaultRepoRegistry.registerNxrm3(nxrmHost)
-                // allNxrmHostsForContentScript.push(nxrmHost.url + '*')
             })
 
             this.postNxrmServerRegistrations()

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { PackageURL } from 'packageurl-js'
-// import { getArtifactDetailsFromDOM } from '../PageParsing'
 import { Nxrm3PageParser } from './Nxrm3'
 import { Nxrm3Repo } from '../RepoType/Nxrm3'
 

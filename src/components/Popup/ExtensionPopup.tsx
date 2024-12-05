@@ -259,8 +259,7 @@ export default function ExtensionPopup() {
                                     .then((evalResponse) => {
                                         const newPopupContextAllVersions = {
                                             iq: {
-                                                allVersions: (evalResponse as ApiComponentEvaluationResultDTOV2)
-                                                    .results,
+                                                allVersions: evalResponse.results,
                                             },
                                         }
                                         logger.logMessage(
