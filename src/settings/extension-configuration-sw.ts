@@ -23,6 +23,8 @@ import { ExtensionConfigurationState } from "./extension-configuration"
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
 
+type ContentScripts = chrome.scripting.RegisteredContentScript | browser.scripting.RegisteredContentScript
+
 export class ExtensionConfigurationStateServiceWorker extends ExtensionConfigurationState {
 
     protected postNxrmServerRegistrations(): void {
@@ -33,7 +35,7 @@ export class ExtensionConfigurationStateServiceWorker extends ExtensionConfigura
             })
 
             logger.logMessage('Ensuring Content Scripts are registered for NXRM Hosts...', LogLevel.DEBUG)
-            _browser.scripting.getRegisteredContentScripts().then((scripts) => { // { ids: ['content'] }
+            _browser.scripting.getRegisteredContentScripts({ ids: ['content'] }).then((scripts: ContentScripts[]) => {
                 if (scripts.length == 0) {
                     return _browser.scripting.registerContentScripts([
                         {
