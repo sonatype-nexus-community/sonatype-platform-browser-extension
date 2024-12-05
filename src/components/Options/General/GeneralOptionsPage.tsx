@@ -113,6 +113,7 @@ export default function GeneralOptionsPage({
                             js: ['/static/js/content.js'],
                             matches: [`${newNxrmHost}*`],
                             runAt: 'document_end',
+                            world: 'MAIN',
                         },
                     ])
                     .then(recordRegisteredNxrmHost(newNxrmHost))
@@ -217,6 +218,8 @@ export default function GeneralOptionsPage({
                                 const newExtensionSettings = extensionSettings as ExtensionConfiguration
                                 newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
                                 setExtensionConfig(newExtensionSettings)
+                            }).catch((err) => {
+                                logger.logMessage("Error unregistering content script for NXRM", LogLevel.ERROR, err)
                             })
                     } else {
                         _browser.scripting
@@ -236,9 +239,13 @@ export default function GeneralOptionsPage({
                                 const newExtensionSettings = extensionSettings as ExtensionConfiguration
                                 newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
                                 setExtensionConfig(newExtensionSettings)
+                            }).catch((err) => {
+                                logger.logMessage("Error updating content script for remaining NXRMs", LogLevel.ERROR, err, remainingNxrmHosts)
                             })
                     }
                 }
+            }).catch((err) => {
+                logger.logMessage("Error removing browser permissions for NXRM", LogLevel.ERROR, err)
             })
     }
 

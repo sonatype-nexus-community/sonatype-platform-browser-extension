@@ -14,115 +14,36 @@
  * limitations under the License.
  */
 
-import { Cash } from 'cash-dom'
-import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageRequestPropogateComponentState, MessageResponseFunction } from './types/Message'
 import { logger, LogLevel } from './logger/Logger'
-import { ComponentState, ComponentStateUtil } from './types/Component'
-import { DefaultRepoRegistry } from './utils/RepoRegistry'
-import { BaseRepo } from './utils/RepoType/BaseRepo'
-import { DefaultPageParserRegistry } from './utils/PageParserRegistry'
-import { PackageURL } from 'packageurl-js'
+import { readExtensionConfiguration } from './messages/SettingsMessages'
+import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { ExtensionConfigurationState } from './settings/extension-configuration'
+import { ContentScriptCalculatePurls } from './content/calculate-purls'
+import { ContentScriptUpdateComponentState } from './content/update-component-state'
+import { MessageRequest, MessageResponseFunction, MessageRequestPropogateComponentState } from './types/Message'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome || browser
+const _browser = chrome || browser
 
-/**
- * New listener for messages received by Service Worker.
- *
- */
-_browser.runtime.onMessage.addListener(handle_message_received_calculate_purl_for_page)
-_browser.runtime.onMessage.addListener(handle_message_received_propogate_component_state)
+readExtensionConfiguration().then((response) => {
+    logger.logMessage(`Content Script has loaded Extension Config`, LogLevel.WARN, response)
+    const extensionConfigurationContainer = new ExtensionConfigurationState(response.data as ExtensionConfiguration)
 
-/**
- * New (asynchronous) handler for processing messages received.
- *
- * This always returns True to cause handling to be asynchronous.
- */
-function handle_message_received_calculate_purl_for_page(
-    request: MessageRequest,
-    sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
-    sendResponse: MessageResponseFunction
-): void {
-    if (request.type == MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE) {
-        logger.logMessage('Content Script - Handle Received Message', LogLevel.INFO, request.type)
-        logger.logMessage('Deriving PackageURL', LogLevel.INFO, request.params)
-
-        let repoType: BaseRepo | undefined
-        if (request.params !== undefined && 'repoId' in request.params) {
-            repoType = DefaultRepoRegistry.getRepoById(request.params.repoId as string)
-        }
-
-        if (repoType === undefined) {
-            sendResponse({
-                status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                status_detail: {
-                    message: `Repository not supported: ${window.location.href}`,
-                },
-            })
-        } else {
-            const purls = DefaultPageParserRegistry.getParserByRepoId(repoType.id()).parsePage(window.location.href)
-            if (purls.length == 0) {
-                sendResponse({
-                    status: MESSAGE_RESPONSE_STATUS.FAILURE,
-                    status_detail: {
-                        message: `Unable to determine PackageURLs for ${window.location.href}`,
-                    },
-                })
-            } else {
-                sendResponse({
-                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
-                    data: {
-                        purl: purls[0].toString(),
-                        purls: purls.map((p) => p.toString())
-                    },
-                })
-            }
-        }
-    }
-}
-
-/**
- * New (asynchronous) handler for processing messages received.
- *
- * This always returns True to cause handling to be asynchronous.
- */
-function handle_message_received_propogate_component_state(request: MessageRequestPropogateComponentState): void {
-    if (request.type == MESSAGE_REQUEST_TYPE.PROPOGATE_COMPONENT_STATE) {
-        logger.logMessage('Content Script - Handle Received Message', LogLevel.DEBUG, request.type, request.params)
-        const repoType = DefaultRepoRegistry.getRepoForUrl(window.location.href)
-
-        if (repoType !== undefined) {
-            logger.logMessage('Propogate - Repo Type', LogLevel.DEBUG, repoType)
-            // const domClass = `purl-${getPurlHash(PackageURL.fromString(request.params.purl))}`
-            // $(function () { console.debug('DOM READY', $(`.${domClass}`)) })
-            const domElement = DefaultPageParserRegistry.getParserByRepoId(repoType.id())
-                .getDomNodeForPurl(window.location.href, PackageURL.fromString(request.params.purl))
-            logger.logMessage(`Finding DOM Element for PURL '${request.params.purl}' yields...`, LogLevel.DEBUG, domElement)
-
-            if (request.params.componentState == ComponentState.CLEAR) {
-                removeClasses(domElement)
-                return
-            }
-
-            logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, request.params.componentState)
-            // let vulnClass = 'sonatype-iq-extension-vuln-unspecified'
-            const vulnClass = ComponentStateUtil.toCssClass(request.params.componentState)
-
-            logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
-            if (domElement.length > 0) {
-                removeClasses(domElement)
-                domElement.addClass('sonatype-iq-extension-vuln')
-                domElement.addClass(vulnClass)
-            }
-            logger.logMessage("CSS CLASSES ARE NOW: ", LogLevel.DEBUG, domElement.attr('class'))
-        }
-    }
-}
-
-const removeClasses = (element: Cash) => {
-    logger.logMessage(`Removing Sonatype added classes`, LogLevel.DEBUG, element)
-    element.removeClass('sonatype-iq-extension-vuln')
-    Object.values(ComponentState).forEach((v) => { 
-        element.removeClass(ComponentStateUtil.toCssClass(v))
+    const handlerCalculatePurls = new ContentScriptCalculatePurls(extensionConfigurationContainer)
+    _browser.runtime.onMessage.addListener((
+        request: MessageRequest,
+        sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
+        sendResponse: MessageResponseFunction
+    ): void => {
+        handlerCalculatePurls.handleMessage(request, sender, sendResponse)
     })
-}
+
+    const handlerUpdateComponentState = new ContentScriptUpdateComponentState(extensionConfigurationContainer)
+    _browser.runtime.onMessage.addListener((
+        request: MessageRequestPropogateComponentState,
+        sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
+        sendResponse: MessageResponseFunction
+    ): void => {
+        handlerUpdateComponentState.handleMessage(request, sender, sendResponse)
+    })
+})

@@ -73,7 +73,7 @@ class RepoRegistry {
     }
 
     registerNxrm3(nxrmHost: SonatypeNexusRepostitoryHost): Nxrm3Repo {
-        const repo = new Nxrm3Repo(nxrmHost.url)
+        const repo = new Nxrm3Repo(nxrmHost.id, nxrmHost.url, nxrmHost.version)
         this.registerRepo(repo)
         return repo
     }

@@ -24,6 +24,7 @@ import {
     LicenseLegalMetadataApi,
     GetLicenseLegalComponentReportOwnerTypeEnum,
     ApiComponentOrPurlIdentifierDTOV2,
+    ApiComponentEvaluationResultDTOV2,
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
@@ -104,7 +105,7 @@ export function pollForComponentEvaluationResult(applicationId: string, resultId
         }
     }
 
-    const promise = new Promise((resolve, reject) => {
+    const promise: Promise<ApiComponentEvaluationResultDTOV2> = new Promise((resolve, reject) => {
         polling = true
         rejectThis = reject
 

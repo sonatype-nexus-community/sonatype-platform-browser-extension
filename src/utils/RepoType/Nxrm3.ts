@@ -22,12 +22,12 @@ import { BaseRepo } from './BaseRepo'
 
 export class Nxrm3Repo extends BaseRepo {
 
-    constructor(readonly nxrmBaseUrl: string) {
+    constructor(readonly repoId: string, readonly nxrmBaseUrl: string, readonly version: string) {
         super()
     }
 
     id(): string {
-        return `nxrm3-${this.nxrmBaseUrl}`
+        return this.repoId
     }
     format(): string {
         return FORMATS.NXRM

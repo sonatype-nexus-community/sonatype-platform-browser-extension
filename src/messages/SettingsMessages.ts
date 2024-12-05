@@ -21,7 +21,7 @@ import { MessageResponse, MESSAGE_RESPONSE_STATUS } from '../types/Message'
 const SETTINGS_STORAGE_KEY = 'settings'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser = chrome || browser
 
 /**
  * This file contains handlers for processing messages that relate to manging this Extensions
@@ -31,6 +31,7 @@ const _browser: any = chrome ? chrome : browser
 const logger = new BrowserExtensionLogger(LogLevel.DEBUG)
 
 export async function readExtensionConfiguration(): Promise<MessageResponse> {
+    logger.logMessage("readExtensionConfiguration", LogLevel.DEBUG, _browser)
     return _browser.storage.local
         .get([SETTINGS_STORAGE_KEY])
         .then((result) => {

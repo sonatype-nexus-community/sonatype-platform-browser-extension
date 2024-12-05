@@ -22,7 +22,7 @@ import { Nxrm3PageParser } from './Nxrm3'
 import { Nxrm3Repo } from '../RepoType/Nxrm3'
 
 const NXRM_BASE_URL = 'https://repo.tld/'
-const parser = new Nxrm3PageParser(new Nxrm3Repo(NXRM_BASE_URL))
+const parser = new Nxrm3PageParser(new Nxrm3Repo('http-repo.tld/', NXRM_BASE_URL, '3.70.0-01'))
 
 function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
