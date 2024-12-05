@@ -16,7 +16,7 @@
 
 import { logger, LogLevel } from './logger/Logger'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
-import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from './types/ExtensionConfiguration'
 import { ContentScriptCalculatePurls } from './content/calculate-purls'
 import { ContentScriptUpdateComponentState } from './content/update-component-state'
 import { MessageRequest, MessageResponseFunction, MessageRequestPropogateComponentState } from './types/Message'
@@ -27,7 +27,7 @@ const _browser = chrome || browser
 
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Content Script has loaded Extension Config`, LogLevel.DEBUG, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationStateContentScript(response.data as ExtensionConfiguration)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateContentScript(response.data as ExtensionConfiguration ?? DEFAULT_EXTENSION_SETTINGS)
 
     const handlerCalculatePurls = new ContentScriptCalculatePurls(extensionConfigurationContainer)
     _browser.runtime.onMessage.addListener((

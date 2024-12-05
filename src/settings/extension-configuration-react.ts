@@ -17,10 +17,29 @@
 import { logger, LogLevel } from "../logger/Logger"
 import { ExtensionConfigurationStateContentScript } from "./extension-configuration-cs"
 
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome ? chrome : browser
+
 export class ExtensionConfigurationStateReact extends ExtensionConfigurationStateContentScript {
+
+    public purlsDiscovered: string[] = []
 
     protected init(): void {
         logger.logMessage('Initialised new React Context for Extension', LogLevel.DEBUG)
+    }
+
+    public async loadSessionDataForCurrentTab(): Promise<void> {
+        // Load Purls for this Tab from Session Storage
+        return _browser.tabs.query({ active: true, currentWindow: true }).then((tabs: chrome.tabs.Tab[] | browser.tabs.Tab[]) => {
+            const [currentTab] = tabs
+            const sessionKey = `Purls-Tab-${currentTab.id}`
+            return _browser.storage.session.get(sessionKey).then((items: object) => {
+                logger.logMessage('Read Purls from Session Storage for Tab', LogLevel.DEBUG, currentTab.id, items)
+                this.purlsDiscovered = items[sessionKey]
+            }).catch((err) => {
+                logger.logMessage('Error reading Purls from Session Storage ', LogLevel.ERROR, err)
+            })
+        })
     }
 
 }

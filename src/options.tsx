@@ -21,7 +21,7 @@ import { logger, LogLevel } from './logger/Logger'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
 import Options from './components/Options/Options'
 import { ExtensionConfigurationStateReact } from './settings/extension-configuration-react'
-import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from './types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from './context/ExtensionConfigurationContext'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -30,7 +30,7 @@ const extension = _browser.runtime.getManifest()
 
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Options Page has loaded Extension Config`, LogLevel.DEBUG, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration ?? DEFAULT_EXTENSION_SETTINGS)
     const container = document.getElementById('ui')
     const root = ReactDOM.createRoot(container)
 

@@ -149,6 +149,15 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
                     purl_string: p
                 })
             })
+            // Store calculated Purls in Session Storage
+            _browser.storage.session.set({
+                [`Purls-Tab-${tabId}`]: response.data.purls,
+            })
+            .then(() => {
+                logger.logMessage('Wrote Purls to Session Storage for Tab', LogLevel.DEBUG, tabId, response.data.purls)
+            }).catch((err) => {
+                logger.logMessage('Error writing to Purls to Session Storage ', LogLevel.ERROR, err)
+            })
             return response
         })
     }
@@ -198,6 +207,15 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
                 componentState,
                 PackageURL.fromString(cResult?.component?.packageUrl ?? '')
             )
+            // Store in Session Storage
+            _browser.storage.session.set({
+                [`ApiComponentDetailsDTOV2-${cResult?.component?.packageUrl}`]: cResult,
+            })
+            .then(() => {
+                logger.logMessage('Wrote ApiComponentDetailsDTOV2 to Session Storage', LogLevel.DEBUG, cResult)
+            }).catch((err) => {
+                logger.logMessage('Error writing to Session Storage ', LogLevel.ERROR, err)
+            })
         })
 
         const componentDetails = evalResponse.results?.pop()
@@ -217,31 +235,6 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
                 path: getIconForComponentState(componentState),
             })
         })
-
-            // logger.logMessage(
-            //     `${extension.name} ENABLED for ${url} : ${response.data.purl}`,
-            //     LogLevel.INFO
-            // )
-
-        _browser.storage.local
-            .set({
-                componentDetails: componentDetails,
-            })
-            .then(() => {
-                logger.logMessage(
-                    'We wrote to the session',
-                    LogLevel.DEBUG,
-                    componentDetails
-                )
-            })
-        // })
-        // .catch((err) => {
-        //     logger.logMessage(`Error in Poll: ${err}`, LogLevel.ERROR)
-        // })
-        // .finally(() => {
-        //     logger.logMessage('Stopping poll for results - they are in!', LogLevel.INFO)
-        //     stopPolling()
-        // })
     }
 
     private disableExtensionForTab(url: string, tabId: number): void {

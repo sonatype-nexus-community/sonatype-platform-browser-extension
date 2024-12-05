@@ -25,7 +25,7 @@ import { ExtensionConfigurationStateServiceWorker } from './settings/extension-c
 import { ExtensionServiceOnInstalled, OnInstalledDetails } from './service/runtime-on-installed'
 import { ExtensionServiceOnMessage } from './service/runtime-on-message'
 import { ActiveInfo, ChangeInfo, ExtensionServiceTabOn, TabType } from './service/tab-on'
-import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from './types/ExtensionConfiguration'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
@@ -46,7 +46,7 @@ _browser.runtime.onInstalled.addListener((details: object): void => {
  */
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Service Worker has loaded Extension Config`, LogLevel.DEBUG, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationStateServiceWorker(response.data as ExtensionConfiguration, analytics)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateServiceWorker(response.data as ExtensionConfiguration ?? DEFAULT_EXTENSION_SETTINGS, analytics)
 
     _browser.storage.onChanged.addListener((changes: object, areaName: string): void => {
         extensionConfigurationContainer.handleStorageOnChanged(changes, areaName)
