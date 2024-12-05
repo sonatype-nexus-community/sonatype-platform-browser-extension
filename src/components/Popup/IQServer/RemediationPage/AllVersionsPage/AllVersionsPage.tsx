@@ -51,5 +51,5 @@ function IqRemediationPageAllVersion() {
 export default function RemediationPageAllVersion() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationPageAllVersion />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationPageAllVersion />}</div>
 }

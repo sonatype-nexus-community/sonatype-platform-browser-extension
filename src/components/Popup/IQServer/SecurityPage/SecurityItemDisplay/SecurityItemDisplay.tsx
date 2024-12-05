@@ -29,7 +29,7 @@ type SecurityItemProps = {
 
 export function IqSecurityItemDisplay(props: SecurityItemProps) {
     const extensionContext = React.useContext(ExtensionConfigurationContext)
-    const iqServerUrl = stripTrailingSlash(extensionContext.host as string)
+    const iqServerUrl = stripTrailingSlash(extensionContext.getExtensionConfig().host as string)
     const cveUrl = `${iqServerUrl}/assets/index.html#/vulnerabilities/${props.securityIssue.reference}`
 
     return (

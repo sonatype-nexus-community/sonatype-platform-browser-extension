@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react'
-import { DEFAULT_EXTENSION_SETTINGS } from '../types/ExtensionConfiguration'
-import { ExtensionConfigurationStateReact } from '../settings/extension-configuration-react'
-import { Analytics } from '../utils/Analytics'
+import { logger, LogLevel } from "../logger/Logger"
+import { ExtensionConfigurationStateContentScript } from "./extension-configuration-cs"
 
-export const ExtensionConfigurationContext = React.createContext<ExtensionConfigurationStateReact>(
-    new ExtensionConfigurationStateReact(DEFAULT_EXTENSION_SETTINGS, new Analytics())
-)
+export class ExtensionConfigurationStateReact extends ExtensionConfigurationStateContentScript {
+
+    protected init(): void {
+        logger.logMessage('Initialised new React Context for Extension', LogLevel.DEBUG)
+    }
+
+}

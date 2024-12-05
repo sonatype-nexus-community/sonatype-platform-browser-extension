@@ -58,7 +58,7 @@ function IqPolicyPage() {
                                         <PolicyViolation
                                             key={`violation${index}`}
                                             policyViolation={violation}
-                                            iqServerUrl={extensionContext.host as string}
+                                            iqServerUrl={extensionContext.getExtensionConfig().host as string}
                                         ></PolicyViolation>
                                     )
                                 })}
@@ -73,5 +73,5 @@ function IqPolicyPage() {
 export default function PolicyPage() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqPolicyPage />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqPolicyPage />}</div>
 }

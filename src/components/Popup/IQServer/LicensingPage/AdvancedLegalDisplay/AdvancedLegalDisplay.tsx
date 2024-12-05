@@ -71,5 +71,5 @@ function IqAdvancedLegalDisplay() {
 export default function AdvancedLegalDisplay() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqAdvancedLegalDisplay />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqAdvancedLegalDisplay />}</div>
 }

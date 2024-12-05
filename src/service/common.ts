@@ -14,9 +14,25 @@
  * limitations under the License.
  */
 
+import { ExtensionError, UserAuthenticationError } from "../error/ExtensionError"
 import { ExtensionConfigurationState } from "../settings/extension-configuration"
+import { MESSAGE_RESPONSE_STATUS, MessageResponse } from "../types/Message"
 import { Analytics } from "../utils/Analytics"
 
 export class BaseServiceWorkerHandler {
     constructor(protected readonly analytics: Analytics, protected readonly extensionConfigurationState: ExtensionConfigurationState) { }
+
+    protected handleError(err: ExtensionError): MessageResponse {
+        if (err instanceof UserAuthenticationError) {
+            return {
+                status: MESSAGE_RESPONSE_STATUS.AUTH_ERROR,
+                status_detail: err
+            }
+        }
+
+        return {
+            status: MESSAGE_RESPONSE_STATUS.FAILURE,
+            status_detail: err
+        }
+    }
 }

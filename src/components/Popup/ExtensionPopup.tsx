@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getDefaultPopupContext, ExtensionPopupContext, IqPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import Popup from './Popup'
 import { logger, LogLevel } from '../../logger/Logger'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
-import { readExtensionConfiguration } from '../../messages/SettingsMessages'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import { PackageURL } from 'packageurl-js'
 import merge from 'ts-deepmerge'
@@ -44,6 +43,7 @@ import { DefaultRepoRegistry } from '../../utils/RepoRegistry'
 const _browser: any = chrome ? chrome : browser
 
 export default function ExtensionPopup() {
+    const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const [popupContext, setPopupContext] = useState<ExtensionPopupContext>(
         getDefaultPopupContext(extensionConfig.dataSource)
@@ -58,16 +58,7 @@ export default function ExtensionPopup() {
      * We read our current ExtensionConfig and request the PURL for the current active Tab.
      */
     useEffect(() => {
-        readExtensionConfiguration().then((response) => {
-            logger.logMessage(`ExtensionPopup useEffect Response: ${response}`, LogLevel.DEBUG)
-            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                if (response.data === undefined) {
-                    setExtensionConfig(DEFAULT_EXTENSION_SETTINGS)
-                } else {
-                    setExtensionConfig(response.data as ExtensionConfiguration)
-                }
-            }
-        })
+        setExtensionConfig(extensionConfigContext.getExtensionConfig())
 
         logger.logMessage('Popup requesting PURL for current active Tab', LogLevel.INFO)
         _browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
@@ -103,7 +94,7 @@ export default function ExtensionPopup() {
                 }
             }
         })
-    }, [])
+    }, [extensionConfigContext])
 
     /**
      * When PURL changes (initially caused by our onComponentDidMount useEffect above),
@@ -376,10 +367,10 @@ export default function ExtensionPopup() {
     }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
-        <ExtensionConfigurationContext.Provider value={extensionConfig}>
+        // <ExtensionConfigurationContext.Provider value={extensionConfig}>
             <ExtensionPopupContext.Provider value={popupContext}>
                 <Popup />
             </ExtensionPopupContext.Provider>
-        </ExtensionConfigurationContext.Provider>
+        // </ExtensionConfigurationContext.Provider>
     )
 }

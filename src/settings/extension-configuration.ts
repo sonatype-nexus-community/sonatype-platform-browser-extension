@@ -19,12 +19,26 @@
 
 import { logger, LogLevel } from '../logger/Logger'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
+import { Analytics } from '../utils/Analytics'
 import { DefaultRepoRegistry } from '../utils/RepoRegistry'
 
 export abstract class ExtensionConfigurationState {
 
-    constructor(protected extensionConfig: ExtensionConfiguration) {
+    constructor(protected extensionConfig: ExtensionConfiguration, protected analytics?: Analytics) {
+        this.init()
+        this.ensureCorrectLogLevel()
         this.ensureNxrmServersRegistered()
+    }
+
+    public getAnalytics(): Analytics {
+        if (!this.analytics) {
+            this.analytics = new Analytics()
+        }
+        return this.analytics
+    }
+
+    public getExtensionConfig(): ExtensionConfiguration {
+        return this.extensionConfig
     }
 
     public handleStorageOnChanged(changes: object, areaName: string): void {
@@ -33,11 +47,21 @@ export abstract class ExtensionConfigurationState {
             if (Object.keys(changes).includes('settings')) {
                 this.extensionConfig = changes['settings']['newValue'] as ExtensionConfiguration
                 logger.logMessage(`ExtensionConfigurationState - State is now:`, LogLevel.DEBUG, this.extensionConfig)
+                this.ensureCorrectLogLevel()
                 this.ensureNxrmServersRegistered()
             } else {
                 logger.logMessage(`Ignoring storage change: `, LogLevel.TRACE, Object.keys(changes))
             }
         }
+    }
+
+    protected init(): void {
+        return
+    }
+
+    protected ensureCorrectLogLevel(): void {
+        console.info("Setting LogLevel", this.extensionConfig.logLevel)
+        logger.setLevel(this.extensionConfig.logLevel)
     }
 
     protected ensureNxrmServersRegistered(): void {

@@ -348,5 +348,5 @@ function IqAllVersionDetails() {
 export default function AllVersionDetails() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqAllVersionDetails />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqAllVersionDetails />}</div>
 }
