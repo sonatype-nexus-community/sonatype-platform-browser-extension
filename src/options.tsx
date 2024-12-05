@@ -29,7 +29,7 @@ const _browser: any = chrome || browser
 const extension = _browser.runtime.getManifest()
 
 readExtensionConfiguration().then((response) => {
-    logger.logMessage(`Options Page has loaded Extension Config`, LogLevel.WARN, response)
+    logger.logMessage(`Options Page has loaded Extension Config`, LogLevel.DEBUG, response)
     const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration)
     const container = document.getElementById('ui')
     const root = ReactDOM.createRoot(container)

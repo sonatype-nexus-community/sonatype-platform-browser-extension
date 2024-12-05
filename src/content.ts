@@ -26,7 +26,7 @@ import { ExtensionConfigurationStateContentScript } from './settings/extension-c
 const _browser = chrome || browser
 
 readExtensionConfiguration().then((response) => {
-    logger.logMessage(`Content Script has loaded Extension Config`, LogLevel.WARN, response)
+    logger.logMessage(`Content Script has loaded Extension Config`, LogLevel.DEBUG, response)
     const extensionConfigurationContainer = new ExtensionConfigurationStateContentScript(response.data as ExtensionConfiguration)
 
     const handlerCalculatePurls = new ContentScriptCalculatePurls(extensionConfigurationContainer)
