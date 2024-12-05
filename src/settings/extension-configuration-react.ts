@@ -18,7 +18,7 @@ import { logger, LogLevel } from "../logger/Logger"
 import { ExtensionConfigurationStateContentScript } from "./extension-configuration-cs"
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 export class ExtensionConfigurationStateReact extends ExtensionConfigurationStateContentScript {
 
