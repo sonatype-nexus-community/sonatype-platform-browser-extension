@@ -21,7 +21,7 @@ import { logger, LogLevel } from './logger/Logger'
 import { MessageRequest, MessageResponseFunction } from './types/Message'
 import { Analytics } from './utils/Analytics'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
-import { ExtensionConfigurationState } from './settings/extension-configuration'
+import { ExtensionConfigurationStateServiceWorker } from './settings/extension-configuration-sw'
 import { ExtensionServiceOnInstalled, OnInstalledDetails } from './service/runtime-on-installed'
 import { ExtensionServiceOnMessage } from './service/runtime-on-message'
 import { ActiveInfo, ChangeInfo, ExtensionServiceTabOn, TabType } from './service/tab-on'
@@ -46,7 +46,7 @@ _browser.runtime.onInstalled.addListener((details: object): void => {
  */
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Service Worker has loaded Extension Config`, LogLevel.INFO, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationState(response.data as ExtensionConfiguration)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateServiceWorker(response.data as ExtensionConfiguration)
 
     _browser.storage.onChanged.addListener((changes: object, areaName: string): void => {
         extensionConfigurationContainer.handleStorageOnChanged(changes, areaName)

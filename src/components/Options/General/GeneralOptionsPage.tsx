@@ -113,7 +113,7 @@ export default function GeneralOptionsPage({
                             js: ['/static/js/content.js'],
                             matches: [`${newNxrmHost}*`],
                             runAt: 'document_end',
-                            world: 'MAIN',
+                            world: 'ISOLATED',
                         },
                     ])
                     .then(recordRegisteredNxrmHost(newNxrmHost))
@@ -133,7 +133,7 @@ export default function GeneralOptionsPage({
                                 return url + '*'
                             }),
                             runAt: 'document_end',
-                            world: 'MAIN',
+                            world: 'ISOLATED',
                         },
                     ])
                     .then(recordRegisteredNxrmHost(newNxrmHost))
@@ -232,7 +232,7 @@ export default function GeneralOptionsPage({
                                         return nxrmHost.url + '*'
                                     }),
                                     runAt: 'document_end',
-                                    world: 'MAIN',
+                                    world: 'ISOLATED',
                                 },
                             ])
                             .then(() => {

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+// This is used by Extension Service Worker - cannot directly or indirectly require
+// access to DOM.
+
 import { logger, LogLevel } from '../logger/Logger'
 import { ExtensionConfiguration } from '../types/ExtensionConfiguration'
 import { DefaultRepoRegistry } from '../utils/RepoRegistry'
 
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome || browser
+export abstract class ExtensionConfigurationState {
 
-export class ExtensionConfigurationState {
-
-    constructor(private extensionConfig: ExtensionConfiguration) {
+    constructor(protected extensionConfig: ExtensionConfiguration) {
         this.ensureNxrmServersRegistered()
     }
 
@@ -42,44 +42,16 @@ export class ExtensionConfigurationState {
 
     protected ensureNxrmServersRegistered(): void {
         if (this.extensionConfig !== undefined) {
-            const allNxrmHostsForContentScript: string[] = []
+            // const allNxrmHostsForContentScript: string[] = []
             this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
                 logger.logMessage(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
                 DefaultRepoRegistry.registerNxrm3(nxrmHost)
-                allNxrmHostsForContentScript.push(nxrmHost.url + '*')
+                // allNxrmHostsForContentScript.push(nxrmHost.url + '*')
             })
 
-            if (_browser.scripting !== undefined && this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-                // DO NOT RUN IN CONTENT-SCRIPTS - no access to _browser.scripting
-                logger.logMessage('Ensuring Content Scripts are registered for NXRM Hosts...', LogLevel.DEBUG)
-                _browser.scripting.getRegisteredContentScripts().then((scripts) => { // { ids: ['content'] }
-                    if (scripts.length == 0) {
-                        return _browser.scripting.registerContentScripts([
-                            {
-                                id: 'content',
-                                css: ['/css/pagestyle.css'],
-                                js: ['/static/js/content.js'],
-                                matches: allNxrmHostsForContentScript,
-                                runAt: 'document_end',
-                                world: 'MAIN',
-                            },
-                        ])
-                    } else {
-                        return _browser.scripting.updateContentScripts([
-                            {
-                                id: 'content',
-                                css: ['/css/pagestyle.css'],
-                                js: ['/static/js/content.js'],
-                                matches: allNxrmHostsForContentScript,
-                                runAt: 'document_end',
-                                world: 'MAIN',
-                            },
-                        ])
-                    }
-                })
-                    .then(() => logger.logMessage('Content Scripts successfully registered for NXRM Hosts', LogLevel.DEBUG))
-                    .catch((err) => logger.logMessage('Content Scripts NOT successfully registered for NXRM Hosts', LogLevel.DEBUG, err))
-            }
+            this.postNxrmServerRegistrations()
         }
     }
+
+    protected abstract postNxrmServerRegistrations(): void
 }

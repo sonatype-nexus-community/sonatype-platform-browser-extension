@@ -17,17 +17,17 @@
 import { logger, LogLevel } from './logger/Logger'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
 import { ExtensionConfiguration } from './types/ExtensionConfiguration'
-import { ExtensionConfigurationState } from './settings/extension-configuration'
 import { ContentScriptCalculatePurls } from './content/calculate-purls'
 import { ContentScriptUpdateComponentState } from './content/update-component-state'
 import { MessageRequest, MessageResponseFunction, MessageRequestPropogateComponentState } from './types/Message'
+import { ExtensionConfigurationStateContentScript } from './settings/extension-configuration-cs'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser = chrome || browser
 
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Content Script has loaded Extension Config`, LogLevel.WARN, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationState(response.data as ExtensionConfiguration)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateContentScript(response.data as ExtensionConfiguration)
 
     const handlerCalculatePurls = new ContentScriptCalculatePurls(extensionConfigurationContainer)
     _browser.runtime.onMessage.addListener((

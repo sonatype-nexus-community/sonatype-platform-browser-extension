@@ -50,10 +50,13 @@ export class Nxrm3PageParser extends BasePageParser {
                     return this.attemptPackageUrlPyPiUrl(uriPath)
                 case 'rubygems':
                     return this.attemptPackageUrlRubyUrl(uriPath)
+                default:
+                    logger.logMessage('Unknown or unsupported format on NXRM3', LogLevel.DEBUG, format)
             }
-        } else if (uriPath.startsWith('#/browse/search')) {
-            // Search Mode
         }
+        // else if (uriPath.startsWith('#/browse/search')) {
+        //     // Search Mode
+        // }
 
         return []
     }
