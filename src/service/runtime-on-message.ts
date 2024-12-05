@@ -32,13 +32,13 @@ export class ExtensionServiceOnMessage extends BaseServiceWorkerHandler {
             case MESSAGE_REQUEST_TYPE.GET_APPLICATIONS:
                 getApplications().then((response) => {
                     sendResponse(response)
-                })
+                }).catch((err) => sendResponse(this.handleError(err)))
                 break
             case MESSAGE_REQUEST_TYPE.REQUEST_COMPONENT_EVALUATION_BY_PURLS:
                 requestComponentEvaluationByPurls(request).then((response) => {
                     logger.logMessage(`Response to Poll for Results: ${response}`, LogLevel.DEBUG)
                     sendResponse(response)
-                })
+                }).catch((err) => sendResponse(this.handleError(err)))
                 break
         }
 

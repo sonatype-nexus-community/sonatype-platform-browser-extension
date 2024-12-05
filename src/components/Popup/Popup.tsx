@@ -87,7 +87,7 @@ function IqPopup() {
                         width: '800px !important',
                     }}
                     productInfo={{ name: extension.name.replace('Sonatype ', ''), version: extension.version }}>
-                    <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.host}`}>
+                    <Tooltip title={`Sonatype IQ Server: ${extensionConfigContext.getExtensionConfig().host}`}>
                         <span>
                             <NxButton
                                 id='iq-server-button'
@@ -95,7 +95,7 @@ function IqPopup() {
                                 variant='icon-only'
                                 onClick={() => {
                                     _browser.tabs.update({
-                                        url: extensionConfigContext.host,
+                                        url: extensionConfigContext.getExtensionConfig().host,
                                     })
                                     window.close()
                                 }}>
@@ -184,7 +184,7 @@ function IqPopup() {
                                         {policyViolations.length > 0 && (
                                             <Tooltip
                                                 title={_browser.i18n.getMessage('POPUP_TAB_POLICY_TOOLIP', [
-                                                    extensionConfigContext.iqApplicationPublidId,
+                                                    extensionConfigContext.getExtensionConfig().iqApplicationPublidId,
                                                 ])}
                                                 placement='bottom'>
                                                 <span>
@@ -274,5 +274,5 @@ function IqPopup() {
 export default function Popup() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqPopup />}</>
+    return <>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqPopup />}</>
 }

@@ -28,7 +28,7 @@ export enum MESSAGE_REQUEST_TYPE {
     GET_COMPONENT_LEGAL_DETAILS = 'getComponentLegalDetails',
     GET_COMPONENT_VERSIONS = 'getComponentVersions',
     GET_REMEDIATION_DETAILS_FOR_COMPONENT = 'getRemediationDetailsForComponent',
-    GET_SETTINGS = 'readExtensionConfiguration',
+    // GET_SETTINGS = 'readExtensionConfiguration',
     PROPOGATE_COMPONENT_STATE = 'propogateCurrentComponentState',
     REQUEST_COMPONENT_EVALUATION_BY_PURLS = 'requestComponentEvaluationByPurls',
     UPDATE_SETTINGS = 'updateExtensionConfiguration',

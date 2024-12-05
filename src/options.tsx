@@ -18,34 +18,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { logger, LogLevel } from './logger/Logger'
-import { MESSAGE_REQUEST_TYPE } from './types/Message'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
 import Options from './components/Options/Options'
+import { ExtensionConfigurationStateReact } from './settings/extension-configuration-react'
+import { ExtensionConfiguration } from './types/ExtensionConfiguration'
+import { ExtensionConfigurationContext } from './context/ExtensionConfigurationContext'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 const extension = _browser.runtime.getManifest()
 
-const container = document.getElementById('ui')
-const root = ReactDOM.createRoot(container)
+readExtensionConfiguration().then((response) => {
+    logger.logMessage(`Options Page has loaded Extension Config`, LogLevel.WARN, response)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration)
+    const container = document.getElementById('ui')
+    const root = ReactDOM.createRoot(container)
 
-window.document.title = extension.name
+    window.document.title = extension.name
 
-root.render(
-    <React.StrictMode>
-        <Options />
-    </React.StrictMode>
-)
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-_browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    logger.logMessage('Options Request received', LogLevel.INFO, request)
-
-    switch (request.type) {
-        case MESSAGE_REQUEST_TYPE.GET_SETTINGS:
-            readExtensionConfiguration().then((response) => {
-                sendResponse(response)
-            })
-            break
-    }
+    root.render(
+        <React.StrictMode>
+            <ExtensionConfigurationContext.Provider value={extensionConfigurationContainer}>
+                <Options/>
+            </ExtensionConfigurationContext.Provider>
+        </React.StrictMode>
+    )
 })

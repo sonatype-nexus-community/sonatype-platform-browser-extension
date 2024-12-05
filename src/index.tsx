@@ -17,17 +17,28 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import ExtensionPopup from './components/Popup/ExtensionPopup'
 import { UI_MODE, UiContext } from './context/UiContext'
+import { ExtensionConfigurationContext } from './context/ExtensionConfigurationContext'
+import { logger, LogLevel } from './logger/Logger'
+import { readExtensionConfiguration } from './messages/SettingsMessages'
+import { ExtensionConfigurationStateReact } from './settings/extension-configuration-react'
+import { ExtensionConfiguration } from './types/ExtensionConfiguration'
 
 /**
- * This is essentially the UI that appears in the Extension Popup or Side Panel.
+ * This is the UI that appears in the Extension Popup or Side Panel.
  */
-
-const container = document.getElementById('ui')
-const root = ReactDOM.createRoot(container)
-root.render(
-    <React.StrictMode>
-        <UiContext.Provider value={UI_MODE.POPUP}>
-            <ExtensionPopup />
-        </UiContext.Provider>
-    </React.StrictMode>
-)
+readExtensionConfiguration().then((response) => {
+    logger.logMessage(`Extension Popup has loaded Extension Config`, LogLevel.DEBUG, response)
+    const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration)
+    
+    const container = document.getElementById('ui')
+    const root = ReactDOM.createRoot(container)
+    root.render(
+        <React.StrictMode>
+            <ExtensionConfigurationContext.Provider value={extensionConfigurationContainer}>
+                <UiContext.Provider value={UI_MODE.POPUP}>
+                    <ExtensionPopup />
+                </UiContext.Provider>
+            </ExtensionConfigurationContext.Provider>
+        </React.StrictMode>
+    )
+})

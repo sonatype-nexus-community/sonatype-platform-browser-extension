@@ -19,23 +19,21 @@ import {
     NxGlobalSidebarNavigationLink,
     NxGlobalSidebarFooter,
 } from '@sonatype/react-shared-components'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import { MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import GeneralOptionsPage from './General/GeneralOptionsPage'
 import IQServerOptionsPage from './IQServer/IQServerOptionsPage'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
-import { readExtensionConfiguration, updateExtensionConfiguration } from '../../messages/SettingsMessages'
+import { updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft, faArrowRight, faCog, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import Help from '../Help/Help'
-import { Analytics } from '../../utils/Analytics'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 const extension = _browser.runtime.getManifest()
-const analytics = new Analytics()
 
 enum OPTIONS_PAGE_MODE {
     GENERAL,
@@ -44,6 +42,7 @@ enum OPTIONS_PAGE_MODE {
 }
 
 export default function Options() {
+    const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const search = window.location.search
     const fragment = window.location.hash
@@ -61,11 +60,11 @@ export default function Options() {
 
     useMemo(
         () =>
-            analytics.firePageViewEvent('Options', window.location.href, {
+            extensionConfigContext.getAnalytics().firePageViewEvent('Options', window.location.href, {
                 subPage: OPTIONS_PAGE_MODE[pageMode],
                 install: install,
             }),
-        [install, pageMode]
+        [extensionConfigContext, install, pageMode]
     )
 
     function handleNewExtensionConfig(settings: ExtensionConfiguration) {
@@ -79,16 +78,9 @@ export default function Options() {
     }
 
     useEffect(() => {
-        readExtensionConfiguration().then((response) => {
-            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                if (response.data === undefined) {
-                    setExtensionConfig(DEFAULT_EXTENSION_SETTINGS)
-                } else {
-                    setExtensionConfig(response.data as ExtensionConfiguration)
-                }
-            }
-        })
-    }, [])
+        logger.logMessage('Options.tsx:useEffect()', LogLevel.DEBUG, extensionConfigContext)
+        setExtensionConfig(extensionConfigContext.getExtensionConfig())
+    }, [extensionConfigContext])
 
     function getLogo() {
         if (extensionConfig.supportsLifecycle === true && extensionConfig.supportsFirewall === true) {
@@ -105,56 +97,54 @@ export default function Options() {
 
     return (
         <React.StrictMode>
-            <ExtensionConfigurationContext.Provider value={extensionConfig}>
-                <NxStatefulGlobalSidebar
-                    isDefaultOpen={true}
-                    toggleCloseIcon={faArrowRight as IconDefinition}
-                    toggleOpenIcon={faArrowLeft as IconDefinition}
-                    logoImg={getLogo()}
-                    logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
-                    logoLink='#'>
-                    <NxGlobalSidebarNavigation>
-                        <NxGlobalSidebarNavigationLink
-                            icon={faPlay as IconDefinition}
-                            text={_browser.i18n.getMessage('SIDEBAR_LINK_GETTING_STARTED')}
-                            href='options.html?install'
-                        />
-                        <NxGlobalSidebarNavigationLink
-                            icon={faCog as IconDefinition}
-                            text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
-                            href='options.html'
-                        />
-                        <NxGlobalSidebarNavigationLink
-                            icon={faCog as IconDefinition}
-                            text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
-                            href='options.html?general'
-                        />
-                        <NxGlobalSidebarNavigationLink
-                            icon={faQuestionCircle as IconDefinition}
-                            text={_browser.i18n.getMessage('SIDEBAR_LINK_HELP')}
-                            href='options.html?help'
-                        />
-                    </NxGlobalSidebarNavigation>
-                    <NxGlobalSidebarFooter
-                        supportText={_browser.i18n.getMessage('SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT')}
-                        supportLink={extension.homepage_url}
-                        releaseText={_browser.i18n.getMessage('RELEASE_VERSION', extension.version)}
-                        showCreatedBy={true}
+            <NxStatefulGlobalSidebar
+                isDefaultOpen={true}
+                toggleCloseIcon={faArrowRight as IconDefinition}
+                toggleOpenIcon={faArrowLeft as IconDefinition}
+                logoImg={getLogo()}
+                logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
+                logoLink='#'>
+                <NxGlobalSidebarNavigation>
+                    <NxGlobalSidebarNavigationLink
+                        icon={faPlay as IconDefinition}
+                        text={_browser.i18n.getMessage('SIDEBAR_LINK_GETTING_STARTED')}
+                        href='options.html?install'
                     />
-                </NxStatefulGlobalSidebar>
+                    <NxGlobalSidebarNavigationLink
+                        icon={faCog as IconDefinition}
+                        text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
+                        href='options.html'
+                    />
+                    <NxGlobalSidebarNavigationLink
+                        icon={faCog as IconDefinition}
+                        text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
+                        href='options.html?general'
+                    />
+                    <NxGlobalSidebarNavigationLink
+                        icon={faQuestionCircle as IconDefinition}
+                        text={_browser.i18n.getMessage('SIDEBAR_LINK_HELP')}
+                        href='options.html?help'
+                    />
+                </NxGlobalSidebarNavigation>
+                <NxGlobalSidebarFooter
+                    supportText={_browser.i18n.getMessage('SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT')}
+                    supportLink={extension.homepage_url}
+                    releaseText={_browser.i18n.getMessage('RELEASE_VERSION', extension.version)}
+                    showCreatedBy={true}
+                />
+            </NxStatefulGlobalSidebar>
 
-                {pageMode === OPTIONS_PAGE_MODE.HELP && <Help />}
-                {pageMode === OPTIONS_PAGE_MODE.GENERAL && (
-                    <GeneralOptionsPage setExtensionConfig={handleNewExtensionConfig} />
-                )}
-                {pageMode === OPTIONS_PAGE_MODE.SONATYPE && (
-                    <IQServerOptionsPage
-                        install={install}
-                        invalidCredentials={invalidCredentials}
-                        setExtensionConfig={handleNewExtensionConfig}
-                    />
-                )}
-            </ExtensionConfigurationContext.Provider>
+            {pageMode === OPTIONS_PAGE_MODE.HELP && <Help />}
+            {pageMode === OPTIONS_PAGE_MODE.GENERAL && (
+                <GeneralOptionsPage setExtensionConfig={handleNewExtensionConfig} />
+            )}
+            {pageMode === OPTIONS_PAGE_MODE.SONATYPE && (
+                <IQServerOptionsPage
+                    install={install}
+                    invalidCredentials={invalidCredentials}
+                    setExtensionConfig={handleNewExtensionConfig}
+                />
+            )}
         </React.StrictMode>
     )
 }

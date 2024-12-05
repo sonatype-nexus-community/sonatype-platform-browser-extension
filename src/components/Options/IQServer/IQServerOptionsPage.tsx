@@ -40,7 +40,7 @@ import './IQServerOptionsPage.css'
 import { faExternalLink, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
-import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
+import { ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
 import { ExtensionConfigurationContext } from '../../../context/ExtensionConfigurationContext'
 import { isHttpUriValidator, nonEmptyValidator } from '../../Common/Validators'
 import { logger, LogLevel } from '../../../logger/Logger'
@@ -64,31 +64,32 @@ export interface IqServerOptionsPageInterface {
 }
 
 export default function IQServerOptionsPage(props: IqServerOptionsPageInterface) {
-    const extensionSettings = useContext(ExtensionConfigurationContext)
+    const extensionConfigContext = useContext(ExtensionConfigurationContext)
+    // const [extensionSettings, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const [hasPermissions, setHasPermission] = useState(false)
     const [iqAuthenticated, setIqAuthenticated] = useState<boolean | undefined>()
     const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
     const [checkingConnection, setCheckingConnection] = useState(false)
     const [iqUrl, setIqUrl] = useState<NxTextInputStateProps>(
-        initialState(extensionSettings.host === undefined ? '' : (extensionSettings.host as string))
+        initialState(extensionConfigContext.getExtensionConfig().host === undefined ? '' : (extensionConfigContext.getExtensionConfig().host as string))
     )
 
     /**
      * Hook to check whether we already have permissions to IQ Server Host
      */
     useEffect(() => {
-        if (extensionSettings.host !== undefined) {
+        if (extensionConfigContext.getExtensionConfig().host !== undefined) {
             hasOriginPermission()
         }
     })
 
     useEffect(() => {
-        logger.logMessage(`Extension Host Changed to: ${extensionSettings.host}`, LogLevel.DEBUG)
-        if (extensionSettings.host !== undefined) {
-            setIqUrl(userInput(null, extensionSettings.host as string))
+        logger.logMessage(`Extension Host Changed to: ${extensionConfigContext.getExtensionConfig().host}`, LogLevel.DEBUG)
+        if (extensionConfigContext.getExtensionConfig().host !== undefined) {
+            setIqUrl(userInput(null, extensionConfigContext.getExtensionConfig().host as string))
         }
-    }, [extensionSettings.host])
+    }, [extensionConfigContext])
 
     /**
      * Request permission to IQ Server Host
@@ -96,18 +97,18 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     const askForPermissions = () => {
         // Update Extension Settings
         // Normalise the host to end with / here
-        const newExtensionSettings = extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
+        const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         newExtensionSettings.host = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
         setExtensionConfig(newExtensionSettings)
         hasOriginPermission()
 
-        logger.logMessage(`Requesting Browser Permission to Origin: '${extensionSettings?.host}'`, LogLevel.INFO)
+        logger.logMessage(`Requesting Browser Permission to Origin: '${extensionConfigContext.getExtensionConfig().host}'`, LogLevel.INFO)
 
-        if (extensionSettings.host !== undefined) {
-            logger.logMessage(`Requesting permission to Origin ${extensionSettings.host}`, LogLevel.DEBUG)
+        if (extensionConfigContext.getExtensionConfig().host !== undefined) {
+            logger.logMessage(`Requesting permission to Origin ${extensionConfigContext.getExtensionConfig().host}`, LogLevel.DEBUG)
             _browser.permissions.request(
                 {
-                    origins: [extensionSettings.host],
+                    origins: [extensionConfigContext.getExtensionConfig().host],
                 },
                 (granted: boolean) => {
                     setHasPermission(granted)
@@ -152,19 +153,19 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
     }
 
     function handleIqTokenChange(e) {
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         newExtensionSettings.token = e as string
         setExtensionConfig(newExtensionSettings)
     }
 
     function handleIqUserChange(e) {
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         newExtensionSettings.user = e as string
         setExtensionConfig(newExtensionSettings)
     }
 
     function handleIqApplicationChange(e) {
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         const [iqApplicationInternalId, iqApplicationPublidId] = (e.target.value as string).split('|')
         newExtensionSettings.iqApplicationInternalId = iqApplicationInternalId
         newExtensionSettings.iqApplicationPublidId = iqApplicationPublidId
@@ -177,9 +178,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
         /**
          * Force check that we have correct host in Extension Settings
          */
-        if (iqUrl.trimmedValue !== extensionSettings.host) {
-            const newExtensionSettings =
-                extensionSettings !== undefined ? extensionSettings : DEFAULT_EXTENSION_SETTINGS
+        if (iqUrl.trimmedValue !== extensionConfigContext.getExtensionConfig().host) {
+            const newExtensionSettings = extensionConfigContext.getExtensionConfig()
             newExtensionSettings.host = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
             setExtensionConfig(newExtensionSettings)
         }
@@ -239,7 +239,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
         logger.logMessage(`Determine IQ Capabilities`, LogLevel.DEBUG)
         const supportsFirewall = await determineSupportsFirewall()
         const supportsLifecycleAlp = await determineSupportsLifecycleAlp()
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         newExtensionSettings.supportsFirewall = supportsFirewall
         newExtensionSettings.supportsLifecycleAlp = supportsLifecycleAlp
         setExtensionConfig(newExtensionSettings)
@@ -262,7 +262,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
             if (sandboxApplication !== undefined) {
                 supportsLifecycle = await determineSupportsLifecycle(sandboxApplication.id as string)
             }
-            const newExtensionSettings = extensionSettings as ExtensionConfiguration
+            const newExtensionSettings = extensionConfigContext.getExtensionConfig()
             newExtensionSettings.supportsLifecycle = supportsLifecycle
             if (supportsLifecycle === false) {
                 newExtensionSettings.iqApplicationInternalId = sandboxApplication.id as string
@@ -298,11 +298,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
                                         title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
                                         className={
-                                            extensionSettings.supportsLifecycle === false ? 'dim-image' : 'not-dim'
+                                            extensionConfigContext.getExtensionConfig().supportsLifecycle === false ? 'dim-image' : 'not-dim'
                                         }
                                     />
                                     <div>
-                                        {extensionSettings.supportsLifecycle === false && (
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycle === false && (
                                             <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
 
@@ -311,8 +311,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
                                             {_browser.i18n.getMessage('SONATYPE_LIFECYCLE')}
                                         </NxTextLink>
-                                        {extensionSettings.supportsLifecycle === false && <span>?</span>}
-                                        {extensionSettings.supportsLifecycle === true && (
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycle === false && <span>?</span>}
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycle === true && (
                                             <div>
                                                 <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
                                             </div>
@@ -330,11 +330,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         alt={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         title={_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         className={
-                                            extensionSettings.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
+                                            extensionConfigContext.getExtensionConfig().supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
                                         }
                                     />
                                     <div>
-                                        {extensionSettings.supportsLifecycleAlp === false && (
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycleAlp === false && (
                                             <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
                                         <NxTextLink
@@ -342,8 +342,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
                                             {_browser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         </NxTextLink>
-                                        {extensionSettings.supportsLifecycleAlp === false && <span>?</span>}
-                                        {extensionSettings.supportsLifecycleAlp === true && (
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycleAlp === false && <span>?</span>}
+                                        {extensionConfigContext.getExtensionConfig().supportsLifecycleAlp === true && (
                                             <div>
                                                 <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
                                             </div>
@@ -361,11 +361,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                         alt={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
                                         title={_browser.i18n.getMessage('SONATYPE_FIREWALL')}
                                         className={
-                                            extensionSettings.supportsFirewall === false ? 'dim-image' : 'not-dim'
+                                            extensionConfigContext.getExtensionConfig().supportsFirewall === false ? 'dim-image' : 'not-dim'
                                         }
                                     />
                                     <div>
-                                        {extensionSettings.supportsFirewall === false && (
+                                        {extensionConfigContext.getExtensionConfig().supportsFirewall === false && (
                                             <span>{_browser.i18n.getMessage('DOES_IQ_SUPPORT_FEATURE')} </span>
                                         )}
                                         <NxTextLink
@@ -373,8 +373,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
                                             {_browser.i18n.getMessage('SONATYPE_FIREWALL')}
                                         </NxTextLink>
-                                        {extensionSettings.supportsFirewall === false && <span>?</span>}
-                                        {extensionSettings.supportsFirewall === true && (
+                                        {extensionConfigContext.getExtensionConfig().supportsFirewall === false && <span>?</span>}
+                                        {extensionConfigContext.getExtensionConfig().supportsFirewall === true && (
                                             <div>
                                                 <NxTag color='turquoise'>{_browser.i18n.getMessage('SUPPORTED')}</NxTag>
                                             </div>
@@ -415,14 +415,14 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                     <div className='nx-form-row'>
                                         <NxFormGroup label={_browser.i18n.getMessage('LABEL_USERNAME')} isRequired>
                                             <NxStatefulTextInput
-                                                defaultValue={extensionSettings?.user}
+                                                defaultValue={extensionConfigContext.getExtensionConfig().user}
                                                 validator={nonEmptyValidator}
                                                 onChange={handleIqUserChange}
                                             />
                                         </NxFormGroup>
                                         <NxFormGroup label={_browser.i18n.getMessage('LABEL_PASSWORD')} isRequired>
                                             <NxStatefulTextInput
-                                                defaultValue={extensionSettings?.token}
+                                                defaultValue={extensionConfigContext.getExtensionConfig().token}
                                                 validator={nonEmptyValidator}
                                                 type='password'
                                                 onChange={handleIqTokenChange}
@@ -442,7 +442,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                             )}
                             {hasPermissions &&
                                 iqAuthenticated === true &&
-                                extensionSettings.supportsLifecycle === true &&
+                                extensionConfigContext.getExtensionConfig().supportsLifecycle === true &&
                                 iqServerApplicationList.length > 0 && (
                                     <React.Fragment>
                                         <p className='nx-p'>
@@ -460,7 +460,7 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
                                             isRequired>
                                             <NxFormSelect
-                                                defaultValue={`${extensionSettings.iqApplicationInternalId}|${extensionSettings.iqApplicationPublidId}`}
+                                                defaultValue={`${extensionConfigContext.getExtensionConfig().iqApplicationInternalId}|${extensionConfigContext.getExtensionConfig().iqApplicationPublidId}`}
                                                 onChange={handleIqApplicationChange}
                                                 disabled={!iqAuthenticated}>
                                                 <option value=''>
@@ -505,15 +505,15 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                 )}
 
                             {iqAuthenticated === true &&
-                                extensionSettings.iqApplicationInternalId != undefined &&
-                                extensionSettings.iqApplicationPublidId != undefined && (
+                                extensionConfigContext.getExtensionConfig().iqApplicationInternalId != undefined &&
+                                extensionConfigContext.getExtensionConfig().iqApplicationPublidId != undefined && (
                                     <NxStatefulSuccessAlert>
                                         {_browser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
                                     </NxStatefulSuccessAlert>
                                 )}
-                            {extensionSettings.iqApplicationInternalId === undefined &&
-                                extensionSettings.iqApplicationPublidId === undefined &&
-                                extensionSettings.supportsLifecycle === true &&
+                            {extensionConfigContext.getExtensionConfig().iqApplicationInternalId === undefined &&
+                                extensionConfigContext.getExtensionConfig().iqApplicationPublidId === undefined &&
+                                extensionConfigContext.getExtensionConfig().supportsLifecycle === true &&
                                 iqAuthenticated === true && (
                                     <NxStatefulInfoAlert>
                                         {_browser.i18n.getMessage('OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION')}

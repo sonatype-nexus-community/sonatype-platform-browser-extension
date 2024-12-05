@@ -67,7 +67,7 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
         return (
             <React.Fragment>
                 <Tooltip
-                    title={_browser.i18n.getMessage('HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP', [policyTypeLabel, extConfigContext.iqApplicationPublidId])}>
+                    title={_browser.i18n.getMessage('HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP', [policyTypeLabel, extConfigContext.getExtensionConfig().iqApplicationPublidId])}>
                     <section className='nx-card nx-card--equal' aria-label={policyTypeLabel}>
                         <div className='nx-card__content'>
                             <div className='nx-card__call-out'>
@@ -90,7 +90,7 @@ function GetPolicyViolationsIndicator({ policyData, policyType }) {
     return (
         <React.Fragment>
             <Tooltip
-                title={`The highest ${policyTypeLabel} policy threat level for application: ${extConfigContext.iqApplicationPublidId}`}>
+                title={`The highest ${policyTypeLabel} policy threat level for application: ${extConfigContext.getExtensionConfig().iqApplicationPublidId}`}>
                    
                 <section className='nx-card nx-card--equal' aria-label={policyTypeLabel}>
                     <div className='nx-card__content'>
@@ -256,5 +256,5 @@ function IqComponentInfo() {
 export default function ComponentInfoPage() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqComponentInfo />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqComponentInfo />}</div>
 }

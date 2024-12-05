@@ -101,7 +101,7 @@ function IqLicensePage() {
                         )}
                     </NxTabList>
                     {}
-                    {extConfigContext.supportsLifecycleAlp === true && (
+                    {extConfigContext.getExtensionConfig().supportsLifecycleAlp === true && (
                     
                     <NxTabPanel
                         className='nx-scrollable'
@@ -119,7 +119,7 @@ function IqLicensePage() {
                                             {_browser.i18n.getMessage('LEGAL_TABLE_THREAT_GROUP')}
                                         </NxTable.Cell>
                                         <NxTable.Cell>{_browser.i18n.getMessage('LEGAL_TABLE_LICENSE')}</NxTable.Cell>
-                                        {extConfigContext.supportsLifecycleAlp === true && (
+                                        {extConfigContext.getExtensionConfig().supportsLifecycleAlp === true && (
                                             <NxTable.Cell hasIcon>
                                                 {_browser.i18n.getMessage('LEGAL_TABLE_COPY_TEXT')}
                                             </NxTable.Cell>
@@ -153,7 +153,7 @@ function IqLicensePage() {
                                                             <NxTable.Cell className='nx-cell'>
                                                                 {licenseLegalMetadata.licenseName}
                                                             </NxTable.Cell>
-                                                            {extConfigContext.supportsLifecycleAlp === true && (
+                                                            {extConfigContext.getExtensionConfig().supportsLifecycleAlp === true && (
                                                                 <NxTable.Cell hasIcon>
                                                                     {licenseLegalMetadata.licenseText !== undefined && (
                                                                         <Tooltip
@@ -188,7 +188,7 @@ function IqLicensePage() {
                         </section>
                     </NxTabPanel>
                     )}
-                    {extConfigContext.supportsLifecycleAlp === false && effectiveLicenses && effectiveLicenses.length > 0 && (
+                    {extConfigContext.getExtensionConfig().supportsLifecycleAlp === false && effectiveLicenses && effectiveLicenses.length > 0 && (
                         <NxTabPanel className='nx-scrollable'>
                             <NxTable
                                 className='nx-table'
@@ -296,5 +296,5 @@ function IqLicensePage() {
 export default function LicensePage() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <React.Fragment>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqLicensePage />}</React.Fragment>
+    return <React.Fragment>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqLicensePage />}</React.Fragment>
 }

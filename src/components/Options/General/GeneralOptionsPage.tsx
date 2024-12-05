@@ -89,7 +89,7 @@ export default function GeneralOptionsPage({
                 ? addNxrmHostState.trimmedValue
                 : `${addNxrmHostState.trimmedValue}/`
 
-            const existingNxrmHostCheck = extensionSettings.sonatypeNexusRepositoryHosts.find(
+            const existingNxrmHostCheck = extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.find(
                 (nxrm) => nxrm.id == newNxrmHost.replace('://', '-')
             )
 
@@ -104,7 +104,7 @@ export default function GeneralOptionsPage({
             setCheckingNxrmConnection(true)
 
             logger.logMessage(`Requesting permission to Origin ${newNxrmHost}`, LogLevel.DEBUG)
-            if (extensionSettings.sonatypeNexusRepositoryHosts.length == 0) {
+            if (extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.length == 0) {
                 _browser.scripting
                     .registerContentScripts([
                         {
@@ -118,7 +118,7 @@ export default function GeneralOptionsPage({
                     ])
                     .then(recordRegisteredNxrmHost(newNxrmHost))
             } else {
-                const allNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts
+                const allNxrmHosts = extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts
                     .map((nxrm) => {
                         return nxrm.url
                     })
@@ -155,7 +155,7 @@ export default function GeneralOptionsPage({
                                 .json()
                                 .then((swaggerJson) => {
                                     logger.logMessage(`Successfully registered ${host}`, LogLevel.INFO, swaggerJson)
-                                    const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                    const newExtensionSettings = extensionSettings.getExtensionConfig()
                                     newExtensionSettings.sonatypeNexusRepositoryHosts.push({
                                         id: host.replace('://', '-'),
                                         url: host,
@@ -184,7 +184,7 @@ export default function GeneralOptionsPage({
     }
 
     function removeNxrmInstance(id: string): void {
-        const nxrmInstanceToRemove = extensionSettings.sonatypeNexusRepositoryHosts.find(
+        const nxrmInstanceToRemove = extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.find(
             (nxrmHost) => nxrmHost.id == id
         )
 
@@ -192,7 +192,7 @@ export default function GeneralOptionsPage({
             return
         }
 
-        const remainingNxrmHosts = extensionSettings.sonatypeNexusRepositoryHosts.filter(
+        const remainingNxrmHosts = extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.filter(
             (nxrmHost) => nxrmHost.id != id
         )
 
@@ -215,7 +215,7 @@ export default function GeneralOptionsPage({
                                 ids: ['content'],
                             })
                             .then(() => {
-                                const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                const newExtensionSettings = extensionSettings.getExtensionConfig()
                                 newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
                                 setExtensionConfig(newExtensionSettings)
                             }).catch((err) => {
@@ -236,7 +236,7 @@ export default function GeneralOptionsPage({
                                 },
                             ])
                             .then(() => {
-                                const newExtensionSettings = extensionSettings as ExtensionConfiguration
+                                const newExtensionSettings = extensionSettings.getExtensionConfig()
                                 newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
                                 setExtensionConfig(newExtensionSettings)
                             }).catch((err) => {
@@ -250,7 +250,7 @@ export default function GeneralOptionsPage({
     }
 
     function handleLogLevelChange(e) {
-        const newExtensionSettings = extensionSettings as ExtensionConfiguration
+        const newExtensionSettings = extensionSettings.getExtensionConfig()
         newExtensionSettings.logLevel = e.target.value as number
         setExtensionConfig(newExtensionSettings)
     }
@@ -295,10 +295,10 @@ export default function GeneralOptionsPage({
                         </section>
                         <section className='nx-grid-col nx-grid-col--50'>
                             <p className='nx-p'>Enabled Sonatype Nexus Repository servers:</p>
-                            {extensionSettings.sonatypeNexusRepositoryHosts.length == 0 && <em>None added yet</em>}
-                            {extensionSettings.sonatypeNexusRepositoryHosts.length > 0 && (
+                            {extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.length == 0 && <em>None added yet</em>}
+                            {extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.length > 0 && (
                                 <NxDescriptionList>
-                                    {extensionSettings.sonatypeNexusRepositoryHosts.map(
+                                    {extensionSettings.getExtensionConfig().sonatypeNexusRepositoryHosts.map(
                                         (nxrmHost: SonatypeNexusRepostitoryHost) => {
                                             return (
                                                 <NxDescriptionList.Item key={nxrmHost.id}>
@@ -335,7 +335,7 @@ export default function GeneralOptionsPage({
                     <NxGrid.Row>
                         <form className='nx-form'>
                             <NxFormGroup label={_browser.i18n.getMessage('LABEL_LOG_LEVEL')} isRequired>
-                                <NxFormSelect defaultValue={extensionSettings.logLevel} onChange={handleLogLevelChange}>
+                                <NxFormSelect defaultValue={extensionSettings.getExtensionConfig().logLevel} onChange={handleLogLevelChange}>
                                     {Object.keys(LogLevel)
                                         .filter((key) => !isNaN(Number(LogLevel[key])))
                                         .map((val, key) => {
