@@ -38,21 +38,22 @@ export class BrowserExtensionLogger implements ILogger {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public logMessage = (message: string, level: LogLevel, ...meta: any): void => {
         if (this._level >= level) {
+            const now = new Date().toLocaleString()
             switch (level) {
                 case LogLevel.DEBUG:
-                    console.debug(message, LogLevel[level].toString(), meta)
+                    console.debug(`[${now}] DBG ${message}`, LogLevel[level].toString(), meta)
                     break
                 case LogLevel.ERROR:
-                    console.error(message, LogLevel[level].toString(), meta)
+                    console.error(`[${now}] ERR ${message}`, LogLevel[level].toString(), meta)
                     break
                 case LogLevel.INFO:
-                    console.info(message, LogLevel[level].toString(), meta)
+                    console.info(`[${now}] INF ${message}`, LogLevel[level].toString(), meta)
                     break
                 case LogLevel.TRACE:
-                    console.trace(message, LogLevel[level].toString(), meta)
+                    console.trace(`[${now}] TRC ${message}`, LogLevel[level].toString(), meta)
                     break
                 case LogLevel.WARN:
-                    console.warn(message, LogLevel[level].toString(), meta)
+                    console.warn(`[${now}] WRN ${message}`, LogLevel[level].toString(), meta)
                     break
                 case LogLevel.OFF:
                     // Silence!

@@ -15,7 +15,7 @@
  */
 
 import React, { useContext, useEffect, useState } from 'react'
-import { getDefaultPopupContext, ExtensionPopupContext, IqPopupContext } from '../../context/ExtensionPopupContext'
+import { getDefaultPopupContext, ExtensionPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import Popup from './Popup'
 import { logger, LogLevel } from '../../logger/Logger'
@@ -37,7 +37,6 @@ import {
     ApiComponentEvaluationTicketDTOV2,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
-import { DefaultRepoRegistry } from '../../utils/RepoRegistry'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -49,6 +48,7 @@ export default function ExtensionPopup() {
         getDefaultPopupContext(extensionConfig.dataSource)
     )
     const [purl, setPurl] = useState<PackageURL | undefined>(undefined)
+    const [purls, setPurls] = useState<string[]>([])
 
     /**
      * Load Extension Settings and get PURL for current active tab.
@@ -58,43 +58,16 @@ export default function ExtensionPopup() {
      * We read our current ExtensionConfig and request the PURL for the current active Tab.
      */
     useEffect(() => {
+        logger.logMessage('ExtensionPopup - extensionConfigContext changed', LogLevel.DEBUG, extensionConfigContext)
         setExtensionConfig(extensionConfigContext.getExtensionConfig())
-
-        logger.logMessage('Popup requesting PURL for current active Tab', LogLevel.INFO)
-        _browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-            const [tab] = tabs
-            const newPopupContextWithTab = { currentTab: tab as chrome.tabs.Tab | browser.tabs.Tab }
-            setPopupContext((c) => merge(c, newPopupContextWithTab))
-            logger.logMessage(`Requesting PURL from Tab ${tab.url}`, LogLevel.DEBUG)
-            if (tab.status != 'unloaded') {
-                const repoType = DefaultRepoRegistry.getRepoForUrl(tab.url)
-                if (repoType !== undefined) {
-                    _browser.tabs
-                        .sendMessage(tab.id, {
-                            type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
-                            params: {
-                                repoId: repoType.id(),
-                                tabId: tab.id,
-                                url: tab.url,
-                            },
-                        })
-                        .catch((err) => {
-                            logger.logMessage(`Error caught calculating PURL from Tab`, LogLevel.DEBUG, err)
-                        })
-                        .then((response) => {
-                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                            if (_browser.runtime.lastError) {
-                                console.error('ERROR in here', _browser.runtime.lastError.message, response)
-                            }
-                            logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
-                            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                                setPurl(PackageURL.fromString(response.data.purl))
-                            }
-                        })
-                }
-            }
-        })
+        setPurls(extensionConfigContext.purlsDiscovered)
     }, [extensionConfigContext])
+
+    useEffect(() => {
+        if (purls.length > 0) {
+            setPurl(PackageURL.fromString(purls.pop() ?? ''))
+        }
+    }, [purls])
 
     /**
      * When PURL changes (initially caused by our onComponentDidMount useEffect above),
@@ -110,9 +83,20 @@ export default function ExtensionPopup() {
                 ...newPopupContextWithPurl,
             }))
 
-            _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
+            // Load Purls for this Tab from Session Storage
+            const sessionKey = `ApiComponentDetailsDTOV2-${purl.toString()}`
+            _browser.storage.session.get(sessionKey).then((items: object) => {
+                logger.logMessage('Read ApiComponentDetailsDTOV2 from Session Storage', LogLevel.DEBUG, purl.toString(), items)
+            //     setPurl(PackageURL.fromString(items[sessionKey].pop() ?? ''))
+            // }).catch((err) => {
+            //     logger.logMessage('Error writing to Purls to Session Storage ', LogLevel.ERROR, err)
+            // })
+
+            // _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
                 const newPopupContextWithComponentDetails = {
-                    iq: response,
+                    iq: {
+                        componentDetails: items[sessionKey]
+                    },
                 }
                 logger.logMessage(
                     `Updating PopUp Context with Component Details from Storage`,
@@ -121,7 +105,7 @@ export default function ExtensionPopup() {
                 )
                 setPopupContext((c) => merge(c, newPopupContextWithComponentDetails))
 
-                if (response.componentDetails?.matchState != 'unknown') {
+                if (newPopupContextWithComponentDetails.iq.componentDetails?.matchState != 'unknown') {
                     /**
                      * Get additional detail about this Component Version
                      *
@@ -367,10 +351,8 @@ export default function ExtensionPopup() {
     }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
-        // <ExtensionConfigurationContext.Provider value={extensionConfig}>
-            <ExtensionPopupContext.Provider value={popupContext}>
-                <Popup />
-            </ExtensionPopupContext.Provider>
-        // </ExtensionConfigurationContext.Provider>
+        <ExtensionPopupContext.Provider value={popupContext}>
+            <Popup />
+        </ExtensionPopupContext.Provider>
     )
 }
