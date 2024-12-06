@@ -19,7 +19,7 @@ import { ExtensionPopupContext } from '../../../../../context/ExtensionPopupCont
 import { ExtensionConfigurationContext } from '../../../../../context/ExtensionConfigurationContext'
 import { DATA_SOURCE, REMEDIATION_LABELS } from '../../../../../utils/Constants'
 import './RemediationDetails.css'
-import { getNewSelectedVersionUrl } from '../../../../../utils/Helpers'
+import { getNewSelectedVersionUrl } from '../../../../../utils/Version'
 import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -94,5 +94,5 @@ function IqRemediationDetails() {
 export default function RemediationDetails() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationDetails />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationDetails />}</div>
 }

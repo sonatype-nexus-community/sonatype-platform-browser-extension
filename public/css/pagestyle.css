@@ -15,10 +15,21 @@
     box-shadow: 5px 5px 8px #cc0129;
 }
 
-.sonatype-iq-extension-vuln-critical:before {
+.sonatype-iq-extension-vuln-critical:not(.sonatype-iq-extension-huggingface)::before {
     content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png');
+    list-style-image: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png');
     vertical-align: top;
-    padding-right: 10px;
+    padding-top: 5px !important;
+    padding-right: 5px !important;
+}
+
+.sonatype-iq-extension-vuln-critical.sonatype-iq-extension-huggingface > div > a::before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png');
+    /* list-style-image: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png'); */
+    vertical-align: top;
+    transform: scale(0.7) translateX(-7px);
+    padding-top: 5px !important;
+    padding-right: 5px !important;
 }
 
 .sonatype-iq-extension-vuln-severe {
@@ -94,10 +105,18 @@
     box-shadow: 5px 5px 8px black;
 }
 
-.sonatype-iq-extension-vuln-none:before {
+.sonatype-iq-extension-vuln-none:not(.sonatype-iq-extension-huggingface)::before {
     content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-none.png');
     vertical-align: top;
     padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-none.sonatype-iq-extension-huggingface > div > a::before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-none.png');
+    vertical-align: top;
+    transform: scale(0.7) translateX(-7px);
+    padding-top: 5px !important;
+    padding-right: 5px !important;
 }
 
 .sonatype-iq-extension-vuln-evaluating:before {

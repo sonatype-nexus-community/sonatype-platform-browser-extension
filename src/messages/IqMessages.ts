@@ -24,6 +24,7 @@ import {
     LicenseLegalMetadataApi,
     GetLicenseLegalComponentReportOwnerTypeEnum,
     ApiComponentOrPurlIdentifierDTOV2,
+    ApiComponentEvaluationResultDTOV2,
 } from '@sonatype/nexus-iq-api-client'
 import { logger, LogLevel } from '../logger/Logger'
 import { readExtensionConfiguration } from '../messages/SettingsMessages'
@@ -35,7 +36,7 @@ import { UserAgentHelper } from '../utils/UserAgentHelper'
 import { PackageURL } from 'packageurl-js'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 export async function requestComponentEvaluationByPurls(request: MessageRequest): Promise<MessageResponse> {
     return readExtensionConfiguration()
@@ -52,10 +53,7 @@ export async function requestComponentEvaluationByPurls(request: MessageRequest)
                 })
                 .then((apiConfig) => {
                     logger.logMessage('API Configiration', LogLevel.INFO, apiConfig)
-                    const applicationId =
-                        extensionConfig.iqApplicationInternalId !== undefined
-                            ? extensionConfig.iqApplicationInternalId
-                            : 'UNKNOWN'
+                    const applicationId = extensionConfig.iqApplicationInternalId ?? 'UNKNOWN'
                     const apiClient = new PolicyEvaluationApi(apiConfig)
 
                     // @typescript-eslint/strict-boolean-expressions:
@@ -107,7 +105,7 @@ export function pollForComponentEvaluationResult(applicationId: string, resultId
         }
     }
 
-    const promise = new Promise((resolve, reject) => {
+    const promise: Promise<ApiComponentEvaluationResultDTOV2> = new Promise((resolve, reject) => {
         polling = true
         rejectThis = reject
 

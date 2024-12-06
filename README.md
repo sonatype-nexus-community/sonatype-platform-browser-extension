@@ -54,6 +54,8 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 
 ### Public Registries
 
+*See per-registry sub-sections below for additional details.*
+
 | Registry               | Language            | Enabled | URL                              | Component Version Navigation |
 | ---------------------- | ------------------- | ------- | -------------------------------- | ------------------------------- |
 | Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ❌                              |
@@ -63,6 +65,7 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ❌                              |
 | Crates.io              | Rust                | ✅      | `https://crates.io/`             | ✅                              |
 | Go.dev                 | Go                  | ✅      | `https://pkg.go.dev/`            | ✅                              |
+| Hugging Face | AI / ML | ✅ | `https://huggingface.co` | ❌ |
 | Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                              |
 | Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ❌                              |
 | Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ❌                              |
@@ -79,6 +82,14 @@ _Notes:_
 
 1. Run on a public instance of jFrog Artifactory - support coming soon
 2. By default we lookup the Source Distribution. Where no Source Distribution is published we lookup the first Built Distribution - this can lead to an incomplete view of risk - [read more](#pypi-packages-with-no-source-distribution)
+
+#### `huggingface.co`
+
+Supported formats are:
+- Pytorch (files beginning with `pytorch` and ending in `.bin` only)
+- Safetensors (files ending in `.safetensors`)
+- Tensorflow (files ending in `.h5`)
+- GGUF (files ending in `.gguf`)
 
 ### Private Hosted Registries
 

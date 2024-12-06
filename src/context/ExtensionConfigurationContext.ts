@@ -15,6 +15,10 @@
  */
 
 import React from 'react'
-import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../types/ExtensionConfiguration'
+import { DEFAULT_EXTENSION_SETTINGS } from '../types/ExtensionConfiguration'
+import { ExtensionConfigurationStateReact } from '../settings/extension-configuration-react'
+import { Analytics } from '../utils/Analytics'
 
-export const ExtensionConfigurationContext = React.createContext<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
+export const ExtensionConfigurationContext = React.createContext<ExtensionConfigurationStateReact>(
+    new ExtensionConfigurationStateReact(DEFAULT_EXTENSION_SETTINGS, new Analytics())
+)

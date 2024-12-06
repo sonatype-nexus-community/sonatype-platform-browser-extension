@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react'
-import { getDefaultPopupContext, ExtensionPopupContext, IqPopupContext } from '../../context/ExtensionPopupContext'
+import React, { useContext, useEffect, useState } from 'react'
+import { getDefaultPopupContext, ExtensionPopupContext } from '../../context/ExtensionPopupContext'
 import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
 import Popup from './Popup'
 import { logger, LogLevel } from '../../logger/Logger'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
-import { readExtensionConfiguration } from '../../messages/SettingsMessages'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS } from '../../types/Message'
 import { PackageURL } from 'packageurl-js'
 import merge from 'ts-deepmerge'
@@ -35,21 +34,21 @@ import {
 } from '../../messages/IqMessages'
 import {
     ApiComponentDetailsDTOV2,
-    ApiComponentEvaluationResultDTOV2,
     ApiComponentEvaluationTicketDTOV2,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
-import { findRepoType } from '../../utils/UrlParsing'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
 
 export default function ExtensionPopup() {
+    const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
     const [popupContext, setPopupContext] = useState<ExtensionPopupContext>(
         getDefaultPopupContext(extensionConfig.dataSource)
     )
     const [purl, setPurl] = useState<PackageURL | undefined>(undefined)
+    const [purls, setPurls] = useState<string[]>([])
 
     /**
      * Load Extension Settings and get PURL for current active tab.
@@ -59,51 +58,16 @@ export default function ExtensionPopup() {
      * We read our current ExtensionConfig and request the PURL for the current active Tab.
      */
     useEffect(() => {
-        readExtensionConfiguration().then((response) => {
-            logger.logMessage(`ExtensionPopup useEffect Response: ${response}`, LogLevel.DEBUG)
-            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                if (response.data === undefined) {
-                    setExtensionConfig(DEFAULT_EXTENSION_SETTINGS)
-                } else {
-                    setExtensionConfig(response.data as ExtensionConfiguration)
-                }
-            }
-        })
+        logger.logMessage('ExtensionPopup - extensionConfigContext changed', LogLevel.DEBUG, extensionConfigContext)
+        setExtensionConfig(extensionConfigContext.getExtensionConfig())
+        setPurls(extensionConfigContext.purlsDiscovered)
+    }, [extensionConfigContext])
 
-        logger.logMessage('Popup requesting PURL for current active Tab', LogLevel.INFO)
-        _browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-            const [tab] = tabs
-            const newPopupContextWithTab = { currentTab: tab as chrome.tabs.Tab | browser.tabs.Tab }
-            setPopupContext((c) => merge(c, newPopupContextWithTab))
-            logger.logMessage(`Requesting PURL from Tab ${tab.url}`, LogLevel.DEBUG)
-            if (tab.status != 'unloaded') {
-                findRepoType(tab.url).then((repoType) => {
-                    _browser.tabs
-                        .sendMessage(tab.id, {
-                            type: MESSAGE_REQUEST_TYPE.CALCULATE_PURL_FOR_PAGE,
-                            params: {
-                                repoType: repoType,
-                                tabId: tab.id,
-                                url: tab.url,
-                            },
-                        })
-                        .catch((err) => {
-                            logger.logMessage(`Error caught calculating PURL from Tab`, LogLevel.DEBUG, err)
-                        })
-                        .then((response) => {
-                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                            if (_browser.runtime.lastError) {
-                                console.error('ERROR in here', _browser.runtime.lastError.message, response)
-                            }
-                            logger.logMessage('Calc Purl Response: ', LogLevel.INFO, response)
-                            if (response.status == MESSAGE_RESPONSE_STATUS.SUCCESS) {
-                                setPurl(PackageURL.fromString(response.data.purl))
-                            }
-                        })
-                })
-            }
-        })
-    }, [])
+    useEffect(() => {
+        if (purls.length > 0) {
+            setPurl(PackageURL.fromString(purls.pop() ?? ''))
+        }
+    }, [purls])
 
     /**
      * When PURL changes (initially caused by our onComponentDidMount useEffect above),
@@ -119,9 +83,20 @@ export default function ExtensionPopup() {
                 ...newPopupContextWithPurl,
             }))
 
-            _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
+            // Load Purls for this Tab from Session Storage
+            const sessionKey = `ApiComponentDetailsDTOV2-${purl.toString()}`
+            _browser.storage.session.get(sessionKey).then((items: object) => {
+                logger.logMessage('Read ApiComponentDetailsDTOV2 from Session Storage', LogLevel.DEBUG, purl.toString(), items)
+            //     setPurl(PackageURL.fromString(items[sessionKey].pop() ?? ''))
+            // }).catch((err) => {
+            //     logger.logMessage('Error writing to Purls to Session Storage ', LogLevel.ERROR, err)
+            // })
+
+            // _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
                 const newPopupContextWithComponentDetails = {
-                    iq: response,
+                    iq: {
+                        componentDetails: items[sessionKey]
+                    },
                 }
                 logger.logMessage(
                     `Updating PopUp Context with Component Details from Storage`,
@@ -130,7 +105,7 @@ export default function ExtensionPopup() {
                 )
                 setPopupContext((c) => merge(c, newPopupContextWithComponentDetails))
 
-                if (response.componentDetails?.matchState != 'unknown') {
+                if (newPopupContextWithComponentDetails.iq.componentDetails?.matchState != 'unknown') {
                     /**
                      * Get additional detail about this Component Version
                      *
@@ -258,8 +233,7 @@ export default function ExtensionPopup() {
                                     .then((evalResponse) => {
                                         const newPopupContextAllVersions = {
                                             iq: {
-                                                allVersions: (evalResponse as ApiComponentEvaluationResultDTOV2)
-                                                    .results,
+                                                allVersions: evalResponse.results,
                                             },
                                         }
                                         logger.logMessage(
@@ -377,11 +351,8 @@ export default function ExtensionPopup() {
     }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
-        <ExtensionConfigurationContext.Provider value={extensionConfig}>
-            <ExtensionPopupContext.Provider value={popupContext}>
-                {/* {popupContext.supportsLicensing && <AlpDrawer />} */}
-                <Popup />
-            </ExtensionPopupContext.Provider>
-        </ExtensionConfigurationContext.Provider>
+        <ExtensionPopupContext.Provider value={popupContext}>
+            <Popup />
+        </ExtensionPopupContext.Provider>
     )
 }

@@ -15,6 +15,7 @@
  */
 
 import { ApiComponentRemediationValueDTO } from "@sonatype/nexus-iq-api-client"
+import { ComponentState } from "react"
 
 /**
  * Enumeration of Message Types that are known.
@@ -27,7 +28,7 @@ export enum MESSAGE_REQUEST_TYPE {
     GET_COMPONENT_LEGAL_DETAILS = 'getComponentLegalDetails',
     GET_COMPONENT_VERSIONS = 'getComponentVersions',
     GET_REMEDIATION_DETAILS_FOR_COMPONENT = 'getRemediationDetailsForComponent',
-    GET_SETTINGS = 'readExtensionConfiguration',
+    // GET_SETTINGS = 'readExtensionConfiguration',
     PROPOGATE_COMPONENT_STATE = 'propogateCurrentComponentState',
     REQUEST_COMPONENT_EVALUATION_BY_PURLS = 'requestComponentEvaluationByPurls',
     UPDATE_SETTINGS = 'updateExtensionConfiguration',
@@ -60,6 +61,15 @@ export interface MessageRequestGetAllComponentVersions extends MessageRequest {
     params: GetAllComponentVersionsParams
 }
 
+interface PropogateComponentState {
+    purl: string
+    componentState: ComponentState
+}
+
+export interface MessageRequestPropogateComponentState extends MessageRequest {
+    params: PropogateComponentState
+}
+
 /**
  * All Message Responses must conform to this structure.
  */
@@ -69,14 +79,20 @@ export interface MessageResponse {
     data?: object
 }
 
+interface CalculatePurlForPage {
+    // For temporary backwards compatability
+    purl?: string
+    purls: string[]
+}
+
+export interface MessageResponseCalculatePurlForPage extends MessageResponse {
+    data: CalculatePurlForPage
+}
+
 export interface MessageResponseGetRemediationDetailsForComponent extends MessageResponse {
     data: ApiComponentRemediationValueDTO
 }
 
-export type MessageHandlerFunction = {
-    (request: MessageRequest): MessageResponse
-}
+export type MessageHandlerFunction = (request: MessageRequest) => MessageResponse
 
-export type MessageResponseFunction = {
-    (response: MessageResponse): void
-}
+export type MessageResponseFunction = (response: MessageResponse) => void

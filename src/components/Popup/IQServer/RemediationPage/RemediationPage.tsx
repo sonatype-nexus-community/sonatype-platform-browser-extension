@@ -59,5 +59,5 @@ function IqRemediationPage() {
 export default function RemediationPage() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationPage />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqRemediationPage />}</div>
 }

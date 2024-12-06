@@ -17,22 +17,29 @@
 import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 
 export enum ComponentState {
-    CRITICAL,
-    SEVERE,
-    MODERATE,
-    LOW,
-    NONE,
-    EVALUATING,
-    UNKNOWN,
-    INCOMPLETE_CONFIG,
-    CLEAR,
+    CRITICAL = 'CRITICAL',
+    SEVERE = 'SEVERE',
+    MODERATE = 'MODERATE',
+    LOW = 'LOW',
+    NONE = 'NONE',
+    EVALUATING = 'EVALUATING',
+    UNKNOWN = 'UNKNOWN',
+    INVALID_CONFIG = 'INVALID-CONFIG',
+    CLEAR = 'CLEAR',
+    UNSPECIFIED = 'UNSPECIFIED',
+}
+
+export class ComponentStateUtil {
+    public static toCssClass(componentState: ComponentState): string {
+        return `sonatype-iq-extension-vuln-${componentState.toString().toLowerCase()}`
+    }
 }
 
 export function getMaxThreatLevelForPolicyData(policydata: ApiComponentPolicyViolationListDTOV2): number {
     if (policydata.policyViolations !== undefined && policydata.policyViolations.length > 0) {
         return Math.max(
             ...policydata.policyViolations.map((violation) =>
-                violation.threatLevel != undefined ? violation.threatLevel : 0
+                violation.threatLevel ?? 0
             )
         )
     }
@@ -42,7 +49,7 @@ export function getMaxThreatLevelForPolicyData(policydata: ApiComponentPolicyVio
 export function getMaxThreatLevelForPolicyViolations(policyViolations: ApiPolicyViolationDTOV2[]): number {
     if (policyViolations !== undefined && policyViolations.length > 0) {
         return Math.max(
-            ...policyViolations.map((violation) => (violation.threatLevel != undefined ? violation.threatLevel : 0))
+            ...policyViolations.map((violation) => (violation.threatLevel ?? 0))
         )
     }
     return 0

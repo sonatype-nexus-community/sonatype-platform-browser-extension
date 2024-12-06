@@ -14,8 +14,20 @@
  * limitations under the License.
  */
 
-import { PackageURL } from 'packageurl-js'
-import { findPublicOssRepoType } from './UrlParsing'
+import { PackageURL } from "packageurl-js"
+
+function getPurlHash(purl: PackageURL): number {
+    const purlString = purl.toString()
+    let hash = 0, i, chr
+    
+    if (purlString.length === 0) return hash;
+    for (i = 0; i < purlString.length; i++) {
+        chr = purlString.charCodeAt(i)
+        hash = ((hash << 5) - hash) + chr
+        hash |= 0 // Convert to 32bit integer
+    }
+    return hash
+}
 
 function ensure<T>(argument: T | undefined | null, message = 'This value was promised to be there.'): T {
     if (argument === undefined || argument === null) {
@@ -33,42 +45,4 @@ function stripTrailingSlash(url: string): string {
     return url.endsWith('/') ? url.slice(0, -1) : url
 }
 
-/**
- * Attempts to calculate the URL to the newVersion (if supplied). Returns the currentUrl 
- * where either no newVersion is supplied or the OSS Registry in question is defined as 
- * not supporting navigation to specific versions.
- * 
- * @param currentUrl 
- * @param currentPurl 
- * @param newVersion 
- * @returns
- */
-function getNewSelectedVersionUrl(currentUrl: URL, currentPurl: PackageURL, newVersion?: string): URL {
-    let nextUrl = currentUrl.toString()
-    if (newVersion !== undefined) {
-        const repoType = findPublicOssRepoType(currentUrl.toString())
-
-        if (repoType !== undefined) {
-            let groupAndArtifactId = `${currentPurl.namespace}/${currentPurl.name}`
-            if (currentPurl.namespace === undefined || currentPurl.namespace === null) {
-                groupAndArtifactId = currentPurl.name
-            }
-            const mapUrlReplacements = {
-                '{artifactId}': currentPurl.name,
-                '{groupAndArtifactId}': groupAndArtifactId,
-                '{groupId}': currentPurl.namespace,
-                '{version}': newVersion
-            }
-            if (currentPurl.qualifiers && 'extension' in currentPurl.qualifiers) {
-                mapUrlReplacements['{extension}'] = currentPurl.qualifiers['extension']
-            }
-
-            const re = new RegExp(Object.keys(mapUrlReplacements).join('|'), 'gi')
-            const nextUrlPath = repoType.versionPath.replace(re, (matched) => mapUrlReplacements[matched])
-            nextUrl = `${repoType.url}${nextUrlPath}`
-        }
-    }
-    return new URL(nextUrl)
-}
-
-export { ensure, stripHtmlComments, getNewSelectedVersionUrl, stripTrailingSlash }
+export { ensure, getPurlHash, stripHtmlComments, stripTrailingSlash }

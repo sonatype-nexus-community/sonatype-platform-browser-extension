@@ -102,5 +102,5 @@ function IqSecurityPage() {
 export default function SecurityPage() {
     const extensionContext = useContext(ExtensionConfigurationContext)
 
-    return <div>{extensionContext.dataSource === DATA_SOURCE.NEXUSIQ && <IqSecurityPage />}</div>
+    return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqSecurityPage />}</div>
 }

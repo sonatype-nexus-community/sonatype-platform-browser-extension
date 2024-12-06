@@ -49,4 +49,9 @@ export class IncompleteConfigurationError extends ExtensionError {}
  * Error thrown when the configured credentials are invalid.
  *
  */
-export class UserAuthenticationError extends ExtensionError {}
+export class UserAuthenticationError extends ExtensionError { }
+
+/**
+ * We parsed a page of a supported Registry, but found no Components
+ */
+export class NoComponentsForEvaluationError extends ExtensionError { }
