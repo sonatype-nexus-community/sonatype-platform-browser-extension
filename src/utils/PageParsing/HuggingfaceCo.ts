@@ -17,7 +17,7 @@
 import $, { Cash } from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from './PurlUtils'
-import { FORMATS } from '../Constants'
+import { FORMATS, REPOS } from '../Constants'
 import { stripHtmlComments } from '../Helpers'
 import { logger, LogLevel } from '../../logger/Logger'
 import { BasePageParser } from './BasePageParser'
