@@ -45,7 +45,10 @@ export class ExtensionServiceOnMessage extends BaseServiceWorkerHandler {
                 break
             case MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL:
                 logger.logMessage(`** Runtime open popup with chrome`, LogLevel.DEBUG)   
-                _browser.action.setPopup({popup: 'popup.html'});
+                // _browser.action.setPopup({popup: 'popup.html'});
+                _browser.action.openPopup(() => {
+                    logger.logMessage(`Popup opened successfully`, LogLevel.DEBUG);
+                });
                 sendResponse({
                     status: MESSAGE_RESPONSE_STATUS.SUCCESS,
                     // data:,
