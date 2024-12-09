@@ -19,7 +19,8 @@ import { readExtensionConfiguration } from './messages/SettingsMessages'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from './types/ExtensionConfiguration'
 import { ContentScriptCalculatePurls } from './content/calculate-purls'
 import { ContentScriptUpdateComponentState } from './content/update-component-state'
-import { MessageRequest, MessageResponseFunction, MessageRequestPropogateComponentState } from './types/Message'
+import { ContentScriptOpenPopupForPurl } from './content/open-popup-for-purl'
+import { MessageRequest, MessageResponseFunction, MessageRequestPropogateComponentState, MessageRequestOpenPopupForPurl } from './types/Message'
 import { ExtensionConfigurationStateContentScript } from './settings/extension-configuration-cs'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -45,5 +46,14 @@ readExtensionConfiguration().then((response) => {
         sendResponse: MessageResponseFunction
     ): void => {
         handlerUpdateComponentState.handleMessage(request, sender, sendResponse)
+    })
+
+    const handlerOpenPopupForPurl = new ContentScriptOpenPopupForPurl(extensionConfigurationContainer)
+    _browser.runtime.onMessage.addListener((
+        request: MessageRequestOpenPopupForPurl,
+        sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
+        sendResponse: MessageResponseFunction
+    ): void => {
+        handlerOpenPopupForPurl.handleMessage(request, sender, sendResponse)
     })
 })

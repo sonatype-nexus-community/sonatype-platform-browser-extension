@@ -33,6 +33,8 @@ export enum MESSAGE_REQUEST_TYPE {
     REQUEST_COMPONENT_EVALUATION_BY_PURLS = 'requestComponentEvaluationByPurls',
     UPDATE_SETTINGS = 'updateExtensionConfiguration',
     RESPONSE_COMPONENT_EVALUATION_BY_PURLS = 'responseComponentEvaluationByPurls',
+    OPEN_POPUP_FOR_PURL = 'openPopupForPurl',
+
 }
 
 /**
@@ -68,6 +70,10 @@ interface PropogateComponentState {
 
 export interface MessageRequestPropogateComponentState extends MessageRequest {
     params: PropogateComponentState
+}
+
+export interface MessageRequestOpenPopupForPurl extends MessageRequest {
+    purl: string
 }
 
 /**
