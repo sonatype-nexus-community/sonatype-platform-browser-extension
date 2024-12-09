@@ -16,8 +16,11 @@
 
 import { logger, LogLevel } from '../logger/Logger'
 import { getApplications, requestComponentEvaluationByPurls } from '../messages/IqMessages'
-import { MESSAGE_REQUEST_TYPE, MessageRequest, MessageResponseFunction } from "../types/Message"
+import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequest, MessageResponseFunction } from "../types/Message"
 import { BaseServiceWorkerHandler } from './common'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
+const _browser: any = chrome || browser
 
 export class ExtensionServiceOnMessage extends BaseServiceWorkerHandler {
 
@@ -39,6 +42,14 @@ export class ExtensionServiceOnMessage extends BaseServiceWorkerHandler {
                     logger.logMessage(`Response to Poll for Results: ${response}`, LogLevel.DEBUG)
                     sendResponse(response)
                 }).catch((err) => sendResponse(this.handleError(err)))
+                break
+            case MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL:
+                logger.logMessage(`** Runtime open popup with chrome`, LogLevel.DEBUG)   
+                _browser.action.setPopup({popup: 'popup.html'});
+                sendResponse({
+                    status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                    // data:,
+                })
                 break
         }
 

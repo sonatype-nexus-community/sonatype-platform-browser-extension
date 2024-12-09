@@ -16,7 +16,7 @@
 
 import { logger, LogLevel } from '../logger/Logger'
 import { ExtensionConfigurationState } from '../settings/extension-configuration'
-import { MESSAGE_REQUEST_TYPE, MessageRequestOpenPopupForPurl, MessageResponseFunction } from '../types/Message'
+import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageRequestOpenPopupForPurl, MessageResponseFunction } from '../types/Message'
 
 export class ContentScriptOpenPopupForPurl {
 
@@ -29,9 +29,18 @@ export class ContentScriptOpenPopupForPurl {
         sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
         sendResponse: MessageResponseFunction
     ): void {
-        logger.logMessage(`ContentScriptOpenPopupForPurl.handleMessage`, LogLevel.DEBUG, request, sender, sendResponse)    
+        logger.logMessage(`** ContentScriptOpenPopupForPurl`, LogLevel.DEBUG)    
 
         if (request.type == MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL) {
-            logger.logMessage('Content Script - OpenPopUpForPurl - Handle Received Message', LogLevel.DEBUG, request.type, request.params)}
+            logger.logMessage(`** ContentScriptOpenPopupForPurl`, LogLevel.DEBUG)    
+            // logger.logMessage('Content Script - OpenPopUpForPurl - Handle Received Message', LogLevel.DEBUG, request.type, request.params)
+            sendResponse({
+                status: MESSAGE_RESPONSE_STATUS.SUCCESS,
+                data: {
+                    purl: request.params,
+                },
+            })
+        }
+        
     }
 }
