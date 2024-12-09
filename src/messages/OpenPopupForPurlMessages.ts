@@ -23,8 +23,9 @@ const _browser: any = chrome || browser
 
 export async function openPopupForPurl(tabId: number, purl?: PackageURL): Promise<void> {
     logger.logMessage(`Open Popup for PURL: ${purl?.toString()}`, LogLevel.DEBUG)
-    _browser.tabs
-        .sendMessage(tabId, {
+    // logger.logMessage(`Open Popup for PURL - tabId: `, LogLevel.DEBUG, tabId)
+    _browser.runtime
+        .sendMessage({
             type: MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL,
             params: {
                 purl: purl?.toString()

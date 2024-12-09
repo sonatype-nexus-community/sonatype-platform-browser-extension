@@ -68,7 +68,9 @@ export class ContentScriptUpdateComponentState {
                         logger.logMessage("THE DOM ELEMENT: ", LogLevel.DEBUG, domElement)
                         domElement.on('click', function() {
                             logger.logMessage("Violation icon clicked: ", LogLevel.DEBUG, domElement.text())
-                            openPopupForPurl(sender.tab?.id ?? 0, PackageURL.fromString(request.params.purl))
+                            logger.logMessage("** sender tab: ", LogLevel.DEBUG, sender)
+                            // openPopupForPurl(PackageURL.fromString(request.params.purl))
+                            openPopupForPurl(sender.tab?.id ?? 47, PackageURL.fromString(request.params.purl))
                         });
                     }
                     domElement.addClass('sonatype-iq-extension-vuln')
