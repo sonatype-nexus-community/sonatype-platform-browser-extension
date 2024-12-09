@@ -19,14 +19,11 @@ import { logger, LogLevel } from '../logger/Logger'
 import { ExtensionConfigurationState } from '../settings/extension-configuration'
 import { ComponentState, ComponentStateUtil } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE, MessageRequestPropogateComponentState, MessageResponseFunction } from '../types/Message'
-import { openPopupForPurl } from '../messages/OpenPopupForPurlMessages.js'
+import { openPopupForPurl } from '../messages/OpenPopupForPurlMessages'
 import { DefaultPageParserRegistry } from '../utils/PageParserRegistry'
 import { DefaultRepoRegistry } from '../utils/RepoRegistry'
 import { Cash } from 'cash-dom'
 import { REPOS } from '../utils/Constants'
-
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser = chrome || browser
 
 export class ContentScriptUpdateComponentState {
 
@@ -71,7 +68,7 @@ export class ContentScriptUpdateComponentState {
                         logger.logMessage("THE DOM ELEMENT: ", LogLevel.DEBUG, domElement)
                         domElement.on('click', function() {
                             logger.logMessage("Violation icon clicked: ", LogLevel.DEBUG, domElement.text())
-                            openPopupForPurl(request.params.purl)
+                            openPopupForPurl(sender.tab?.id ?? 0, PackageURL.fromString(request.params.purl))
                         });
                     }
                     domElement.addClass('sonatype-iq-extension-vuln')

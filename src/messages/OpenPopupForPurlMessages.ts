@@ -16,7 +16,6 @@
 
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
-import { ComponentState } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE } from '../types/Message'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any

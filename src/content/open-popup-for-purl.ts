@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
 import { ExtensionConfigurationState } from '../settings/extension-configuration'
-import { ComponentState, ComponentStateUtil } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE, MessageRequestOpenPopupForPurl, MessageResponseFunction } from '../types/Message'
-import { DefaultPageParserRegistry } from '../utils/PageParserRegistry'
-import { DefaultRepoRegistry } from '../utils/RepoRegistry'
-import { Cash } from 'cash-dom'
-import { REPOS } from '../utils/Constants'
 
 export class ContentScriptOpenPopupForPurl {
 
