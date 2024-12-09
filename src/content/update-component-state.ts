@@ -65,7 +65,6 @@ export class ContentScriptUpdateComponentState {
                     if (repoType.id() === REPOS.huggingfaceCo) {
                         logger.logMessage('Huggingface.co - Adding CSS Classes', LogLevel.DEBUG, vulnClass)
                         domElement.addClass('sonatype-iq-extension-huggingface')
-                        logger.logMessage("THE DOM ELEMENT: ", LogLevel.DEBUG, domElement)
                         domElement.on('click', function() {
                             logger.logMessage("Violation icon clicked: ", LogLevel.DEBUG, domElement.text())
                             openPopupForPurl(PackageURL.fromString(request.params.purl))

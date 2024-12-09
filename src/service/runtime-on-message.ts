@@ -44,8 +44,7 @@ export class ExtensionServiceOnMessage extends BaseServiceWorkerHandler {
                 }).catch((err) => sendResponse(this.handleError(err)))
                 break
             case MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL:
-                logger.logMessage(`** Runtime open popup with chrome`, LogLevel.DEBUG)   
-                // _browser.action.setPopup({popup: 'popup.html'});
+                logger.logMessage(`** Runtime open popup with chrome: `, LogLevel.DEBUG, request.params)   
                 _browser.action.openPopup(() => {
                     logger.logMessage(`Popup opened successfully`, LogLevel.DEBUG);
                 });

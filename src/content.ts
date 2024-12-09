@@ -48,12 +48,4 @@ readExtensionConfiguration().then((response) => {
         handlerUpdateComponentState.handleMessage(request, sender, sendResponse)
     })
 
-    const handlerOpenPopupForPurl = new ContentScriptOpenPopupForPurl(extensionConfigurationContainer)
-    _browser.runtime.onMessage.addListener((
-        request: MessageRequestOpenPopupForPurl,
-        sender: chrome.runtime.MessageSender | browser.runtime.MessageSender,
-        sendResponse: MessageResponseFunction
-    ): void => {
-        handlerOpenPopupForPurl.handleMessage(request, sender, sendResponse)
-    })
 })
