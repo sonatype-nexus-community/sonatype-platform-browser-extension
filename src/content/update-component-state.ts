@@ -16,18 +16,17 @@
 
 import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger/Logger'
-import { ExtensionConfigurationState } from '../settings/extension-configuration'
 import { ComponentState, ComponentStateUtil } from '../types/Component'
 import { MESSAGE_REQUEST_TYPE, MessageRequestPropogateComponentState, MessageResponseFunction } from '../types/Message'
 import { openPopupForPurl } from '../messages/OpenPopupForPurlMessages'
 import { DefaultPageParserRegistry } from '../utils/PageParserRegistry'
 import { DefaultRepoRegistry } from '../utils/RepoRegistry'
 import { Cash } from 'cash-dom'
-import { REPOS } from '../utils/Constants'
+import { ExtensionConfigurationStateContentScript } from '../settings/extension-configuration-cs'
 
 export class ContentScriptUpdateComponentState {
 
-    constructor(private readonly extensionConfiguration: ExtensionConfigurationState) {
+    constructor(private readonly extensionConfiguration: ExtensionConfigurationStateContentScript) {
         this.extensionConfiguration = extensionConfiguration
     }
 
@@ -62,14 +61,12 @@ export class ContentScriptUpdateComponentState {
                 logger.logMessage('Propogate - domElement', LogLevel.DEBUG, domElement)
                 if (domElement.length > 0) {
                     this.removeClasses(domElement)
-                    if (repoType.id() === REPOS.huggingfaceCo) {
-                        logger.logMessage('Huggingface.co - Adding CSS Classes', LogLevel.DEBUG, vulnClass)
-                        domElement.addClass('sonatype-iq-extension-huggingface')
-                        domElement.on('click', function() {
-                            logger.logMessage("Violation icon clicked: ", LogLevel.DEBUG, domElement.text())
-                            openPopupForPurl(PackageURL.fromString(request.params.purl))
-                        });
-                    }
+                    logger.logMessage('Adding CSS Classes', LogLevel.DEBUG, repoType.id(), vulnClass)
+                    domElement.addClass(`sonatype-iq-extension-${repoType.id()}`)
+                    domElement.on('click', function() {
+                        logger.logMessage("Violation icon clicked: ", LogLevel.DEBUG, domElement.text())
+                        openPopupForPurl(PackageURL.fromString(request.params.purl, this.extensionConfiguration.))
+                    });
                     domElement.addClass('sonatype-iq-extension-vuln')
                     domElement.addClass(vulnClass)
                 }

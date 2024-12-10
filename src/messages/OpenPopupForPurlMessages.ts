@@ -21,13 +21,13 @@ import { MESSAGE_REQUEST_TYPE } from '../types/Message'
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome || browser
 
-export async function openPopupForPurl(purl?: PackageURL): Promise<void> {
-    logger.logMessage(`Sending Message tp Open Popup for PURL: ${purl?.toString()}`, LogLevel.DEBUG)
+export async function openPopupForPurl(purl: PackageURL, tabId: number): Promise<void> {
+    logger.logMessage(`Sending Message tp Open Popup for PURL: ${purl.toString()}`, LogLevel.DEBUG)
     _browser.runtime
         .sendMessage({
             type: MESSAGE_REQUEST_TYPE.OPEN_POPUP_FOR_PURL,
             params: {
-                purl: purl?.toString()
+                purl: purl.toString()
             },
         })
         .catch((err) => {
