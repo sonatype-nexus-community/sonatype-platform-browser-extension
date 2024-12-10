@@ -30,8 +30,9 @@ import './AllVersionsDetails.css'
 import { DATA_SOURCE } from '../../../../../../utils/Constants'
 import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { getNewSelectedVersionUrl } from '../../../../../../utils/Version'
-import { Tooltip } from '@material-ui/core'
+import Tooltip from '@mui/material/Tooltip'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../../../types/Component'
+import { logger, LogLevel } from '../../../../../../logger/Logger'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser
@@ -347,6 +348,7 @@ function IqAllVersionDetails() {
 
 export default function AllVersionDetails() {
     const extensionContext = useContext(ExtensionConfigurationContext)
+    logger.logMessage("AllVersionDetails", LogLevel.DEBUG, extensionContext)
 
     return <div>{extensionContext.getExtensionConfig().dataSource === DATA_SOURCE.NEXUSIQ && <IqAllVersionDetails />}</div>
 }

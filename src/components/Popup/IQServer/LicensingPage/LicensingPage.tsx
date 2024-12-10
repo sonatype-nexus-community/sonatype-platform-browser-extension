@@ -33,7 +33,7 @@ import './LicensingDisplay.css'
 import { ApiLicenseLegalMetadataDTO } from '@sonatype/nexus-iq-api-client'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
-import { Tooltip } from '@material-ui/core'
+import Tooltip from '@mui/material/Tooltip'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
 const _browser: any = chrome ? chrome : browser

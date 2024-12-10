@@ -31,18 +31,21 @@ export interface IqPopupContext {
 }
 
 export interface ExtensionPopupContext {
+    allPurls: PackageURL[]
     currentPurl: PackageURL | undefined
     currentTab?: chrome.tabs.Tab | browser.tabs.Tab | undefined
     iq?: IqPopupContext
 }
 
 const DEFAULT_IQ_EXTENSION_POPUP_CONTEXT_DATA = {
+    allPurls: [],
     currentPurl: undefined,
     currentTab: undefined,
     iq: {},
 }
 
 const DEFAULT_UNKNOWN_EXTENSION_POPUP_CONTEXT_DATA = {
+    allPurls: [],
     currentPurl: undefined,
 }
 

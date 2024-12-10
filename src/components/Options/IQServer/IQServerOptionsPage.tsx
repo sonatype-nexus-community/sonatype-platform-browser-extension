@@ -34,10 +34,11 @@ import {
     NxTextInput,
     nxTextInputStateHelpers,
     NxTextInputStateProps,
+    nxFormSelectStateHelpers
 } from '@sonatype/react-shared-components'
 import React, { useEffect, useState, useContext } from 'react'
 import './IQServerOptionsPage.css'
-import { faExternalLink, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faExternalLinkAlt, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MESSAGE_REQUEST_TYPE, MESSAGE_RESPONSE_STATUS, MessageResponse } from '../../../types/Message'
 import { ExtensionConfiguration } from '../../../types/ExtensionConfiguration'
@@ -55,7 +56,7 @@ import { SANDBOX_APPLICATION_PUBLIC_ID } from '../../../utils/Constants'
 const { initialState, userInput } = nxTextInputStateHelpers
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 export interface IqServerOptionsPageInterface {
     setExtensionConfig: (settings: ExtensionConfiguration) => void
@@ -63,33 +64,50 @@ export interface IqServerOptionsPageInterface {
     invalidCredentials: boolean
 }
 
-export default function IQServerOptionsPage(props: IqServerOptionsPageInterface) {
+export default function IQServerOptionsPage(props: Readonly<IqServerOptionsPageInterface>) {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
-    // const [extensionSettings, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
-    const [hasPermissions, setHasPermission] = useState(false)
+    const [hasPermissions, setHasPermissions] = useState(false)
     const [iqAuthenticated, setIqAuthenticated] = useState<boolean | undefined>()
-    const [iqServerApplicationList, setiqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
+    const [iqServerApplicationList, setIqServerApplicationList] = useState<Array<ApiApplicationDTO>>([])
     const setExtensionConfig = props.setExtensionConfig
     const [checkingConnection, setCheckingConnection] = useState(false)
     const [iqUrl, setIqUrl] = useState<NxTextInputStateProps>(
         initialState(extensionConfigContext.getExtensionConfig().host === undefined ? '' : (extensionConfigContext.getExtensionConfig().host as string))
     )
+    const [selectedIqApplicationId, setIqApplicationId] = nxFormSelectStateHelpers.useNxFormSelectState<string>('');
 
     /**
      * Hook to check whether we already have permissions to IQ Server Host
      */
     useEffect(() => {
         if (extensionConfigContext.getExtensionConfig().host !== undefined) {
-            hasOriginPermission()
+             _browser.permissions.contains(
+            {
+                origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
+            },
+            (result: boolean) => {
+                if (chrome.runtime.lastError) {
+                    logger.logMessage('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
+                }
+                if (result) {
+                    setHasPermissions(true)
+                } else {
+                    setHasPermissions(false)
+                }
+            }
+        )
         }
-    })
+    }, [extensionConfigContext, iqUrl.trimmedValue])
 
     useEffect(() => {
         logger.logMessage(`Extension Host Changed to: ${extensionConfigContext.getExtensionConfig().host}`, LogLevel.DEBUG)
         if (extensionConfigContext.getExtensionConfig().host !== undefined) {
             setIqUrl(userInput(null, extensionConfigContext.getExtensionConfig().host as string))
         }
-    }, [extensionConfigContext])
+        if (extensionConfigContext.getExtensionConfig().iqApplicationInternalId !== undefined && extensionConfigContext.getExtensionConfig().iqApplicationPublidId !== undefined) {
+            setIqApplicationId(`${extensionConfigContext.getExtensionConfig().iqApplicationInternalId}|${extensionConfigContext.getExtensionConfig().iqApplicationPublidId?.replace(' ', '-')}`)
+        }
+    }, [extensionConfigContext, setIqApplicationId])
 
     /**
      * Request permission to IQ Server Host
@@ -100,7 +118,21 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
         const newExtensionSettings = extensionConfigContext.getExtensionConfig()
         newExtensionSettings.host = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
         setExtensionConfig(newExtensionSettings)
-        hasOriginPermission()
+        _browser.permissions.contains(
+            {
+                origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
+            },
+            (result: boolean) => {
+                if (chrome.runtime.lastError) {
+                    logger.logMessage('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
+                }
+                if (result) {
+                    setHasPermissions(true)
+                } else {
+                    setHasPermissions(false)
+                }
+            }
+        )
 
         logger.logMessage(`Requesting Browser Permission to Origin: '${extensionConfigContext.getExtensionConfig().host}'`, LogLevel.INFO)
 
@@ -111,31 +143,31 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                     origins: [extensionConfigContext.getExtensionConfig().host],
                 },
                 (granted: boolean) => {
-                    setHasPermission(granted)
+                    setHasPermissions(granted)
                 }
             )
         }
     }
 
-    function hasOriginPermission() {
-        if (iqUrl.trimmedValue !== undefined && isHttpUriValidator(iqUrl.trimmedValue)) {
-            _browser.permissions.contains(
-                {
-                    origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
-                },
-                (result: boolean) => {
-                    if (chrome.runtime.lastError) {
-                        logger.logMessage('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
-                    }
-                    if (result) {
-                        setHasPermission(true)
-                    } else {
-                        setHasPermission(false)
-                    }
-                }
-            )
-        }
-    }
+    // function hasOriginPermission() {
+    //     if (iqUrl.trimmedValue !== undefined && isHttpUriValidator(iqUrl.trimmedValue)) {
+    //         _browser.permissions.contains(
+    //             {
+    //                 origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
+    //             },
+    //             (result: boolean) => {
+    //                 if (chrome.runtime.lastError) {
+    //                     logger.logMessage('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
+    //                 }
+    //                 if (result) {
+    //                     setHasPermissions(true)
+    //                 } else {
+    //                     setHasPermissions(false)
+    //                 }
+    //             }
+    //         )
+    //     }
+    // }
 
     /**
      * Field onChange Handlers
@@ -164,12 +196,13 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
         setExtensionConfig(newExtensionSettings)
     }
 
-    function handleIqApplicationChange(e) {
+    function handleIqApplicationChange(val: string) {
         const newExtensionSettings = extensionConfigContext.getExtensionConfig()
-        const [iqApplicationInternalId, iqApplicationPublidId] = (e.target.value as string).split('|')
+        const [iqApplicationInternalId, iqApplicationPublidId] = val.split('|')
         newExtensionSettings.iqApplicationInternalId = iqApplicationInternalId
         newExtensionSettings.iqApplicationPublidId = iqApplicationPublidId
         setExtensionConfig(newExtensionSettings)
+        setIqApplicationId(val)
     }
 
     function handleLoginCheck() {
@@ -209,11 +242,11 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                         'applications' in msgResponse.data
                     ) {
                         setIqAuthenticated(true)
-                        setiqServerApplicationList(msgResponse.data.applications as Array<ApiApplicationDTO>)
+                        setIqServerApplicationList(msgResponse.data.applications as Array<ApiApplicationDTO>)
                     } else {
                         logger.logMessage(`Unsuccessful response to GET_APPLICATIONS: `, LogLevel.WARN, response)
                         setIqAuthenticated(false)
-                        setiqServerApplicationList([])
+                        setIqServerApplicationList([])
                     }
                 } else {
                     logger.logMessage(`No response to GET_APPLICATIONS`, LogLevel.WARN, response)
@@ -460,7 +493,8 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             label={_browser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
                                             isRequired>
                                             <NxFormSelect
-                                                defaultValue={`${extensionConfigContext.getExtensionConfig().iqApplicationInternalId}|${extensionConfigContext.getExtensionConfig().iqApplicationPublidId}`}
+                                            // defaultValue={`${extensionConfigContext.getExtensionConfig().iqApplicationInternalId}|${extensionConfigContext.getExtensionConfig().iqApplicationPublidId}`}
+                                                { ...selectedIqApplicationId }
                                                 onChange={handleIqApplicationChange}
                                                 disabled={!iqAuthenticated}>
                                                 <option value=''>
@@ -483,21 +517,21 @@ export default function IQServerOptionsPage(props: IqServerOptionsPageInterface)
                                             target='_blank'
                                             className='nx-btn'>
                                             Maven {_browser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            <NxFontAwesomeIcon icon={faExternalLinkAlt as IconDefinition} />
                                         </a>
                                         <a
                                             href='https://www.npmjs.com/package/handlebars/v/4.7.5'
                                             target='_blank'
                                             className='nx-btn'>
                                             npmjs {_browser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            <NxFontAwesomeIcon icon={faExternalLinkAlt as IconDefinition} />
                                         </a>
                                         <a
                                             href='https://pypi.org/project/feedparser/6.0.10/'
                                             target='_blank'
                                             className='nx-btn'>
                                             PyPI {_browser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            <NxFontAwesomeIcon icon={faExternalLinkAlt as IconDefinition} />
                                         </a>
 
                                         {/* </NxFormGroup> */}

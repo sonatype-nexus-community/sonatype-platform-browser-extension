@@ -27,8 +27,8 @@ import { DATA_SOURCE } from '../../../../utils/Constants'
 import './ComponentInfoPage.css'
 import { ApiPolicyViolationDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { getMaxThreatLevelForPolicyViolations } from '../../../../types/Component'
-import { Tooltip } from '@material-ui/core'
-import { faCodeFork, faStar } from '@fortawesome/free-solid-svg-icons'
+import Tooltip from '@mui/material/Tooltip'
+import { faCodeBranch, faStar } from '@fortawesome/free-solid-svg-icons'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
@@ -130,7 +130,7 @@ function IqComponentInfo() {
                                     undefined && (
                                     <>
                                         <span className='nx-pull-right'>
-                                            <NxFontAwesomeIcon icon={faCodeFork as IconDefinition} title={_browser.i18n.getMessage('GITHUB_FORKS')} />
+                                            <NxFontAwesomeIcon icon={faCodeBranch as IconDefinition} title={_browser.i18n.getMessage('GITHUB_FORKS')} />
                                             {_browser.i18n.getMessage('GITHUB_FORKS')}:
                                             <span className='nx-counter'>
                                                 {

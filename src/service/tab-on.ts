@@ -151,7 +151,7 @@ export class ExtensionServiceTabOn extends BaseServiceWorkerHandler {
             })
             // Store calculated Purls in Session Storage
             _browser.storage.session.set({
-                [`Purls-Tab-${tabId}`]: response.data.purls,
+                [`Purls-Tab-${tabId}`]: response.data.purls.join('~'),
             })
             .then(() => {
                 logger.logMessage('Wrote Purls to Session Storage for Tab', LogLevel.DEBUG, tabId, response.data.purls)

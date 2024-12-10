@@ -16,7 +16,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import { getDefaultPopupContext, ExtensionPopupContext } from '../../context/ExtensionPopupContext'
-import { ExtensionConfigurationContext } from '../../context/ExtensionConfigurationContext'
+import { ExtensionConfigurationContext, ExtensionConfigurationState } from '../../context/ExtensionConfigurationContext'
 import Popup from './Popup'
 import { logger, LogLevel } from '../../logger/Logger'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
@@ -37,18 +37,51 @@ import {
     ApiComponentEvaluationTicketDTOV2,
     ApiLicenseLegalComponentReportDTO,
 } from '@sonatype/nexus-iq-api-client'
+import PopupHeader from './PopupHeader'
+import PurlSelector from './PurlSelector'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 export default function ExtensionPopup() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
-    const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
-    const [popupContext, setPopupContext] = useState<ExtensionPopupContext>(
-        getDefaultPopupContext(extensionConfig.dataSource)
-    )
+    // const [extensionConfigState, setExtensionConfigState] = useState(ExtensionConfigurationState)
+    // const [extensionConfig, setExtensionConfig] = useState<ExtensionConfiguration>(DEFAULT_EXTENSION_SETTINGS)
+
+    
+    // const [popupContext, setPopupContext] = useState<ExtensionPopupContext>(
+    //     getDefaultPopupContext(extensionConfig.dataSource)
+    // )
     const [purl, setPurl] = useState<PackageURL | undefined>(undefined)
     const [purls, setPurls] = useState<string[]>([])
+
+    /**
+     * Handler to load list of discovered PURLs
+     */
+    useEffect(() => { 
+        logger.logMessage("ExtensionPopup: PURLs changed in extensionConfigContext", LogLevel.DEBUG, extensionConfigContext.purlsDiscovered)
+        setPurls(extensionConfigContext.purlsDiscovered)
+    }, [extensionConfigContext.purlsDiscovered])
+
+    /**
+     * Set current PURL
+     */
+    useEffect(() => { 
+        logger.logMessage("ExtensionPopup: PURL set in extensionConfigContext", LogLevel.DEBUG, extensionConfigContext.currentPurl)
+        setPurl(extensionConfigContext.currentPurl)
+    }, [extensionConfigContext.currentPurl])
+
+    /**
+     * Set a default initial PURL if not already set
+     */
+    // useEffect(() => { 
+    //     if (purls.length > 0 && purl === undefined) {
+    //         logger.logMessage("ExtensionPopup: Setting initial PURL from list", LogLevel.DEBUG, purls[0])
+    //         setPurl(PackageURL.fromString(purls[0]))
+    //     }
+    // }, [purl, purls])
+
+    // ----- OLD BELOW
 
     /**
      * Load Extension Settings and get PURL for current active tab.
@@ -57,17 +90,26 @@ export default function ExtensionPopup() {
      *
      * We read our current ExtensionConfig and request the PURL for the current active Tab.
      */
-    useEffect(() => {
-        logger.logMessage('ExtensionPopup - extensionConfigContext changed', LogLevel.DEBUG, extensionConfigContext)
-        setExtensionConfig(extensionConfigContext.getExtensionConfig())
-        setPurls(extensionConfigContext.purlsDiscovered)
-    }, [extensionConfigContext])
+    // useEffect(() => {
+    //     logger.logMessage('ExtensionPopup - extensionConfigContext changed', LogLevel.DEBUG, extensionConfigContext)
+    //     setExtensionConfig(extensionConfigContext.getExtensionConfig())
+    //     // const newPopupContextWithTab = { currentTab: extensionConfigContext.currentTab as chrome.tabs.Tab | browser.tabs.Tab }
+    //     // setPopupContext((c) => merge(c, newPopupContextWithTab))
+    //     setPurls(extensionConfigContext.purlsDiscovered)
+    // }, [extensionConfigContext])
 
-    useEffect(() => {
-        if (purls.length > 0) {
-            setPurl(PackageURL.fromString(purls.pop() ?? ''))
-        }
-    }, [purls])
+    /**
+     * Set initial PURL as first of the PURLs
+     */
+    // useEffect(() => {
+    //     logger.logMessage('ExtensionPopup - PURLS changed', LogLevel.DEBUG, purls)
+        
+    //     if (extensionConfigContext.currentPurl === undefined && purls.length > 0) {
+    //         const firstPurl = PackageURL.fromString(purls[0] as string)
+    //         setPurl(firstPurl)
+    //         extensionConfigContext.currentPurl = firstPurl
+    //     }
+    // }, [purls, extensionConfigContext])
 
     /**
      * When PURL changes (initially caused by our onComponentDidMount useEffect above),
@@ -77,22 +119,18 @@ export default function ExtensionPopup() {
         if (purl !== undefined) {
             logger.logMessage(`In ExtensionPopup and PURL changed: ${purl}`, LogLevel.DEBUG)
 
-            const newPopupContextWithPurl = { currentPurl: purl }
-            setPopupContext((c) => ({
-                ...c,
-                ...newPopupContextWithPurl,
-            }))
+            // const newPopupContextWithPurl = { currentPurl: purl }
+            // setPopupContext((c) => ({
+            //     ...c,
+            //     ...newPopupContextWithPurl,
+            // }))
+            // extensionConfigContext.currentPurl = purl
 
             // Load Purls for this Tab from Session Storage
             const sessionKey = `ApiComponentDetailsDTOV2-${purl.toString()}`
             _browser.storage.session.get(sessionKey).then((items: object) => {
                 logger.logMessage('Read ApiComponentDetailsDTOV2 from Session Storage', LogLevel.DEBUG, purl.toString(), items)
-            //     setPurl(PackageURL.fromString(items[sessionKey].pop() ?? ''))
-            // }).catch((err) => {
-            //     logger.logMessage('Error writing to Purls to Session Storage ', LogLevel.ERROR, err)
-            // })
 
-            // _browser.storage.local.get('componentDetails').then((response: IqPopupContext) => {
                 const newPopupContextWithComponentDetails = {
                     iq: {
                         componentDetails: items[sessionKey]
@@ -155,7 +193,7 @@ export default function ExtensionPopup() {
                 }
             })
         }
-    }, [purl])
+    }, [purl, extensionConfigContext])
 
     /**
      * Separate effect for readability trigger when the PURL changes.
@@ -351,8 +389,12 @@ export default function ExtensionPopup() {
     }, [popupContext.iq?.componentDetails?.matchState, purl])
 
     return (
-        <ExtensionPopupContext.Provider value={popupContext}>
+        // <ExtensionPopupContext.Provider value={popupContext}>
+        <>
+            <PopupHeader />
+            <PurlSelector setPurl={setPurl} />
             <Popup />
-        </ExtensionPopupContext.Provider>
+        </>
+        // </ExtensionPopupContext.Provider>
     )
 }

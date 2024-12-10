@@ -23,7 +23,7 @@ import { DATA_SOURCE } from '../../../../utils/Constants'
 import SuggestedVersionChange from './RemediationDetails/SuggestedVersionChange'
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-const _browser: any = chrome ? chrome : browser
+const _browser: any = chrome || browser
 
 function IqRemediationPage() {
     const popupContext = useContext(ExtensionPopupContext)

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { PackageURL } from "packageurl-js"
 import { logger, LogLevel } from "../logger/Logger"
 import { ExtensionConfigurationStateContentScript } from "./extension-configuration-cs"
 
@@ -22,6 +23,8 @@ const _browser: any = chrome || browser
 
 export class ExtensionConfigurationStateReact extends ExtensionConfigurationStateContentScript {
 
+    public currentPurl: PackageURL
+    public currentTab: chrome.tabs.Tab | browser.tabs.Tab 
     public purlsDiscovered: string[] = []
 
     protected init(): void {
@@ -31,11 +34,14 @@ export class ExtensionConfigurationStateReact extends ExtensionConfigurationStat
     public async loadSessionDataForCurrentTab(): Promise<void> {
         // Load Purls for this Tab from Session Storage
         return _browser.tabs.query({ active: true, currentWindow: true }).then((tabs: chrome.tabs.Tab[] | browser.tabs.Tab[]) => {
-            const [currentTab] = tabs
-            const sessionKey = `Purls-Tab-${currentTab.id}`
+            [this.currentTab] = tabs
+            const sessionKey = `Purls-Tab-${this.currentTab.id}`
             return _browser.storage.session.get(sessionKey).then((items: object) => {
-                logger.logMessage('Read Purls from Session Storage for Tab', LogLevel.DEBUG, currentTab.id, items)
-                this.purlsDiscovered = items[sessionKey]
+                logger.logMessage('Read Purls from Session Storage for Tab', LogLevel.DEBUG, this.currentTab.id, items)
+                this.purlsDiscovered = (items[sessionKey] as string).split('~')
+                if (this.purlsDiscovered.length > 0) {
+                    this.currentPurl = PackageURL.fromString(this.purlsDiscovered.at(0) ?? '')
+                }
             }).catch((err) => {
                 logger.logMessage('Error reading Purls from Session Storage ', LogLevel.ERROR, err)
             })

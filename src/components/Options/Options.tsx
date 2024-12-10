@@ -27,7 +27,6 @@ import IQServerOptionsPage from './IQServer/IQServerOptionsPage'
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from '../../types/ExtensionConfiguration'
 import { updateExtensionConfiguration } from '../../messages/SettingsMessages'
 import { logger, LogLevel } from '../../logger/Logger'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft, faArrowRight, faCog, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import Help from '../Help/Help'
 
@@ -99,29 +98,29 @@ export default function Options() {
         <React.StrictMode>
             <NxStatefulGlobalSidebar
                 isDefaultOpen={true}
-                toggleCloseIcon={faArrowRight as IconDefinition}
-                toggleOpenIcon={faArrowLeft as IconDefinition}
+                toggleCloseIcon={faArrowRight}
+                toggleOpenIcon={faArrowLeft}
                 logoImg={getLogo()}
                 logoAltText={_browser.i18n.getMessage('EXTENSION_NAME')}
                 logoLink='#'>
                 <NxGlobalSidebarNavigation>
                     <NxGlobalSidebarNavigationLink
-                        icon={faPlay as IconDefinition}
+                        icon={faPlay}
                         text={_browser.i18n.getMessage('SIDEBAR_LINK_GETTING_STARTED')}
                         href='options.html?install'
                     />
                     <NxGlobalSidebarNavigationLink
-                        icon={faCog as IconDefinition}
+                        icon={faCog}
                         text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION')}
                         href='options.html'
                     />
                     <NxGlobalSidebarNavigationLink
-                        icon={faCog as IconDefinition}
+                        icon={faCog}
                         text={_browser.i18n.getMessage('OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION')}
                         href='options.html?general'
                     />
                     <NxGlobalSidebarNavigationLink
-                        icon={faQuestionCircle as IconDefinition}
+                        icon={faQuestionCircle}
                         text={_browser.i18n.getMessage('SIDEBAR_LINK_HELP')}
                         href='options.html?help'
                     />

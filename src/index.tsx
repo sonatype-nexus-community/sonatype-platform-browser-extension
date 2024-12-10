@@ -17,31 +17,32 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import ExtensionPopup from './components/Popup/ExtensionPopup'
 import { UI_MODE, UiContext } from './context/UiContext'
-import { ExtensionConfigurationContext } from './context/ExtensionConfigurationContext'
+import { ExtensionConfigurationContext, ExtensionConfigurationState } from './context/ExtensionConfigurationContext'
 import { logger, LogLevel } from './logger/Logger'
 import { readExtensionConfiguration } from './messages/SettingsMessages'
-import { ExtensionConfigurationStateReact } from './settings/extension-configuration-react'
-import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from './types/ExtensionConfiguration'
 
 /**
  * This is the UI that appears in the Extension Popup or Side Panel.
  */
 readExtensionConfiguration().then((response) => {
     logger.logMessage(`Extension Popup has loaded Extension Config`, LogLevel.DEBUG, response)
-    const extensionConfigurationContainer = new ExtensionConfigurationStateReact(response.data as ExtensionConfiguration ?? DEFAULT_EXTENSION_SETTINGS)
-
-    extensionConfigurationContainer.loadSessionDataForCurrentTab().then(() => { 
-        const container = document.getElementById('ui')
-        const root = ReactDOM.createRoot(container)
+    const container = document.getElementById('ui') as HTMLElement
+    const root = ReactDOM.createRoot(container)
+    ExtensionConfigurationState.loadSessionDataForCurrentTab().then(() => { 
+        logger.logMessage('Extension Popup has completed ExtensionConfiguration loading', LogLevel.DEBUG)
         root.render(
             <React.StrictMode>
-                <ExtensionConfigurationContext.Provider value={extensionConfigurationContainer}>
+                <ExtensionConfigurationContext.Provider value={ExtensionConfigurationState}>
                     <UiContext.Provider value={UI_MODE.POPUP}>
                         <ExtensionPopup />
                     </UiContext.Provider>
                 </ExtensionConfigurationContext.Provider>
             </React.StrictMode>
         )
+    }).catch((err) => {
+        logger.logMessage('Extension Popup FAILED ExtensionConfiguration loading', LogLevel.ERROR, err)
+        root.render(<>
+            There was an error
+        </>)
     })
-    
 })
