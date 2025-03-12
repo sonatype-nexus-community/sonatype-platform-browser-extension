@@ -51,6 +51,7 @@ export const FORMATS = {
     pypi: 'pypi',
     rpm: 'rpm',
     NXRM: 'NXRM',
+    pub: 'pub',
 }
 
 export const REPOS = {
@@ -76,6 +77,7 @@ export const REPOS = {
     searchMavenOrg: 'searchMavenOrg',
     repo1MavenOrg: 'repo1MavenOrg',
     centralSonatypeCom: 'centralSonatypeCom',
+    pubDev: 'pubDev',
 }
 
 export interface RepoType {
@@ -257,6 +259,16 @@ export const REPO_TYPES: RepoType[] = [
         versionPath: '{artifactId}/versions/{version}',
         pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
         versionDomPath: '.page__subheading',
+        supportsVersionNavigation: true
+    },
+    {
+        url: 'https://pub.dev/packages/',
+        repoFormat: FORMATS.pub,
+        repoID: REPOS.pubDev,
+        titleSelector: 'h1.title.pub-monochrome-icon-hoverable',
+        versionPath: '{artifactId}/versions/{version}',
+        pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        versionDomPath: 'h1.title.pub-monochrome-icon-hoverable',
         supportsVersionNavigation: true
     }
 ]

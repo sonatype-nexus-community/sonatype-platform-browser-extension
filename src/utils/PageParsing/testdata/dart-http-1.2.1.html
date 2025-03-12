@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="https://www.googletagmanager.com/gtm.js?id=GTM-MX6DBN9" async="async"></script><script src="/static/hash-pb35dgsm/js/gtm.js" async="async"></script><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="robots" content="noindex"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@dart_lang"/><meta name="twitter:description" content="A composable, multi-platform, Future-based API for HTTP requests."/><meta name="twitter:image" content="https://pub.dev/static/hash-pb35dgsm/img/pub-dev-icon-cover-image.png"/><meta property="og:type" content="website"/><meta property="og:site_name" content="Dart packages"/><meta property="og:title" content="http 1.2.1 | Dart package"/><meta property="og:description" content="A composable, multi-platform, Future-based API for HTTP requests."/><meta property="og:image" content="https://pub.dev/static/hash-pb35dgsm/img/pub-dev-icon-cover-image.png"/><title>http 1.2.1 | Dart package</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;family=Google+Sans+Display:wght@400&amp;family=Google+Sans+Text:wght@400;500;700&amp;family=Google+Sans+Mono:wght@400;700&amp;display=swap"/><link rel="shortcut icon" href="/favicon.ico?hash=nk4nss8c7444fg0chird9erqef2vkhb8"/><meta rel="apple-touch-icon" href="/static/hash-pb35dgsm/img/apple-touch-icon.png"/><meta rel="apple-touch-icon-precomposed" href="/static/hash-pb35dgsm/img/apple-touch-icon.png"/><link rel="stylesheet" href="https://www.gstatic.com/glue/v25_0/ccb.min.css"/><link rel="search" type="application/opensearchdescription+xml" title="Dart packages" href="/osd.xml"/><link rel="canonical" href="https://pub.dev/packages/http/versions/1.2.1"/><meta name="description" content="A composable, multi-platform, Future-based API for HTTP requests."/><link rel="alternate" type="application/atom+xml" title="Updated Packages Feed for Pub" href="/feed.atom"/><link rel="stylesheet" type="text/css" href="/static/hash-pb35dgsm/material/bundle/styles.css"/><link rel="stylesheet" type="text/css" href="/static/hash-pb35dgsm/css/style.css"/><script src="/static/hash-pb35dgsm/material/bundle/script.min.js" defer="defer"></script><script src="/static/hash-pb35dgsm/js/script.dart.js" defer="defer"></script><script src="https://www.gstatic.com/brandstudio/kato/cookie_choice_component/cookie_consent_bar.v3.js" defer="defer" data-autoload-cookie-consent-bar="true"></script><meta name="pub-page-data" content="eyJwa2dEYXRhIjp7InBhY2thZ2UiOiJodHRwIiwidmVyc2lvbiI6IjEuMi4xIiwibGlrZXMiOjgxMzIsInB1Ymxpc2hlcklkIjoiZGFydC5kZXYiLCJpc0Rpc2NvbnRpbnVlZCI6ZmFsc2UsImlzTGF0ZXN0IjpmYWxzZX0sInNlc3Npb25Bd2FyZSI6ZmFsc2V9"/><link rel="preload" href="/static/hash-pb35dgsm/highlight/highlight-with-init.js" as="script"/></head><body class="light-theme"><script src="/static/hash-pb35dgsm/js/dark-init.js"></script><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MX6DBN9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div class="site-header"><button class="hamburger" aria-label="menu toggle"></button><a class="logo" href="/" aria-label="Go to the landing page of pub.dev"><img class="site-logo" src="/static/hash-pb35dgsm/img/pub-dev-logo.svg" alt="" width="140" height="30" role="presentation"/></a><div class="site-header-space"></div><div class="site-header-mask"></div><div class="site-header-search"><form action="/packages" method="GET"><input class="site-header-search-input" name="q" placeholder="New search..." autocomplete="on" title="Search"/></form></div><nav class="site-header-nav scroll-container"><div class="nav-login-container"><button id="-account-login" class="nav-main-button link">Sign in</button></div><div class="nav-container nav-help-container hoverable"><button class="nav-main-button">Help</button><div class="nav-hover-popup"><div class="nav-table-columns"><div class="nav-table-column"><h3>pub.dev</h3><a class="nav-link" href="/help/search" rel="noopener" target="_blank">Searching for packages</a><a class="nav-link" href="/help/scoring" rel="noopener" target="_blank">Package scoring and pub points</a></div><div class="nav-table-column"><h3>Flutter</h3><a class="nav-link" href="https://flutter.dev/using-packages/" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://flutter.dev/developing-packages/" rel="noopener" target="_blank">Developing packages and plugins</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div><div class="nav-table-column"><h3>Dart</h3><a class="nav-link" href="https://dart.dev/guides/packages" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">pub.dev <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="/help/search" rel="noopener" target="_blank">Searching for packages</a><a class="nav-link" href="/help/scoring" rel="noopener" target="_blank">Package scoring and pub points</a></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">Flutter <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="https://flutter.dev/using-packages/" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://flutter.dev/developing-packages/" rel="noopener" target="_blank">Developing packages and plugins</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">Dart <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="https://dart.dev/guides/packages" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div></nav><button class="-pub-theme-toggle" aria-label="light/dark theme toggle"></button></div><div id="banner-container"></div><main class="container"><div class="detail-wrapper -active -has-info-box"><div class="detail-header -is-loose"><div class="detail-container"><div class="detail-header-outer-block"><div class="detail-header-content-block"><h1 class="title pub-monochrome-icon-hoverable">http 1.2.1 <span class="pkg-page-title-copy"><img class="pub-monochrome-icon pkg-page-title-copy-icon filter-invert-on-dark" src="/static/hash-pb35dgsm/img/content-copy-icon.svg" alt="copy &quot;http: ^1.2.1&quot; to clipboard" width="18" height="18" title="Copy &quot;http: ^1.2.1&quot; to clipboard" data-copy-content="http: ^1.2.1" data-ga-click-event="copy-package-version"/><div class="pkg-page-title-copy-feedback"><span class="code">http: ^1.2.1</span> copied to clipboard</div></span></h1><div class="metadata">Published <span><a class="-x-ago" href="" title="Feb 15, 2024" role="button" data-timestamp="1708039527572">13 months ago</a></span> • <a class="-pub-publisher" href="/publishers/dart.dev"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>dart.dev</a>• Latest: <span><a href="/packages/http" title="View the latest version of http">1.3.0</a></span></div><div class="detail-tags-and-like"><div class="detail-tags"><a class="package-tag unidentified" href="/packages/http/versions/1.2.1/score" rel="nofollow" title="Check the Platforms section of the scores tab for details.">[unknown platforms]</a></div><div class="detail-like"><button id="-pub-like-icon-button" class="mdc-icon-button" data-ga-click-event="toggle-like" aria-pressed="false" title="Like this package"><img class="mdc-icon-button__icon" src="/static/hash-pb35dgsm/img/like-inactive.svg" alt="liked status: inactive" width="18" height="18"/><img class="mdc-icon-button__icon mdc-icon-button__icon--on" src="/static/hash-pb35dgsm/img/like-active.svg" alt="liked status: active" width="18" height="18"/></button><span class="likes-count"><span id="likes-count">8.1k</span></span></div></div></div></div></div></div><div class="detail-container"><div class="detail-lead"><div class="detail-metadata-toggle"><div class="detail-metadata-toggle-icon">→</div><h3 class="detail-lead-title">Metadata</h3></div><p class="detail-lead-text">A composable, multi-platform, Future-based API for HTTP requests.</p><p class="detail-lead-more"><a class="detail-metadata-toggle">More...</a></p></div></div><div class="detail-body"><div class="detail-tabs"><div class="detail-tabs-wide-header"><div class="detail-container"><ul class="detail-tabs-header"><li class="detail-tab tab-button detail-tab-readme-title -active">Readme</li><li class="detail-tab tab-link detail-tab-changelog-title"><a href="/packages/http/versions/1.2.1/changelog" role="button">Changelog</a></li><li class="detail-tab tab-link detail-tab-example-title"><a href="/packages/http/versions/1.2.1/example" role="button">Example</a></li><li class="detail-tab tab-link detail-tab-installing-title"><a href="/packages/http/versions/1.2.1/install" role="button">Installing</a></li><li class="detail-tab tab-link detail-tab-versions-title"><a href="/packages/http/versions" role="button">Versions</a></li><li class="detail-tab tab-link detail-tab-analysis-title"><a href="/packages/http/versions/1.2.1/score" role="button">Scores</a></li></ul></div></div><div class="detail-container detail-body-main"><div class="detail-tabs-content"><section class="tab-content detail-tab-readme-content -active markdown-body"><p><a href="https://pub.dev/packages/http"><img src="https://img.shields.io/pub/v/http.svg" alt="pub package"></a>
+<a href="https://pub.dev/packages/http/publisher"><img src="https://img.shields.io/pub/publisher/http.svg" alt="package publisher"></a></p>
+<p>A composable, Future-based library for making HTTP requests.</p>
+<p>This package contains a set of high-level functions and classes that make it
+easy to consume HTTP resources. It's multi-platform (mobile, desktop, and
+browser) and supports multiple implementations.</p>
+<h2 id="using" class="hash-header">Using <a href="#using" class="hash-link">#</a></h2>
+<p>The easiest way to use this library is via the top-level functions. They allow
+you to make individual HTTP requests with minimal hassle:</p>
+<pre><code class="language-dart">import 'package:http/http.dart' as http;
+
+var url = Uri.https('example.com', 'whatsit/create');
+var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+print('Response status: ${response.statusCode}');
+print('Response body: ${response.body}');
+
+print(await http.read(Uri.https('example.com', 'foobar.txt')));
+</code></pre>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title">Note</p>
+<p>Flutter applications may require
+<a href="https://docs.flutter.dev/data-and-backend/networking#platform-notes" rel="ugc">additional configuration</a>
+to make HTTP requests.</p>
+</div>
+<p>If you're making multiple requests to the same server, you can keep open a
+persistent connection by using a <a href="https://pub.dev/documentation/http/latest/http/Client-class.html">Client</a> rather than making one-off requests.
+If you do this, make sure to close the client when you're done:</p>
+<pre><code class="language-dart">var client = http.Client();
+try {
+  var response = await client.post(
+      Uri.https('example.com', 'whatsit/create'),
+      body: {'name': 'doodle', 'color': 'blue'});
+  var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+  var uri = Uri.parse(decodedResponse['uri'] as String);
+  print(await client.get(uri));
+} finally {
+  client.close();
+}
+</code></pre>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title">Tip</p>
+<p>For detailed background information and practical usage examples, see:</p>
+<ul>
+<li><a href="https://dart.dev/tutorials/server/fetch-data">Dart Development: Fetch data from the internet</a></li>
+<li><a href="https://docs.flutter.dev/cookbook/networking/fetch-data" rel="ugc">Flutter Cookbook: Fetch data from the internet</a></li>
+<li><a href="https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example" rel="ugc">The Flutter HTTP example application</a></li>
+</ul>
+</div>
+<p>You can also exert more fine-grained control over your requests and responses by
+creating <a href="https://pub.dev/documentation/http/latest/http/Request-class.html">Request</a> or <a href="https://pub.dev/documentation/http/latest/http/StreamedRequest-class.html">StreamedRequest</a> objects yourself and passing them to
+<a href="https://pub.dev/documentation/http/latest/http/Client/send.html">Client.send</a>.</p>
+<p>This package is designed to be composable. This makes it easy for external
+libraries to work with one another to add behavior to it. Libraries wishing to
+add behavior should create a subclass of <a href="https://pub.dev/documentation/http/latest/http/BaseClient-class.html">BaseClient</a> that wraps another
+<a href="https://pub.dev/documentation/http/latest/http/Client-class.html">Client</a> and adds the desired behavior:</p>
+<pre><code class="language-dart">class UserAgentClient extends http.BaseClient {
+  final String userAgent;
+  final http.Client _inner;
+
+  UserAgentClient(this.userAgent, this._inner);
+
+  Future&lt;http.StreamedResponse&gt; send(http.BaseRequest request) {
+    request.headers['user-agent'] = userAgent;
+    return _inner.send(request);
+  }
+}
+</code></pre>
+<h2 id="retrying-requests" class="hash-header">Retrying requests <a href="#retrying-requests" class="hash-link">#</a></h2>
+<p><code>package:http/retry.dart</code> provides a class <a href="https://pub.dev/documentation/http/latest/retry/RetryClient-class.html"><code>RetryClient</code></a> to wrap
+an underlying <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>http.Client</code></a> which transparently retries failing
+requests.</p>
+<pre><code class="language-dart">import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
+
+Future&lt;void&gt; main() async {
+  final client = RetryClient(http.Client());
+  try {
+    print(await client.read(Uri.http('example.org', '')));
+  } finally {
+    client.close();
+  }
+}
+</code></pre>
+<p>By default, this retries any request whose response has status code 503
+Temporary Failure up to three retries. It waits 500ms before the first retry,
+and increases the delay by 1.5x each time. All of this can be customized using
+the <a href="https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.html"><code>RetryClient()</code></a> constructor.</p>
+<h2 id="choosing-an-implementation" class="hash-header">Choosing an implementation <a href="#choosing-an-implementation" class="hash-link">#</a></h2>
+<p>There are multiple implementations of the <code>package:http</code> <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> interface. By default, <code>package:http</code> uses <a href="https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html"><code>BrowserClient</code></a> on the web and <a href="https://pub.dev/documentation/http/latest/io_client/IOClient-class.html"><code>IOClient</code></a> on all other platforms. You an choose a different <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> implementation based on the needs of your application.</p>
+<p>You can change implementations without changing your application code, except
+for a few lines of <a href="#2-configure-the-http-client">configuration</a>.</p>
+<p>Some well supported implementations are:</p>
+<table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Supported Platforms</th>
+<th>SDK</th>
+<th>Caching</th>
+<th>HTTP3/QUIC</th>
+<th>Platform Native</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>package:http</code> — <a href="https://pub.dev/documentation/http/latest/io_client/IOClient-class.html"><code>IOClient</code></a></td>
+<td>Android, iOS, Linux, macOS, Windows</td>
+<td>Dart, Flutter</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>package:http</code> — <a href="https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html"><code>BrowserClient</code></a></td>
+<td>Web</td>
+<td>Dart, Flutter</td>
+<td>―</td>
+<td>✅︎</td>
+<td>✅︎</td>
+</tr>
+<tr>
+<td><a href="https://pub.dev/packages/cupertino_http"><code>package:cupertino_http</code></a> — <a href="https://pub.dev/documentation/cupertino_http/latest/cupertino_http/CupertinoClient-class.html"><code>CupertinoClient</code></a></td>
+<td>iOS, macOS</td>
+<td>Flutter</td>
+<td>✅︎</td>
+<td>✅︎</td>
+<td>✅︎</td>
+</tr>
+<tr>
+<td><a href="https://pub.dev/packages/cronet_http"><code>package:cronet_http</code></a> — <a href="https://pub.dev/documentation/cronet_http/latest/cronet_http/CronetClient-class.html"><code>CronetClient</code></a></td>
+<td>Android</td>
+<td>Flutter</td>
+<td>✅︎</td>
+<td>✅︎</td>
+<td>―</td>
+</tr>
+<tr>
+<td><a href="https://pub.dev/packages/fetch_client"><code>package:fetch_client</code></a> — <a href="https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html"><code>FetchClient</code></a></td>
+<td>Web</td>
+<td>Dart, Flutter</td>
+<td>✅︎</td>
+<td>✅︎</td>
+<td>✅︎</td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title">Tip</p>
+<p>If you are writing a Dart package or Flutter pluggin that uses
+<code>package:http</code>, you should not depend on a particular <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a>
+implementation. Let the application author decide what implementation is
+best for their project. You can make that easier by accepting an explicit
+<a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> argument. For example:</p>
+<pre><code class="language-dart">Future&lt;Album&gt; fetchAlbum({Client? client}) async {
+client ??= Client();
+...
+}
+</code></pre>
+</div>
+<h2 id="configuration" class="hash-header">Configuration <a href="#configuration" class="hash-link">#</a></h2>
+<p>To use a HTTP client implementation other than the default, you must:</p>
+<ol>
+<li>Add the HTTP client as a dependency.</li>
+<li>Configure the HTTP client.</li>
+<li>Connect the HTTP client to the code that uses it.</li>
+</ol>
+<h3 id="1-add-the-http-client-as-a-dependency" class="hash-header">1. Add the HTTP client as a dependency. <a href="#1-add-the-http-client-as-a-dependency" class="hash-link">#</a></h3>
+<p>To add a package compatible with the Dart SDK to your project, use <code>dart pub add</code>.</p>
+<p>For example:</p>
+<pre><code class="language-terminal"># Replace  "fetch_client" with the package that you want to use.
+dart pub add fetch_client
+</code></pre>
+<p>To add a package that requires the Flutter SDK, use <code>flutter pub add</code>.</p>
+<p>For example:</p>
+<pre><code class="language-terminal"># Replace  "cupertino_http" with the package that you want to use.
+flutter pub add cupertino_http
+</code></pre>
+<h3 id="2-configure-the-http-client" class="hash-header">2. Configure the HTTP client. <a href="#2-configure-the-http-client" class="hash-link">#</a></h3>
+<p>Different <code>package:http</code> <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> implementations may require
+different configuration options.</p>
+<p>Add a function that returns a correctly configured <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a>. You can
+return a different <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> on different platforms.</p>
+<p>For example:</p>
+<pre><code class="language-dart">Client httpClient() {
+  if (Platform.isAndroid) {
+    final engine = CronetEngine.build(
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 1000000);
+    return CronetClient.fromCronetEngine(engine);
+  }
+  if (Platform.isIOS || Platform.isMacOS) {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: 1000000);
+    return CupertinoClient.fromSessionConfiguration(config);
+  }
+  return IOClient();
+}
+</code></pre>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title">Tip</p>
+<p><a href="https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example" rel="ugc">The Flutter HTTP example application</a> demonstrates
+configuration best practices.</p>
+</div>
+<h4 id="supporting-browser-and-native">Supporting browser and native</h4>
+<p>If your application can be run in the browser and natively, you must put your
+browser and native configurations in seperate files and import the correct file
+based on the platform.</p>
+<p>For example:</p>
+<pre><code class="language-dart">// -- http_client_factory.dart
+Client httpClient() {
+  if (Platform.isAndroid) {
+    return CronetClient.defaultCronetEngine();
+  }
+  if (Platform.isIOS || Platform.isMacOS) {
+    return CupertinoClient.defaultSessionConfiguration();
+  }
+  return IOClient();
+}
+</code></pre>
+<pre><code class="language-dart">// -- http_client_factory_web.dart
+Client httpClient() =&gt; FetchClient();
+</code></pre>
+<pre><code class="language-dart">// -- main.dart
+import 'http_client_factory.dart'
+    if (dart.library.js_interop) 'http_client_factory_web.dart'
+
+// The correct `httpClient` will be available.
+</code></pre>
+<h3 id="3-connect-the-http-client-to-the-code-that-uses-it" class="hash-header">3. Connect the HTTP client to the code that uses it. <a href="#3-connect-the-http-client-to-the-code-that-uses-it" class="hash-link">#</a></h3>
+<p>The best way to pass <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> to the places that use it is
+explicitly through arguments.</p>
+<p>For example:</p>
+<pre><code class="language-dart">void main() {
+  final client = httpClient();
+  fetchAlbum(client, ...);
+}
+</code></pre>
+<p>In Flutter, you can use a one of many
+<a href="https://docs.flutter.dev/data-and-backend/state-mgmt/options" rel="ugc">state mangement approaches</a>.</p>
+<p>If you depend on code that uses top-level functions (e.g. <code>http.post</code>) or
+calls the <a href="https://pub.dev/documentation/http/latest/http/Client/Client.html"><code>Client()</code></a> constructor, then you can use
+<code>runWithClient</code> to ensure that the correct
+<code>Client</code> is used. When an <a href="https://dart.dev/language/concurrency#how-isolates-work">Isolate</a> is spawned, it does not inherit
+any variables from the calling Zone, so <code>runWithClient</code> needs to be used in
+each Isolate that uses <code>package:http</code>.</p>
+<p>You can ensure that only the <code>Client</code> that you have explicitly configured is
+used by defining <code>no_default_http_client=true</code> in the environment. This will
+also allow the default <code>Client</code> implementation to be removed, resulting in
+a reduced application size.</p>
+<pre><code class="language-terminal">$ flutter build appbundle --dart-define=no_default_http_client=true ...
+$ dart compile exe --define=no_default_http_client=true ...
+</code></pre>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title">Tip</p>
+<p><a href="https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example" rel="ugc">The Flutter HTTP example application</a> demonstrates
+how to make the configured <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code>Client</code></a> available using
+<a href="https://pub.dev/packages/provider"><code>package:provider</code></a> and <a href="https://pub.dev/documentation/http_image_provider"><code>package:http_image_provider</code></a>.</p>
+</div>
+</section></div></div></div><aside class="detail-info-box"><a class="packages-scores" href="/packages/http/versions/1.2.1/score"><div class="packages-score packages-score-like"><div class="packages-score-value -has-value"><span class="packages-score-value-number">8.13k</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">likes</div></div><div class="packages-score packages-score-health"><div class="packages-score-value -has-value"><span class="packages-score-value-number">0</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">points</div></div><div class="packages-score packages-score-downloads" title="Number of downloads of this package during the past 30 days"><div class="packages-score-value -has-value"><span class="packages-score-value-number">8.99M</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">downloads</div></div></a><h3 class="title">Publisher</h3><p><a href="/publishers/dart.dev"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>dart.dev</a></p><h3 class="title">Weekly Downloads</h3><div id="-weekly-downloads-sparkline" class="weekly-downloads-sparkline" data-widget="weekly-sparkline" data-weekly-sparkline-points="gCvOZ3uHIQCRyCMAz2UeAPHPHgBIFB4AhyEfAI0jHgDE2BgAHBUYAIcpDwCX2Q0ABLsYACuHHgDx5RwAii4aALvuGwDJMxsAtusaAIEaGwBg6h0AJJ0dAETaGQDfEBoAPfccAGxtGAB/DhoAqbYaAG5hGQDCxxsAPEIZAKuhGgDsVBoA1VgaALR1GgDH1RcAmscWALRbGgD82hcAHW4YAN2gFwBzbxcADukXABKuGAAq/xcAjKoWAHEzGwCgcB0A6UwaAPGCHQBCjxkAQq8bAJzhGwA="></div><h3 class="title pkg-infobox-metadata">Metadata</h3><p>A composable, multi-platform, Future-based API for HTTP requests.</p><p><a class="link" href="https://github.com/dart-lang/http/tree/master/pkgs/http" rel="ugc">Repository (GitHub)</a><br/><a class="link" href="https://github.com/dart-lang/http/issues" rel="ugc">View&#47;report issues</a><br/></p><h3 class="title">License</h3><p><img class="inline-icon-img filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-balance.svg" alt="" width="14" height="14" role="presentation"/>unknown (<a href="/packages/http/versions/1.2.1/license">license</a>)</p><h3 class="title">Dependencies</h3><p><a href="/packages/async" title="^2.5.0">async</a>, <a href="/packages/http_parser" title="^4.0.0">http_parser</a>, <a href="/packages/meta" title="^1.3.0">meta</a>, <a href="/packages/web" title="^0.5.0">web</a></p><h3 class="title">More</h3><p><a href="/packages?q=dependency%3Ahttp" rel="nofollow">Packages that depend on http</a></p></aside></div><script type="application/ld+json">{"@context":"http\u003a\u002f\u002fschema.org","@type":"SoftwareSourceCode","name":"http","version":"1.2.1","description":"http - A composable, multi-platform, Future-based API for HTTP requests.","url":"https\u003a\u002f\u002fpub.dev\u002fpackages\u002fhttp","dateCreated":"2012-11-30T20\u003a40\u003a39.499Z","dateModified":"2024-02-15T23\u003a25\u003a27.572746Z","programmingLanguage":"Dart","image":"https\u003a\u002f\u002fpub.dev\u002fstatic\u002fimg\u002fpub-dev-icon-cover-image.png","license":"https\u003a\u002f\u002fpub.dev\u002fpackages\u002fhttp\u002fversions\u002f1.2.1\u002flicense"}</script></div><div class="detail-metadata"><h3 class="detail-metadata-title"><span class="detail-metadata-toggle">←</span> Metadata</h3><div class="detail-info-box"><a class="packages-scores" href="/packages/http/versions/1.2.1/score"><div class="packages-score packages-score-like"><div class="packages-score-value -has-value"><span class="packages-score-value-number">8.13k</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">likes</div></div><div class="packages-score packages-score-health"><div class="packages-score-value -has-value"><span class="packages-score-value-number">0</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">points</div></div><div class="packages-score packages-score-downloads" title="Number of downloads of this package during the past 30 days"><div class="packages-score-value -has-value"><span class="packages-score-value-number">8.99M</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">downloads</div></div></a><h3 class="title">Publisher</h3><p><a href="/publishers/dart.dev"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>dart.dev</a></p><h3 class="title">Weekly Downloads</h3><div id="-weekly-downloads-sparkline" class="weekly-downloads-sparkline" data-widget="weekly-sparkline" data-weekly-sparkline-points="gCvOZ3uHIQCRyCMAz2UeAPHPHgBIFB4AhyEfAI0jHgDE2BgAHBUYAIcpDwCX2Q0ABLsYACuHHgDx5RwAii4aALvuGwDJMxsAtusaAIEaGwBg6h0AJJ0dAETaGQDfEBoAPfccAGxtGAB/DhoAqbYaAG5hGQDCxxsAPEIZAKuhGgDsVBoA1VgaALR1GgDH1RcAmscWALRbGgD82hcAHW4YAN2gFwBzbxcADukXABKuGAAq/xcAjKoWAHEzGwCgcB0A6UwaAPGCHQBCjxkAQq8bAJzhGwA="></div><h3 class="title pkg-infobox-metadata">Metadata</h3><p>A composable, multi-platform, Future-based API for HTTP requests.</p><p><a class="link" href="https://github.com/dart-lang/http/tree/master/pkgs/http" rel="ugc">Repository (GitHub)</a><br/><a class="link" href="https://github.com/dart-lang/http/issues" rel="ugc">View&#47;report issues</a><br/></p><h3 class="title">License</h3><p><img class="inline-icon-img filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-balance.svg" alt="" width="14" height="14" role="presentation"/>unknown (<a href="/packages/http/versions/1.2.1/license">license</a>)</p><h3 class="title">Dependencies</h3><p><a href="/packages/async" title="^2.5.0">async</a>, <a href="/packages/http_parser" title="^4.0.0">http_parser</a>, <a href="/packages/meta" title="^1.3.0">meta</a>, <a href="/packages/web" title="^0.5.0">web</a></p><h3 class="title">More</h3><p><a href="/packages?q=dependency%3Ahttp" rel="nofollow">Packages that depend on http</a></p></div><p class="detail-lead-back"><a class="detail-metadata-toggle">Back</a></p></div><div id="-screenshot-carousel" class="carousel"><fab id="-carousel-prev" class="mdc-fab carousel-prev carousel-nav" data-mdc-auto-init="MDCRipple" title="Previous" data-ga-click-event="screenshot-carousel-prev-click" tabindex="0"><div class="mdc-fab__ripple"></div><img class="mdc-fab__icon" src="/static/hash-pb35dgsm/img/keyboard_arrow_left.svg" alt="previous" width="24" height="24" aria-hidden="true"/></fab><div id="-image-container" class="image-container"></div><fab id="-carousel-next" class="mdc-fab carousel-next carousel-nav" data-mdc-auto-init="MDCRipple" title="Next" data-ga-click-event="screenshot-carousel-next-click" tabindex="0"><div class="mdc-fab__ripple"></div><img class="mdc-fab__icon" src="/static/hash-pb35dgsm/img/keyboard_arrow_right.svg" alt="next" width="24" height="24" aria-hidden="true"/></fab><p id="-screenshot-description" class="screenshot-description"></p></div></main><footer class="site-footer"><a class="link" href="https://dart.dev/">Dart language</a><a class="link sep" href="/report?subject=package-version%3Ahttp%2F1.2.1&amp;url=https%3A%2F%2Fpub.dev%2Fpackages%2Fhttp%2Fversions%2F1.2.1">Report package</a><a class="link sep" href="/policy">Policy</a><a class="link sep" href="https://www.google.com/intl/en/policies/terms/">Terms</a><a class="link sep" href="https://developers.google.com/terms/">API Terms</a><a class="link sep" href="/security">Security</a><a class="link sep" href="https://www.google.com/intl/en/policies/privacy/">Privacy</a><a class="link sep" href="/help">Help</a><a class="link icon sep" href="/feed.atom"><img class="inline-icon" src="/static/hash-pb35dgsm/img/rss-feed-icon.svg" alt="RSS" width="20" height="20" title="RSS/atom feed"/></a><a class="link icon github_issue" href="https://github.com/dart-lang/pub-dev/issues/new"><img class="inline-icon" src="/static/hash-pb35dgsm/img/bug-report-white-96px.png" alt="bug report" width="20" height="20" title="Report an issue with this site"/></a></footer><script src="/static/hash-pb35dgsm/highlight/highlight-with-init.js" defer="defer"></script></body></html>
