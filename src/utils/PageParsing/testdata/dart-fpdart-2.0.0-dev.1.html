@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="https://www.googletagmanager.com/gtm.js?id=GTM-MX6DBN9" async="async"></script><script src="/static/hash-pb35dgsm/js/gtm.js" async="async"></script><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="robots" content="noindex"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@dart_lang"/><meta name="twitter:description" content="Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+"/><meta name="twitter:image" content="https://pub.dev/static/hash-pb35dgsm/img/pub-dev-icon-cover-image.png"/><meta property="og:type" content="website"/><meta property="og:site_name" content="Dart packages"/><meta property="og:title" content="fpdart 2.0.0-dev.1 | Dart package"/><meta property="og:description" content="Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+"/><meta property="og:image" content="https://pub.dev/static/hash-pb35dgsm/img/pub-dev-icon-cover-image.png"/><title>fpdart 2.0.0-dev.1 | Dart package</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;family=Google+Sans+Display:wght@400&amp;family=Google+Sans+Text:wght@400;500;700&amp;family=Google+Sans+Mono:wght@400;700&amp;display=swap"/><link rel="shortcut icon" href="/favicon.ico?hash=nk4nss8c7444fg0chird9erqef2vkhb8"/><meta rel="apple-touch-icon" href="/static/hash-pb35dgsm/img/apple-touch-icon.png"/><meta rel="apple-touch-icon-precomposed" href="/static/hash-pb35dgsm/img/apple-touch-icon.png"/><link rel="stylesheet" href="https://www.gstatic.com/glue/v25_0/ccb.min.css"/><link rel="search" type="application/opensearchdescription+xml" title="Dart packages" href="/osd.xml"/><link rel="canonical" href="https://pub.dev/packages/fpdart/versions/2.0.0-dev.1"/><meta name="description" content="Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+"/><link rel="alternate" type="application/atom+xml" title="Updated Packages Feed for Pub" href="/feed.atom"/><link rel="stylesheet" type="text/css" href="/static/hash-pb35dgsm/material/bundle/styles.css"/><link rel="stylesheet" type="text/css" href="/static/hash-pb35dgsm/css/style.css"/><script src="/static/hash-pb35dgsm/material/bundle/script.min.js" defer="defer"></script><script src="/static/hash-pb35dgsm/js/script.dart.js" defer="defer"></script><script src="https://www.gstatic.com/brandstudio/kato/cookie_choice_component/cookie_consent_bar.v3.js" defer="defer" data-autoload-cookie-consent-bar="true"></script><meta name="pub-page-data" content="eyJwa2dEYXRhIjp7InBhY2thZ2UiOiJmcGRhcnQiLCJ2ZXJzaW9uIjoiMi4wLjAtZGV2LjEiLCJsaWtlcyI6OTcxLCJwdWJsaXNoZXJJZCI6InNhbmRyb21hZ2xpb25lLmNvbSIsImlzRGlzY29udGludWVkIjpmYWxzZSwiaXNMYXRlc3QiOmZhbHNlfSwic2Vzc2lvbkF3YXJlIjpmYWxzZX0="/><link rel="preload" href="/static/hash-pb35dgsm/highlight/highlight-with-init.js" as="script"/></head><body class="light-theme"><script src="/static/hash-pb35dgsm/js/dark-init.js"></script><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MX6DBN9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div class="site-header"><button class="hamburger" aria-label="menu toggle"></button><a class="logo" href="/" aria-label="Go to the landing page of pub.dev"><img class="site-logo" src="/static/hash-pb35dgsm/img/pub-dev-logo.svg" alt="" width="140" height="30" role="presentation"/></a><div class="site-header-space"></div><div class="site-header-mask"></div><div class="site-header-search"><form action="/packages" method="GET"><input class="site-header-search-input" name="q" placeholder="New search..." autocomplete="on" title="Search"/></form></div><nav class="site-header-nav scroll-container"><div class="nav-login-container"><button id="-account-login" class="nav-main-button link">Sign in</button></div><div class="nav-container nav-help-container hoverable"><button class="nav-main-button">Help</button><div class="nav-hover-popup"><div class="nav-table-columns"><div class="nav-table-column"><h3>pub.dev</h3><a class="nav-link" href="/help/search" rel="noopener" target="_blank">Searching for packages</a><a class="nav-link" href="/help/scoring" rel="noopener" target="_blank">Package scoring and pub points</a></div><div class="nav-table-column"><h3>Flutter</h3><a class="nav-link" href="https://flutter.dev/using-packages/" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://flutter.dev/developing-packages/" rel="noopener" target="_blank">Developing packages and plugins</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div><div class="nav-table-column"><h3>Dart</h3><a class="nav-link" href="https://dart.dev/guides/packages" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">pub.dev <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="/help/search" rel="noopener" target="_blank">Searching for packages</a><a class="nav-link" href="/help/scoring" rel="noopener" target="_blank">Package scoring and pub points</a></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">Flutter <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="https://flutter.dev/using-packages/" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://flutter.dev/developing-packages/" rel="noopener" target="_blank">Developing packages and plugins</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div><div class="nav-container nav-help-container-mobile foldable"><h3 class="foldable-button">Dart <img class="foldable-icon" src="/static/hash-pb35dgsm/img/nav-mobile-foldable-icon.svg" alt="toggle folding of the section" width="13" height="6"/></h3><div class="foldable-content"><a class="nav-link" href="https://dart.dev/guides/packages" rel="noopener" target="_blank">Using packages</a><a class="nav-link" href="https://dart.dev/tools/pub/publishing" rel="noopener" target="_blank">Publishing a package</a></div></div></nav><button class="-pub-theme-toggle" aria-label="light/dark theme toggle"></button></div><div id="banner-container"></div><main class="container"><div class="detail-wrapper -active -has-info-box"><div class="detail-banners"><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" rel="noopener" target="_blank" title="Package is a Flutter Favorite"><img class="ff-banner ff-banner-desktop displayed-in-light-theme" src="/static/hash-pb35dgsm/img/ff-banner-desktop-2x.png" alt="" width="150" height="218" role="presentation"/><img class="ff-banner ff-banner-desktop displayed-in-dark-theme" src="/static/hash-pb35dgsm/img/ff-banner-desktop-dark-2x.png" alt="" width="150" height="218" role="presentation"/><img class="ff-banner ff-banner-mobile displayed-in-light-theme" src="/static/hash-pb35dgsm/img/ff-banner-mobile-2x.png" alt="" width="94" height="116" role="presentation"/><img class="ff-banner ff-banner-mobile displayed-in-dark-theme" src="/static/hash-pb35dgsm/img/ff-banner-mobile-dark-2x.png" alt="" width="94" height="116" role="presentation"/></a></div><div class="detail-header -is-loose"><div class="detail-container"><div class="detail-header-outer-block"><div class="detail-header-content-block"><h1 class="title pub-monochrome-icon-hoverable">fpdart 2.0.0-dev.1 <span class="pkg-page-title-copy"><img class="pub-monochrome-icon pkg-page-title-copy-icon filter-invert-on-dark" src="/static/hash-pb35dgsm/img/content-copy-icon.svg" alt="copy &quot;fpdart: ^2.0.0-dev.1&quot; to clipboard" width="18" height="18" title="Copy &quot;fpdart: ^2.0.0-dev.1&quot; to clipboard" data-copy-content="fpdart: ^2.0.0-dev.1" data-ga-click-event="copy-package-version"/><div class="pkg-page-title-copy-feedback"><span class="code">fpdart: ^2.0.0-dev.1</span> copied to clipboard</div></span></h1><div class="metadata">Published <span><a class="-x-ago" href="" title="Mar 23, 2024" role="button" data-timestamp="1711183492171">11 months ago</a></span> • <a class="-pub-publisher" href="/publishers/sandromaglione.com"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>sandromaglione.com</a>• Latest: <span><a href="/packages/fpdart" title="View the latest version of fpdart">1.1.1</a></span> &#47; <span>Prerelease: <a href="/packages/fpdart/versions/2.0.0-dev.3" title="Visit fpdart 2.0.0-dev.3 page">2.0.0-dev.3</a></span></div><div class="detail-tags-and-like"><div class="detail-tags"><a class="package-tag unidentified" href="/packages/fpdart/versions/2.0.0-dev.1/score" rel="nofollow" title="Check the Platforms section of the scores tab for details.">[unknown platforms]</a></div><div class="detail-like"><button id="-pub-like-icon-button" class="mdc-icon-button" data-ga-click-event="toggle-like" aria-pressed="false" title="Like this package"><img class="mdc-icon-button__icon" src="/static/hash-pb35dgsm/img/like-inactive.svg" alt="liked status: inactive" width="18" height="18"/><img class="mdc-icon-button__icon mdc-icon-button__icon--on" src="/static/hash-pb35dgsm/img/like-active.svg" alt="liked status: active" width="18" height="18"/></button><span class="likes-count"><span id="likes-count">971</span></span></div></div></div></div></div></div><div class="detail-container"><div class="detail-lead"><div class="detail-metadata-toggle"><div class="detail-metadata-toggle-icon">→</div><h3 class="detail-lead-title">Metadata</h3></div><p class="detail-lead-text">Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+</p><p class="detail-lead-more"><a class="detail-metadata-toggle">More...</a></p></div></div><div class="detail-body"><div class="detail-tabs"><div class="detail-tabs-wide-header"><div class="detail-container"><ul class="detail-tabs-header"><li class="detail-tab tab-button detail-tab-readme-title -active">Readme</li><li class="detail-tab tab-link detail-tab-changelog-title"><a href="/packages/fpdart/versions/2.0.0-dev.1/changelog" role="button">Changelog</a></li><li class="detail-tab tab-link detail-tab-example-title"><a href="/packages/fpdart/versions/2.0.0-dev.1/example" role="button">Example</a></li><li class="detail-tab tab-link detail-tab-installing-title"><a href="/packages/fpdart/versions/2.0.0-dev.1/install" role="button">Installing</a></li><li class="detail-tab tab-link detail-tab-versions-title"><a href="/packages/fpdart/versions" role="button">Versions</a></li><li class="detail-tab tab-link detail-tab-analysis-title"><a href="/packages/fpdart/versions/2.0.0-dev.1/score" role="button">Scores</a></li></ul></div></div><div class="detail-container detail-body-main"><div class="detail-tabs-content"><section class="tab-content detail-tab-readme-content -active markdown-body"><h3 align="center">
+  <a href="https://github.com/SandroMaglione/fpdart" rel="ugc">
+    <img src="https://raw.githubusercontent.com/SandroMaglione/fpdart/main/resources/screenshots/screenshot_fpdart.png" width="500">
+  </a>
+</h3>
+<p align="center">
+<strong>Functional Effect System in Dart and Flutter (v2)</strong>
+</p>
+<p align="center">
+Functional Effect System <strong>fully documented</strong>, tested, and with examples, to write complex type-safe dart applications
+</p>
+<h3 align="center">
+  <a href="https://docs.flutter.dev/packages-and-plugins/favorites" rel="ugc">
+    <img src="https://raw.githubusercontent.com/SandroMaglione/fpdart/main/resources/flutter_favorite.png" width="120">
+  </a>
+</h3>
+<p align="center">
+  <a href="https://github.com/SandroMaglione/fpdart" rel="ugc">
+    <img src="https://img.shields.io/github/stars/SandroMaglione/fpdart?logo=github">
+  </a>
+  <img src="https://img.shields.io/github/contributors-anon/SandroMaglione/fpdart">
+  <img src="https://img.shields.io/pub/v/fpdart?include_prereleases">
+  <img src="https://img.shields.io/github/license/SandroMaglione/fpdart?logo=github">
+  <a href="https://github.com/SandroMaglione" rel="ugc">
+    <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&amp;style=social" target="_blank">
+  </a>
+  <a href="https://twitter.com/SandroMaglione" rel="ugc">
+    <img alt="Twitter: SandroMaglione" src="https://img.shields.io/twitter/follow/SandroMaglione.svg?style=social" target="_blank">
+  </a>
+</p>
+<blockquote>
+<p>🏗️ Pre-release version of <code>fpdart v2</code></p>
+</blockquote>
+<h2 id="introduction" class="hash-header">Introduction <a href="#introduction" class="hash-link">#</a></h2>
+<blockquote>
+<p><strong>fpdart is fully documented. You do not need to have any previous experience with functional effect systems to start using <code>fpdart</code>. Give it a try!</strong></p>
+</blockquote>
+<p>fpdart is inspired by <a href="https://www.effect.website/" rel="ugc">effect</a> and <a href="https://github.com/spebbe/dartz" rel="ugc">dartz</a>.</p>
+<blockquote>
+<p>Follow my <a href="https://twitter.com/SandroMaglione" rel="ugc"><strong>Twitter</strong></a> for updates, or <a href="https://www.sandromaglione.com/newsletter" rel="ugc">subscribe to the newsletter</a></p>
+</blockquote>
+<hr>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#-learn-functional-programming-and-fpdart">📖 Learn <code>functional programming</code> and <code>fpdart</code></a>
+<ul>
+<li><a href="#%EF%B8%8F-blog-posts-and-tutorials">✍️ Blog posts and tutorials</a></li>
+<li><a href="#-getting-started-with-functional-programming">🧑‍🏫 Getting started with functional programming</a></li>
+</ul>
+</li>
+<li><a href="#-installation">💻 Installation</a></li>
+<li><a href="#-examples">✨ Examples</a>
+<ul>
+<li><a href="#fpdart--riverpod"><code>fpdart</code> + <code>riverpod</code></a></li>
+<li><a href="#pokeapi">Pokeapi</a></li>
+<li><a href="#open-meteo-api">Open Meteo API</a></li>
+<li><a href="#readwrite-local-file">Read/Write local file</a></li>
+<li><a href="#manage-imports">Manage imports</a></li>
+<li><a href="#option">Option</a></li>
+<li><a href="#either">Either</a></li>
+<li><a href="#io">IO</a></li>
+<li><a href="#task">Task</a></li>
+<li><a href="#utility-types">Utility types</a></li>
+<li><a href="#reader">Reader</a>
+<ul>
+<li><a href="#readertask">ReaderTask</a></li>
+<li><a href="#readertaskeither">ReaderTaskEither</a></li>
+</ul>
+</li>
+<li><a href="#state">State</a></li>
+<li><a href="#-do-notation">🔗 Do notation</a></li>
+<li><a href="#-immutable-collections">📦 Immutable Collections</a></li>
+<li><a href="#more">More</a></li>
+</ul>
+</li>
+<li><a href="#-types">🎯 Types</a></li>
+<li><a href="#-motivation">💡 Motivation</a>
+<ul>
+<li><a href="#goal">Goal</a></li>
+<li><a href="#comparison-with-dartz">Comparison with <code>dartz</code></a></li>
+</ul>
+</li>
+<li><a href="#-roadmap">🤔 Roadmap</a></li>
+<li><a href="#-versioning">📃 Versioning</a></li>
+<li><a href="#-support">😀 Support</a></li>
+<li><a href="#-license">👀 License</a></li>
+</ul>
+<h2 id="-learn-functional-programming-and-fpdart" class="hash-header">📖 Learn <code>functional programming</code> and <code>fpdart</code> <a href="#-learn-functional-programming-and-fpdart" class="hash-link">#</a></h2>
+<p>Would you like to know more about functional programming, fpdart, and how to use the package?</p>
+<p>📚 <a href="https://www.sandromaglione.com/course/fpdart-functional-programming-dart-and-flutter" rel="ugc"><strong>Collection of tutorials on fpdart</strong></a></p>
+<p>Are you new to <code>fpdart</code> and functional programming?</p>
+<p>👨‍💻 <a href="https://www.sandromaglione.com/techblog/getting-started-with-fpdart-v1-functional-programming" rel="ugc"><strong>Getting started with <code>fpdart</code> complete guide</strong></a></p>
+<p>Interested in what <code>fpdart</code> is and how it came to be?</p>
+<p>🚶 <a href="https://www.sandromaglione.com/techblog/the-history-of-fpdart-functional-programming-in-dart" rel="ugc"><strong>Full history of <code>fpdart</code> and functional programming in dart</strong></a></p>
+<h3 id="-blog-posts-and-tutorials" class="hash-header">✍️ Blog posts and tutorials <a href="#-blog-posts-and-tutorials" class="hash-link">#</a></h3>
+<ul>
+<li><a href="https://www.sandromaglione.com/techblog/option_type_and_null_safety_dart" rel="ugc">Option type and Null Safety in dart</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/either-error-handling-functional-programming" rel="ugc">Either - Error Handling in Functional Programming</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/async-requests-future-and-task-dart" rel="ugc">Future &amp; Task: asynchronous Functional Programming</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/how-to-use-task-either-fpdart-functional-programming" rel="ugc">How to use TaskEither in fpdart</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/fpdart-api-request-with-validation-functional-programming" rel="ugc">How to make API requests with validation in fpdart</a></li>
+<li><a href="https://blog.sandromaglione.com/techblog/from-sync-to-async-functional-programming" rel="ugc">How to map an Either to a Future in fpdart</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/flutter-dart-functional-programming-fpdart-supabase-app" rel="ugc">Flutter Supabase Functional Programming with fpdart</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/fpdart-functional-programming-in-dart-and-flutter/" rel="ugc">fpdart, Functional Programming in Dart and Flutter</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/how-to-use-fpdart-functional-programming-in-dart-and-flutter/" rel="ugc">How to use fpdart Functional Programming in your Dart and Flutter app</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/pure-functional-app-in-flutter-using-fpdart-functional-programming/" rel="ugc">Pure Functional app in Flutter – Pokemon app using fpdart and Functional Programming</a></li>
+</ul>
+<h3 id="-getting-started-with-functional-programming" class="hash-header">🧑‍🏫 Getting started with functional programming <a href="#-getting-started-with-functional-programming" class="hash-link">#</a></h3>
+<ul>
+<li><a href="https://www.sandromaglione.com/techblog/functional-programming-option-type-tutorial/" rel="ugc">Functional Programming Option type – Introduction</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/chain-functions-using-option-type-functional-programming/" rel="ugc">Chain functions using Option type – Functional Programming</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/practical-functional-programming-step-by-step-haskell-typescript-dart-part-1/" rel="ugc">Practical Functional Programming - Find repeated characters | Part 1</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/practical-functional-programming-pure-functions-part-2/" rel="ugc">Pure Functions - Practical Functional Programming | Part 2</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/immutability-practical-functional-programming-part-3/" rel="ugc">Immutability – Practical Functional Programming | Part 3</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/loops-using-fold-practical-functional-programming" rel="ugc">Loops using fold – Practical Functional Programming | Part 4</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/maybe-practical-functional-programming" rel="ugc">Maybe | Practical Functional Programming</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/functional-programming-5-key-lessons-functional-programming-in-scala" rel="ugc">5 Lessons from Functional Programming in Scala, By Paul Chiusano and Runar Bjarnason</a></li>
+</ul>
+<h2 id="-installation" class="hash-header">💻 Installation <a href="#-installation" class="hash-link">#</a></h2>
+<pre><code class="language-shell">dart pub add fpdart:'^2.0.0'
+</code></pre>
+<h2 id="-examples" class="hash-header">✨ Examples <a href="#-examples" class="hash-link">#</a></h2>
+<h3 id="fpdart--riverpodhttpswwwsandromaglionecomcoursefpdart-riverpod-develop-flutter-app" class="hash-header"><a href="https://www.sandromaglione.com/course/fpdart-riverpod-develop-flutter-app" rel="ugc"><code>fpdart</code> + <code>riverpod</code></a> <a href="#fpdart--riverpodhttpswwwsandromaglionecomcoursefpdart-riverpod-develop-flutter-app" class="hash-link">#</a></h3>
+<p>Step by step course on how to build a safe, maintainable, and testable Flutter app using <code>fpdart</code> and <code>riverpod</code>.</p>
+<h3 id="pokeapiexamplespokeapi_functional" class="hash-header">Pokeapi <a href="#pokeapiexamplespokeapi_functional" class="hash-link">#</a></h3>
+<p>Flutter app that lets you search and view your favorite Pokemon:</p>
+<ul>
+<li>API request</li>
+<li>Response validation</li>
+<li>JSON conversion</li>
+<li>State management (<a href="https://pub.dev/packages/riverpod">riverpod</a>)</li>
+</ul>
+<h3 id="open-meteo-apiexamplesopen_meteo_api" class="hash-header">Open Meteo API <a href="#open-meteo-apiexamplesopen_meteo_api" class="hash-link">#</a></h3>
+<p>Re-implementation using <code>fpdart</code> and functional programming of the <a href="https://github.com/felangel/bloc/tree/master/examples/flutter_weather/packages/open_meteo_api" rel="ugc">Open Meteo API</a> from the <a href="https://bloclibrary.dev/#/flutterweathertutorial" rel="ugc">flutter_weather</a> app example in the <a href="https://pub.dev/packages/bloc">bloc</a> package.</p>
+<p>A 2 parts series explains step by step the Open Meteo API code:</p>
+<ul>
+<li><a href="https://www.sandromaglione.com/techblog/real_example_fpdart_open_meteo_api_part_1" rel="ugc">Open Meteo API - Functional programming with fpdart (Part 1)</a></li>
+<li><a href="https://www.sandromaglione.com/techblog/real_example_fpdart_open_meteo_api_part_2" rel="ugc">Open Meteo API - Functional programming with fpdart (Part 2)</a></li>
+</ul>
+<h3 id="readwrite-local-fileexamplesread_write_file" class="hash-header">Read/Write local file <a href="#readwrite-local-fileexamplesread_write_file" class="hash-link">#</a></h3>
+<p>Example of how to read and write a local file using functional programming.</p>
+<h3 id="manage-importsexamplesmanaging_imports" class="hash-header">Manage imports <a href="#manage-importsexamplesmanaging_imports" class="hash-link">#</a></h3>
+<p>Using <code>fpdart</code> with other libraries and noticing naming conflicts? Learn how to rename the classes that conflict with other SDK or third-party packages.</p>
+<h3 id="optionpackagesfpdartlibsrcoptiondart" class="hash-header">Option <a href="#optionpackagesfpdartlibsrcoptiondart" class="hash-link">#</a></h3>
+<p>Used when a return value can be missing.</p>
+<blockquote>
+<p>For example, when parsing a <code>String</code> to <code>int</code>, since not all <code>String</code>
+can be converted to <code>int</code></p>
+</blockquote>
+<pre><code class="language-dart">/// Create an instance of [Some]
+final option = Option.of(10);
+
+/// Create an instance of [None]
+final none = Option&lt;int&gt;.none();
+
+/// Map [int] to [String]
+final map = option.map((a) =&gt; '$a');
+
+/// Extract the value from [Option]
+final value = option.getOrElse(() =&gt; -1);
+
+/// Pattern matching
+final match = option.match(
+  () =&gt; print('None'),
+  (a) =&gt; print('Some($a)'),
+);
+
+/// or use Dart's pattern matching as well 🤝
+final dartMatch = switch (option) {
+  None() =&gt; 'None',
+  Some(value: final a) =&gt; 'Some($a)',
+};
+
+/// Convert to [Either]
+final either = option.toEither(() =&gt; 'missing');
+
+/// Chain computations
+final flatMap = option.flatMap((a) =&gt; Option.of(a + 10));
+
+/// Return [None] if the function throws an error
+final tryCatch = Option.tryCatch(() =&gt; int.parse('invalid'));
+</code></pre>
+<h3 id="eitherpackagesfpdartlibsrceitherdart" class="hash-header">Either <a href="#eitherpackagesfpdartlibsrceitherdart" class="hash-link">#</a></h3>
+<p>Used to handle errors (instead of <code>Exception</code>s).</p>
+<blockquote>
+<p><code>Either&lt;L, R&gt;</code>: <code>L</code> is the type of the error (for example a <code>String</code> explaining
+the problem), <code>R</code> is the return type when the computation is successful</p>
+</blockquote>
+<pre><code class="language-dart">/// Create an instance of [Right]
+final right = Either&lt;String, int&gt;.of(10);
+
+/// Create an instance of [Left]
+final left = Either&lt;String, int&gt;.left('none');
+
+/// Map the right value to a [String]
+final mapRight = right.map((a) =&gt; '$a');
+
+/// Map the left value to a [int]
+final mapLeft = right.mapLeft((a) =&gt; a.length);
+
+/// Return [Left] if the function throws an error.
+/// Otherwise return [Right].
+final tryCatch = Either.tryCatch(
+  () =&gt; int.parse('invalid'),
+  (e, s) =&gt; 'Error: $e',
+);
+
+/// Extract the value from [Either]
+final value = right.getOrElse((l) =&gt; -1);
+
+/// Chain computations
+final flatMap = right.flatMap((a) =&gt; Either.of(a + 10));
+
+/// Pattern matching
+final match = right.match(
+  (l) =&gt; print('Left($l)'),
+  (r) =&gt; print('Right($r)'),
+);
+
+/// or use Dart's pattern matching as well 🤝
+final dartMatch = switch (right) {
+  Left(value: final l) =&gt; 'Left($l)',
+  Right(value: final r) =&gt; 'Right($r)',
+};
+
+/// Convert to [Option]
+final option = right.toOption();
+</code></pre>
+<h3 id="iopackagesfpdartlibsrciodart" class="hash-header">IO <a href="#iopackagesfpdartlibsrciodart" class="hash-link">#</a></h3>
+<p>Wrapper around an <strong>sync</strong> function. Allows to compose synchronous functions <strong>that never fail</strong>.</p>
+<pre><code class="language-dart">/// Create instance of [IO] from a value
+final IO&lt;int&gt; io = IO.of(10);
+
+/// Create instance of [IO] from a sync function
+final ioRun = IO(() =&gt; 10);
+
+/// Map [int] to [String]
+final IO&lt;String&gt; map = io.map((a) =&gt; '$a');
+
+/// Extract the value inside [IO] by running its function
+final int value = io.run();
+
+/// Chain another [IO] based on the value of the current [IO]
+final flatMap = io.flatMap((a) =&gt; IO.of(a + 10));
+</code></pre>
+<h3 id="taskpackagesfpdartlibsrctaskdart" class="hash-header">Task <a href="#taskpackagesfpdartlibsrctaskdart" class="hash-link">#</a></h3>
+<p>Wrapper around an <strong>async</strong> function (<code>Future</code>). Allows to compose asynchronous functions <strong>that never fail</strong>.</p>
+<blockquote>
+<p>If you look closely, it's the same as <a href="#io"><code>IO</code></a> but for <strong>async functions</strong> 💡</p>
+</blockquote>
+<pre><code class="language-dart">/// Create instance of [Task] from a value
+final Task&lt;int&gt; task = Task.of(10);
+
+/// Create instance of [Task] from an async function
+final taskRun1 = Task(() async =&gt; 10);
+final taskRun2 = Task(() =&gt; Future.value(10));
+
+/// Map [int] to [String]
+final Task&lt;String&gt; map = task.map((a) =&gt; '$a');
+
+/// Extract the value inside [Task] by running its async function
+final int value = await task.run();
+
+/// Chain another [Task] based on the value of the current [Task]
+final flatMap = task.flatMap((a) =&gt; Task.of(a + 10));
+</code></pre>
+<h3 id="utility-types" class="hash-header">Utility types <a href="#utility-types" class="hash-link">#</a></h3>
+<p>These types compose together the 4 above (<a href="#option"><code>Option</code></a>, <a href="#either"><code>Either</code></a>, <a href="#io"><code>IO</code></a>, <a href="#task"><code>Task</code></a>) to join together their functionalities:</p>
+<ul>
+<li><code>IOOption</code>: sync function (<code>IO</code>) that may may miss the return value (<code>Option</code>)</li>
+<li><code>IOEither</code>: sync function (<code>IO</code>) that may fail (<code>Either</code>)</li>
+<li><code>TaskOption</code>: async function (<code>Task</code>) that may miss the return value (<code>Option</code>)</li>
+<li><code>TaskEither</code>: async function (<code>Task</code>) that may fail (<code>Either</code>)</li>
+</ul>
+<h3 id="readerpackagesfpdartlibsrcreaderdart" class="hash-header">Reader <a href="#readerpackagesfpdartlibsrcreaderdart" class="hash-link">#</a></h3>
+<p>Read values from a <strong>context</strong> without explicitly passing the dependency between multiple nested function calls. View the example folder for an explained usecase example.</p>
+<h4 id="readertaskpackagesfpdartlibsrcreader_taskdart">ReaderTask</h4>
+<p>Combine the <code>Reader</code> type (dependecy) with <code>Task</code> (asynchronous).</p>
+<h4 id="readertaskeitherpackagesfpdartlibsrcreader_task_eitherdart">ReaderTaskEither</h4>
+<p>Combine the <code>Reader</code> type (dependecy) with <code>Task</code> (asynchronous) and <code>Either</code> (error handling).</p>
+<h3 id="statepackagesfpdartlibsrcstatedart" class="hash-header">State <a href="#statepackagesfpdartlibsrcstatedart" class="hash-link">#</a></h3>
+<p>Used to <strong>store</strong>, <strong>update</strong>, and <strong>extract</strong> state in a functional way. View the example folder for an explained usecase example.</p>
+<h3 id="-do-notation" class="hash-header">🔗 Do notation <a href="#-do-notation" class="hash-link">#</a></h3>
+<p>Version <code>v0.6.0</code> introduced the <strong>Do notation</strong> in <code>fpdart</code>. Using the Do notation makes chaining functions easier.</p>
+<p>For example, a typical chain of methods in <code>fpdart</code> looks as follows:</p>
+<pre><code class="language-dart">/// Without the Do notation
+String goShopping() =&gt; goToShoppingCenter()
+    .alt(goToLocalMarket)
+    .flatMap(
+      (market) =&gt; market.buyBanana().flatMap(
+            (banana) =&gt; market.buyApple().flatMap(
+                  (apple) =&gt; market.buyPear().flatMap(
+                        (pear) =&gt; Option.of('Shopping: $banana, $apple, $pear'),
+                      ),
+                ),
+          ),
+    )
+    .getOrElse(
+      () =&gt; 'I did not find 🍌 or 🍎 or 🍐, so I did not buy anything 🤷‍♂️',
+    );
+</code></pre>
+<p>Notice how you need to call <code>flatMap</code> multiple times to collect multiple variables and use them together (<code>market</code>, <code>banana</code>, <code>apple</code>, <code>pear</code>).</p>
+<p>Everything looks more <strong>linear and simple</strong> by using the Do notation:</p>
+<pre><code class="language-dart">/// Using the Do notation
+String goShoppingDo() =&gt; Option.Do(
+      ($) {
+        final market = $(goToShoppingCenter().alt(goToLocalMarket));
+        final amount = $(market.buyAmount());
+
+        final banana = $(market.buyBanana());
+        final apple = $(market.buyApple());
+        final pear = $(market.buyPear());
+
+        return 'Shopping: $banana, $apple, $pear';
+      },
+    ).getOrElse(
+      () =&gt; 'I did not find 🍌 or 🍎 or 🍐, so I did not buy anything 🤷‍♂️',
+    );
+</code></pre>
+<p>You initialize the Do notation using the <strong><code>Do()</code> constructor</strong>.</p>
+<p>You have access to a <code>$</code> function, that you can use to extract and use the value inside each <code>Option</code>, without using <code>flatMap</code>.</p>
+<blockquote>
+<p><strong>Note</strong>: We recommend using the Do notation whenever possible to improve the legibility of your code 🤝</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>Warning</strong>: Pay attention to avoid the following mistakes when using the <strong>Do notation</strong>:</p>
+<ul>
+<li>Do not <code>throw</code> inside the <strong><code>Do()</code></strong> constructor</li>
+<li>Do not <code>await</code> without executing the <code>$</code> function</li>
+<li>Do not use a nested <strong><code>Do()</code></strong> constructor inside another one</li>
+<li>Do not call the <code>$</code> function inside another callback in the <strong><code>Do()</code></strong> constructor</li>
+</ul>
+<p>Using the <strong>Do notation</strong> in these cases may fail at runtime or may produce unexpected behavior. For more information take a look at <a href="https://github.com/SandroMaglione/fpdart/issues/26" rel="ugc">the <code>Do Notation</code> discussion</a> or at this <a href="https://github.com/SandroMaglione/fpdart/issues/139" rel="ugc">issue</a>.
+Examples for each of the pitfalls can be viewed here: <a href="https://github.com/SandroMaglione/fpdart/tree/main/examples/do_constructor_pitfalls" rel="ugc">do-constructor-pitfalls</a></p>
+</blockquote>
+<h3 id="-immutable-collections" class="hash-header">📦 Immutable Collections <a href="#-immutable-collections" class="hash-link">#</a></h3>
+<blockquote>
+<p>If you are going to use <code>fpdart</code> in your project, make sure to use immutable collections as well ☝️</p>
+</blockquote>
+<p>Immutability is <strong>at the core of functional programming</strong> (alongside pure functions 🤝).</p>
+<p><code>fpdart</code> does <strong>not</strong> provide immutable collections. Instead, we strongly suggest to use the <a href="https://pub.dev/packages/fast_immutable_collections"><code>fast_immutable_collections</code></a> package.</p>
+<p><a href="https://pub.dev/packages/fast_immutable_collections"><code>fast_immutable_collections</code></a> provides all the necessary immutable collections (<code>List</code>, <code>Set</code>, <code>Map</code> and more) with an extensive API and <a href="https://pub.dev/packages/fast_immutable_collections#12-benchmarks">top-class performance</a>.</p>
+<p><code>fpdart</code> instead provides some extension methods on <code>Iterable</code>, <code>List</code>, and <code>Map</code>. These are designed to <strong>extend the native Dart API with immutable methods</strong>, as well as providing many handy additional functions:</p>
+<pre><code class="language-dart">/// Dart: `1`
+[1, 2, 3, 4].first;
+
+/// fpdart: `Some(1)`
+[1, 2, 3, 4].head;
+
+/// Dart: Throws a [StateError] ⚠️
+[].first;
+
+/// fpdart: `None()`
+[].head;
+
+final map = {'a': 1, 'b': 2};
+
+/// Dart: mutable ⚠️
+map.updateAll((key, value) =&gt; value + 10);
+
+/// fpdart: immutable equivalent 🤝
+final newMap = map.mapValue((value) =&gt; value + 10);
+</code></pre>
+<p>You can use these extension methods on any native Dart collection and <strong>also</strong> in combination with <a href="https://pub.dev/packages/fast_immutable_collections"><code>fast_immutable_collections</code></a> immutable collections.</p>
+<h3 id="more" class="hash-header">More <a href="#more" class="hash-link">#</a></h3>
+<p>Many more examples are coming soon. Check out <a href="https://www.sandromaglione.com/" rel="ugc"><strong>my website</strong></a> and my <a href="https://twitter.com/SandroMaglione" rel="ugc"><strong>Twitter</strong></a> for daily updates.</p>
+<hr>
+<h2 id="-types" class="hash-header">🎯 Types <a href="#-types" class="hash-link">#</a></h2>
+<ul>
+<li>✅ <code>Option</code></li>
+<li>✅ <code>Either</code></li>
+<li>✅ <code>Unit</code></li>
+<li>✅ <code>IO</code></li>
+<li>✅ <code>IORef</code></li>
+<li>✅ <code>IOOption</code></li>
+<li>✅ <code>IOEither</code></li>
+<li>✅ <code>Task</code></li>
+<li>✅ <code>TaskOption</code></li>
+<li>✅ <code>TaskEither</code></li>
+<li>✅ <code>Reader</code></li>
+<li>✅ <code>ReaderTask</code></li>
+<li>✅ <code>ReaderTaskEither</code></li>
+<li>✅ <code>State</code></li>
+<li>✅ <code>StateAsync</code></li>
+<li>✅ <code>Iterable</code> (<code>List</code>) <code>extension</code></li>
+<li>✅ <code>Map</code> <code>extension</code></li>
+<li>✅ <code>Predicate</code></li>
+<li>❌ <code>ReaderTaskOption</code></li>
+<li>❌ <code>ReaderIO</code></li>
+<li>❌ <code>ReaderIOEither</code></li>
+<li>❌ <code>ReaderIOOption</code></li>
+<li>❌ <code>ReaderEither</code></li>
+<li>❌ <code>ReaderOption</code></li>
+<li>❌ <code>StateReaderTaskEither</code></li>
+<li>❌ <code>Lens</code></li>
+<li>❌ <code>Writer</code></li>
+</ul>
+<h2 id="-motivation" class="hash-header">💡 Motivation <a href="#-motivation" class="hash-link">#</a></h2>
+<p>📚 <a href="https://www.sandromaglione.com/techblog/the-history-of-fpdart-functional-programming-in-dart" rel="ugc"><strong>Read the full story of the origin and motivation for <code>fpdart</code></strong></a></p>
+<p>Functional programming is becoming more and more popular, and for good reasons.</p>
+<p>Many non-functional languages are slowly adopting patterns from functional languages, dart included. Dart already supports higher-order functions, generic types, type inference. Since Dart 3, the language supports also <a href="https://github.com/dart-lang/language/issues/546" rel="ugc">pattern matching</a>, <a href="https://github.com/dart-lang/language/issues/207" rel="ugc">destructuring</a>, <a href="https://github.com/dart-lang/language/issues/68" rel="ugc">multiple return values</a> (<a href="https://www.sandromaglione.com/techblog/records-and-patterns-dart-language" rel="ugc"><strong>Read more about these new features here</strong></a>).</p>
+<p>Other functional programming features are coming to the language, like <a href="https://github.com/dart-lang/language/issues/1655" rel="ugc">higher-order types</a>.</p>
+<p>Many packages are bringing functional patterns to dart, like the amazing <a href="https://pub.dev/packages/freezed">freezed</a> for unions/pattern matching.</p>
+<p>fpdart aims to provide all the main types found in functional languages to dart. Types like <code>Option</code> (handle missing values without <code>null</code>), <code>Either</code> (handle errors and error messages), <code>Task</code> (composable async computations), and more.</p>
+<h3 id="goal" class="hash-header">Goal <a href="#goal" class="hash-link">#</a></h3>
+<p>Differently from many other functional programming packages, <code>fpdart</code> aims to introduce functional programming to every developer. For this reason, every type and method is commented and documented directly in the code.</p>
+<blockquote>
+<p><strong>You do not need to have any previous experience with functional programming to start using <code>fpdart</code>.</strong></p>
+</blockquote>
+<p>fpdart also provides <a href="https://github.com/SandroMaglione/fpdart/tree/main/examples/" rel="ugc">real-world examples</a> of why a type is useful and how it can be used in your application. Check out <a href="https://www.sandromaglione.com/" rel="ugc"><strong>my website</strong></a> for blog posts and articles.</p>
+<h3 id="comparison-with-dartz" class="hash-header">Comparison with <code>dartz</code> <a href="#comparison-with-dartz" class="hash-link">#</a></h3>
+<p>One of the major pain points of dartz has always been is <a href="https://github.com/spebbe/dartz/issues/36" rel="ugc"><strong>lack of documentation</strong></a>. This is a huge issue for people new to functional programming to attempt using the package.</p>
+<p><code>dartz</code> was <a href="https://github.com/spebbe/dartz/commits/master?after=2de2f2787430dcd4ef49485bbf8aac1f8d1ff157+279&amp;branch=master" rel="ugc">released in 2016</a>, initially targeting Dart 1.</p>
+<p><code>dartz</code> is also missing some features and types (<code>Reader</code>, <code>TaskEither</code>, and others).</p>
+<p><code>fpdart</code> is a rewrite based on fp-ts and cats. The main differences are:</p>
+<ul>
+<li>fpdart is fully documented.</li>
+<li>fpdart implements higher-kinded types using <a href="https://www.cl.cam.ac.uk/~jdy22/papers/lightweight-higher-kinded-polymorphism.pdf" rel="ugc">defunctionalization</a>.</li>
+<li>fpdart is based on <strong>Dart 3</strong>.</li>
+<li>fpdart is completely null-safe from the beginning.</li>
+<li>fpdart has a richer API.</li>
+<li>fpdart implements some missing types in dartz.</li>
+<li>fpdart does not provide implementation for immutable collections (<code>ISet</code>, <code>IMap</code>, <code>IHashMap</code>, <code>AVLTree</code>).</li>
+</ul>
+<h2 id="-roadmap" class="hash-header">🤔 Roadmap <a href="#-roadmap" class="hash-link">#</a></h2>
+<p>Being documentation and stability important goals of the package, every type will go through an implementation-documentation-testing cycle before being considered as <em>'stable'</em>.</p>
+<p>The current work on <code>fpdart</code> aims to:</p>
+<ul>
+<li>Expand the API to include more methods to work and convert between types easier (send <a href="https://github.com/SandroMaglione/fpdart/issues" rel="ugc">an issue</a> on the repository if you have a suggestion)</li>
+<li>Simplify the current API to make it easier to use and learn</li>
+<li>Expand the documentation with more articles and <a href="https://dart.dev/effective-dart/documentation#do-use--doc-comments-to-document-members-and-types">documentation comments</a></li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: There is also an experimental research in progress to implement <a href="https://zio.dev/" rel="ugc"><code>ZIO</code></a> in <code>fpdart</code>, stay tuned 🔜</p>
+</blockquote>
+<hr>
+<p>The long-term goal is to provide <strong>all the main types and typeclasses available in other functional programming languages and packages</strong>. All the types should be <strong>completely</strong> documented and fully tested.</p>
+<p>A well explained documentation is the key for the long-term success of the project. <strong>Any article, blog post, or contribution is welcome</strong>.</p>
+<p>In general, <strong>any contribution or feedback is welcome</strong> (and encouraged!).</p>
+<h2 id="-versioning" class="hash-header">📃 Versioning <a href="#-versioning" class="hash-link">#</a></h2>
+<ul>
+<li>v2.0.0-dev.1 - 23 March 2024</li>
+</ul>
+<hr>
+<ul>
+<li>v1.1.0 - 13 August 2023</li>
+<li><strong>v1.0.0</strong> - 26 July 2023</li>
+</ul>
+<hr>
+<ul>
+<li><strong>v0.6.0</strong> - 6 May 2023</li>
+<li><strong>v0.5.0</strong> - 4 March 2023</li>
+<li>v0.4.1 - 25 February 2023</li>
+<li><strong>v0.4.0</strong> - 16 December 2022</li>
+<li><strong>v0.3.0</strong> - 11 October 2022</li>
+<li><strong>v0.2.0</strong> - 16 July 2022</li>
+<li><strong>v0.1.0</strong> - 17 June 2022</li>
+<li>v0.0.14 - 31 January 2022</li>
+<li>v0.0.13 - 26 January 2022</li>
+<li>v0.0.12 - 24 October 2021</li>
+<li>v0.0.11 - 22 September 2021</li>
+<li>v0.0.10 - 13 August 2021</li>
+<li>v0.0.9 - 3 August 2021</li>
+<li>v0.0.8 - 13 July 2021</li>
+<li>v0.0.7 - 6 July 2021</li>
+<li>v0.0.6 - 29 June 2021</li>
+<li>v0.0.5 - 20 June 2021</li>
+<li>v0.0.4 - 15 June 2021</li>
+<li>v0.0.3 - 13 June 2021</li>
+<li>v0.0.2 - 13 June 2021</li>
+<li>v0.0.1 - 28 May 2021</li>
+</ul>
+<h2 id="-support" class="hash-header">😀 Support <a href="#-support" class="hash-link">#</a></h2>
+<p>If you are interested in my work you can <a href="https://www.sandromaglione.com/newsletter" rel="ugc">subscribe to my newsletter</a>.</p>
+<p>I share tutorials, guides, and code snippets about <code>fpdart</code> and functional programming: <a href="https://www.sandromaglione.com/newsletter" rel="ugc"><strong>Subscribe to the Newsletter here</strong> 📧</a></p>
+<p>For more frequent updates you can also follow me on my <a href="https://twitter.com/SandroMaglione" rel="ugc"><strong>Twitter</strong></a>.</p>
+<h2 id="-license" class="hash-header">👀 License <a href="#-license" class="hash-link">#</a></h2>
+<p>MIT License, see the <a href="https://github.com/SandroMaglione/fpdart/blob/main/LICENSE" rel="ugc">LICENSE.md</a> file for details.</p>
+</section></div></div></div><aside class="detail-info-box"><a class="packages-scores" href="/packages/fpdart/versions/2.0.0-dev.1/score"><div class="packages-score packages-score-like"><div class="packages-score-value -has-value"><span class="packages-score-value-number">971</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">likes</div></div><div class="packages-score packages-score-health"><div class="packages-score-value -has-value"><span class="packages-score-value-number">0</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">points</div></div><div class="packages-score packages-score-downloads" title="Number of downloads of this package during the past 30 days"><div class="packages-score-value -has-value"><span class="packages-score-value-number">223k</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">downloads</div></div></a><h3 class="title">Publisher</h3><p><a href="/publishers/sandromaglione.com"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>sandromaglione.com</a></p><h3 class="title">Weekly Downloads</h3><div id="-weekly-downloads-sparkline" class="weekly-downloads-sparkline" data-widget="weekly-sparkline" data-weekly-sparkline-points="gCvOZ4G7AAA22gAAj88AAAfcAAB/0AAA1lEBAAozAQB4+AAAS8kAAIZmAACqMAAAz7YAAKIdAQBCYQEAxi0BADTgAAAQEgEAZN4AABC4AACwpAAA5roAAPrDAACnrAAA96wAAJ2aAAAfoAAABaUAAPqQAABKdQAABlMAAMdUAABtVAAAV1cAAA1QAADeUQAAgVAAAPJOAAC9RgAAY0oAAOJOAADYSAAA204AALNNAAAeSAAAeUMAAOdBAACMRgAAZDoAANpAAAAuOgAAbUIAAMY9AAA="></div><h3 class="title pkg-infobox-metadata">Metadata</h3><p>Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+</p><p><a class="link" href="https://www.sandromaglione.com/" rel="ugc">Homepage</a><br/><a class="link" href="https://github.com/SandroMaglione/fpdart" rel="ugc">Repository (GitHub)</a><br/><a class="link" href="https://github.com/SandroMaglione/fpdart/issues" rel="ugc">View&#47;report issues</a><br/></p><h3 class="title">Documentation</h3><p><a class="link" href="https://www.sandromaglione.com/course/fpdart-functional-programming-dart-and-flutter" rel="ugc">Documentation</a><br/></p><h3 class="title">License</h3><p><img class="inline-icon-img filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-balance.svg" alt="" width="14" height="14" role="presentation"/>unknown (<a href="/packages/fpdart/versions/2.0.0-dev.1/license">license</a>)</p><h3 class="title">Dependencies</h3><p><a href="/packages/meta" title="^1.12.0">meta</a></p><h3 class="title">More</h3><p><a href="/packages?q=dependency%3Afpdart" rel="nofollow">Packages that depend on fpdart</a></p></aside></div><script type="application/ld+json">{"@context":"http\u003a\u002f\u002fschema.org","@type":"SoftwareSourceCode","name":"fpdart","version":"2.0.0-dev.1","description":"fpdart - Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.\u000a","url":"https\u003a\u002f\u002fpub.dev\u002fpackages\u002ffpdart","dateCreated":"2021-05-28T16\u003a57\u003a34.092835Z","dateModified":"2024-03-23T08\u003a44\u003a52.171688Z","programmingLanguage":"Dart","image":"https\u003a\u002f\u002fpub.dev\u002fstatic\u002fimg\u002fpub-dev-icon-cover-image.png","license":"https\u003a\u002f\u002fpub.dev\u002fpackages\u002ffpdart\u002fversions\u002f2.0.0-dev.1\u002flicense"}</script></div><div class="detail-metadata"><h3 class="detail-metadata-title"><span class="detail-metadata-toggle">←</span> Metadata</h3><div class="detail-info-box"><a class="packages-scores" href="/packages/fpdart/versions/2.0.0-dev.1/score"><div class="packages-score packages-score-like"><div class="packages-score-value -has-value"><span class="packages-score-value-number">971</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">likes</div></div><div class="packages-score packages-score-health"><div class="packages-score-value -has-value"><span class="packages-score-value-number">0</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">points</div></div><div class="packages-score packages-score-downloads" title="Number of downloads of this package during the past 30 days"><div class="packages-score-value -has-value"><span class="packages-score-value-number">223k</span><span class="packages-score-value-sign"></span></div><div class="packages-score-label">downloads</div></div></a><h3 class="title">Publisher</h3><p><a href="/publishers/sandromaglione.com"><img class="-pub-publisher-shield filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-verified.svg" alt="verified publisher" width="14" height="14" title="Published by a pub.dev verified publisher"/>sandromaglione.com</a></p><h3 class="title">Weekly Downloads</h3><div id="-weekly-downloads-sparkline" class="weekly-downloads-sparkline" data-widget="weekly-sparkline" data-weekly-sparkline-points="gCvOZ4G7AAA22gAAj88AAAfcAAB/0AAA1lEBAAozAQB4+AAAS8kAAIZmAACqMAAAz7YAAKIdAQBCYQEAxi0BADTgAAAQEgEAZN4AABC4AACwpAAA5roAAPrDAACnrAAA96wAAJ2aAAAfoAAABaUAAPqQAABKdQAABlMAAMdUAABtVAAAV1cAAA1QAADeUQAAgVAAAPJOAAC9RgAAY0oAAOJOAADYSAAA204AALNNAAAeSAAAeUMAAOdBAACMRgAAZDoAANpAAAAuOgAAbUIAAMY9AAA="></div><h3 class="title pkg-infobox-metadata">Metadata</h3><p>Functional programming in Dart and Flutter. All the main functional programming types and patterns fully documented, tested, and with examples.
+</p><p><a class="link" href="https://www.sandromaglione.com/" rel="ugc">Homepage</a><br/><a class="link" href="https://github.com/SandroMaglione/fpdart" rel="ugc">Repository (GitHub)</a><br/><a class="link" href="https://github.com/SandroMaglione/fpdart/issues" rel="ugc">View&#47;report issues</a><br/></p><h3 class="title">Documentation</h3><p><a class="link" href="https://www.sandromaglione.com/course/fpdart-functional-programming-dart-and-flutter" rel="ugc">Documentation</a><br/></p><h3 class="title">License</h3><p><img class="inline-icon-img filter-invert-on-dark" src="/static/hash-pb35dgsm/img/material-icon-balance.svg" alt="" width="14" height="14" role="presentation"/>unknown (<a href="/packages/fpdart/versions/2.0.0-dev.1/license">license</a>)</p><h3 class="title">Dependencies</h3><p><a href="/packages/meta" title="^1.12.0">meta</a></p><h3 class="title">More</h3><p><a href="/packages?q=dependency%3Afpdart" rel="nofollow">Packages that depend on fpdart</a></p></div><p class="detail-lead-back"><a class="detail-metadata-toggle">Back</a></p></div><div id="-screenshot-carousel" class="carousel"><fab id="-carousel-prev" class="mdc-fab carousel-prev carousel-nav" data-mdc-auto-init="MDCRipple" title="Previous" data-ga-click-event="screenshot-carousel-prev-click" tabindex="0"><div class="mdc-fab__ripple"></div><img class="mdc-fab__icon" src="/static/hash-pb35dgsm/img/keyboard_arrow_left.svg" alt="previous" width="24" height="24" aria-hidden="true"/></fab><div id="-image-container" class="image-container"></div><fab id="-carousel-next" class="mdc-fab carousel-next carousel-nav" data-mdc-auto-init="MDCRipple" title="Next" data-ga-click-event="screenshot-carousel-next-click" tabindex="0"><div class="mdc-fab__ripple"></div><img class="mdc-fab__icon" src="/static/hash-pb35dgsm/img/keyboard_arrow_right.svg" alt="next" width="24" height="24" aria-hidden="true"/></fab><p id="-screenshot-description" class="screenshot-description"></p></div></main><footer class="site-footer"><a class="link" href="https://dart.dev/">Dart language</a><a class="link sep" href="/report?subject=package-version%3Afpdart%2F2.0.0-dev.1&amp;url=https%3A%2F%2Fpub.dev%2Fpackages%2Ffpdart%2Fversions%2F2.0.0-dev.1">Report package</a><a class="link sep" href="/policy">Policy</a><a class="link sep" href="https://www.google.com/intl/en/policies/terms/">Terms</a><a class="link sep" href="https://developers.google.com/terms/">API Terms</a><a class="link sep" href="/security">Security</a><a class="link sep" href="https://www.google.com/intl/en/policies/privacy/">Privacy</a><a class="link sep" href="/help">Help</a><a class="link icon sep" href="/feed.atom"><img class="inline-icon" src="/static/hash-pb35dgsm/img/rss-feed-icon.svg" alt="RSS" width="20" height="20" title="RSS/atom feed"/></a><a class="link icon github_issue" href="https://github.com/dart-lang/pub-dev/issues/new"><img class="inline-icon" src="/static/hash-pb35dgsm/img/bug-report-white-96px.png" alt="bug report" width="20" height="20" title="Report an issue with this site"/></a></footer><script src="/static/hash-pb35dgsm/highlight/highlight-with-init.js" defer="defer"></script></body></html>
