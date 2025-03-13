@@ -267,7 +267,7 @@ export const REPO_TYPES: RepoType[] = [
         repoID: REPOS.pubDev,
         titleSelector: 'h1.title.pub-monochrome-icon-hoverable',
         versionPath: '{artifactId}/versions/{version}',
-        pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#-]*)-?(?<platform>[^?#]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/,
+        pathRegex: /^(?<artifactId>[^/?#]*)(\/versions\/(?<version>[^?#]*))?$/,
         versionDomPath: 'h1.title.pub-monochrome-icon-hoverable',
         supportsVersionNavigation: true
     }

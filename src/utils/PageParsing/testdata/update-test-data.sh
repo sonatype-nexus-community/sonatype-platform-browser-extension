@@ -46,3 +46,6 @@ get_data "npm-deprecated.html" "https://www.npmjs.com/package/path-is-absolute/v
 # pub.dev
 get_data "dart-http.html" "https://pub.dev/packages/http"
 get_data "dart-http-1.2.1.html" "https://pub.dev/packages/http/versions/1.2.1"
+get_data "dart-http-0.11.3+15.html" "https://pub.dev/packages/http/versions/0.11.3+15"
+get_data "dart-fpdart-2.0.0-dev.1.html" "https://pub.dev/packages/fpdart/versions/2.0.0-dev.1"
+

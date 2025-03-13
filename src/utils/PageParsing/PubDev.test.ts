@@ -56,4 +56,36 @@ describe('Pub Dev Page Parsing', () => {
         expect(packageURL?.name).toBe('http')
         expect(packageURL?.version).toBe('1.2.1')
     })
+
+    test('should parse a valid Pub Dev Dart package page with url encoded characters in version', () => {
+        const html = readFileSync(join(__dirname, 'testdata/dart-http-0.11.3+15.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            "https://pub.dev/packages/http/versions/0.11.3+15"
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pub)
+        expect(packageURL?.name).toBe('http')
+        expect(packageURL?.version).toBe('0.11.3+15')
+    })
+
+    test('should parse a valid Pub Dev Dart package page with dash in version', () => {
+        const html = readFileSync(join(__dirname, 'testdata/dart-fpdart-2.0.0-dev.1.html'))
+
+        window.document.body.innerHTML = html.toString()
+
+        const packageURL: PackageURL | undefined = getArtifactDetailsFromDOM(
+            ensure(repoType),
+            "https://pub.dev/packages/fpdart/versions/2.0.0-dev.1"
+        )
+
+        expect(packageURL).toBeDefined()
+        expect(packageURL?.type).toBe(FORMATS.pub)
+        expect(packageURL?.name).toBe('fpdart')
+        expect(packageURL?.version).toBe('2.0.0-dev.1')
+    })
 })
