@@ -43,25 +43,9 @@ get_data "npm.html" "https://www.npmjs.com/package/@sonatype/react-shared-compon
 get_data "npm2.html" "https://www.npmjs.com/package/@sonatype/policy-demo/v/2.3.0"
 get_data "npm-deprecated.html" "https://www.npmjs.com/package/path-is-absolute/v/2.0.0"
 
-# NuGet
-get_data "nuget-Newtonsoft.JSON-v13.0.1.html" "https://www.nuget.org/packages/Newtonsoft.Json/13.0.1"
-get_data "nuget-Newtonsoft.JSON-v13.0.3.html" "https://www.nuget.org/packages/Newtonsoft.Json/13.0.3"
+# pub.dev
+get_data "dart-http.html" "https://pub.dev/packages/http"
+get_data "dart-http-1.2.1.html" "https://pub.dev/packages/http/versions/1.2.1"
+get_data "dart-http-0.11.3+15.html" "https://pub.dev/packages/http/versions/0.11.3+15"
+get_data "dart-fpdart-2.0.0-dev.1.html" "https://pub.dev/packages/fpdart/versions/2.0.0-dev.1"
 
-# Packagist
-get_data "packagist-laravel-its-lte-4.23.0.html" "https://packagist.org/packages/fomvasss/laravel-its-lte#4.23.0"
-get_data "packagist-laravel-its-lte-4.22.html" "https://packagist.org/packages/fomvasss/laravel-its-lte#4.22"
-
-# PyPi
-get_data "pypi-Django-4.2.1.html" "https://pypi.org/project/Django/4.2.1/"
-get_data "pypi-numpy-1.14.0.html" "https://pypi.org/project/numpy/1.14.0/"
-get_data "pypi-Twisted-19.2.0.html" "https://pypi.org/project/Twisted/19.2.0/"
-get_data "pypi-mediapipe-0.10.14.html" "https://pypi.org/project/mediapipe/0.10.14/"
-
-# RubyGems
-get_data "rubygems-chelsea-0.0.32.html" "https://rubygems.org/gems/chelsea/versions/0.0.32"
-get_data "rubygems-chelsea-0.0.35.html" "https://rubygems.org/gems/chelsea/versions/0.0.35"
-get_data "rubygems-logstash-input-tcp-6.0.9-java.html" "https://rubygems.org/gems/logstash-input-tcp/versions/6.0.9-java"
-
-# search.maven.org
-get_data "smo-cyclonedx-maven-plugin-2.7.6.html" "https://search.maven.org/artifact/org.cyclonedx/cyclonedx-maven-plugin/2.7.6/maven-plugin"
-get_data "smo-struts2-core-2.3.30.html" "https://search.maven.org/artifact/org.apache.struts/struts2-core/2.3.30/jar"
