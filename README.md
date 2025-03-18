@@ -55,25 +55,26 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 ### Public Registries
 
 | Registry               | Language            | Enabled | URL                              | Component Version Navigation |
-| ---------------------- | ------------------- | ------- | -------------------------------- | ------------------------------- |
-| Alpine Linux           | Alpine Linux        | ✅      | `https://pkgs.alpinelinux.org/`  | ❌                              |
-| Clojars                | Java                | ❌      | `https://clojars.org/`           | N/A                             |
-| CocoaPods              | Swift / Objective-C | ✅      | `https://cocoapods.org/`         | ❌                              |
-| Conan IO               | C / C++             | ✅      | `https://conan.io/center/`       | ✅                              |
-| CRAN                   | R                   | ✅      | `https://cran.r-project.org`     | ❌                              |
-| Crates.io              | Rust                | ✅      | `https://crates.io/`             | ✅                              |
-| Go.dev                 | Go                  | ✅      | `https://pkg.go.dev/`            | ✅                              |
-| Maven Central          | Java                | ✅      | `https://central.sonatype.com/`  | ✅                              |
-| Maven Central (simple) | Java                | ✅      | `https://repo.maven.apache.org/` | ❌                              |
-| Maven Central (simple) | Java                | ✅      | `https://repo1.maven.org/`       | ❌                              |
-| Maven Central (old)    | Java                | ✅      | `https://search.maven.org/`      | ✅                              |
-| MVN Repository         | Java                | ✅      | `https://mvnrepository.com/`     | ✅                              |
-| NPM JS                 | Javascript          | ✅      | `https://www.npmjs.com/`         | ✅                              |
-| NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                              |
-| Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                              |
-| PyPI                   | Python              | ✅ ^2   | `https://pypi.org/`              | ✅                              |
-| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
-| Spring.io              | Java                | ❌ ^1   | `https://repo.spring.io/list/`   | N/A                             |
+|------------------------|---------------------|---------|----------------------------------|------------------------------|
+| Alpine Linux           | Alpine Linux        | ✅       | `https://pkgs.alpinelinux.org/`  | ❌                            |
+| Clojars                | Java                | ❌       | `https://clojars.org/`           | N/A                          |
+| CocoaPods              | Swift / Objective-C | ✅       | `https://cocoapods.org/`         | ❌                            |
+| Conan IO               | C / C++             | ✅       | `https://conan.io/center/`       | ✅                            |
+| CRAN                   | R                   | ✅       | `https://cran.r-project.org`     | ❌                            |
+| Crates.io              | Rust                | ✅       | `https://crates.io/`             | ✅                            |
+| Go.dev                 | Go                  | ✅       | `https://pkg.go.dev/`            | ✅                            |
+| Maven Central          | Java                | ✅       | `https://central.sonatype.com/`  | ✅                            |
+| Maven Central (simple) | Java                | ✅       | `https://repo.maven.apache.org/` | ❌                            |
+| Maven Central (simple) | Java                | ✅       | `https://repo1.maven.org/`       | ❌                            |
+| Maven Central (old)    | Java                | ✅       | `https://search.maven.org/`      | ✅                            |
+| MVN Repository         | Java                | ✅       | `https://mvnrepository.com/`     | ✅                            |
+| NPM JS                 | Javascript          | ✅       | `https://www.npmjs.com/`         | ✅                            |
+| NuGet Gallery          | .NET                | ✅       | `https://www.nuget.org/`         | ✅                            |
+| Packagist              | PHP                 | ✅       | `https://packagist.org/`         | ✅                            |
+| PyPI                   | Python              | ✅ ^2    | `https://pypi.org/`              | ✅                            |
+| RubGems                | Ruby                | ✅       | `https://rubygems.org/`          | ✅                            |
+| Spring.io              | Java                | ❌ ^1    | `https://repo.spring.io/list/`   | N/A                          |
+| Pub.dev                | Dart                | ✅       | `https://pub.dev/`               | ✅                            |
 
 _Notes:_
 
