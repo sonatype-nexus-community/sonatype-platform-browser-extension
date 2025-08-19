@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import $ from 'cash-dom'
+import $, { Cash } from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from '../purl-utils'
 import { logger, LogLevel } from '../logger'
@@ -33,52 +33,57 @@ export class PypiOrgPageParser extends BasePageParser {
             logger.logContent(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
 
             const thisVersion = pathResults.groups.version ?? pageVersion
-
             const distributionFilenames = $(PYPI_EXTENSION_SELECTOR)
             for (const distributionFilename of distributionFilenames) {
-                const distributionFilenameSafe = $('a:nth-child(1)', distributionFilename).text().trim()
-
-                let candidateExtension: string | undefined = undefined
-                for (const i in PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS) {
-                    if (distributionFilenameSafe.endsWith(PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i])) {
-                        candidateExtension = PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i]
-                        break
-                    }
-                }
-                let extension: string
-                if (candidateExtension === undefined) {
-                    extension = distributionFilenameSafe.split('.').pop() as string
-                } else {
-                    extension = candidateExtension
-                }
-
-                logger.logContent(
-                    `Parsing ${distributionFilenameSafe} - given: Artifact ID = ${pathResults.groups.artifactId}, Version = ${pageVersion}, Extension = ${extension}`,
-                    LogLevel.DEBUG
+                allPagePurls = allPagePurls.concat(
+                    this.processDomFileCard(pathResults.groups.artifactId, thisVersion, $(distributionFilename))
                 )
-                const start = pathResults.groups.artifactId.length + thisVersion.length + 2
-                const end = distributionFilenameSafe.length - extension.length - 1
-                const qualifier = distributionFilenameSafe.substring(start, end)
-
-                const qualifiers = {
-                    extension: extension,
-                }
-                if (qualifier.length > 1) {
-                    qualifiers['qualifier'] = qualifier
-                }
-                
-                const p = generatePackageURL(
-                    RepoFormat.PYPI,
-                    pathResults.groups.artifactId,
-                    thisVersion,
-                    qualifiers
-                )
-                this.annotateDomForPurl(p, $(distributionFilename))
-
-                allPagePurls = allPagePurls.concat(p)
             }
         }
         
         return allPagePurls
+    }
+
+    private processDomFileCard(artifactName: string, artifactVersion: string, distributionFilename: Cash): PackageURL[] {
+        const distributionFilenameSafe = $('a:nth-child(1)', distributionFilename).text().trim()
+
+        let candidateExtension: string | undefined = undefined
+        for (const i in PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS) {
+            if (distributionFilenameSafe.endsWith(PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i])) {
+                candidateExtension = PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS[i]
+                break
+            }
+        }
+        let extension: string
+        if (candidateExtension === undefined) {
+            extension = distributionFilenameSafe.split('.').pop() as string
+        } else {
+            extension = candidateExtension
+        }
+
+        logger.logContent(
+            `Parsing ${distributionFilenameSafe} - given: Artifact ID = ${artifactName}, Version = ${artifactVersion}, Extension = ${extension}`,
+            LogLevel.DEBUG
+        )
+        const start = artifactName.length + artifactVersion.length + 2
+        const end = distributionFilenameSafe.length - extension.length - 1
+        const qualifier = distributionFilenameSafe.substring(start, end)
+
+        const qualifiers = {
+            extension: extension,
+        }
+        if (qualifier.length > 1) {
+            qualifiers['qualifier'] = qualifier
+        }
+        
+        const p = generatePackageURL(
+            RepoFormat.PYPI,
+            artifactName,
+            artifactVersion,
+            qualifiers
+        )
+        this.annotateDomForPurl(p, $(distributionFilename))
+        
+        return [p]
     }
 }
