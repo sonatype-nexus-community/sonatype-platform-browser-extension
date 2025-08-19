@@ -80,27 +80,35 @@ function getPurlHash(purl: PackageURL): number {
 function getQualifiersString(purl: PackageURL): string {
     const allQualifiers = Object.keys(purl.qualifiers ?? {})
     logger.logGeneral('All Qualifiers', LogLevel.DEBUG, allQualifiers, purl.qualifiers)
-    let qS = ''
 
-    if (purl.type === 'huggingface') {
-        if (allQualifiers.includes('extension') && allQualifiers.includes('model')) {
-            return `${purl.qualifiers ? purl.qualifiers['model'] : 'Unknown'}.${purl.qualifiers ? purl.qualifiers['extension'] : 'Unknown'}`
-        }
+    switch (purl.type) {
+        case 'huggingface':
+            return getQualifiersStringForHuggingFace(purl, allQualifiers)
+        case 'pypi':
+            return getQualifiersStringForPyPi(purl, allQualifiers)
+        default:
+            return ''
     }
-
-    if (purl.type === 'pypi') {
-        if (allQualifiers.includes('extension')) {
-            const extension = purl.qualifiers ? purl.qualifiers['extension'] : ''
-            logger.logGeneral('--> Extension', LogLevel.DEBUG, extension)
-            if (extension === 'whl') {
-                qS = `Wheel: ${purl.qualifiers ? purl.qualifiers['qualifier'] : 'Unknown'}`
-            } else {
-                qS = `Source: ${extension}`
-            }
-        }
-    }
-
-    return qS
 }
 
 export { friendlyPackageUrlString, generatePackageURL, generatePackageURLComplete, generatePackageURLWithNamespace, getPurlHash, getQualifiersString }
+
+function getQualifiersStringForHuggingFace(purl: PackageURL, allQualifiers: string[]): string {
+    if (allQualifiers.includes('extension') && allQualifiers.includes('model')) {
+        return `${purl.qualifiers ? purl.qualifiers['model'] : 'Unknown'}.${purl.qualifiers ? purl.qualifiers['extension'] : 'Unknown'}`
+    }
+    return 'HF: ?'
+}
+
+function getQualifiersStringForPyPi(purl: PackageURL, allQualifiers: string[]): string {
+    if (allQualifiers.includes('extension')) {
+        const extension = purl.qualifiers ? purl.qualifiers['extension'] : ''
+        logger.logGeneral('--> Extension', LogLevel.DEBUG, extension)
+        if (extension === 'whl') {
+            return `Wheel: ${purl.qualifiers ? purl.qualifiers['qualifier'] : 'Unknown'}`
+        } else {
+            return `Source: ${extension}`
+        }
+    }
+    return 'PyPi: ?'
+}
