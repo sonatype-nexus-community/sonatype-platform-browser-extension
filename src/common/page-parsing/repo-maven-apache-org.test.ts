@@ -41,7 +41,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
         expect(p?.version).toBe(e?.version)
         expect(p?.qualifiers).toEqual(e?.qualifiers)
     } else {
-        logger.logMessage(`Got: ${packageURLs}`, LogLevel.ERROR)
+        logger.logGeneral(`Got: ${packageURLs}`, LogLevel.ERROR)
         expect(packageURLs?.length).toBe(0)
     }
 }

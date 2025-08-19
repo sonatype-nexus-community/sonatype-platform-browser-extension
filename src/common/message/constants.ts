@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 export enum MessageRequestType {
     // Sent to Content Script to annotate page with Component Statuses
     ANNOTATE_PAGE_COMPONENT_IDENTITIES = 100,
@@ -38,9 +37,6 @@ export enum MessageRequestType {
 
     // Request to load a Vulnerability from IQ Server
     LOAD_VULNERABILITY,
-    
-    // Used once Component Evaluation has completed - with the headline results
-    // PAGE_COMPONENTS_EVALUATED,
 
     // Sent by the Content Script once it has parsed component identited from the current page (if supported)
     PAGE_COMPONENT_IDENTITIES,

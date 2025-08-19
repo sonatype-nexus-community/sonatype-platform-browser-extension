@@ -43,4 +43,4 @@ export enum SIDE_PANEL_MODE {
     VULNERABILITY
 }
 
-export const ThisBrowser = chrome ? chrome : browser
+export const ThisBrowser = chrome || browser

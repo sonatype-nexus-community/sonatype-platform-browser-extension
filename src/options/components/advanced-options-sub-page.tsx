@@ -96,7 +96,7 @@ export default function AdvancedOptionsSubPage() {
                                         .map((val, key) => {
                                             return (
                                                 <option
-                                                    key={key}
+                                                    key={`log-level-${key}`}
                                                     value={key}
                                                 >
                                                     {LogLevel[key]}

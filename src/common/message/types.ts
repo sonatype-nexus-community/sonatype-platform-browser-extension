@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { ApiApplicationDTO, SecurityVulnerabilityDataDTO } from "@sonatype/nexus-iq-api-client"
 import { ExtensionConfiguration, SonatypeSolutionSupport } from "../configuration/types"
 import { ComponentStateType } from "../constants"
@@ -69,12 +68,6 @@ export interface MessageRequestLoadVulnerability extends MessageRequest {
     vulnerabilityReference: string
 }
 
-// export interface MessageReqeustPageComponentsEvaluated extends MessageRequest {
-//     messageType: MessageRequestType.PAGE_COMPONENTS_EVALUATED,
-//     maxThreatLevel: ThreatLevelNumber
-//     tabId: number
-// }
-
 export interface MessageRequestSetNewExtensionConfiguration extends MessageRequest {
     messageType: MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION
 	newExtensionConfig: ExtensionConfiguration
@@ -109,7 +102,6 @@ export type AnyMessageRequest = MessageRequestAnnotatePageWithComponentStatuses
     | MessageRequestLoadApplications
     | MessageRequestLoadVulnerability
     | MessageRequestPageComponentIdentitiesParsed
-    // | MessageReqeustPageComponentsEvaluated
     | MessageRequestRequestComponentIdentitiesFromPage
     | MessageRequestSetNewExtensionConfiguration
 
@@ -119,12 +111,9 @@ export interface MessageResponse {
     status: MessageResponseStatus
     status_detail?: string
     status_error?: Error
-    // data?: object
 }
 
-export type MessageResponseFunction = {
-    (response: AnyResponse): void
-}
+export type MessageResponseFunction = (response: AnyResponse) => void
 
 export interface MessageResponseExtensionConfigurationUpdated extends MessageResponse {
     newConfiguration: ExtensionConfiguration
