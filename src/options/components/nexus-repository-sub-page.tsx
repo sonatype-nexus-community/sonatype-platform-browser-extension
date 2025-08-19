@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 import { faSpinner, faTrashAlt, IconDefinition } from "@fortawesome/free-solid-svg-icons"
-import { NxButton, NxDescriptionList, NxDivider, NxErrorAlert, NxFontAwesomeIcon, NxFormGroup, NxFormSelect, NxGrid, NxPageMain, NxPageTitle, NxSmallTag, NxTextInput, NxTile } from "@sonatype/react-shared-components"
+import { NxButton, NxDescriptionList, NxErrorAlert, NxFontAwesomeIcon, NxFormGroup, NxGrid, NxPageMain, NxPageTitle, NxSmallTag, NxTextInput, NxTile } from "@sonatype/react-shared-components"
 import { initialState, userInput } from "@sonatype/react-shared-components/components/NxTextInput/stateHelpers"
 import React, { useContext, useState } from "react"
 import { SonatypeNexusRepostitoryHost } from "../../common/configuration/types"
 import { ThisBrowser } from "../../common/constants"
 import { ExtensionConfigurationContext } from "../../common/context/extension-configuration"
 import { logger, LogLevel } from "../../common/logger"
-import { isHttpUriValidator } from "./validators"
 import ExtensionConfigurationStateHelper from "../configuration-state-helper"
+import { isHttpUriValidator } from "./validators"
 
 export default function NexusRepositoryOptionsSubPage() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)

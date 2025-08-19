@@ -37,56 +37,54 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
     }
 
     return (
-        <>
-            <section className='nx-tile'>
-                <header className='nx-tile-header'>
-                    <div className='nx-tile-header__title'>
-                        <h3 className='nx-h3'>{props.component.componentDetails?.component?.displayName as string}</h3>
-                    </div>
-                </header>
-                <div className='nx-tile-content'>
-                    <NxTable>
-                        <NxTable.Body>
+        <section className='nx-tile'>
+            <header className='nx-tile-header'>
+                <div className='nx-tile-header__title'>
+                    <h3 className='nx-h3'>{props.component.componentDetails?.component?.displayName as string}</h3>
+                </div>
+            </header>
+            <div className='nx-tile-content'>
+                <NxTable>
+                    <NxTable.Body>
+                        <NxTable.Row>
+                            <NxTable.Cell>Policy Violations</NxTable.Cell>
+                            <NxTable.Cell>
+                                <NxSmallThreatCounter
+                                    criticalCount={policyThreatLevelSummary?.criticalCount}
+                                    severeCount={policyThreatLevelSummary?.severeCount}
+                                    moderateCount={policyThreatLevelSummary?.moderateCount}
+                                    lowCount={policyThreatLevelSummary?.lowCount}
+                                />
+                            </NxTable.Cell>
+                        </NxTable.Row>
+                        {props.component.componentDetails?.catalogDate !== undefined && (
                             <NxTable.Row>
-                                <NxTable.Cell>Policy Violations</NxTable.Cell>
+                                <NxTable.Cell>{ThisBrowser.i18n.getMessage('CATALOG_DATE')}</NxTable.Cell>
                                 <NxTable.Cell>
-                                    <NxSmallThreatCounter
-                                        criticalCount={policyThreatLevelSummary?.criticalCount}
-                                        severeCount={policyThreatLevelSummary?.severeCount}
-                                        moderateCount={policyThreatLevelSummary?.moderateCount}
-                                        lowCount={policyThreatLevelSummary?.lowCount}
-                                    />
+                                    {formatDate(new Date(props.component.componentDetails?.catalogDate))}
                                 </NxTable.Cell>
                             </NxTable.Row>
-                            {props.component.componentDetails?.catalogDate !== undefined && (
-                                <NxTable.Row>
-                                    <NxTable.Cell>{ThisBrowser.i18n.getMessage('CATALOG_DATE')}</NxTable.Cell>
-                                    <NxTable.Cell>
-                                        {formatDate(new Date(props.component.componentDetails?.catalogDate))}
-                                    </NxTable.Cell>
-                                </NxTable.Row>
-                            )}
-                            {props.component.componentDetails?.integrityRating !== undefined && (
-                                <NxTable.Row>
-                                    <NxTable.Cell>{ThisBrowser.i18n.getMessage('INTEGRITY_RATING')}</NxTable.Cell>
-                                    <NxTable.Cell>{props.component.componentDetails?.integrityRating}</NxTable.Cell>
-                                </NxTable.Row>
-                            )}
-                        </NxTable.Body>
-                    </NxTable>
-                </div>
-                <div className='nx-tile-content nx-tile-content--accordion-container'>
-                    <RemediationSection remediationDetails={props.component.componentRemediationDetails} />
-                    <PolicySection policyData={props.component.componentDetails?.policyData} />
-                    <SecuritySection securityData={props.component.componentDetails?.securityData} />
-                    <LegalSection
-                        declared={legalPolicyUtils.getDeclaredWithThreatLevel()}
-                        effective={legalPolicyUtils.getEffectivedWithThreatLevel()}
-                        observed={legalPolicyUtils.getObservedWithThreatLevel()}
-                        licenseData={props.component.componentDetails?.licenseData}
-                    />
-                </div>
-            </section>
-        </>
+                        )}
+                        {props.component.componentDetails?.integrityRating !== undefined && (
+                            <NxTable.Row>
+                                <NxTable.Cell>{ThisBrowser.i18n.getMessage('INTEGRITY_RATING')}</NxTable.Cell>
+                                <NxTable.Cell>{props.component.componentDetails?.integrityRating}</NxTable.Cell>
+                            </NxTable.Row>
+                        )}
+                    </NxTable.Body>
+                </NxTable>
+            </div>
+            <div className='nx-tile-content nx-tile-content--accordion-container'>
+                <RemediationSection remediationDetails={props.component.componentRemediationDetails} />
+                <PolicySection policyData={props.component.componentDetails?.policyData} />
+                <SecuritySection securityData={props.component.componentDetails?.securityData} />
+                <LegalSection
+                    declared={legalPolicyUtils.getDeclaredWithThreatLevel()}
+                    effective={legalPolicyUtils.getEffectivedWithThreatLevel()}
+                    observed={legalPolicyUtils.getObservedWithThreatLevel()}
+                    licenseData={props.component.componentDetails?.licenseData}
+                />
+            </div>
+        </section>
     )
 }

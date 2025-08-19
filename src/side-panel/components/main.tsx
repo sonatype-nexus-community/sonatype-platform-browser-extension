@@ -48,15 +48,11 @@ export default function MainSidePanel() {
         switch (mode) {
             case SIDE_PANEL_MODE.COMPONENTS:
                 return (
-                    <>
-                        <Components />
-                    </>
+                    <Components />
                 )
             case SIDE_PANEL_MODE.VULNERABILITY:
                 return (
-                    <>
-                        <VulnerabilityPanel vulnerabilityReference={vulnerabilityReference} />
-                    </>
+                    <VulnerabilityPanel vulnerabilityReference={vulnerabilityReference} />
                 )
         }
     }

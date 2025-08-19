@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
+import { logger, LogLevel } from "../../common/logger"
+
 const nonEmptyValidator = (val: string) => (val?.length ? null : 'Must be non-empty')
 
 const isHttpUriValidator = (val: string) => {
-    let url
+    let url: URL
     try {
         url = new URL(val)
-    } catch (_) {
+    } catch (err) {
+        logger.logReact("URI did not validate", LogLevel.DEBUG, err)
         return false
     }
 
