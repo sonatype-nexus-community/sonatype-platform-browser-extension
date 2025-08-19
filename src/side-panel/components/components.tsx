@@ -36,11 +36,19 @@ export default function Components() {
         if (extensionTabDataContext.components != undefined) {
             const newPurls = Object.keys(extensionTabDataContext.components)
             if (extensionTabDataContext.status === TabDataStatus.COMPLETE) {
-                if (JSON.stringify(componentPurls.sort()) !== JSON.stringify(newPurls.sort())) {
-                    logger.logReact("Setting Component Purls", LogLevel.DEBUG, newPurls)
-                    setComponentPurls(newPurls)
-                    setCurrentPurl(newPurls[0])
-                    setCurrentComponent(extensionTabDataContext.components[newPurls[0]])
+                // Sort arrays using localeCompare for proper string comparison
+                const sortedCurrentPurls = [...componentPurls].sort((a, b) => a.localeCompare(b));
+                const sortedNewPurls = [...newPurls].sort((a, b) => a.localeCompare(b));
+                
+                // Compare arrays element by element instead of JSON stringify
+                const arraysAreEqual = sortedCurrentPurls.length === sortedNewPurls.length &&
+                    sortedCurrentPurls.every((purl, index) => purl === sortedNewPurls[index]);
+                
+                if (!arraysAreEqual) {
+                    logger.logReact("Setting Component Purls", LogLevel.DEBUG, newPurls);
+                    setComponentPurls(newPurls);
+                    setCurrentPurl(newPurls[0]);
+                    setCurrentComponent(extensionTabDataContext.components[newPurls[0]]);
                 }
             }
         }
