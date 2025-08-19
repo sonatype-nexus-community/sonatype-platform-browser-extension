@@ -15,7 +15,7 @@
  */
 import React, { useEffect, useState } from "react"
 import { ApiComponentPolicyViolationListDTOV2, ApiPolicyViolationDTOV2 } from "@sonatype/nexus-iq-api-client"
-import { NxStatefulAccordion, NxAccordion, NxTable, NxPolicyViolationIndicator, ThreatLevelNumber } from "@sonatype/react-shared-components"
+import { NxStatefulAccordion, NxAccordion, NxTable, NxPolicyViolationIndicator, ThreatLevelNumber, getUniqueId } from "@sonatype/react-shared-components"
 import { ThisBrowser } from "../../../common/constants"
 
 export default function PolicySection(props: Readonly<{ policyData: ApiComponentPolicyViolationListDTOV2 | undefined }>) {
@@ -50,9 +50,9 @@ export default function PolicySection(props: Readonly<{ policyData: ApiComponent
                     </NxTable.Row>
                 </NxTable.Head>
                 <NxTable.Body emptyMessage="No Policy Violations">
-                    {sortedIssues.map((pv, i) => {
+                    {sortedIssues.map((pv) => {
                         return (
-                            <NxTable.Row key={`policy-${i}`}>
+                            <NxTable.Row key={getUniqueId('policy')}>
                                 <NxTable.Cell>
                                     <NxPolicyViolationIndicator policyThreatLevel={pv.threatLevel as ThreatLevelNumber}>{pv.threatLevel?.toString()}</NxPolicyViolationIndicator>
                                 </NxTable.Cell>

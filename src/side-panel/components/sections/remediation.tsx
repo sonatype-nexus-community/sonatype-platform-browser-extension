@@ -15,7 +15,7 @@
  */
 import { faSpinner, faStar } from '@fortawesome/free-solid-svg-icons'
 import { ApiComponentRemediationValueDTO } from '@sonatype/nexus-iq-api-client'
-import { NxAccordion, NxFontAwesomeIcon, useToggle } from '@sonatype/react-shared-components'
+import { getUniqueId, NxAccordion, NxFontAwesomeIcon, useToggle } from '@sonatype/react-shared-components'
 import { PackageURL } from 'packageurl-js'
 import React, { useEffect, useState } from 'react'
 import { ThisBrowser } from '../../../common/constants'
@@ -95,11 +95,11 @@ export default function RemediationSection(
                 <>
                     <h3 className='nx-h3'>{ThisBrowser.i18n.getMessage('RECOMMENDED_VERSIONS')}</h3>
                     <ul className='nx-list'>
-                        {props.remediationDetails?.versionChanges?.map((versionChange, idx) => {
+                        {props.remediationDetails?.versionChanges?.map((versionChange) => {
                             return (
                                 <li
                                     className='nx-list__item'
-                                    key={`version-change-${idx}`}
+                                    key={getUniqueId('version-change')}
                                 >
                                     <span className='nx-list__text'>
                                         {PackageURL.fromString(versionChange.data?.component?.packageUrl || '').version}

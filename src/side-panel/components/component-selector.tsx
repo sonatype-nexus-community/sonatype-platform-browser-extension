@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { NxFormGroup, NxFormSelect, nxFormSelectStateHelpers } from '@sonatype/react-shared-components'
+import { getUniqueId, NxFormGroup, NxFormSelect, nxFormSelectStateHelpers } from '@sonatype/react-shared-components'
 import React from 'react'
 import { PackageURL } from 'packageurl-js'
 import { friendlyPackageUrlString } from '../../common/purl-utils'
@@ -38,10 +38,10 @@ export default function ComponentSelector(
             <div className="nx-tile-content">
                 <NxFormGroup label={`Select Component`} sublabel="Multiple components identified - choose which to view details on">
                     <NxFormSelect onChange={onChange} {...selectedComponent} className="nx-form-select--long">
-                        {props.componentPurls.map((purl, i) => {
+                        {props.componentPurls.map((purl) => {
                             const packageUrl = PackageURL.fromString(purl)
                             return (
-                                <option key={`purl-${i}`} value={purl}>{friendlyPackageUrlString(packageUrl)}</option>
+                                <option key={getUniqueId('purl')} value={purl}>{friendlyPackageUrlString(packageUrl)}</option>
                             )
                         })}
                     </NxFormSelect>

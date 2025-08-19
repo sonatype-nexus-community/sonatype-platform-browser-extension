@@ -15,7 +15,7 @@
  */
 import React, { useEffect, useState } from "react"
 import { ApiSecurityDataDTO, ApiSecurityIssueDTO } from "@sonatype/nexus-iq-api-client"
-import { NxStatefulAccordion, NxAccordion, NxTable, formatVulnerabilityScore, NxVulnerabilityIndicator, VulnerabilitySeverityRating } from "@sonatype/react-shared-components"
+import { NxStatefulAccordion, NxAccordion, NxTable, formatVulnerabilityScore, NxVulnerabilityIndicator, VulnerabilitySeverityRating, getUniqueId } from "@sonatype/react-shared-components"
 import { ThisBrowser } from "../../../common/constants"
 import { logger, LogLevel } from "../../../common/logger"
 
@@ -55,9 +55,9 @@ export default function SecuritySection(props: Readonly<{ securityData: ApiSecur
                     </NxTable.Row>
                 </NxTable.Head>
                 <NxTable.Body emptyMessage="No Security Issues">
-                    {sortedIssues.map((si, i) => {
+                    {sortedIssues.map((si) => {
                         return (
-                            <NxTable.Row isClickable key={`security-${i}`} onClick={() => {
+                            <NxTable.Row isClickable key={getUniqueId('security')} onClick={() => {
                                 const dest = `/side-panel.html?vulnerabilityReference=${si.reference as string}`
                                 logger.logReact("Request to navigate Side Panel", LogLevel.DEBUG, dest)
                                 window.location.href = dest

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxDivider, NxFormGroup, NxFormSelect, NxGrid, NxPageMain, NxPageTitle, NxStatefulCheckbox, NxTile } from '@sonatype/react-shared-components'
+import { getUniqueId, NxDivider, NxFormGroup, NxFormSelect, NxGrid, NxPageMain, NxPageTitle, NxStatefulCheckbox, NxTile } from '@sonatype/react-shared-components'
 import React, { useContext } from 'react'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
@@ -96,7 +96,7 @@ export default function AdvancedOptionsSubPage() {
                                         .map((val, key) => {
                                             return (
                                                 <option
-                                                    key={`log-level-${key}`}
+                                                    key={getUniqueId('log-level')}
                                                     value={key}
                                                 >
                                                     {LogLevel[key]}
