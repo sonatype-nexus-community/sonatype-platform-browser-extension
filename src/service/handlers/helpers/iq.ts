@@ -26,7 +26,7 @@ const extensionManifest = ThisBrowser.runtime.getManifest()
 
 export class IqMessageHelper {
 
-    public constructor(private extensionConfigState: ExtensionConfigurationState) { }
+    public constructor(private readonly extensionConfigState: ExtensionConfigurationState) { }
 
     public async checkConnectivityAndDetermineIqVersion(): Promise<MessageResponseIqConnectivityAndVersionCheck> {
         try {
@@ -125,7 +125,7 @@ export class IqMessageHelper {
                 1000
             )
             return promise
-        }).catch((err) => {
+        }).catch((err: Error) => {
             return Promise.reject(err)
         })
     }
@@ -145,7 +145,7 @@ export class IqMessageHelper {
         }
     }
 
-    private pollForComponentsEvaluationResult = (applicationId: string, resultId: string, pollIntervalSeconds: number): {
+    private readonly pollForComponentsEvaluationResult = (applicationId: string, resultId: string, pollIntervalSeconds: number): {
         promise: Promise<ApiComponentEvaluationResultDTOV2>;
         stopPolling: () => void;
     } => {
@@ -291,7 +291,7 @@ export class IqMessageHelper {
         return iqVersion ? Number(iqVersion) : NaN
     }
 
-    private handleIqError = (err: Error): Error =>  {
+    private readonly handleIqError = (err: Error): Error =>  {
         logger.logServiceWorker("Handling Error from Sonatype IQ", LogLevel.DEBUG, err)
         if (err instanceof ResponseError) {
             if (err.response.status > 400 && err.response.status < 404) {

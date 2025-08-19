@@ -52,7 +52,7 @@
     border-top: none;
     border-right: none;
     border-left: 6px;
-    border-right: none;
+    border-bottom: none;
     border-style: solid;
     padding-right: 15px !important;
     padding-left: 10px !important;
@@ -70,7 +70,7 @@
     border-top: none;
     border-right: none;
     border-left: 3px;
-    border-right: none;
+    border-bottom: none;
     border-style: solid;
     padding-right: 15px !important;
     padding-left: 10px !important;

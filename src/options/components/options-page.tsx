@@ -82,11 +82,6 @@ export default function OptionsPage() {
                         <span role="status" className="nx-status-indicator nx-status-indicator--positive">Connected to Sonatype IQ {extensionConfigContext.iqVersion}</span>
                     </>
                 )}
-                {/* {configurationComplete && !extensionConfigContext.iqAuthenticated && (
-                    <>
-                        <span role="status" className="nx-status-indicator nx-status-indicator--intermediate">Checking...</span>
-                    </>
-                )} */}
                 {!configurationComplete && (
                     <>
                         <span role="status" className="nx-status-indicator nx-status-indicator--negative">Not configured</span>

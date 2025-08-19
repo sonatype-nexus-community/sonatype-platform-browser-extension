@@ -23,8 +23,8 @@ import { PolicyThreatLevelUtil } from '../../../common/policy/policy-util'
 
 export class NotificationHelper {
     public constructor(
-        private extensionConfigState: ExtensionConfigurationState,
-        private extensionDataState: ExtensionDataState
+        private readonly extensionConfigState: ExtensionConfigurationState,
+        private readonly extensionDataState: ExtensionDataState
     ) {}
 
     notifyOnComponentEvaluationComplete = (tabId: number): Promise<void> => {

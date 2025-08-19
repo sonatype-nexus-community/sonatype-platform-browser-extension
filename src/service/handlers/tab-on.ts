@@ -153,7 +153,7 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
         }
     }
 
-    private disableExtensionForTab = (url: string, tabId: number): void => {
+    private readonly disableExtensionForTab = (url: string, tabId: number): void => {
         logger.logServiceWorker(
             `Disabling Sonatype Browser Extension for ${url} - Not a supported Registry.`,
             LogLevel.DEBUG,

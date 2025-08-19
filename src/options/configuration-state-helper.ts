@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from "../common/configuration/types"
 import { ThisBrowser } from "../common/constants"
 import { logger, LogLevel } from "../common/logger"
@@ -39,7 +38,7 @@ export default class ExtensionConfigurationStateHelper {
      */
     public static getUnifiedIqUrl(): string {
         logger.logReact("ExtensionConfigurationStateHelper.getUnifiedIqUrl", LogLevel.DEBUG, ExtensionConfigurationStateHelper.extensionConfiguration)
-        if (ExtensionConfigurationStateHelper.extensionConfiguration && ExtensionConfigurationStateHelper.extensionConfiguration.host !== undefined) {
+        if (ExtensionConfigurationStateHelper.extensionConfiguration?.host !== undefined) {
             if (ExtensionConfigurationStateHelper.extensionConfiguration.host.endsWith('/')) {
                 return ExtensionConfigurationStateHelper.extensionConfiguration.host
             } else {

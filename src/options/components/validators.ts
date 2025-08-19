@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-const nonEmptyValidator = (val: string) => (val && val.length ? null : 'Must be non-empty')
+const nonEmptyValidator = (val: string) => (val?.length ? null : 'Must be non-empty')
 
 const isHttpUriValidator = (val: string) => {
     let url

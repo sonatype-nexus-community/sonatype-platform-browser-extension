@@ -30,7 +30,7 @@ import { LoadVulnerabilityMessageHandler } from './runtime-on-message/load-vulne
 import { PersistExtensionConfigurationMessageHandler } from './runtime-on-message/persist-extension-configuration'
 
 export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandler {
-    private iqMessageHelper: IqMessageHelper
+    private readonly iqMessageHelper: IqMessageHelper
 
     constructor(
         protected readonly analytics: Analytics,
@@ -75,13 +75,6 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
                     this.extensionDataState.vulnerabilityData
                 )
                 break
-            // case MessageRequestType.PAGE_COMPONENT_IDENTITIES:
-            //     messageHandler = new PageComponentIdentitiesParsedMessageHandler(
-            //         this.extensionConfigurationState,
-            //         this.iqMessageHelper,
-            //         this.extensionDataState
-            //     )
-            //     break
             case MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION:
                 messageHandler = new PersistExtensionConfigurationMessageHandler(
                     this.extensionConfigurationState,

@@ -16,6 +16,7 @@
 import { ExtensionConfiguration, DEFAULT_EXTENSION_SETTINGS } from "../common/configuration/types"
 import { ThisBrowser, STORAGE_KEY_SETTINGS, STORAGE_KEY_TABS, STORAGE_KEY_VULNERABILITIES } from "../common/constants"
 import { DEFAULT_TABS_DATA, DEFAULT_VULNERABILITY_DATA, ExtensionTabsData, ExtensionVulnerabilitiesData } from "../common/data/types"
+import { ExtensionError } from "../common/error"
 import { logger, LogLevel } from "../common/logger"
 
 export async function loadExtensionSettings(): Promise<ExtensionConfiguration> {
@@ -23,7 +24,7 @@ export async function loadExtensionSettings(): Promise<ExtensionConfiguration> {
     const storageSettings = await ThisBrowser.storage.local.get([STORAGE_KEY_SETTINGS])
     if (ThisBrowser.runtime.lastError) {
       logger.logServiceWorker("Failed reading local storage", LogLevel.ERROR)
-      Promise.reject()
+      Promise.reject(new ExtensionError('Failed reading Extension Settings from local storage'))
     }
     logger.logServiceWorker("Read Settings from Local Storage", LogLevel.DEBUG, storageSettings)
     return storageSettings.settings as ExtensionConfiguration
@@ -38,7 +39,7 @@ export async function loadExtensionDataAndSettings(): Promise<{ settings: Extens
     const localStorage = await ThisBrowser.storage.local.get([STORAGE_KEY_SETTINGS, STORAGE_KEY_TABS, STORAGE_KEY_VULNERABILITIES])
     if (ThisBrowser.runtime.lastError) {
       logger.logServiceWorker("Failed reading local storage", LogLevel.ERROR)
-      Promise.reject()
+      Promise.reject(new ExtensionError('Failed reading Extension Data and Settings from local storage'))
     }
     logger.logServiceWorker("Read Data & Settings from Local Storage", LogLevel.DEBUG, localStorage)
     return {
