@@ -57,7 +57,7 @@ export class Analytics {
         const currentTimeInMs = Date.now()
         // Check if session exists and is still valid
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (sessionData && sessionData.timestamp) {
+        if (sessionData?.timestamp) {
             // Calculate how long ago the session was last updated
             const durationInMin = (currentTimeInMs - sessionData.timestamp) / 60000
             // Check if last update lays past the session expiration threshold

@@ -31,10 +31,7 @@ export abstract class ExtensionConfigurationState {
     }
 
     public getAnalytics = (): Analytics => {
-        if (!this.analytics) {
-            this.analytics = new Analytics()
-        }
-        return this.analytics
+        return this.analytics ?? new Analytics()
     }
 
     public getExtensionConfig = (): ExtensionConfiguration => {
@@ -67,7 +64,7 @@ export abstract class ExtensionConfigurationState {
     }
 
     protected ensureNxrmServersRegistered = () => {
-        if (this.extensionConfig !== undefined && this.extensionConfig.sonatypeNexusRepositoryHosts !== undefined) {
+        if (this.extensionConfig?.sonatypeNexusRepositoryHosts !== undefined) {
             this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
                 logger.logGeneral(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
                 DefaultRepoRegistry.registerNxrm3(nxrmHost)

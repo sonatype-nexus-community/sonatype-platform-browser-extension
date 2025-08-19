@@ -63,13 +63,13 @@ export class ComponentLegalUtil {
         this.recalculateData()
     }
 
-    private recalculateData = () => {
+    private readonly recalculateData = () => {
         logger.logGeneral('ComponentLegalUtil.recalculateData starting', LogLevel.DEBUG)
         this.declaredWithThreatLevel = []
         this.effectiveWithThreatLevel = []
         this.observedWithThreatLevel = []
 
-        if (!this.componentData || !this.componentData.componentDetails) return
+        if (!this.componentData?.componentDetails) return
 
         this.declaredWithThreatLevel = this.recalculateLicenses(
             this.componentData.componentDetails.licenseData?.declaredLicenses || []
