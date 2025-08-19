@@ -30,7 +30,7 @@ export class RepoMavenApacheOrgRepo extends BaseRepo {
 
     readonly versionPath: string = '{groupId}/{artifactId}/{version}'
 
-    readonly pathRegex: RegExp = /^(?<groupArtifactId>([^#?&]+)+)\/(?<version>[^/#&?]+)\/?(\?(?<query>([^#]+)))?(#(?<fragment>(.*)))?/
+    readonly pathRegex: RegExp = /^(?<groupArtifactId>[^#?&/]+(?:[^#?&][^#?&/]*)*)\/(?<version>[^/#&?]+)(?:\/)?(?:\?(?<query>[^#]+))?(?:#(?<fragment>.*))?$/
 
     readonly versionDomPath: string = ''
 

@@ -102,7 +102,7 @@ export class ComponentLegalUtil {
 
 export function parseLicenseFromReason(reason: string): string | undefined {
     // eslint-disable-next-line no-useless-escape
-    const matches = /^[^(]+\(\'(?<licenseId>[^']+)\'\)$/gm.exec(reason)
+    const matches = /^[^(]*?\(\'(?<licenseId>[^']+)\'\)$/gm.exec(reason)
 
     if (matches?.groups?.licenseId) {
         return matches?.groups?.licenseId

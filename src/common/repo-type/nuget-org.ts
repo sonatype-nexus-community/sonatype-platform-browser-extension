@@ -30,7 +30,7 @@ export class NugetOrgRepo extends BaseRepo {
 
     readonly versionPath: string = '{artifactId}/{version}'
 
-    readonly pathRegex: RegExp = /^(?<artifactId>[^/?#]+)\/?((?<version>[^/?#]+)\/?)?(\?(?<query>([^#]+)))?(#(?<fragment>(.*)))?$/
+    readonly pathRegex: RegExp = /^(?<artifactId>[^/?#]*?)(?:\/(?<version>[^/?#]*?))?(?:\/)?(?:\?(?<query>[^#]*?))?(?:#(?<fragment>.*))?$/
 
     readonly versionDomPath: string = 'span.version-title'
 
