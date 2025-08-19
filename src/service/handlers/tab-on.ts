@@ -19,9 +19,7 @@ import { ComponentStateType, ThisBrowser } from '../../common/constants'
 import { TabDataStatus } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
 import { MessageRequestType } from '../../common/message/constants'
-import {
-    MessageResponsePageComponentIdentitiesParsed
-} from '../../common/message/types'
+import { MessageResponsePageComponentIdentitiesParsed } from '../../common/message/types'
 import { DefaultRepoRegistry } from '../../common/repo-registry'
 import { ActiveInfo, ChangeInfo, TabType } from '../../common/types'
 import { BaseServiceWorkerHandler } from './base'
@@ -53,104 +51,135 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
 
     protected enableDisableExtensionForUrl = (url: string, tabId: number): void => {
         const repoType = DefaultRepoRegistry.getRepoForUrl(url)
-        if (repoType !== undefined) {
-            logger.logServiceWorker('enableDisableExtensionForUrl', LogLevel.DEBUG, url, tabId, repoType)
-            ThisBrowser.tabs
-                .sendMessage(tabId, {
-                    messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
-                    repoTypeId: repoType.id,
-                })
-                .then((msgResponse) => {
-                    logger.logServiceWorker('Component Identitied from Content Script', LogLevel.DEBUG, msgResponse)
-                    const newExtensionTabsData = this.extensionDataState.tabsData
-                    const respPageComponentIdentitiesParsed =
-                        msgResponse as MessageResponsePageComponentIdentitiesParsed
 
-                    if (respPageComponentIdentitiesParsed.componentIdentities.length === 0) {
-                        this.extensionDataState.tabsData.tabs[tabId] = {
-                            tabId,
-                            components: {},
-                            status: TabDataStatus.NO_COMPONENTS,
-                            repoTypeId: repoType.id
-                        }
-                        return this.updateExtensionTabData(newExtensionTabsData).then(() => {})
-                        //     .then((msgResponse) => {
-                        //     sendResponse(msgResponse)
-                        // })
-                    } else {
-                        newExtensionTabsData.tabs[tabId] = {
-                            tabId,
-                            components: {},
-                            status: TabDataStatus.EVALUATING,
-                            repoTypeId: repoType.id
-                        }
-
-                        const iqMessageHelper = new IqMessageHelper(this.extensionConfigurationState)
-
-                        return this.updateExtensionTabData(newExtensionTabsData).then(() => {
-                            return iqMessageHelper
-                                .evaluateComponents(respPageComponentIdentitiesParsed.componentIdentities)
-                                .then((evaluationResults) => {
-                                    evaluationResults.results?.forEach((result) => {
-                                        if (result.component?.packageUrl != undefined)
-                                            newExtensionTabsData.tabs[tabId].components[
-                                                result.component?.packageUrl as string
-                                            ] = {
-                                                componentDetails: ApiComponentDetailsDTOV2ToJSON(result),
-                                                componentEvaluationDateTime:
-                                                    evaluationResults.evaluationDate?.toISOString() || '',
-                                                allComponentVersions: [],
-                                                componentLegalDegtails: [],
-                                                componentRemediationDetails: undefined,
-                                            }
-                                    })
-                                    newExtensionTabsData.tabs[tabId]['status'] = TabDataStatus.COMPLETE
-                                    this.extensionDataState.tabsData = newExtensionTabsData
-
-                                    return this.updateExtensionTabData(newExtensionTabsData).then((msgResponse) => {
-                                        const notificationHelper = new NotificationHelper(
-                                            this.extensionConfigurationState,
-                                            this.extensionDataState
-                                        )
-                                        const ps: Promise<void>[] = []
-                                        evaluationResults.results?.forEach((compEvalResult) => {
-                                            ps.push(
-                                                iqMessageHelper
-                                                    .getComponentRemediationDetails(
-                                                        compEvalResult.component?.packageUrl as string
-                                                    )
-                                                    .then((remediationResponse) => {
-                                                        newExtensionTabsData.tabs[tabId].components[
-                                                            compEvalResult.component?.packageUrl as string
-                                                        ].componentRemediationDetails = remediationResponse.remediation
-                                                    })
-                                            )
-                                        })
-                                        Promise.all(ps).then(() => {
-                                            logger.logServiceWorker(
-                                                'All Component Remediation Calls in',
-                                                LogLevel.DEBUG
-                                            )
-                                            return this.updateExtensionTabData(newExtensionTabsData).then(
-                                                (msgResponse) => {
-                                                    return notificationHelper.notifyOnComponentEvaluationComplete(tabId)
-                                                }
-                                            )
-                                        })
-                                    })
-                                })
-                        })
-                    }
-                })
-        } else {
-            logger.logServiceWorker('Disabling for current Tab', LogLevel.INFO, tabId)
-            // chrome.sidePanel.setOptions({
-            //     tabId,
-            //     enabled: false,
-            //     path: `side-panel.html?tabId=${tabId}#6`,
-            // })
-            this.disableExtensionForTab(url, tabId)
+        if (repoType === undefined) {
+            this.handleUnsupportedUrl(url, tabId)
+            return
         }
+
+        logger.logServiceWorker('enableDisableExtensionForUrl', LogLevel.DEBUG, url, tabId, repoType)
+        this.processTabForRepo(url, tabId, repoType)
+    }
+
+    private handleUnsupportedUrl(url: string, tabId: number): void {
+        logger.logServiceWorker('Disabling for current Tab', LogLevel.INFO, tabId)
+        this.disableExtensionForTab(url, tabId)
+    }
+
+    private async processTabForRepo(url: string, tabId: number, repoType: any): Promise<void> {
+        try {
+            const msgResponse = await ThisBrowser.tabs.sendMessage(tabId, {
+                messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
+                repoTypeId: repoType.id,
+            })
+
+            logger.logServiceWorker('Component Identified from Content Script', LogLevel.DEBUG, msgResponse)
+
+            const componentIdentities = (msgResponse as MessageResponsePageComponentIdentitiesParsed)
+                .componentIdentities
+
+            if (componentIdentities.length === 0) {
+                await this.handleNoComponents(tabId, repoType.id)
+            } else {
+                await this.handleComponentsFound(tabId, repoType.id, componentIdentities)
+            }
+        } catch (error) {
+            logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error)
+        }
+    }
+
+    private async handleNoComponents(tabId: number, repoTypeId: string): Promise<void> {
+        const newExtensionTabsData = this.extensionDataState.tabsData
+
+        newExtensionTabsData.tabs[tabId] = {
+            tabId,
+            components: {},
+            status: TabDataStatus.NO_COMPONENTS,
+            repoTypeId,
+        }
+
+        await this.updateExtensionTabData(newExtensionTabsData)
+    }
+
+    private async handleComponentsFound(tabId: number, repoTypeId: string, componentIdentities: any[]): Promise<void> {
+        const newExtensionTabsData = this.extensionDataState.tabsData
+
+        // Set initial evaluating state
+        newExtensionTabsData.tabs[tabId] = {
+            tabId,
+            components: {},
+            status: TabDataStatus.EVALUATING,
+            repoTypeId,
+        }
+
+        await this.updateExtensionTabData(newExtensionTabsData)
+
+        // Evaluate components
+        const iqMessageHelper = new IqMessageHelper(this.extensionConfigurationState)
+        const evaluationResults = await iqMessageHelper.evaluateComponents(componentIdentities)
+
+        this.processEvaluationResults(tabId, newExtensionTabsData, evaluationResults)
+
+        await this.updateExtensionTabData(newExtensionTabsData)
+        await this.fetchRemediationDetailsAndNotify(tabId, newExtensionTabsData, evaluationResults, iqMessageHelper)
+    }
+
+    private processEvaluationResults(tabId: number, tabsData: any, evaluationResults: any): void {
+        evaluationResults.results?.forEach((result: any) => {
+            if (result.component?.packageUrl !== undefined) {
+                tabsData.tabs[tabId].components[result.component.packageUrl] = {
+                    componentDetails: ApiComponentDetailsDTOV2ToJSON(result),
+                    componentEvaluationDateTime: evaluationResults.evaluationDate?.toISOString() || '',
+                    allComponentVersions: [],
+                    componentLegalDegtails: [], // Note: keeping original typo for compatibility
+                    componentRemediationDetails: undefined,
+                }
+            }
+        })
+
+        tabsData.tabs[tabId].status = TabDataStatus.COMPLETE
+        this.extensionDataState.tabsData = tabsData
+    }
+
+    private async fetchRemediationDetailsAndNotify(
+        tabId: number,
+        tabsData: any,
+        evaluationResults: any,
+        iqMessageHelper: IqMessageHelper
+    ): Promise<void> {
+        const remediationPromises =
+            evaluationResults.results?.map((compEvalResult: any) =>
+                this.fetchSingleRemediationDetail(tabId, tabsData, compEvalResult, iqMessageHelper)
+            ) || []
+
+        await Promise.all(remediationPromises)
+
+        logger.logServiceWorker('All Component Remediation Calls in', LogLevel.DEBUG)
+
+        await this.updateExtensionTabData(tabsData)
+        await this.sendCompletionNotification(tabId)
+    }
+
+    private async fetchSingleRemediationDetail(
+        tabId: number,
+        tabsData: any,
+        compEvalResult: any,
+        iqMessageHelper: IqMessageHelper
+    ): Promise<void> {
+        const packageUrl = compEvalResult.component?.packageUrl as string
+
+        try {
+            const remediationResponse = await iqMessageHelper.getComponentRemediationDetails(packageUrl)
+            tabsData.tabs[tabId].components[packageUrl].componentRemediationDetails = remediationResponse.remediation
+        } catch (error) {
+            logger.logServiceWorker('Error fetching remediation details', LogLevel.ERROR, packageUrl, error)
+        }
+    }
+
+    private async sendCompletionNotification(tabId: number): Promise<void> {
+        const notificationHelper = new NotificationHelper(this.extensionConfigurationState, this.extensionDataState)
+
+        await notificationHelper.notifyOnComponentEvaluationComplete(tabId)
     }
 
     private readonly disableExtensionForTab = (url: string, tabId: number): void => {
