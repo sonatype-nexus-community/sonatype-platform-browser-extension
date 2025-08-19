@@ -1,0 +1,84 @@
+/* Pending */
+.sonatype-extension.sonatype-pending:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/loading.gif');
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+/* Threat Level Colours */
+.sonatype-extension.sonatype-policy-violation-critical {
+    border-color: #cc0129 !important;
+}
+
+.sonatype-extension.sonatype-policy-violation-severe {
+    border-color: #ff8300 !important;
+}
+
+.sonatype-extension.sonatype-policy-violation-moderate {
+    border-color: #ffc233 !important;
+}
+
+.sonatype-extension.sonatype-policy-violation-low {
+    border-color: #495ab6 !important;
+}
+
+.sonatype-extension.sonatype-policy-violation-none {
+    border-color: #02b3fe !important;
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-policy-violation-critical:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-critical:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-critical.png');
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-policy-violation-severe:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-severe:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-severe.png');
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-policy-violation-moderate:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-moderate:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-moderate.png');
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-policy-violation-low:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-low:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-low.png');
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-policy-violation-none:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-none:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-none.png');
+}
+
+/* Page Title Layout */
+.sonatype-extension.sonatype-page-title {
+    border-top: none;
+    border-right: none;
+    border-left: 6px;
+    border-right: none;
+    border-style: solid;
+    padding-right: 15px !important;
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.sonatype-extension.sonatype-page-title:before {
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+/* Component Annotation */
+.sonatype-extension.sonatype-component {
+    border-top: none;
+    border-right: none;
+    border-left: 3px;
+    border-right: none;
+    border-style: solid;
+    padding-right: 15px !important;
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.sonatype-extension.sonatype-component:before {
+    vertical-align: middle;
+    padding-right: 10px;
+}

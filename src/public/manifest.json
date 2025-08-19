@@ -1,0 +1,98 @@
+{
+    "manifest_version": 3,
+    "name": "__MSG_extension_name__",
+    "version": "2.9.1",
+    "description": "__MSG_extension_description__",
+    "icons": {
+        "16": "images/sonatype-platform-icon-16x16.png",
+        "32": "images/sonatype-platform-icon-32x32.png",
+        "48": "images/sonatype-platform-icon-48x48.png",
+        "128": "images/sonatype-platform-icon-128x128.png"
+    },
+    "default_locale": "en",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://pkgs.alpinelinux.org/package/*",
+                "https://anaconda.org/*",
+                "https://cocoapods.org/*",
+                "https://conan.io/center/*",
+                "https://anaconda.org/conda-forge/*",
+                "https://cran.r-project.org/*",
+                "https://crates.io/*",
+                "https://pkg.go.dev/*",
+                "https://central.sonatype.com/*",
+                "https://repo.maven.apache.org/*",
+                "https://repo1.maven.org/*",
+                "https://search.maven.org/*",
+                "https://mvnrepository.com/*",
+                "https://www.npmjs.com/*",
+                "https://www.nuget.org/*",
+                "https://packagist.org/*",
+                "https://pypi.org/*",
+                "https://rubygems.org/*",
+                "https://huggingface.co/*"
+            ],
+            "css": [
+                "/css/content.css"
+            ],
+            "js": [
+                "/content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "homepage_url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/",
+    "minimum_chrome_version": "102",
+    "offline_enabled": false,
+    "options_page": "options.html",
+    "permissions": [
+        "activeTab",      
+        "background",
+        "notifications",
+        "scripting",
+        "sidePanel",
+        "storage",
+        "tabs"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/sonatype-platform-icon-16x16.png",
+            "32": "images/sonatype-platform-icon-32x32.png",
+            "48": "images/sonatype-platform-icon-48x48.png",
+            "128": "images/sonatype-platform-icon-128x128.png"
+        },
+        "default_title": "Sonatype Evaluation"
+    },
+    "background": {
+        "service_worker": "service.js"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    },
+    "optional_host_permissions": [
+        "https://*/*",
+        "http://*/*"
+    ],
+    "side_panel": {
+        "default_path": "side-panel.html",
+        "default_icon": {
+            "16": "images/sonatype-platform-icon-16x16.png",
+            "32": "images/sonatype-platform-icon-32x32.png",
+            "48": "images/sonatype-platform-icon-48x48.png",
+            "128": "images/sonatype-platform-icon-128x128.png"
+        }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "images/*",
+                "css/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

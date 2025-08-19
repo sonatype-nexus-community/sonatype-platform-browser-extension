@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "module": "esnext",
+        "lib": ["esnext", "webworker", "ES2021.String"],
+
+        /* Strict Type-Checking Options */
+        /* Enable all strict type-checking options. */
+        "strictNullChecks": true,
+
+        "moduleResolution": "node",
+        "outDir": "build",
+        "composite": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "types": ["chrome", "node", "firefox-webext-browser"]
+    },
+    "include": ["src/service/index.ts"]
+}

@@ -27,14 +27,8 @@ data
 dist
 packages
 
-.circleci/local-config.yml
-SAVETEXT.txt
+# VSCode
+.vscode
 
-.yarn
-.yarnrc
-
-# Sonatype IQ Config
-.sonatype-config
-
-# CI (local config)
-.circleci/local*.yml
+# GH Actions Local Variables used by act
+.my-*
