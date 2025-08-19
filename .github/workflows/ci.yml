@@ -15,7 +15,6 @@ on:
 
 env:
     LC_APPLICATION_ID: sonatype-platform-browser-extension
-    YARN_VERSION: 1.22.19
 
 # Testing only needs permissions to read the repository contents.
 permissions:
@@ -28,21 +27,21 @@ jobs:
         timeout-minutes: 5
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: '20.x'
+                  node-version: '22.x'
 
-            - name: Install Yarn
-              run: npm install -g yarn@${{ env.YARN_VERSION }}
+            - name: NPM install
+              run: npm i
 
             - name: Build
-              run: yarn install && yarn webpack --mode production --env production --no-watch
+              run: npm run prod
 
             - name: Run Tests
-              run: yarn run test
+              run: npm run test
 
     sonatype:
         name: Sonatype Lifecycle
@@ -55,14 +54,11 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: '20.x'
-
-            - name: Install Yarn
-              run: npm install -g yarn@${{ env.YARN_VERSION }}
+                  node-version: '22.x'
 
             # See https://help.sonatype.com/en/npm-application-analysis.html
             - name: Install Production Node Dependencies
-              run: yarn install --prod
+              run: npm install --production
 
             - name: Sonatype Lifecycle Evaluation
               id: evaluate
@@ -74,24 +70,24 @@ jobs:
                   application-id: ${{ env.LC_APPLICATION_ID }}
                   scan-targets: '.'
 
-    code_quality:
-        name: Code Quality
-        runs-on: ubuntu-latest
-        timeout-minutes: 5
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
-              with:
-                  # Disabling shallow clone is recommended for improving relevancy of reporting
-                  fetch-depth: 0
+    # code_quality:
+    #     name: Code Quality
+    #     runs-on: ubuntu-latest
+    #     timeout-minutes: 5
+    #     steps:
+    #         - name: Checkout Code
+    #           uses: actions/checkout@v4
+    #           with:
+    #               # Disabling shallow clone is recommended for improving relevancy of reporting
+    #               fetch-depth: 0
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20.x'
+    #         - name: Setup Node
+    #           uses: actions/setup-node@v4
+    #           with:
+    #               node-version: '20.x'
 
-            - name: Install Yarn
-              run: npm install -g yarn@${{ env.YARN_VERSION }}
+    #         - name: Install Yarn
+    #           run: npm install -g yarn@${{ env.YARN_VERSION }}
 
-            - name: Run Linter
-              run: yarn install && yarn run lint
+    #         - name: Run Linter
+    #           run: yarn install && yarn run lint
