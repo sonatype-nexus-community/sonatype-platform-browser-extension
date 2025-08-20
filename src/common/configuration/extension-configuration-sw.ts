@@ -28,40 +28,40 @@ export class ExtensionConfigurationStateServiceWorker extends ExtensionConfigura
     }
 
     protected postNxrmServerRegistrations = () => {
-        if (this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-            const allNxrmHostsForContentScript: string[] = []
-            this.extensionConfig.sonatypeNexusRepositoryHosts.forEach(nxrmHost => {
-                allNxrmHostsForContentScript.push(nxrmHost.url + '*')
-            })
+        // if (this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
+        //     const allNxrmHostsForContentScript: string[] = []
+        //     this.extensionConfig.sonatypeNexusRepositoryHosts.forEach(nxrmHost => {
+        //         allNxrmHostsForContentScript.push(nxrmHost.url + '*')
+        //     })
 
-            logger.logServiceWorker('Ensuring Content Scripts are registered for NXRM Hosts...', LogLevel.DEBUG)
-            ThisBrowser.scripting.getRegisteredContentScripts({ ids: ['content'] }).then((scripts: ContentScripts[]) => {
-                if (scripts.length == 0) {
-                    return ThisBrowser.scripting.registerContentScripts([
-                        {
-                            id: 'content',
-                            css: ['/css/pagestyle.css'],
-                            js: ['/static/js/content.js'],
-                            matches: allNxrmHostsForContentScript,
-                            runAt: 'document_end',
-                            world: 'ISOLATED',
-                        },
-                    ])
-                } else {
-                    return ThisBrowser.scripting.updateContentScripts([
-                        {
-                            id: 'content',
-                            css: ['/css/pagestyle.css'],
-                            js: ['/static/js/content.js'],
-                            matches: allNxrmHostsForContentScript,
-                            runAt: 'document_end',
-                            world: 'ISOLATED',
-                        },
-                    ])
-                }
-            })
-                .then(() => logger.logServiceWorker('Content Scripts successfully registered for NXRM Hosts', LogLevel.DEBUG))
-                .catch((err) => logger.logServiceWorker('Content Scripts NOT successfully registered for NXRM Hosts', LogLevel.DEBUG, err))
-        }
+        //     logger.logServiceWorker('Ensuring Content Scripts are registered for NXRM Hosts...', LogLevel.DEBUG)
+        //     ThisBrowser.scripting.getRegisteredContentScripts({ ids: ['content'] }).then((scripts: ContentScripts[]) => {
+        //         if (scripts.length == 0) {
+        //             return ThisBrowser.scripting.registerContentScripts([
+        //                 {
+        //                     id: 'content',
+        //                     css: ['/css/pagestyle.css'],
+        //                     js: ['/static/js/content.js'],
+        //                     matches: allNxrmHostsForContentScript,
+        //                     runAt: 'document_end',
+        //                     world: 'ISOLATED',
+        //                 },
+        //             ])
+        //         } else {
+        //             return ThisBrowser.scripting.updateContentScripts([
+        //                 {
+        //                     id: 'content',
+        //                     css: ['/css/pagestyle.css'],
+        //                     js: ['/static/js/content.js'],
+        //                     matches: allNxrmHostsForContentScript,
+        //                     runAt: 'document_end',
+        //                     world: 'ISOLATED',
+        //                 },
+        //             ])
+        //         }
+        //     })
+        //         .then(() => logger.logServiceWorker('Content Scripts successfully registered for NXRM Hosts', LogLevel.DEBUG))
+        //         .catch((err) => logger.logServiceWorker('Content Scripts NOT successfully registered for NXRM Hosts', LogLevel.DEBUG, err))
+        // }
     }
 }

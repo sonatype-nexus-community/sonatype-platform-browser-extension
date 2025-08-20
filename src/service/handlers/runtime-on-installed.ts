@@ -77,7 +77,7 @@ export class ServiceWorkerRuntimeOnInstalledHandler {
         } else if (compareVersions('2.9.0', fromVersion) < 1) {
             // Upgrading from 2.9.0 or newer
             if (!(Object.keys(currentExtensionConfig ?? {}).includes('sonatypeNexusRepositoryHosts'))) {
-                newExtensionConfig.sonatypeNexusRepositoryHosts = []
+                newExtensionConfig.externalRepositoryManagers = {}
             }
             if (!(Object.keys(currentExtensionConfig ?? {}).includes('supportsFirewall'))) {
                 newExtensionConfig.supportsFirewall = false

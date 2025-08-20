@@ -22,7 +22,7 @@ import { ExtensionConfigurationContext } from '../../common/context/extension-co
 import AdvancedOptionsSubPage from './advanced-options-sub-page'
 import HelpSubPage from './help-sub-page'
 import IQOptionsSubPage from './iq-options-sub-page'
-import NexusRepositoryOptionsSubPage from './nexus-repository-sub-page'
+import ExternalRepositoryOptionsSubPage from './external-repository-sub-page'
 import '../../public/css/options.css'
 import ReleaseNotesSubPage from './release-notes-sub-page'
 
@@ -67,7 +67,7 @@ export default function OptionsPage() {
             case OPTIONS_PAGE_MODE.RELEASE_NOTES:
                 return (<ReleaseNotesSubPage />)
             case OPTIONS_PAGE_MODE.SONATYPE_REPO:
-                return (<NexusRepositoryOptionsSubPage />)
+                return (<ExternalRepositoryOptionsSubPage />)
             case OPTIONS_PAGE_MODE.SONATYPE_IQ:
             default:
                 return (<IQOptionsSubPage install={install} invalidCredentials={invalidCredentials} />)

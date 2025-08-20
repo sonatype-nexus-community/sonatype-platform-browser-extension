@@ -64,13 +64,13 @@ export abstract class ExtensionConfigurationState {
     }
 
     protected ensureNxrmServersRegistered = () => {
-        if (this.extensionConfig?.sonatypeNexusRepositoryHosts !== undefined) {
-            this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
-                logger.logGeneral(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
-                DefaultRepoRegistry.registerNxrm3(nxrmHost)
-            })
+        if (this.extensionConfig?.externalRepositoryManagers !== undefined) {
+            // this.extensionConfig.externalRepositoryManagers.forEach((nxrmHost) => {
+            //     logger.logGeneral(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
+            //     DefaultRepoRegistry.registerNxrm3(nxrmHost)
+            // })
 
-            this.postNxrmServerRegistrations()
+            // this.postNxrmServerRegistrations()
         }
     }
 

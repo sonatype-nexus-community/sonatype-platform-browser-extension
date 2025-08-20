@@ -85,6 +85,16 @@ export interface MessageRequestRequestComponentIdentitiesFromPage extends Messag
     repoTypeId: string
 }
 
+export interface MessageRequestRequestNewExternalRepositoryManager extends MessageRequest {
+    messageType: MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER,
+    url: string
+}
+
+export interface MessageRequestRequestRemovalExternalRepositoryManager extends MessageRequest {
+    messageType: MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER,
+    url: string
+}
+
 interface ComponentStateUpdate {
     PackageUrl: string
     State: ComponentStateType
@@ -103,6 +113,8 @@ export type AnyMessageRequest = MessageRequestAnnotatePageWithComponentStatuses
     | MessageRequestLoadVulnerability
     | MessageRequestPageComponentIdentitiesParsed
     | MessageRequestRequestComponentIdentitiesFromPage
+    | MessageRequestRequestNewExternalRepositoryManager
+    | MessageRequestRequestRemovalExternalRepositoryManager
     | MessageRequestSetNewExtensionConfiguration
 
 // Message Response related types

@@ -26,15 +26,15 @@ export class ExtensionConfigurationStateContentScript extends ExtensionConfigura
     }
 
     protected postNxrmServerRegistrations = () => {
-        if (this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-            logger.logContent('Ensuring Page Parsers are registered for NXRM Hosts...', LogLevel.DEBUG, DefaultPageParserRegistry.getCount())
-            this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
-                DefaultPageParserRegistry.registerPageParser(
-                    new Nxrm3PageParser(DefaultRepoRegistry.getRepoById(nxrmHost.id))
-                )
-                logger.logContent('   Registered NXRM3 Page Parser', LogLevel.DEBUG, nxrmHost, DefaultPageParserRegistry.getCount())
-            })
-        }
+        // if (this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
+        //     logger.logContent('Ensuring Page Parsers are registered for NXRM Hosts...', LogLevel.DEBUG, DefaultPageParserRegistry.getCount())
+        //     this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
+        //         DefaultPageParserRegistry.registerPageParser(
+        //             new Nxrm3PageParser(DefaultRepoRegistry.getRepoById(nxrmHost.id))
+        //         )
+        //         logger.logContent('   Registered NXRM3 Page Parser', LogLevel.DEBUG, nxrmHost, DefaultPageParserRegistry.getCount())
+        //     })
+        // }
     }
 
 }

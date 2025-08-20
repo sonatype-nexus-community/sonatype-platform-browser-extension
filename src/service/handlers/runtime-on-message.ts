@@ -28,6 +28,8 @@ import { ConnectivityAndVersionCheckMessageHandler } from './runtime-on-message/
 import { LoadApplicationsMessageHandler } from './runtime-on-message/load-applications'
 import { LoadVulnerabilityMessageHandler } from './runtime-on-message/load-vulnerability'
 import { PersistExtensionConfigurationMessageHandler } from './runtime-on-message/persist-extension-configuration'
+import { RequestNewExternalRepositoryManagerMessageHandler } from './runtime-on-message/request-new-external-repository-manager'
+import { RequestRemovalExternalRepositoryManagerMessageHandler } from './runtime-on-message/request-removal-external-repository-manager'
 
 export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandler {
     private readonly iqMessageHelper: IqMessageHelper
@@ -73,6 +75,18 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
                     this.extensionConfigurationState,
                     this.iqMessageHelper,
                     this.extensionDataState.vulnerabilityData
+                )
+                break
+            case MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER:
+                messageHandler = new RequestNewExternalRepositoryManagerMessageHandler(
+                    this.extensionConfigurationState,
+                    this.iqMessageHelper
+                )
+                break
+            case MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER:
+                messageHandler = new RequestRemovalExternalRepositoryManagerMessageHandler(
+                    this.extensionConfigurationState,
+                    this.iqMessageHelper
                 )
                 break
             case MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION:
