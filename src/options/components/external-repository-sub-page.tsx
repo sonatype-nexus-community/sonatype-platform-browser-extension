@@ -35,10 +35,6 @@ import ExternalRepositoryManagerItem from './external-repository-manager'
 
 export default function ExternalRepositoryOptionsSubPage() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
-    // const [addNxrmHostState, setAddNxrmHostState] = useState(initialState(''))
-    // const [checkingNxrmConnection, setCheckingNxrmConnection] = useState<boolean>(false)
-    // const [errorNxrm, setErrorNxrm] = useState<string | undefined>(undefined)
-
     const [externalRepositoryManagerCount, setExternalRepositoryManagerCount] = useState(0)
     const [externalRepositoryUrl, setExternalRepositoryUrl] = useState<NxTextInputStateProps>(initialState(''))
 
@@ -60,19 +56,6 @@ export default function ExternalRepositoryOptionsSubPage() {
             }, host)
         )
     }
-
-    // function enableAddNxrmHostButton(): boolean {
-    //     if (addNxrmHostState.trimmedValue.length > 4) {
-    //         if (addNxrmHostState.validationErrors !== undefined && addNxrmHostState.validationErrors?.length == 0) {
-    //             return true
-    //         } else if (addNxrmHostState.validationErrors !== null) {
-    //             return false
-    //         } else {
-    //             return true
-    //         }
-    //     }
-    //     return false
-    // }
 
     /**
      * Request Permissions for External Respository Host
@@ -108,180 +91,6 @@ export default function ExternalRepositoryOptionsSubPage() {
             })
     }
 
-    // @todo: Refactor all logic into Service Worker messages - this should only present STATE / CONTEXT
-    // const askForPermissions = () => {
-    //     logger.logReact(`Requesting Browser Permission for: ${addNxrmHostState.trimmedValue}`, LogLevel.INFO)
-    //     // Normalise the host to end with / here
-    //     const newExtensionSettings = extensionConfigContext
-    //     newExtensionSettings.sonatypeNexusRepositoryHosts
-    //         //. = iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`
-    //     ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-
-    //     if (addNxrmHostState.trimmedValue !== undefined) {
-    //         const newNxrmHost = addNxrmHostState.trimmedValue.endsWith('/')
-    //             ? addNxrmHostState.trimmedValue
-    //             : `${addNxrmHostState.trimmedValue}/`
-
-    //         const existingNxrmHostCheck = extensionConfigContext.sonatypeNexusRepositoryHosts.find(
-    //             (nxrm) => nxrm.id == newNxrmHost.replace('://', '-')
-    //         )
-
-    //         if (existingNxrmHostCheck !== undefined) {
-    //             logger.logReact(
-    //                 `Attempt to add duplicate Sonatype Nexus Repository Host: ${newNxrmHost}`,
-    //                 LogLevel.WARN
-    //             )
-    //             return
-    //         }
-
-    //         setCheckingNxrmConnection(true)
-
-    //         logger.logReact(`Requesting permission to Origin ${newNxrmHost}`, LogLevel.DEBUG)
-    //         if (extensionConfigContext.sonatypeNexusRepositoryHosts.length == 0) {
-    //             ThisBrowser.scripting
-    //                 .registerContentScripts([
-    //                     {
-    //                         id: 'content',
-    //                         css: ['/css/pagestyle.css'],
-    //                         js: ['/content.js'],
-    //                         matches: [`${newNxrmHost}*`],
-    //                         runAt: 'document_end',
-    //                         world: 'ISOLATED',
-    //                     },
-    //                 ])
-    //                 .then(() => recordRegisteredNxrmHost(newNxrmHost))
-    //         } else {
-    //             const allNxrmHosts = extensionConfigContext.sonatypeNexusRepositoryHosts
-    //                 .map((nxrm) => {
-    //                     return nxrm.url
-    //                 })
-    //                 .concat([newNxrmHost])
-    //             ThisBrowser.scripting
-    //                 .updateContentScripts([
-    //                     {
-    //                         id: 'content',
-    //                         css: ['/css/pagestyle.css'],
-    //                         js: ['/content.js'],
-    //                         matches: allNxrmHosts.map((url: string) => {
-    //                             return url + '*'
-    //                         }),
-    //                         runAt: 'document_end',
-    //                         world: 'ISOLATED',
-    //                     },
-    //                 ])
-    //                 .then(() => recordRegisteredNxrmHost(newNxrmHost))
-    //         }
-    //     }
-    // }
-
-    // function recordRegisteredNxrmHost(host: string): void {
-    //     logger.logReact(`Successfully registered ${host}`, LogLevel.INFO)
-    //     ThisBrowser.permissions
-    //         .request({
-    //             origins: [host + '*'],
-    //         })
-    //         .then((success: boolean) => {
-    //             if (success) {
-    //                 fetch(host + 'service/rest/swagger.json')
-    //                     .then((response) => {
-    //                         response
-    //                             .json()
-    //                             .then((swaggerJson) => {
-    //                                 logger.logReact(`Successfully registered ${host}`, LogLevel.INFO, swaggerJson)
-    //                                 const newExtensionSettings = extensionConfigContext
-    //                                 newExtensionSettings.sonatypeNexusRepositoryHosts.push({
-    //                                     id: host.replace('://', '-'),
-    //                                     url: host,
-    //                                     version: swaggerJson['info']['version'],
-    //                                 })
-    //                                 ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-    //                                 setAddNxrmHostState(userInput(null, ''))
-    //                             })
-    //                             .catch(() => {
-    //                                 setErrorNxrm('This does not appear to be a Sonatype Nexus Repository 3 Server.')
-    //                             })
-    //                             .finally(() => {
-    //                                 setErrorNxrm(undefined)
-    //                                 setCheckingNxrmConnection(false)
-    //                             })
-    //                     })
-    //                     .catch(() => {
-    //                         setErrorNxrm(undefined)
-    //                         setCheckingNxrmConnection(false)
-    //                     })
-    //             } else {
-    //                 setErrorNxrm('You need to Allow your browser permission to add a Sonatype Nexus Repository server.')
-    //                 setCheckingNxrmConnection(false)
-    //             }
-    //         })
-    // }
-
-    // function removeNxrmInstance(id: string): void {
-    //     const nxrmInstanceToRemove = extensionConfigContext.sonatypeNexusRepositoryHosts.find(
-    //         (nxrmHost) => nxrmHost.id == id
-    //     )
-
-    //     if (nxrmInstanceToRemove === undefined) {
-    //         return
-    //     }
-
-    //     const remainingNxrmHosts = extensionConfigContext.sonatypeNexusRepositoryHosts.filter(
-    //         (nxrmHost) => nxrmHost.id != id
-    //     )
-
-    //     logger.logReact(
-    //         `Removing Browser Permission for: ${nxrmInstanceToRemove.url}, leaving ${remainingNxrmHosts.length} NXRM Hosts`,
-    //         LogLevel.INFO,
-    //         remainingNxrmHosts
-    //     )
-
-    //     logger.logReact(`Browser Permission REMOVED for: ${nxrmInstanceToRemove.url}*`, LogLevel.DEBUG)
-    //     ThisBrowser.permissions
-    //         .remove({
-    //             origins: [nxrmInstanceToRemove.url + '*'],
-    //         })
-    //         .then((success: boolean) => {
-    //             if (success) {
-    //                 if (remainingNxrmHosts.length == 0) {
-    //                     ThisBrowser.scripting
-    //                         .unregisterContentScripts({
-    //                             ids: ['content'],
-    //                         })
-    //                         .then(() => {
-    //                             const newExtensionSettings = extensionConfigContext
-    //                             newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
-    //                             ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-    //                         }).catch((err) => {
-    //                             logger.logMessage("Error unregistering content script for NXRM", LogLevel.ERROR, err)
-    //                         })
-    //                 } else {
-    //                     ThisBrowser.scripting
-    //                         .updateContentScripts([
-    //                             {
-    //                                 id: 'content',
-    //                                 css: ['/css/pagestyle.css'],
-    //                                 js: ['/content.js'],
-    //                                 matches: remainingNxrmHosts.map((nxrmHost) => {
-    //                                     return nxrmHost.url + '*'
-    //                                 }),
-    //                                 runAt: 'document_end',
-    //                                 world: 'ISOLATED',
-    //                             },
-    //                         ])
-    //                         .then(() => {
-    //                             const newExtensionSettings = extensionConfigContext
-    //                             newExtensionSettings.sonatypeNexusRepositoryHosts = remainingNxrmHosts
-    //                             ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-    //                         }).catch((err) => {
-    //                             logger.logReact("Error updating content script for remaining NXRMs", LogLevel.ERROR, err, remainingNxrmHosts)
-    //                         })
-    //                 }
-    //             }
-    //         }).catch((err) => {
-    //             logger.logReact("Error removing browser permissions for NXRM", LogLevel.ERROR, err)
-    //         })
-    // }
-
     return (
         <NxPageMain>
             <h1>
@@ -304,22 +113,11 @@ export default function ExternalRepositoryOptionsSubPage() {
                                 <button
                                     className='nx-btn grant-permissions'
                                     onClick={askForPermissions}
-                                    // disabled={!enableAddNxrmHostButton()}
                                 >
                                     {'Add'}
-                                    {/* {checkingNxrmConnection === true && (
-                                        <React.Fragment>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <NxFontAwesomeIcon icon={faSpinner as IconDefinition} spin={true} />
-                                        </React.Fragment>
-                                    )} */}
+                                    
                                 </button>
                             </div>
-                            {/* {errorNxrm !== undefined && (
-                                <div className='nx-form-row'>
-                                    <NxErrorAlert>{errorNxrm}</NxErrorAlert>
-                                </div>
-                            )} */}
                         </section>
                         <section className='nx-grid-col nx-grid-col--50'>
                             {externalRepositoryManagerCount === 0 && <em>None added yet</em>}

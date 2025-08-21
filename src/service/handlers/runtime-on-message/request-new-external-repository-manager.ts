@@ -92,7 +92,7 @@ export class RequestNewExternalRepositoryManagerMessageHandler extends BaseRunti
             }
         } catch (err) {
             logger.logServiceWorker("Failed to determine External Respoitory Type and Version", LogLevel.WARN, url, err)
-            return await Promise.reject(err)
+            return await Promise.reject(err as Error)
         }
     }
 
