@@ -21,6 +21,8 @@ import { DefaultPageParserRegistry } from "../../../common/page-parsing/registry
 import { DefaultRepoRegistry } from "../../../common/repo-registry"
 import { MessageSender } from "../../../common/types"
 import { BaseRuntimeOnMessageHandler } from "./base"
+import { ExternalRepositoryManagerType } from '../../../common/configuration/types'
+import { Nxrm3PageParser } from '../../../common/page-parsing/nxrm3'
 
 // const domReady = new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve))
 
@@ -28,6 +30,19 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
     
     handleMessage(message: MessageRequestRequestComponentIdentitiesFromPage, sender: MessageSender, sendResponse: MessageResponseFunction): Promise<void> {
         logger.logContent('Requested to parse Component Identities from current Page', LogLevel.DEBUG, message)
+
+        // Load any External Repository Managers into DefaultRepoRegistry
+        const externalRepoManagerIds = Object.keys(message.externalReopsitoryManagers)
+        if (externalRepoManagerIds.length > 0) {
+            externalRepoManagerIds.forEach((id) => {
+                DefaultRepoRegistry.registerExternalRepositoryManager(message.externalReopsitoryManagers[id])
+                if (message.externalReopsitoryManagers[id].type === ExternalRepositoryManagerType.NXRM3) {
+                    DefaultPageParserRegistry.registerPageParser(
+                        new Nxrm3PageParser(DefaultRepoRegistry.getRepoById(id))
+                    )
+                }
+            })
+        }
 
         $(function () {
         // return domReady.then(() => {

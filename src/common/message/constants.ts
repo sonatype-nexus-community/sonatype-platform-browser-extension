@@ -44,6 +44,12 @@ export enum MessageRequestType {
     // Sent by Service Worker to request Content Script parse Component Identities
     REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
 
+    // Sent by Options Page to request addition of new External Repository Manager
+    REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER,
+
+    // Sent by Options Page to request REMOVAL of an External Repository Manager
+    REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER,
+
     // Sent to persist new Extension Configuration
     SET_NEW_EXTENSION_CONFIGURATION
 }

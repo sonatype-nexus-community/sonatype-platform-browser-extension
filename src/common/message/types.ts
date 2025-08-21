@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ApiApplicationDTO, SecurityVulnerabilityDataDTO } from "@sonatype/nexus-iq-api-client"
-import { ExtensionConfiguration, SonatypeSolutionSupport } from "../configuration/types"
+import { ExtensionConfiguration, ExternalRepositoryManager, SonatypeSolutionSupport } from "../configuration/types"
 import { ComponentStateType } from "../constants"
 import { ExtensionTabsData, ExtensionVulnerabilitiesData } from "../data/types"
 import { MessageRequestType, MessageResponseStatus } from "./constants"
@@ -82,7 +82,18 @@ export interface MessageRequestPageComponentIdentitiesParsed extends MessageRequ
 
 export interface MessageRequestRequestComponentIdentitiesFromPage extends MessageRequest {
     messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE
+    externalReopsitoryManagers: { [key: string]: ExternalRepositoryManager }
     repoTypeId: string
+}
+
+export interface MessageRequestRequestNewExternalRepositoryManager extends MessageRequest {
+    messageType: MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER,
+    url: string
+}
+
+export interface MessageRequestRequestRemovalExternalRepositoryManager extends MessageRequest {
+    messageType: MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER,
+    url: string
 }
 
 interface ComponentStateUpdate {
@@ -103,6 +114,8 @@ export type AnyMessageRequest = MessageRequestAnnotatePageWithComponentStatuses
     | MessageRequestLoadVulnerability
     | MessageRequestPageComponentIdentitiesParsed
     | MessageRequestRequestComponentIdentitiesFromPage
+    | MessageRequestRequestNewExternalRepositoryManager
+    | MessageRequestRequestRemovalExternalRepositoryManager
     | MessageRequestSetNewExtensionConfiguration
 
 // Message Response related types

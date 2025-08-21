@@ -64,14 +64,15 @@ export abstract class ExtensionConfigurationState {
     }
 
     protected ensureNxrmServersRegistered = () => {
-        if (this.extensionConfig?.sonatypeNexusRepositoryHosts !== undefined) {
-            this.extensionConfig.sonatypeNexusRepositoryHosts.forEach((nxrmHost) => {
-                logger.logGeneral(`Ensuring NXRM Server is registered`, LogLevel.DEBUG, nxrmHost)
-                DefaultRepoRegistry.registerNxrm3(nxrmHost)
-            })
+        const externalRepoManagerIds = Object.keys(this.extensionConfig.externalRepositoryManagers)
+        if (externalRepoManagerIds.length > 0) {
+            logger.logGeneral("ExtensionConfigurationState.ensureNxrmServersRegistered handling registered External Repository Managers", LogLevel.DEBUG)
 
-            this.postNxrmServerRegistrations()
+            externalRepoManagerIds.forEach((i) => {
+                DefaultRepoRegistry.registerExternalRepositoryManager(this.extensionConfig.externalRepositoryManagers[i])
+            })
         }
+        this.postNxrmServerRegistrations()
     }
 
     protected postNxrmServerRegistrations = () => { }

@@ -14,34 +14,33 @@
  * limitations under the License.
  */
 
-import { logger, LogLevel } from "./logger"
-import { AlpineLinuxOrgRepo } from "./repo-type/alpine"
-import { BaseRepo } from "./repo-type/base"
-import { CentralSonatypeComRepo } from "./repo-type/central-sonatype-com"
-import { CocoaPodsOrgRepo } from "./repo-type/cocoa-pods-org"
-import { ConanIoRepo } from "./repo-type/conan-io"
-import { CranRProjectOrg } from "./repo-type/cran-r-project-org"
-import { CratesIoRepo } from "./repo-type/crates-io"
-import { HuggingfaceCoRepo } from "./repo-type/huggingface-co"
-import { MvnRepositoryComRepo } from "./repo-type/mvnrepository-com"
-import { NpmJsComRepo } from "./repo-type/npmjs-com"
-import { NugetOrgRepo } from "./repo-type/nuget-org"
-import { Nxrm3Repo } from "./repo-type/nxrm3"
-import { PackagistOrgRepo } from "./repo-type/packagist-org"
-import { PkgGoDevRepo } from "./repo-type/pkg-go-dev"
-import { PypiOrgRepo } from "./repo-type/pypi-org"
-import { RepoMavenApacheOrgRepo } from "./repo-type/repo-maven-apache-org"
-import { Repo1MavenOrgRepo } from "./repo-type/repo1-maven-org"
-import { RubygemsOrgRepo } from "./repo-type/rubygems-org"
-import { SearchMavenOrgRepo } from "./repo-type/search-maven-org"
-import { SonatypeNexusRepostitoryHost } from "./configuration/types"
+import { ExternalRepositoryManager, ExternalRepositoryManagerType } from './configuration/types'
+import { logger, LogLevel } from './logger'
+import { AlpineLinuxOrgRepo } from './repo-type/alpine'
+import { BaseRepo } from './repo-type/base'
+import { CentralSonatypeComRepo } from './repo-type/central-sonatype-com'
+import { CocoaPodsOrgRepo } from './repo-type/cocoa-pods-org'
+import { ConanIoRepo } from './repo-type/conan-io'
+import { CranRProjectOrg } from './repo-type/cran-r-project-org'
+import { CratesIoRepo } from './repo-type/crates-io'
+import { HuggingfaceCoRepo } from './repo-type/huggingface-co'
+import { MvnRepositoryComRepo } from './repo-type/mvnrepository-com'
+import { NpmJsComRepo } from './repo-type/npmjs-com'
+import { NugetOrgRepo } from './repo-type/nuget-org'
+import { Nxrm3Repo } from './repo-type/nxrm3'
+import { PackagistOrgRepo } from './repo-type/packagist-org'
+import { PkgGoDevRepo } from './repo-type/pkg-go-dev'
+import { PypiOrgRepo } from './repo-type/pypi-org'
+import { RepoMavenApacheOrgRepo } from './repo-type/repo-maven-apache-org'
+import { Repo1MavenOrgRepo } from './repo-type/repo1-maven-org'
+import { RubygemsOrgRepo } from './repo-type/rubygems-org'
+import { SearchMavenOrgRepo } from './repo-type/search-maven-org'
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
 
 class RepoRegistry {
-
-    private readonly repos = new Map<string, BaseRepo>
+    private readonly repos = new Map<string, BaseRepo>()
 
     getCount(): number {
         return this.repos.size
@@ -54,7 +53,7 @@ class RepoRegistry {
                 return r
             }
         }
-        
+
         throw new Error(`Unknown Repo requested from RepoRegistry: ${id}`)
     }
 
@@ -68,14 +67,17 @@ class RepoRegistry {
                 logger.logGeneral(`Current URL ${url} does not match ${r?.id}`, LogLevel.TRACE)
             }
         }
-        
+
         return undefined
     }
 
-    registerNxrm3(nxrmHost: SonatypeNexusRepostitoryHost): Nxrm3Repo {
-        const repo = new Nxrm3Repo(nxrmHost.id, nxrmHost.url, nxrmHost.version)
-        this.registerRepo(repo)
-        return repo
+    registerExternalRepositoryManager = (externalRepoManager: ExternalRepositoryManager): void => {
+        switch (externalRepoManager.type) {
+            case ExternalRepositoryManagerType.NXRM3:
+                this.registerRepo(
+                    new Nxrm3Repo(externalRepoManager.id, externalRepoManager.url, externalRepoManager.version)
+                )
+        }
     }
 
     registerRepo(repo: BaseRepo) {
@@ -83,23 +85,23 @@ class RepoRegistry {
     }
 }
 
-export const DefaultRepoRegistry = new RepoRegistry
+export const DefaultRepoRegistry = new RepoRegistry()
 
 // Register all standard repositories
-DefaultRepoRegistry.registerRepo(new AlpineLinuxOrgRepo)
-DefaultRepoRegistry.registerRepo(new CentralSonatypeComRepo)
-DefaultRepoRegistry.registerRepo(new CocoaPodsOrgRepo)
-DefaultRepoRegistry.registerRepo(new ConanIoRepo)
-DefaultRepoRegistry.registerRepo(new CranRProjectOrg)
-DefaultRepoRegistry.registerRepo(new CratesIoRepo)
-DefaultRepoRegistry.registerRepo(new HuggingfaceCoRepo)
-DefaultRepoRegistry.registerRepo(new MvnRepositoryComRepo)
-DefaultRepoRegistry.registerRepo(new NpmJsComRepo)
-DefaultRepoRegistry.registerRepo(new NugetOrgRepo)
-DefaultRepoRegistry.registerRepo(new PackagistOrgRepo)
-DefaultRepoRegistry.registerRepo(new PkgGoDevRepo)
-DefaultRepoRegistry.registerRepo(new PypiOrgRepo)
-DefaultRepoRegistry.registerRepo(new RepoMavenApacheOrgRepo)
-DefaultRepoRegistry.registerRepo(new Repo1MavenOrgRepo)
-DefaultRepoRegistry.registerRepo(new RubygemsOrgRepo)
-DefaultRepoRegistry.registerRepo(new SearchMavenOrgRepo)
+DefaultRepoRegistry.registerRepo(new AlpineLinuxOrgRepo())
+DefaultRepoRegistry.registerRepo(new CentralSonatypeComRepo())
+DefaultRepoRegistry.registerRepo(new CocoaPodsOrgRepo())
+DefaultRepoRegistry.registerRepo(new ConanIoRepo())
+DefaultRepoRegistry.registerRepo(new CranRProjectOrg())
+DefaultRepoRegistry.registerRepo(new CratesIoRepo())
+DefaultRepoRegistry.registerRepo(new HuggingfaceCoRepo())
+DefaultRepoRegistry.registerRepo(new MvnRepositoryComRepo())
+DefaultRepoRegistry.registerRepo(new NpmJsComRepo())
+DefaultRepoRegistry.registerRepo(new NugetOrgRepo())
+DefaultRepoRegistry.registerRepo(new PackagistOrgRepo())
+DefaultRepoRegistry.registerRepo(new PkgGoDevRepo())
+DefaultRepoRegistry.registerRepo(new PypiOrgRepo())
+DefaultRepoRegistry.registerRepo(new RepoMavenApacheOrgRepo())
+DefaultRepoRegistry.registerRepo(new Repo1MavenOrgRepo())
+DefaultRepoRegistry.registerRepo(new RubygemsOrgRepo())
+DefaultRepoRegistry.registerRepo(new SearchMavenOrgRepo())

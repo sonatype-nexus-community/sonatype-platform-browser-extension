@@ -22,6 +22,25 @@ export interface SonatypeNexusRepostitoryHost {
     version: string
 }
 
+export enum ExternalRepositoryManagerType {
+    UNKNOWN,
+    NXRM3
+}
+
+export enum ExternalRepositoryManagerStatus {
+    REQEUESTED,
+    READY,
+    BROKEN,
+}
+
+export interface ExternalRepositoryManager {
+    id: string
+    type: ExternalRepositoryManagerType,
+    status: ExternalRepositoryManagerStatus,
+    url: string
+    version: string
+}
+
 export interface SonatypeSolutionSupport {
     supportsFirewall: boolean
     supportsLifecycle: boolean
@@ -41,18 +60,18 @@ export interface ExtensionConfiguration extends SonatypeSolutionSupport {
     iqApplicationInternalId?: string
     iqApplicationPublidId?: string
     logLevel: LogLevel
-    sonatypeNexusRepositoryHosts: Array<SonatypeNexusRepostitoryHost>
     iqApplications: Array<ApiApplicationDTO>
     iqAuthenticated: boolean
     iqLastAuthenticated: number
     iqVersion: number
     enableNotifications: boolean
     enablePageAnnotations: boolean
+    // Keyed on canonical URL with trailing slash
+    externalRepositoryManagers: { [key: string]: ExternalRepositoryManager }
 }
 
 export const DEFAULT_EXTENSION_SETTINGS: ExtensionConfiguration = {
     logLevel: LogLevel.TRACE,
-    sonatypeNexusRepositoryHosts: [],
     supportsFirewall: false,
     supportsLifecycle: false,
     supportsLifecycleAlp: false,
@@ -61,5 +80,6 @@ export const DEFAULT_EXTENSION_SETTINGS: ExtensionConfiguration = {
     iqLastAuthenticated: 0,
     iqVersion: NaN,
     enableNotifications: true,
-    enablePageAnnotations: true
+    enablePageAnnotations: true,
+    externalRepositoryManagers: {}
 }

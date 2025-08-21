@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Analytics } from '../../common/analytics/analytics'
-import { ExtensionConfigurationState } from '../../common/configuration/extension-configuration'
+import { ExtensionConfigurationStateServiceWorker } from '../../common/configuration/extension-configuration-sw'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionDataState } from '../../common/data/extension-data'
 import { logger, LogLevel } from '../../common/logger'
@@ -28,13 +28,15 @@ import { ConnectivityAndVersionCheckMessageHandler } from './runtime-on-message/
 import { LoadApplicationsMessageHandler } from './runtime-on-message/load-applications'
 import { LoadVulnerabilityMessageHandler } from './runtime-on-message/load-vulnerability'
 import { PersistExtensionConfigurationMessageHandler } from './runtime-on-message/persist-extension-configuration'
+import { RequestNewExternalRepositoryManagerMessageHandler } from './runtime-on-message/request-new-external-repository-manager'
+import { RequestRemovalExternalRepositoryManagerMessageHandler } from './runtime-on-message/request-removal-external-repository-manager'
 
 export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandler {
     private readonly iqMessageHelper: IqMessageHelper
 
     constructor(
         protected readonly analytics: Analytics,
-        protected readonly extensionConfigurationState: ExtensionConfigurationState,
+        protected readonly extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
         protected readonly extensionDataState: ExtensionDataState
     ) {
         super(analytics, extensionConfigurationState, extensionDataState)
@@ -73,6 +75,18 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
                     this.extensionConfigurationState,
                     this.iqMessageHelper,
                     this.extensionDataState.vulnerabilityData
+                )
+                break
+            case MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER:
+                messageHandler = new RequestNewExternalRepositoryManagerMessageHandler(
+                    this.extensionConfigurationState,
+                    this.iqMessageHelper
+                )
+                break
+            case MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER:
+                messageHandler = new RequestRemovalExternalRepositoryManagerMessageHandler(
+                    this.extensionConfigurationState,
+                    this.iqMessageHelper
                 )
                 break
             case MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION:

@@ -25,6 +25,7 @@ import { ActiveInfo, ChangeInfo, TabType } from '../../common/types'
 import { BaseServiceWorkerHandler } from './base'
 import { IqMessageHelper } from './helpers/iq'
 import { NotificationHelper } from './helpers/notification'
+import { BaseRepo } from '../../common/repo-type/base'
 
 export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
     public handleOnActivated = (activeInfo: ActiveInfo) => {
@@ -66,10 +67,11 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
         this.disableExtensionForTab(url, tabId)
     }
 
-    private async processTabForRepo(url: string, tabId: number, repoType: any): Promise<void> {
+    private async processTabForRepo(url: string, tabId: number, repoType: BaseRepo): Promise<void> {
         try {
             const msgResponse = await ThisBrowser.tabs.sendMessage(tabId, {
                 messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
+                externalReopsitoryManagers: this.extensionConfigurationState.getExtensionConfig().externalRepositoryManagers,
                 repoTypeId: repoType.id,
             })
 
