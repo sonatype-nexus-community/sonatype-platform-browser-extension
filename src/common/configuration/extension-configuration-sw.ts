@@ -13,55 +13,72 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ThisBrowser } from "../constants"
-import { logger, LogLevel } from "../logger"
-import { ContentScripts } from "../types"
-import { ExtensionConfigurationState } from "./extension-configuration"
+import { ThisBrowser } from '../constants'
+import { logger, LogLevel } from '../logger'
+import { ContentScripts } from '../types'
+import { ExtensionConfigurationState } from './extension-configuration'
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
 
 export class ExtensionConfigurationStateServiceWorker extends ExtensionConfigurationState {
-
-    protected init = () => { 
+    protected init = () => {
         logger.logServiceWorker('Initialised new ExtensionConfigurationStateServiceWorker', LogLevel.DEBUG)
     }
 
     protected postNxrmServerRegistrations = () => {
-        // if (this.extensionConfig.sonatypeNexusRepositoryHosts.length > 0) {
-        //     const allNxrmHostsForContentScript: string[] = []
-        //     this.extensionConfig.sonatypeNexusRepositoryHosts.forEach(nxrmHost => {
-        //         allNxrmHostsForContentScript.push(nxrmHost.url + '*')
-        //     })
-
-        //     logger.logServiceWorker('Ensuring Content Scripts are registered for NXRM Hosts...', LogLevel.DEBUG)
-        //     ThisBrowser.scripting.getRegisteredContentScripts({ ids: ['content'] }).then((scripts: ContentScripts[]) => {
-        //         if (scripts.length == 0) {
-        //             return ThisBrowser.scripting.registerContentScripts([
-        //                 {
-        //                     id: 'content',
-        //                     css: ['/css/pagestyle.css'],
-        //                     js: ['/static/js/content.js'],
-        //                     matches: allNxrmHostsForContentScript,
-        //                     runAt: 'document_end',
-        //                     world: 'ISOLATED',
-        //                 },
-        //             ])
-        //         } else {
-        //             return ThisBrowser.scripting.updateContentScripts([
-        //                 {
-        //                     id: 'content',
-        //                     css: ['/css/pagestyle.css'],
-        //                     js: ['/static/js/content.js'],
-        //                     matches: allNxrmHostsForContentScript,
-        //                     runAt: 'document_end',
-        //                     world: 'ISOLATED',
-        //                 },
-        //             ])
-        //         }
-        //     })
-        //         .then(() => logger.logServiceWorker('Content Scripts successfully registered for NXRM Hosts', LogLevel.DEBUG))
-        //         .catch((err) => logger.logServiceWorker('Content Scripts NOT successfully registered for NXRM Hosts', LogLevel.DEBUG, err))
-        // }
+        const externalRepositoryManagerIds = Object.keys(this.extensionConfig.externalRepositoryManagers)
+        if (externalRepositoryManagerIds.length > 0) {
+            logger.logServiceWorker(
+                'Handling custom repository manager registrations',
+                LogLevel.DEBUG,
+                externalRepositoryManagerIds
+            )
+            const allExternalRepositoryManagerMatches = externalRepositoryManagerIds.map((url) => `${url}*`)
+            ThisBrowser.scripting
+                .getRegisteredContentScripts({ ids: ['content'] })
+                .then((registeredScripts: ContentScripts[]) => {
+                    if (registeredScripts.length < 1) {
+                        return ThisBrowser.scripting.registerContentScripts([
+                            {
+                                id: 'content',
+                                css: ['/css/content.css'],
+                                js: ['/content.js'],
+                                matches: allExternalRepositoryManagerMatches,
+                                runAt: 'document_end',
+                                world: 'ISOLATED',
+                            },
+                        ])
+                    } else {
+                        return ThisBrowser.scripting.updateContentScripts([
+                            {
+                                id: 'content',
+                                css: ['/css/content.css'],
+                                js: ['/content.js'],
+                                matches: allExternalRepositoryManagerMatches,
+                                runAt: 'document_end',
+                                world: 'ISOLATED',
+                            },
+                        ])
+                    }
+                })
+                .then(() => {
+                    logger.logServiceWorker(
+                        'External Repository Manager Content Scripts installed/updated',
+                        LogLevel.DEBUG
+                    )
+                })
+                .catch((err: Error) => {
+                    logger.logServiceWorker(
+                        'Content Scripts NOT successfully registered for NXRM Hosts',
+                        LogLevel.DEBUG,
+                        err
+                    )
+                })
+        } else {
+            return ThisBrowser.scripting.unregisterContentScripts().then(() => {
+                logger.logServiceWorker("Unregistered Content Scripts for External Repository Manager(s)", LogLevel.DEBUG)
+            })
+        }
     }
 }

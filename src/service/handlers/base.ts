@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Analytics } from '../../common/analytics/analytics'
-import { ExtensionConfigurationState } from '../../common/configuration/extension-configuration'
+import { ExtensionConfigurationStateServiceWorker } from '../../common/configuration/extension-configuration-sw'
 import { STORAGE_KEY_TABS, ThisBrowser } from '../../common/constants'
 import { ExtensionDataState } from '../../common/data/extension-data'
 import { ExtensionTabsData } from '../../common/data/types'
@@ -25,7 +25,7 @@ import { MessageResponse } from '../../common/message/types'
 export class BaseServiceWorkerHandler {
     constructor(
         protected readonly analytics: Analytics,
-        protected readonly extensionConfigurationState: ExtensionConfigurationState,
+        protected readonly extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
         protected readonly extensionDataState: ExtensionDataState
     ) {}
 

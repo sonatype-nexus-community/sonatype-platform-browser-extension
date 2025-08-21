@@ -34,7 +34,7 @@ import { RepoMavenApacheOrgRepo } from "./repo-type/repo-maven-apache-org"
 import { Repo1MavenOrgRepo } from "./repo-type/repo1-maven-org"
 import { RubygemsOrgRepo } from "./repo-type/rubygems-org"
 import { SearchMavenOrgRepo } from "./repo-type/search-maven-org"
-import { SonatypeNexusRepostitoryHost } from "./configuration/types"
+import { ExternalRepositoryManager, ExternalRepositoryManagerType, SonatypeNexusRepostitoryHost } from "./configuration/types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -72,10 +72,11 @@ class RepoRegistry {
         return undefined
     }
 
-    registerNxrm3(nxrmHost: SonatypeNexusRepostitoryHost): Nxrm3Repo {
-        const repo = new Nxrm3Repo(nxrmHost.id, nxrmHost.url, nxrmHost.version)
-        this.registerRepo(repo)
-        return repo
+    registerExternalRepositoryManager = (externalRepoManager: ExternalRepositoryManager): void => {
+        switch (externalRepoManager.type) {
+            case ExternalRepositoryManagerType.NXRM3:
+                this.registerRepo(new Nxrm3Repo(externalRepoManager.id, externalRepoManager.url, externalRepoManager.version))
+        }
     }
 
     registerRepo(repo: BaseRepo) {

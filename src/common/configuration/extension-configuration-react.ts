@@ -17,9 +17,9 @@ import { PackageURL } from "packageurl-js"
 import { ThisBrowser } from "../constants"
 import { logger, LogLevel } from "../logger"
 import { TabType } from "../types"
-import { ExtensionConfigurationStateContentScript } from "./extension-configuration-cs"
+import { ExtensionConfigurationState } from "./extension-configuration"
 
-export class ExtensionConfigurationStateReact extends ExtensionConfigurationStateContentScript {
+export class ExtensionConfigurationStateReact extends ExtensionConfigurationState {
 
     public currentPurl: PackageURL
     public currentTab: TabType

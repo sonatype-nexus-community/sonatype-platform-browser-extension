@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ApiApplicationDTO, SecurityVulnerabilityDataDTO } from "@sonatype/nexus-iq-api-client"
-import { ExtensionConfiguration, SonatypeSolutionSupport } from "../configuration/types"
+import { ExtensionConfiguration, ExternalRepositoryManager, SonatypeSolutionSupport } from "../configuration/types"
 import { ComponentStateType } from "../constants"
 import { ExtensionTabsData, ExtensionVulnerabilitiesData } from "../data/types"
 import { MessageRequestType, MessageResponseStatus } from "./constants"
@@ -82,6 +82,7 @@ export interface MessageRequestPageComponentIdentitiesParsed extends MessageRequ
 
 export interface MessageRequestRequestComponentIdentitiesFromPage extends MessageRequest {
     messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE
+    externalReopsitoryManagers: { [key: string]: ExternalRepositoryManager }
     repoTypeId: string
 }
 

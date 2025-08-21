@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Analytics } from '../../common/analytics/analytics'
-import { ExtensionConfigurationState } from '../../common/configuration/extension-configuration'
+import { ExtensionConfigurationStateServiceWorker } from '../../common/configuration/extension-configuration-sw'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionDataState } from '../../common/data/extension-data'
 import { logger, LogLevel } from '../../common/logger'
@@ -36,7 +36,7 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
 
     constructor(
         protected readonly analytics: Analytics,
-        protected readonly extensionConfigurationState: ExtensionConfigurationState,
+        protected readonly extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
         protected readonly extensionDataState: ExtensionDataState
     ) {
         super(analytics, extensionConfigurationState, extensionDataState)
