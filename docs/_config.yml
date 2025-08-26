@@ -26,7 +26,7 @@ description: >-
 url: "https://sonatype-nexus-community.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-remote_theme: sonatype-nexus-community/jekyll-theme-sonatype-community@v0.1.0
+remote_theme: sonatype-nexus-community/jekyll-theme-sonatype-community@v0.2.0
 
 github:
   url: https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension

@@ -4,14 +4,27 @@ layout: default
 menus:
   main:
     title: Configuration
-    weight: 25
+    weight: 20
+toc: true
 ---
 
-Upon successfully addition of the Sonatype Platform Browser Extension, you'll automatically be shown the "Getting Started" screen to make the necessary configuration.
+Upon successfull installation of the Sonatype Platform Browser Extension, you'll automatically be shown the "Getting Started" screen to make the necessary configuration.
 
-![Installation Step 1](./images/install-01.png)
+## Initial Configuration
 
-Enter the URL of your Sonatype IQ Server and click "Grant Permissions to your Sonatype IQ Server".
+### Connect to Sonatype IQ Server
+
+Enter the URL of your Sonatype IQ Server and click "Grant Permissions to your Sonatype IQ Server". You will then be prompted by your Browser to accept or reject the permission request.
+
+<a href="./images/install-01.png">
+    <img src="./images/install-01.png" alt="{{ image.alt }}" width="650" />
+</a>
+
+Click "Allow" to grant the Sonatype Platform Browser Extension the required permissions.
+
+<a href="./images/install-02.png">
+    <img src="./images/install-02.png" alt="{{ image.alt }}" width="650" />
+</a>
 
 ![Installation Step 2](./images/install-02.png)
 

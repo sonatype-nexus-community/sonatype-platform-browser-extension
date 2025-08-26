@@ -19,6 +19,7 @@ group :jekyll_plugins do
   gem "jekyll-gfm-admonitions"
   gem "jekyll-remote-theme"
   gem "jekyll-menus", :git => "https://github.com/forestryio/jekyll-menus.git"
+  gem 'jekyll-toc'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
