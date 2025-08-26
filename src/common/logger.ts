@@ -54,7 +54,7 @@ export interface ILogger {
 
 export class BrowserExtensionLogger implements ILogger {
 
-    constructor(private _level: LogLevel = LogLevel.DEBUG) { }
+    constructor(private _level: LogLevel = LogLevel.WARN) { }
 
     public setLevel(level: LogLevel) {
         this._level = level
