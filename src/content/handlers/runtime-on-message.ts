@@ -51,7 +51,6 @@ export class ContentScriptRuntimeOnMessageHandler {
             messageHandler.handleMessage(request, sender, sendResponse).then(() => {
                 logger.logContent(`Message Handled ${request.messageType}`, LogLevel.DEBUG, request)
             }).catch((err: Error) => {
-                // @todo: Propogate an Error via a Message
                 logger.logContent('Error whilst Content Script handled Message', LogLevel.ERROR, err, request)
                 ThisBrowser.notifications.create({
                     type: 'basic',

@@ -27,6 +27,8 @@ export type OnInstalledDetails = chrome.runtime.InstalledDetails | browser.runti
 
 export type PortType = chrome.runtime.Port | browser.runtime.Port
 
+export type RemoveInfo = chrome.tabs.OnRemovedInfo | browser.tabs._OnRemovedRemoveInfo
+
 export type RuntimeLastError = chrome.runtime.LastError | browser.runtime._LastError
 
 export type TabType = chrome.tabs.Tab | browser.tabs.Tab

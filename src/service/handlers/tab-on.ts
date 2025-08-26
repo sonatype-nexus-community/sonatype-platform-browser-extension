@@ -21,7 +21,7 @@ import { logger, LogLevel } from '../../common/logger'
 import { MessageRequestType } from '../../common/message/constants'
 import { MessageResponsePageComponentIdentitiesParsed } from '../../common/message/types'
 import { DefaultRepoRegistry } from '../../common/repo-registry'
-import { ActiveInfo, ChangeInfo, TabType } from '../../common/types'
+import { ActiveInfo, ChangeInfo, RemoveInfo, TabType } from '../../common/types'
 import { BaseServiceWorkerHandler } from './base'
 import { IqMessageHelper } from './helpers/iq'
 import { NotificationHelper } from './helpers/notification'
@@ -48,6 +48,13 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
         if (changeInfo.status == 'complete' && tab.active && tab.url !== undefined) {
             this.enableDisableExtensionForUrl(tab.url, tabId)
         }
+    }
+
+    public handleOnRemoved = (tabId: number, removeInfo: RemoveInfo) => {
+        logger.logServiceWorker(`ServiceWorkerTabOnHandler.handleOnRemoved: `, LogLevel.DEBUG, tabId, removeInfo)
+        const newExtensionTabsData = this.extensionDataState.tabsData
+        delete newExtensionTabsData.tabs[tabId]
+        return this.updateExtensionTabData(newExtensionTabsData)
     }
 
     protected enableDisableExtensionForUrl = (url: string, tabId: number): void => {

@@ -15,8 +15,9 @@
  */
 import { DEFAULT_EXTENSION_SETTINGS, ExtensionConfiguration } from "../common/configuration/types"
 import { ThisBrowser } from "../common/constants"
+import { SonatypeIqError } from "../common/error"
 import { logger, LogLevel } from "../common/logger"
-import { MessageRequestType } from "../common/message/constants"
+import { MessageRequestType, MessageResponseStatus } from "../common/message/constants"
 import { sendRuntimeMessage } from "../common/message/helpers"
 import { MessageResponseExtensionConfigurationUpdated } from "../common/message/types"
 
@@ -121,8 +122,11 @@ export default class ExtensionConfigurationStateHelper {
             messageType: MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION,
             newExtensionConfig
         }).then((msgResponse: MessageResponseExtensionConfigurationUpdated) => {
-            // @todo: Check message status
-            ExtensionConfigurationStateHelper.extensionConfiguration = msgResponse.newConfiguration
+            if (msgResponse.status === MessageResponseStatus.SUCCESS) {
+                ExtensionConfigurationStateHelper.extensionConfiguration = msgResponse.newConfiguration
+            } else {
+                throw new SonatypeIqError(`Failed to update Extension Configuration: ${msgResponse.status}: ${msgResponse.status_detail}`)
+            }
         }).then(ExtensionConfigurationStateHelper.reviewUpdatedExtensionConfiguration)
     }
 

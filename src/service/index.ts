@@ -122,8 +122,7 @@ self.addEventListener('activate', (event) => {
         const onTabHandler = new ServiceWorkerTabOnHandler(analytics, extensionConfigurationState, extensionDataState)
         ThisBrowser.tabs.onActivated.addListener(onTabHandler.handleOnActivated)
         ThisBrowser.tabs.onUpdated.addListener(onTabHandler.handleOnUpdated)
-        // @todo: When a tab closes, clean up data storage
-        // ThisBrowser.tabs.onRemoved.addListener()
+        ThisBrowser.tabs.onRemoved.addListener(onTabHandler.handleOnRemoved)
 
         // 2C Storage Changed
         const storageHandler = (changes: { [key: string]: browser.storage.StorageChange }, areaName: string) => {
