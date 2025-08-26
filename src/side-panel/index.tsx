@@ -15,7 +15,7 @@
  */
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { SIDE_PANEL_MODE, ThisBrowser } from '../common/constants'
+import { ThisBrowser } from '../common/constants'
 import { ExtensionConfigurationContext } from '../common/context/extension-configuration'
 import { ExtensionTabDataContext } from '../common/context/extension-tab-data'
 import { ExtensionVulnerabilityDataContext } from '../common/context/extension-vulnerability-data'
