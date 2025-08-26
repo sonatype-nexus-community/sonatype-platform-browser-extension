@@ -33,3 +33,15 @@ Install for your preferred Web Browser from the official Web Store:
 </table>
 
 Upon successful installation, you will automatically be guided to [Configure the Extension](/configuration.html).
+
+### Pinning the Extension
+
+Extension by default are not always visible - we recommend you Pin the Sonatype Platform Browser Extension so it is easily accessible as you navigate. To do this find the "Extensions" icon in the top right of your browser (usually) as highlighed in red:
+
+![Pinning the Extension - Step 1](./images/pin-extension-01.png)
+
+Then click the Pin icon as highlighted next to the Sonatype Platform Browser Extension.
+
+![Pinning the Extension - Step 2](./images/pin-extension-02.png)
+
+You'll now always have the Sonatype Platform Browser Extension icon visible in the top right.
