@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_MAVEN } from '../purl-types'
+import { BaseRepo } from './base'
+import { RepositoryId } from './types'
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
 
-import { BaseRepo } from './base'
-import { RepoFormat, RepositoryId } from './types'
-
 export class CentralSonatypeComRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.CENTRAL_SONATYPE_COM
 
-    readonly format: RepoFormat = RepoFormat.MAVEN
-
     readonly baseUrl: string = 'https://central.sonatype.com/artifact/'
+
+    readonly purlType: string = PURL_TYPE_MAVEN
 
     readonly titleSelector: string = 'h1'
 

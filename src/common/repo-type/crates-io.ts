@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BaseRepo }  from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { PURL_TYPE_CARGO } from "../purl-types"
+import { BaseRepo } from "./base"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class CratesIoRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.CRATES_IO
    
-    readonly format: RepoFormat = RepoFormat.CARGO
-   
     readonly baseUrl: string = 'https://crates.io/crates/'
+
+    readonly purlType: string = PURL_TYPE_CARGO
    
     readonly titleSelector: string = "h1[class*='heading']"
    

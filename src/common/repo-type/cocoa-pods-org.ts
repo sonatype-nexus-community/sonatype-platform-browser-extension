@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import { PURL_TYPE_COCOAPODS } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -23,11 +23,11 @@ import { RepoFormat, RepositoryId } from "./types"
 export class CocoaPodsOrgRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.COCOAPODS_ORG
 
-    readonly format: RepoFormat = RepoFormat.COCOAPODS
-
     readonly baseUrl: string = 'https://cocoapods.org/pods/'
 
     readonly titleSelector: string = 'h1'
+
+    readonly purlType: string = PURL_TYPE_COCOAPODS
 
     readonly versionPath: string = '{artifactId}'
 

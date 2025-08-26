@@ -18,11 +18,12 @@ import { PackageURL } from 'packageurl-js'
 import { LogLevel, logger } from '../logger'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
+import { PURL_TYPE_COCOAPODS, PURL_TYPE_CRAN, PURL_TYPE_GEM, PURL_TYPE_MAVEN, PURL_TYPE_NPM, PURL_TYPE_PYPI } from '../purl-types'
 
 const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-child(2) > td.nx-info-entry-value'
 
-export class Nxrm3PageParser extends BasePageParser {   
+export class Nxrm3PageParser extends BasePageParser {
+
     parsePage(url: string): PackageURL[] {
         const uriPath = url.replace(this.repoType.baseUrl, '')
         logger.logContent('Normalised URI Path: ', LogLevel.DEBUG, uriPath)
@@ -77,7 +78,7 @@ export class Nxrm3PageParser extends BasePageParser {
             const componentName = componentParts.pop() as string
 
             return [generatePackageURLComplete(
-                RepoFormat.COCOAPODS,
+                PURL_TYPE_COCOAPODS,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 undefined,
@@ -101,7 +102,7 @@ export class Nxrm3PageParser extends BasePageParser {
             const componentGroup = componentParts.join('.')
 
             return [generatePackageURLComplete(
-                RepoFormat.MAVEN,
+                PURL_TYPE_MAVEN,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 encodeURIComponent(componentGroup),
@@ -130,7 +131,7 @@ export class Nxrm3PageParser extends BasePageParser {
             const version = filenameParts.join('.')
 
             return [generatePackageURLComplete(
-                RepoFormat.NPM,
+                PURL_TYPE_NPM,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 componentNamespace ?? componentNamespace,
@@ -152,7 +153,7 @@ export class Nxrm3PageParser extends BasePageParser {
             const componentName = componentParts.pop() as string
 
             return [generatePackageURLComplete(
-                RepoFormat.PYPI,
+                PURL_TYPE_PYPI,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 undefined,
@@ -177,7 +178,7 @@ export class Nxrm3PageParser extends BasePageParser {
             const componentName = componentParts.pop() as string
 
             return [generatePackageURLComplete(
-                RepoFormat.CRAN,
+                PURL_TYPE_CRAN,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 undefined,
@@ -206,7 +207,7 @@ export class Nxrm3PageParser extends BasePageParser {
             }
 
             return [generatePackageURLComplete(
-                RepoFormat.RUBY_GEMS,
+                PURL_TYPE_GEM,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 undefined,

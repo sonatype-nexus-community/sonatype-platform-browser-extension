@@ -16,7 +16,6 @@
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class RepoMavenApacheOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
@@ -27,7 +26,7 @@ export class RepoMavenApacheOrgPageParser extends BasePageParser {
                 const artifactId = gaParts.pop()
                 const groupId = gaParts.join('.')
                 const p = generatePackageURLComplete(
-                    RepoFormat.MAVEN,
+                    this.repoType.purlType,
                     encodeURIComponent(artifactId as string),
                     encodeURIComponent(pathResults.groups.version),
                     encodeURIComponent(groupId),

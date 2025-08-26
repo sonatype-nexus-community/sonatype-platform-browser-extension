@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_NUGET } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class NugetOrgRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.NUGET_ORG
 
-    readonly format: RepoFormat = RepoFormat.NUGET
-
     readonly baseUrl: string = 'https://www.nuget.org/packages/'
+
+    readonly purlType: string = PURL_TYPE_NUGET
 
     readonly titleSelector: string = '.package-title > h1'
 

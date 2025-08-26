@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// This is used by Extension Service Worker - cannot directly or indirectly require
-// access to DOM.
-
-export abstract class BaseRepo {
-    abstract id: string
-    abstract baseUrl: string
-    abstract purlType: string
-    abstract titleSelector: string
-    abstract versionPath: string
-    abstract pathRegex: RegExp
-    abstract versionDomPath: string
-    abstract supportsVersionNavigation: boolean
-    abstract supportsMultiplePurlsPerPage: boolean
-}
+export const PURL_TYPE_APK = 'apk'
+export const PURL_TYPE_CARGO = 'cargo'
+export const PURL_TYPE_COCOAPODS = 'cocoapods'
+export const PURL_TYPE_COMPOSER = 'composer'
+export const PURL_TYPE_CONAN = 'conan'
+export const PURL_TYPE_CRAN = 'cran'
+export const PURL_TYPE_GEM = 'gem'
+export const PURL_TYPE_GOLANG = 'golang'
+export const PURL_TYPE_HUGGINGFACE = 'huggingface'
+export const PURL_TYPE_MAVEN = 'maven'
+export const PURL_TYPE_NPM = 'npm'
+export const PURL_TYPE_NUGET = 'nuget'
+export const PURL_TYPE_PYPI = 'pypi'

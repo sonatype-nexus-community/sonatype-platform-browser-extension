@@ -15,10 +15,12 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import { readFileSync } from 'fs'
-import { join } from 'path'
 import { PackageURL } from 'packageurl-js'
-import { AlpineLinuxOrgPageParser } from './alpinelinux-org'
+import { join } from 'path'
+
 import { AlpineLinuxOrgRepo } from '../repo-type/alpine'
+import { AlpineLinuxOrgPageParser } from './alpinelinux-org'
+
 
 const parser = new AlpineLinuxOrgPageParser(new AlpineLinuxOrgRepo())
 
@@ -42,8 +44,7 @@ function assertPageParsing(url: string, domFile: string | undefined, expected: P
     }
 }
 
-describe('pkgs.alpinelinux.org Page Parsing', () => {
-    
+describe('pkgs.alpinelinux.org Page Parsing', () => {  
     test('openssl', () => {
         assertPageParsing(
             'https://pkgs.alpinelinux.org/package/edge/main/x86/openssl',

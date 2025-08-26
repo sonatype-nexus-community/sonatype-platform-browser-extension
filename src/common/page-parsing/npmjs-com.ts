@@ -18,7 +18,6 @@ import { PackageURL } from 'packageurl-js'
 import { generatePackageURLWithNamespace } from '../purl-utils'
 import { stripHtmlComments } from '../string'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class NpmJsComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
@@ -26,7 +25,7 @@ export class NpmJsComPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = stripHtmlComments($(this.repoType.versionDomPath).first().text()).split('•')[0].trim()
             const p = generatePackageURLWithNamespace(
-                RepoFormat.NPM,
+                this.repoType.purlType,
                 pathResults.groups.artifactId,
                 pathResults.groups.version ?? pageVersion,
                 pathResults.groups.groupId

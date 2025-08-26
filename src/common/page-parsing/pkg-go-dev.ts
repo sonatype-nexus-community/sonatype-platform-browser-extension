@@ -17,7 +17,6 @@ import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLWithNamespace } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 const PKG_GO_DEV_VERSION_SELECTOR = '#main-content a[href="?tab=versions"]'
 const GO_PKG_IN_V1 = /^gopkg.in\/([^.]+).*/
@@ -56,7 +55,7 @@ export class PkgGoDevPageParser extends BasePageParser {
 
         if (nameAndNamespace && version != null) {
             const p = generatePackageURLWithNamespace(
-                RepoFormat.GOLANG,
+                this.repoType.purlType,
                 nameAndNamespace.name,
                 version,
                 nameAndNamespace.namespace

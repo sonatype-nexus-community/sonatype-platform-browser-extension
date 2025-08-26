@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { BaseRepo } from './base'
-import { RepoFormat } from './types'
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -27,9 +26,9 @@ export class Nxrm3Repo extends BaseRepo {
 
     readonly id: string = this.repoId
 
-    readonly format: RepoFormat = RepoFormat.NXRM3
-
     readonly baseUrl: string = this.nxrmBaseUrl
+
+    readonly purlType: string = ''
 
     readonly titleSelector: string = ''
 

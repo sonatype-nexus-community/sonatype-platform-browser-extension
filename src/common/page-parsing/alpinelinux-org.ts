@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class AlpineLinuxOrgPageParser extends BasePageParser {  
     parsePage(url: string): PackageURL[] {
@@ -27,7 +25,7 @@ export class AlpineLinuxOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath).first().text().trim()
             const p = generatePackageURL(
-                RepoFormat.ALPINE, encodeURIComponent(pathResults.groups.artifactId), version
+                this.repoType.purlType, encodeURIComponent(pathResults.groups.artifactId), version
             )
             this.annotateDomForPurl(p)
             return [p]

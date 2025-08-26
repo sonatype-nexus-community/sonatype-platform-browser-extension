@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_CRAN } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class CranRProjectOrg extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.CRAN_R_PROJECT_ORG
 
-    readonly format: RepoFormat = RepoFormat.CRAN
-
     readonly baseUrl: string = 'https://cran.r-project.org/'
+    
+    readonly purlType: string = PURL_TYPE_CRAN
 
     readonly titleSelector: string = 'h2'
 

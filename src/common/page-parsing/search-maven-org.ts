@@ -15,10 +15,9 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURLComplete } from '../purl-utils'
 import { logger, LogLevel } from '../logger'
+import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class SearchMavenOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
@@ -27,7 +26,7 @@ export class SearchMavenOrgPageParser extends BasePageParser {
             const pageVersion = $(this.repoType.versionDomPath).text().trim()
             logger.logContent(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             const p = generatePackageURLComplete(
-                RepoFormat.MAVEN,
+                this.repoType.purlType,
                 encodeURIComponent(pathResults.groups.artifactId),
                 pathResults.groups.version ?? pageVersion,
                 encodeURIComponent(pathResults.groups.groupId),

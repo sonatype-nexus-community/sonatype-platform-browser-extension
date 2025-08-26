@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_HUGGINGFACE } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class HuggingfaceCoRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.HUGGINGFACE_CO
 
-    readonly format: RepoFormat = RepoFormat.HUGGINGFACE
-
     readonly baseUrl: string = 'https://huggingface.co/'
+
+    readonly purlType: string = PURL_TYPE_HUGGINGFACE
  
     readonly titleSelector: string = 'header h1'
 

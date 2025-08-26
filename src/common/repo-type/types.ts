@@ -35,27 +35,6 @@ export enum RepositoryId {
     SEARCH_MAVEN_ORG = 'SEARCH_MAVEN_ORG',
 }
 
-export enum RepoFormat {
-    ALPINE = 'ALPINE',
-    CARGO = 'CARGO',
-    COCOAPODS = 'COCOAPODS',
-    COMPOSER = 'COMPOSER',
-    CONAN = 'CONAN',
-    CONDA = 'CONDA',
-    CRAN = 'CRAN',
-    DEBIAN = 'DEBIAN',
-    GOLANG = 'GOLANG',
-    HUGGINGFACE = 'HUGGINGFACE',
-    MAVEN = 'MAVEN',
-    NPM = 'NPM',
-    NUGET = 'NUGET',
-    PYPI = 'PYPI',
-    RUBY_GEMS = 'RUBY_GEMS',
-
-    // Special Case
-    NXRM3 = 'NXRM3'
-}
-
 export interface RepoType {
     // Unique & Static Identifier for this Repository
     id: string          

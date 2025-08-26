@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
@@ -40,11 +38,13 @@ export class CentralSonatypeComPageParser extends BasePageParser {
             console.debug(`*** Got centralSonatypeCom purl from page purlText '${purlText} : ${purl.toString()}`)
             return [purl]
         }
+
+        
         
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const p = generatePackageURLComplete(
-                RepoFormat.MAVEN,
+                this.repoType.purlType,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(pathResults.groups.version),
                 encodeURIComponent(pathResults.groups.groupId),

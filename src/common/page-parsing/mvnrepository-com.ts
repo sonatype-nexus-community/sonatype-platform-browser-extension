@@ -16,14 +16,13 @@
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class MvnRepositoryComPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const p = generatePackageURLComplete(
-                RepoFormat.MAVEN,
+                this.repoType.purlType,
                 encodeURIComponent(pathResults.groups.artifactId),
                 encodeURIComponent(pathResults.groups.version),
                 encodeURIComponent(pathResults.groups.groupId),

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_GOLANG } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class PkgGoDevRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.PKG_GO_DEV
 
-    readonly format: RepoFormat = RepoFormat.GOLANG
-
     readonly baseUrl: string = 'https://pkg.go.dev/'
+
+    readonly purlType: string = PURL_TYPE_GOLANG
 
     readonly titleSelector: string = 'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1'
 

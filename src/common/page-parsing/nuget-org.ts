@@ -15,10 +15,9 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURL } from '../purl-utils'
 import { logger, LogLevel } from '../logger'
+import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class NugetOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
@@ -26,12 +25,14 @@ export class NugetOrgPageParser extends BasePageParser {
         if (pathResults?.groups) {
             const pageVersion = $(this.repoType.versionDomPath).text().trim()
             logger.logContent(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
+            let version = pathResults.groups.version
+            if (version === undefined || version === "") {
+                version = pageVersion
+            }
             const p = generatePackageURL(
-                RepoFormat.NUGET,
+                this.repoType.purlType,
                 encodeURIComponent(pathResults.groups.artifactId),
-                encodeURIComponent(
-                    pathResults.groups.version ?? pageVersion
-                )
+                encodeURIComponent(version)
             )
             this.annotateDomForPurl(p)
             return [p]

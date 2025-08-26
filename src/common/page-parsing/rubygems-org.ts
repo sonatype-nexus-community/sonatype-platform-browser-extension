@@ -15,10 +15,9 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURL } from '../purl-utils'
 import { logger, LogLevel } from '../logger'
+import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class RubygemsOrgPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
@@ -27,7 +26,7 @@ export class RubygemsOrgPageParser extends BasePageParser {
             const pageVersion = $(this.repoType.versionDomPath).text().trim()
             logger.logContent(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             const p = generatePackageURL(
-                RepoFormat.RUBY_GEMS,
+                this.repoType.purlType,
                 pathResults.groups.artifactId,
                 pathResults.groups.version ?? pageVersion,
                 (pathResults.groups.platform !== undefined && pathResults.groups.platform != '') ? { platform: pathResults.groups.platform } : undefined

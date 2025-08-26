@@ -15,10 +15,9 @@
  */
 import $, { Cash } from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { generatePackageURL } from '../purl-utils'
 import { logger, LogLevel } from '../logger'
+import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 const PYPI_DEFAULT_EXTENSION = 'tar.gz'
 const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [PYPI_DEFAULT_EXTENSION, 'tar.bz2']
@@ -77,7 +76,7 @@ export class PypiOrgPageParser extends BasePageParser {
         }
         
         const p = generatePackageURL(
-            RepoFormat.PYPI,
+            this.repoType.purlType,
             artifactName,
             artifactVersion,
             qualifiers

@@ -18,7 +18,6 @@ import { PackageURL } from 'packageurl-js'
 import { logger, LogLevel } from '../logger'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class CratesIoPageParser extends BasePageParser {   
     parsePage(url: string): PackageURL[] {
@@ -27,7 +26,7 @@ export class CratesIoPageParser extends BasePageParser {
             const pageVersion = $(this.repoType.versionDomPath).text().trim()
             logger.logContent(`URL Version: ${pathResults.groups.version}, Page Version: ${pageVersion}`, LogLevel.DEBUG)
             const p = generatePackageURLComplete(
-                RepoFormat.CARGO,
+                this.repoType.purlType,
                 encodeURIComponent(pathResults.groups.artifactId),
                 pathResults.groups.version ?? pageVersion.replace('v', ''),
                 undefined,

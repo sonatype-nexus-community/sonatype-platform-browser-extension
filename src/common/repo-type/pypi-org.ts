@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { PURL_TYPE_PYPI } from "../purl-types"
 import { BaseRepo } from "./base"
-import { RepoFormat, RepositoryId } from "./types"
+import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
@@ -22,9 +23,9 @@ import { RepoFormat, RepositoryId } from "./types"
 export class PypiOrgRepo extends BaseRepo {
     readonly id: RepositoryId = RepositoryId.PYPI_ORG
 
-    readonly format: RepoFormat = RepoFormat.PYPI
-
     readonly baseUrl: string = 'https://pypi.org/project/'
+
+    readonly purlType: string = PURL_TYPE_PYPI
 
     readonly titleSelector: string = 'h1.package-header__name'
 

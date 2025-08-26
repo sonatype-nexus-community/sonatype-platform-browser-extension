@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { PackageURL } from 'packageurl-js'
-import { RepoFormat } from './repo-type/types'
 import { logger, LogLevel } from './logger'
 
 const friendlyPackageUrlString = (purl: PackageURL): string => {
@@ -29,7 +28,7 @@ const friendlyPackageUrlString = (purl: PackageURL): string => {
 }
 
 const generatePackageURL = (
-    format: RepoFormat,
+    format: string,
     name: string,
     version: string,
     qualifiers?: { [key: string]: string }
@@ -38,7 +37,7 @@ const generatePackageURL = (
 }
 
 const generatePackageURLWithNamespace = (
-    format: RepoFormat,
+    format: string,
     name: string,
     version: string,
     namespace: string | undefined
@@ -47,7 +46,7 @@ const generatePackageURLWithNamespace = (
 }
 
 const generatePackageURLComplete = (
-    format: RepoFormat,
+    format: string,
     name: string,
     version: string,
     namespace: string | undefined,

@@ -17,14 +17,13 @@ import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
 import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
-import { RepoFormat } from '../repo-type/types'
 
 export class ConanIoPageParser extends BasePageParser {
     parsePage(url: string): PackageURL[] {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath).text().trim().split('/')[1]
-            const p = generatePackageURL(RepoFormat.CONAN, encodeURIComponent(pathResults.groups.artifactId), version)
+            const p = generatePackageURL(this.repoType.purlType, encodeURIComponent(pathResults.groups.artifactId), version)
             this.annotateDomForPurl(p)
             return [p]
         }

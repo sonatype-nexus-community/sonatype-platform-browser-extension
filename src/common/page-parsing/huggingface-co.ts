@@ -21,11 +21,10 @@ import { BaseRepo } from '../repo-type/base'
 import { stripHtmlComments } from '../string'
 import { BasePageParser } from './base'
 import { BaseHuggingFaceParser } from './hugging-face/base'
+import { GGUFHuggingFaceParser } from './hugging-face/gguf'
 import { PytorchHuggingFaceParser } from './hugging-face/pytorch'
 import { SafetensorsHuggingFaceParser } from './hugging-face/safetensors'
 import { TensorFlowHuggingFaceParser } from './hugging-face/tensor-flow'
-import { GGUFHuggingFaceParser } from './hugging-face/gguf'
-import { RepoFormat } from '../repo-type/types'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
 
@@ -80,7 +79,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
                     logger.logContent(`    PURL Match for Filename: ${fileName}, File Version: ${fileVersion}, Download URL: ${fileDownloadUrl}`, LogLevel.DEBUG)
                     const qualifiers = hfParser.getPurlAdapter().qualifiers(fileName)
                     const p = generatePackageURLComplete(
-                        RepoFormat.HUGGINGFACE,
+                        this.repoType.purlType,
                         artifactName,
                         fileVersion,
                         artifactNamespace,
