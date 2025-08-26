@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { faArrowLeft, faArrowRight, faBell, faBookOpenReader, faCog, faCube, faPlay, faPlug, faQuestionCircle, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faBookOpenReader, faCog, faCube, faPlay, faPlug, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { NxButton, NxFontAwesomeIcon, NxGlobalSidebarFooter, NxGlobalSidebarNavigation, NxGlobalSidebarNavigationLink, NxStatefulGlobalSidebar } from '@sonatype/react-shared-components'
 import React, { useContext } from 'react'
 import { ExtensionConfigurationHelper } from '../../common/configuration/helper'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
+import '../../public/css/options.css'
 import AdvancedOptionsSubPage from './advanced-options-sub-page'
+import ExternalRepositoryOptionsSubPage from './external-repository-sub-page'
 import HelpSubPage from './help-sub-page'
 import IQOptionsSubPage from './iq-options-sub-page'
-import ExternalRepositoryOptionsSubPage from './external-repository-sub-page'
-import '../../public/css/options.css'
 import ReleaseNotesSubPage from './release-notes-sub-page'
 
 enum OPTIONS_PAGE_MODE {
@@ -88,10 +88,11 @@ export default function OptionsPage() {
                     </>
                 )}
                 <div className="nx-global-header__actions">
-                    <NxButton title="Help" variant="icon-only"><NxFontAwesomeIcon icon={faQuestionCircle} /></NxButton>
-                    <NxButton title="Notifications" variant="icon-only"><NxFontAwesomeIcon icon={faBell} /></NxButton>
-                    <NxButton title="Settings" variant="icon-only"><NxFontAwesomeIcon icon={faCog} /></NxButton>
-                    <NxButton title="User" variant="icon-only"><NxFontAwesomeIcon icon={faUserCircle} /></NxButton>
+                    <NxButton title="Help" variant="icon-only" onClick={() => {
+                        window.open("https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension", "sonatype-platform-browse-extension-help-docs", "noopener")
+                    }}>
+                        <NxFontAwesomeIcon icon={faQuestionCircle} />
+                    </NxButton>
                 </div>
             </header>
             <NxStatefulGlobalSidebar
