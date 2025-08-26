@@ -88,10 +88,11 @@ export default function OptionsPage() {
                     </>
                 )}
                 <div className="nx-global-header__actions">
-                    <NxButton title="Help" variant="icon-only"><NxFontAwesomeIcon icon={faQuestionCircle} /></NxButton>
-                    <NxButton title="Notifications" variant="icon-only"><NxFontAwesomeIcon icon={faBell} /></NxButton>
-                    <NxButton title="Settings" variant="icon-only"><NxFontAwesomeIcon icon={faCog} /></NxButton>
-                    <NxButton title="User" variant="icon-only"><NxFontAwesomeIcon icon={faUserCircle} /></NxButton>
+                    <NxButton title="Help" variant="icon-only" onClick={() => {
+                        window.open("https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension")
+                    }}>
+                        <NxFontAwesomeIcon icon={faQuestionCircle} />
+                    </NxButton>
                 </div>
             </header>
             <NxStatefulGlobalSidebar
