@@ -25,10 +25,10 @@ export default function SecuritySection(props: Readonly<{ securityData: ApiSecur
 
     function sortSecurityIssues(securityIssues: ApiSecurityIssueDTO[]): ApiSecurityIssueDTO[] {
         return securityIssues
-            .sort((a: ApiSecurityIssueDTO, b: ApiSecurityIssueDTO) => {
+            .toSorted((a: ApiSecurityIssueDTO, b: ApiSecurityIssueDTO) => {
                 return (b.reference ?? "") > (a.reference ?? "") ? 1 : -1
             })
-            .sort((a: ApiSecurityIssueDTO, b: ApiSecurityIssueDTO) => {
+            .toSorted((a: ApiSecurityIssueDTO, b: ApiSecurityIssueDTO) => {
                 return (b.severity ?? 0) - (a.severity ?? 0)
             })
     }
