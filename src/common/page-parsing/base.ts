@@ -30,7 +30,10 @@ export abstract class BasePageParser {
     }
 
     annotateDomPageTitle = () => {
-        $(this.repoType.titleSelector).addClass('sonatype-extension sonatype-page-title sonatype-pending')
+        if (this.enableDomAnnotation) {
+            logger.logGeneral(`Adding classes to ${this.repoType.titleSelector}`, LogLevel.DEBUG)
+            $(this.repoType.titleSelector).addClass('sonatype-extension sonatype-page-title sonatype-pending')
+        }
     }
 
     annotateDomForPurl(purl: PackageURL, e?: Cash) {

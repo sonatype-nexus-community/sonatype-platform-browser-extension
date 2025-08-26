@@ -31,7 +31,7 @@ export class ContentScriptRuntimeOnMessageHandler {
     ): boolean => {
         logger.logContent(
             `ContentScript.handleMessage: `,
-            LogLevel.DEBUG,
+            LogLevel.INFO,
             request.messageType,
             request,
             sender

@@ -15,6 +15,8 @@
  */
 import { ThisBrowser } from '../common/constants'
 import { logger, LogLevel } from '../common/logger'
+import { MessageRequestType } from '../common/message/constants'
+import { MessageRequestExtensionConfigurationUpdated } from '../common/message/types'
 import '../public/css/content.css'
 import { ContentScriptRuntimeOnMessageHandler } from './handlers/runtime-on-message'
 
@@ -28,3 +30,13 @@ import { ContentScriptRuntimeOnMessageHandler } from './handlers/runtime-on-mess
 const onMessageHandler = new ContentScriptRuntimeOnMessageHandler()
 ThisBrowser.runtime.onMessage.addListener(onMessageHandler.handleOnMessage)
 logger.logContent("Content Script Message Handler registered", LogLevel.INFO)
+
+ThisBrowser.runtime
+    .connect({ name: 'CONTENT-SCRIPT' })
+    .onMessage.addListener((request: MessageRequestExtensionConfigurationUpdated) => {
+        if (request.messageType === MessageRequestType.EXTENSION_CONFIGURATION_UPDATED) {
+            logger.logContent("NEW DATA", LogLevel.ERROR, request)
+            logger.setLevel(request.newExtensionConfig.logLevel)
+        }
+    }
+)
