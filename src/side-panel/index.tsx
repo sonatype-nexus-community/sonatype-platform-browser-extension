@@ -122,7 +122,7 @@ function MySidePanelApp(
     }, [props.vulnerabilityData])
 
     useEffect(() => {
-        if (tabId !== undefined && Object.prototype.hasOwnProperty.call(extensionTabsData.tabs, tabId)) {
+        if (tabId !== undefined && Object.hasOwn(extensionTabsData.tabs, tabId)) {
             setExtensionTabData(extensionTabsData.tabs[tabId])
         }
     }, [extensionTabsData, tabId])

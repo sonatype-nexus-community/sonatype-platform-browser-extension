@@ -101,7 +101,6 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
             messageHandler.handleMessage(request, sender, sendResponse).then(() => {
                 logger.logServiceWorker(`Message Handled ${request.messageType}`, LogLevel.DEBUG, request)
             }).catch((err: Error) => {
-                // @todo: Propogate an Error via a Message
                 logger.logServiceWorker('Error whilst Service Worker handled Message', LogLevel.ERROR, err, request)
                 ThisBrowser.notifications.create({
                     type: 'basic',

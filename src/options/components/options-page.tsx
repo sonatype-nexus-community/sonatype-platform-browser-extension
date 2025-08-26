@@ -78,14 +78,10 @@ export default function OptionsPage() {
         <React.StrictMode>
             <header className="nx-global-header">
                 {configurationComplete && extensionConfigContext.iqAuthenticated && (
-                    <>
-                        <span role="status" className="nx-status-indicator nx-status-indicator--positive">Connected to Sonatype IQ {extensionConfigContext.iqVersion}</span>
-                    </>
+                    <span role="status" className="nx-status-indicator nx-status-indicator--positive">Connected to Sonatype IQ {extensionConfigContext.iqVersion}</span>
                 )}
                 {!configurationComplete && (
-                    <>
-                        <span role="status" className="nx-status-indicator nx-status-indicator--negative">Not configured</span>
-                    </>
+                    <span role="status" className="nx-status-indicator nx-status-indicator--negative">Not configured</span>
                 )}
                 <div className="nx-global-header__actions">
                     <NxButton title="Help" variant="icon-only" onClick={() => {
