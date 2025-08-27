@@ -25,14 +25,12 @@ export abstract class BasePageParser {
         if (repoType === undefined) {
             throw new Error("RepoType cannot be undefined")
         }
-
-        if (this.enableDomAnnotation) this.annotateDomPageTitle()
     }
 
     annotateDomPageTitle = () => {
         if (this.enableDomAnnotation) {
-            logger.logGeneral(`Adding classes to ${this.repoType.titleSelector}`, LogLevel.DEBUG)
-            $(this.repoType.titleSelector).addClass('sonatype-extension sonatype-page-title sonatype-pending')
+            logger.logContent(`Adding classes to ${this.repoType.titleSelector}`, LogLevel.DEBUG)
+            $(this.repoType.titleSelector).first().addClass('sonatype-extension sonatype-page-title sonatype-pending')
         }
     }
 
@@ -42,7 +40,7 @@ export abstract class BasePageParser {
             if (e === undefined) {
                 return
             }
-            logger.logGeneral(`Adding class '${domClass}' to `, LogLevel.DEBUG, e)
+            logger.logContent(`Adding class '${domClass}' to `, LogLevel.DEBUG, e)
             e?.addClass('sonatype-extension sonatype-component sonatype-pending')
             e?.addClass(domClass)
         }
@@ -56,7 +54,7 @@ export abstract class BasePageParser {
 
     parsePath(url: string): RegExpExecArray | null {
         const results = this.repoType?.pathRegex.exec(url.replace(this.repoType?.baseUrl, ''))
-        logger.logGeneral(`${this.repoType?.id} Path Results: ${results}`, LogLevel.DEBUG)
+        logger.logContent(`${this.repoType?.id} Path Results: ${results}`, LogLevel.DEBUG)
         if (results) {
             return results
         } else {

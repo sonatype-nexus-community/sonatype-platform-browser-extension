@@ -52,8 +52,10 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
             const repoType = DefaultRepoRegistry.getRepoForUrl(url)
             if (repoType !== undefined) {
                 logger.logServiceWorker('Determining Component Identities for Page', LogLevel.DEBUG, url, repoType)
+                const pageParser = DefaultPageParserRegistry.getParserByRepoId(repoType.id)
+                pageParser.annotateDomPageTitle()
 
-                const purls = DefaultPageParserRegistry.getParserByRepoId(repoType.id).parsePage(url)
+                const purls = pageParser.parsePage(url)
                 logger.logContent(
                     'Component Identities parsed',
                     LogLevel.DEBUG,
