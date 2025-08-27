@@ -17,6 +17,12 @@
 // This is used by Extension Service Worker - cannot directly or indirectly require
 // access to DOM.
 
+export enum KNOWN_FRAMEWORKS {
+    NONE = 'none',
+    REACT = 'react',
+    EMBER = 'ember'
+}
+
 export abstract class BaseRepo {
     abstract id: string
     abstract baseUrl: string
@@ -25,6 +31,8 @@ export abstract class BaseRepo {
     abstract versionPath: string
     abstract pathRegex: RegExp
     abstract versionDomPath: string
+    readonly domReadyPathCheck: string
+    readonly knownFramework: KNOWN_FRAMEWORKS = KNOWN_FRAMEWORKS.NONE
     abstract supportsVersionNavigation: boolean
     abstract supportsMultiplePurlsPerPage: boolean
 }
