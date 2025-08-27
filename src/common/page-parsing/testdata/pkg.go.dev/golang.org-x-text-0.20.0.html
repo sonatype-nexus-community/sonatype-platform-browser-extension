@@ -1,6 +1,10 @@
-<html lang="en" data-layout="responsive" data-local="" style="--js-unit-header-height: 8.8125rem; --js-sticky-header-height: 3.5rem; --js-unit-header-top: -5.3125rem;"><head>
+
+
+<!DOCTYPE html>
+<html lang="en" data-layout="responsive" data-local="">
+  <head>
     
-    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-HL38R6X1Q3&amp;l=dataLayer&amp;cx=c&amp;gtm=45He4bk0v830425926za200"></script><script>
+    <script>
       window.addEventListener('error', window.__err=function f(e){f.p=f.p||[];f.p.push(e)});
     </script>
     <script>
@@ -20,10 +24,10 @@
     <link rel="shortcut icon" href="/static/shared/icon/favicon.ico">
     
   
-    <link rel="canonical" href="https://pkg.go.dev/golang.org/x/text">
+    <meta name="robots" content="noindex">
   
 
-    <link href="/static/frontend/frontend.min.css?version=prod-frontend-00090-vzc" rel="stylesheet">
+    <link href="/static/frontend/frontend.min.css?version=prod-frontend-00106-8zz" rel="stylesheet">
     
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Go Packages">
     
@@ -31,12 +35,12 @@
   <title>text package - golang.org/x/text - Go Packages</title>
 
     
-  <link href="/static/frontend/unit/unit.min.css?version=prod-frontend-00090-vzc" rel="stylesheet">
+  <link href="/static/frontend/unit/unit.min.css?version=prod-frontend-00106-8zz" rel="stylesheet">
   
-  <link href="/static/frontend/unit/main/main.min.css?version=prod-frontend-00090-vzc" rel="stylesheet">
+  <link href="/static/frontend/unit/main/main.min.css?version=prod-frontend-00106-8zz" rel="stylesheet">
 
 
-  <script src="/third_party/dialog-polyfill/dialog-polyfill.js"></script><script src="/static/frontend/frontend.js" type="module" async="" defer=""></script><script src="https://www.googletagmanager.com/gtm.js?id=GTM-W8MVQXG" type="module" async="" defer=""></script><script src="/static/frontend/unit/main/main.js" type="module" async="" defer=""></script><script src="/static/frontend/unit/unit.js" type="module" async="" defer=""></script></head>
+  </head>
   <body>
     
     <script>
@@ -54,10 +58,11 @@
       loadScript("/static/frontend/frontend.js");
     </script>
     
-  <header class="go-Header go-Header--full js-siteHeader"><div></div>
+  <header class="go-Header go-Header--full js-siteHeader">
     <div class="go-Header-inner go-Header-inner--dark">
       <nav class="go-Header-nav">
-        <a href="https://go.dev/" class="js-headerLogo" data-gtmc="nav link" data-test-id="go-header-logo-link" role="heading" aria-level="1">
+        <a href="https://go.dev/" class="js-headerLogo" data-gtmc="nav link"
+            data-test-id="go-header-logo-link" role="heading" aria-level="1">
           <img class="go-Header-logo" src="/static/shared/logo/go-white.svg" alt="Go">
         </a>
          <div class="skip-navigation-wrapper">
@@ -66,15 +71,34 @@
         <div class="go-Header-rightContent">
           
 <div class="go-SearchForm js-searchForm">
-  <form class="go-InputGroup go-ShortcutKey go-SearchForm-form" action="/search" data-shortcut="/" data-shortcut-alt="search" data-gtmc="search form" aria-label="Search for a package" role="search">
-    <input name="q" class="go-Input js-searchFocus" aria-label="Search for a package" type="search" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Search packages or symbols" value="">
-    <input name="m" value="" hidden="">
+  <form
+    class="go-InputGroup go-ShortcutKey go-SearchForm-form"
+    action="/search"
+    data-shortcut="/"
+    data-shortcut-alt="search"
+    data-gtmc="search form"
+    aria-label="Search for a package"
+    role="search"
+  >
+    <input name="q" class="go-Input js-searchFocus" aria-label="Search for a package" type="search"
+        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
+        placeholder="Search packages or symbols"
+        value="" />
+    <input name="m" value="" hidden>
     <button class="go-Button go-Button--inverted" aria-label="Submit search">
-      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/search_gm_grey_24dp.svg" alt="">
+      <img
+        class="go-Icon"
+        height="24"
+        width="24"
+        src="/static/shared/icon/search_gm_grey_24dp.svg"
+        alt=""
+      />
     </button>
   </form>
-  <button class="go-SearchForm-expandSearch js-expandSearch" data-gtmc="nav button" aria-label="Open search" data-test-id="expand-search">
-    <img class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/search_gm_grey_24dp.svg" alt="">
+  <button class="go-SearchForm-expandSearch js-expandSearch" data-gtmc="nav button"
+      aria-label="Open search" data-test-id="expand-search">
+    <img class="go-Icon go-Icon--inverted" height="24" width="24"
+        src="/static/shared/icon/search_gm_grey_24dp.svg" alt="">
 
   </button>
 </div>
@@ -89,7 +113,7 @@
                   <li class="go-Header-submenuItem">
                     <div>
                       <a href="https://go.dev/solutions#case-studies">
-                        Case Studies
+                        <span>Case Studies</span>
                       </a>
                     </div>
                     <p>Common problems companies solve with Go</p>
@@ -97,15 +121,15 @@
                   <li class="go-Header-submenuItem">
                     <div>
                       <a href="https://go.dev/solutions#use-cases">
-                        Use Cases
+                        <span>Use Cases</span>
                       </a>
                     </div>
                     <p>Stories about how and why companies use Go</p>
                   </li>
                   <li class="go-Header-submenuItem">
                     <div>
-                      <a href="https://go.dev/security/policy/">
-                        Security Policy
+                      <a href="https://go.dev/security/">
+                        <span>Security</span>
                       </a>
                     </div>
                     <p>How Go can help keep you secure by default</p>
@@ -177,7 +201,8 @@
                     <a href="https://www.meetup.com/pro/go">
                       <span>Meetups</span>
                       <i class="material-icons">
-                        <img class="go-Icon" height="24" width="24" src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                        <img class="go-Icon" height="24" width="24"
+                            src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
                       </i>
                     </a>
                   </div>
@@ -188,7 +213,8 @@
                     <a href="https://github.com/golang/go/wiki/Conferences">
                       <span>Conferences</span>
                       <i class="material-icons">
-                        <img class="go-Icon" height="24" width="24" src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                        <img class="go-Icon" height="24" width="24"
+                            src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
                       </i>
                     </a>
                   </div>
@@ -216,12 +242,48 @@
                   </div>
                   <p></p>
                   <div class="go-Header-socialIcons">
-                      <a class="go-Header-socialIcon" aria-label="Get connected with google-groups (Opens in new window)" href="https://groups.google.com/g/golang-nuts"><img src="/static/shared/logo/social/google-groups.svg"></a>
-                      <a class="go-Header-socialIcon" aria-label="Get connected with github (Opens in new window)" href="https://github.com/golang"><img src="/static/shared/logo/social/github.svg"></a>
-                      <a class="go-Header-socialIcon" aria-label="Get connected with twitter (Opens in new window)" href="https://twitter.com/golang"><img src="/static/shared/logo/social/twitter.svg"></a>
-                      <a class="go-Header-socialIcon" aria-label="Get connected with reddit (Opens in new window)" href="https://www.reddit.com/r/golang/"><img src="/static/shared/logo/social/reddit.svg"></a>
-                      <a class="go-Header-socialIcon" aria-label="Get connected with slack (Opens in new window)" href="https://invite.slack.golangbridge.org/"><img src="/static/shared/logo/social/slack.svg"></a>
-                      <a class="go-Header-socialIcon" aria-label="Get connected with stack-overflow (Opens in new window)" href="https://stackoverflow.com/collectives/go"><img src="/static/shared/logo/social/stack-overflow.svg"></a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with google-groups (Opens in new window)"
+                        title="Get connected with google-groups (Opens in new window)"
+                        href="https://groups.google.com/g/golang-nuts">
+                        <img src="/static/shared/logo/social/google-groups.svg" />
+                      </a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with github (Opens in new window)"
+                        title="Get connected with github (Opens in new window)"
+                        href="https://github.com/golang">
+                        <img src="/static/shared/logo/social/github.svg" />
+                      </a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with twitter (Opens in new window)"
+                        title="Get connected with twitter (Opens in new window)"
+                        href="https://twitter.com/golang">
+                        <img src="/static/shared/logo/social/twitter.svg" />
+                      </a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with reddit (Opens in new window)"
+                        title="Get connected with reddit (Opens in new window)"
+                        href="https://www.reddit.com/r/golang/">
+                        <img src="/static/shared/logo/social/reddit.svg" />
+                      </a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with slack (Opens in new window)"
+                        title="Get connected with slack (Opens in new window)"
+                        href="https://invite.slack.golangbridge.org/">
+                        <img src="/static/shared/logo/social/slack.svg" />
+                      </a>
+                      <a
+                        class="go-Header-socialIcon"
+                        aria-label="Get connected with stack-overflow (Opens in new window)"
+                        title=""
+                        href="https://stackoverflow.com/collectives/go">
+                        <img src="/static/shared/logo/social/stack-overflow.svg" />
+                      </a>
                   </div>
                 </li>
               </ul>
@@ -236,43 +298,45 @@
   <aside class="go-NavigationDrawer js-header">
     <nav class="go-NavigationDrawer-nav">
       <div class="go-NavigationDrawer-header">
-        <a href="https://go.dev/" tabindex="-1">
+        <a href="https://go.dev/">
           <img class="go-NavigationDrawer-logo" src="/static/shared/logo/go-blue.svg" alt="Go.">
         </a>
       </div>
       <ul class="go-NavigationDrawer-list">
           <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
-            <a href="#" tabindex="-1">
+            <a href="#">
               <span>Why Go</span>
               <i class="material-icons">
-                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
               </i>
             </a>
 
             <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
               <div class="go-NavigationDrawer-nav">
                 <div class="go-NavigationDrawer-header">
-                  <a href="#" tabindex="-1">
+                  <a href="#">
                     <i class="material-icons">
-                      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                      <img class="go-Icon" height="24" width="24"
+                        src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
                       </i>
                       Why Go
                   </a>
                 </div>
                 <ul class="go-NavigationDrawer-list">
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/solutions#case-studies" tabindex="-1">
+                    <a href="https://go.dev/solutions#case-studies">
                       Case Studies
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/solutions#use-cases" tabindex="-1">
+                    <a href="https://go.dev/solutions#use-cases">
                       Use Cases
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/security/policy/" tabindex="-1">
-                      Security Policy
+                    <a href="https://go.dev/security/">
+                      Security
                     </a>
                   </li>
                 </ul>
@@ -280,43 +344,45 @@
             </div>
           </li>
           <li class="go-NavigationDrawer-listItem">
-            <a href="https://go.dev/learn/" tabindex="-1">Learn</a>
+            <a href="https://go.dev/learn/">Learn</a>
           </li>
           <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
-            <a href="#" tabindex="-1">
+            <a href="#">
               <span>Docs</span>
               <i class="material-icons">
-                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
               </i>
             </a>
 
             <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
               <div class="go-NavigationDrawer-nav">
                 <div class="go-NavigationDrawer-header">
-                  <a href="#" tabindex="-1"><i class="material-icons">
-                    <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                  <a href="#"><i class="material-icons">
+                    <img class="go-Icon" height="24" width="24"
+                      src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
                     </i>
                     Docs
                   </a>
                 </div>
                 <ul class="go-NavigationDrawer-list">
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/doc/effective_go" tabindex="-1">
+                    <a href="https://go.dev/doc/effective_go">
                       Effective Go
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/doc/" tabindex="-1">
+                    <a href="https://go.dev/doc/">
                       Go User Manual
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://pkg.go.dev/std" tabindex="-1">
+                    <a href="https://pkg.go.dev/std">
                       Standard library
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/doc/devel/release" tabindex="-1">
+                    <a href="https://go.dev/doc/devel/release">
                       Release Notes
                     </a>
                   </li>
@@ -325,41 +391,44 @@
             </div>
           </li>
           <li class="go-NavigationDrawer-listItem go-NavigationDrawer-listItem--active">
-            <a href="/" tabindex="-1">Packages</a>
+            <a href="/">Packages</a>
           </li>
           <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
-            <a href="#" tabindex="-1">
+            <a href="#">
               <span>Community</span>
               <i class="material-icons">
-                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
               </i>
             </a>
             <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
               <div class="go-NavigationDrawer-nav">
                 <div class="go-NavigationDrawer-header">
-                  <a href="#" tabindex="-1">
+                  <a href="#">
                     <i class="material-icons">
-                      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                      <img class="go-Icon" height="24" width="24"
+                        src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
                     </i>
                     Community
                   </a>
                 </div>
                 <ul class="go-NavigationDrawer-list">
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/talks/" tabindex="-1">
+                    <a href="https://go.dev/talks/">
                       Recorded Talks
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://www.meetup.com/pro/go" tabindex="-1">
+                    <a href="https://www.meetup.com/pro/go">
                       Meetups
                       <i class="material-icons">
-                      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                      <img class="go-Icon" height="24" width="24"
+                          src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
                       </i>
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://github.com/golang/go/wiki/Conferences" tabindex="-1">
+                    <a href="https://github.com/golang/go/wiki/Conferences">
                       Conferences
                       <i class="material-icons">
                         <img class="go-Icon" height="24" width="24" src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
@@ -367,24 +436,24 @@
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/blog" tabindex="-1">
+                    <a href="https://go.dev/blog">
                       Go blog
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
-                    <a href="https://go.dev/help" tabindex="-1">
+                    <a href="https://go.dev/help">
                       Go project
                     </a>
                   </li>
                   <li class="go-NavigationDrawer-listItem">
                     <div>Get connected</div>
                     <div class="go-Header-socialIcons">
-                        <a class="go-Header-socialIcon" href="https://groups.google.com/g/golang-nuts" tabindex="-1"><img src="/static/shared/logo/social/google-groups.svg"></a>
-                        <a class="go-Header-socialIcon" href="https://github.com/golang" tabindex="-1"><img src="/static/shared/logo/social/github.svg"></a>
-                        <a class="go-Header-socialIcon" href="https://twitter.com/golang" tabindex="-1"><img src="/static/shared/logo/social/twitter.svg"></a>
-                        <a class="go-Header-socialIcon" href="https://www.reddit.com/r/golang/" tabindex="-1"><img src="/static/shared/logo/social/reddit.svg"></a>
-                        <a class="go-Header-socialIcon" href="https://invite.slack.golangbridge.org/" tabindex="-1"><img src="/static/shared/logo/social/slack.svg"></a>
-                        <a class="go-Header-socialIcon" href="https://stackoverflow.com/collectives/go" tabindex="-1"><img src="/static/shared/logo/social/stack-overflow.svg"></a>
+                        <a class="go-Header-socialIcon" href="https://groups.google.com/g/golang-nuts"><img src="/static/shared/logo/social/google-groups.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://github.com/golang"><img src="/static/shared/logo/social/github.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://twitter.com/golang"><img src="/static/shared/logo/social/twitter.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://www.reddit.com/r/golang/"><img src="/static/shared/logo/social/reddit.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://invite.slack.golangbridge.org/"><img src="/static/shared/logo/social/slack.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://stackoverflow.com/collectives/go"><img src="/static/shared/logo/social/stack-overflow.svg" /></a>
                     </div>
                   </li>
                 </ul>
@@ -411,14 +480,25 @@
           </li>
         
         <li>
-          <a href="/golang.org/x/text@v0.20.0" data-gtmc="breadcrumb link" aria-current="location" data-test-id="UnitHeader-breadcrumbCurrent">
+          <a href="/golang.org/x/text@v0.20.0" data-gtmc="breadcrumb link" aria-current="location"
+              data-test-id="UnitHeader-breadcrumbCurrent">
             golang.org/x/text
           </a>
           
-            <button class="go-Button go-Button--inline go-Clipboard js-clipboard" title="Copy path to clipboard.
-
-golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/x/text" data-gtmc="breadcrumbs button">
-              <img class="go-Icon go-Icon--accented" height="24" width="24" src="/static/shared/icon/content_copy_gm_grey_24dp.svg" alt="">
+            <button
+              class="go-Button go-Button--inline go-Clipboard js-clipboard"
+              title="Copy path to clipboard.&#10;&#10;golang.org/x/text"
+              aria-label="Copy Path to Clipboard"
+              data-to-copy="golang.org/x/text"
+              data-gtmc="breadcrumbs button"
+            >
+              <img
+                class="go-Icon go-Icon--accented"
+                height="24"
+                width="24"
+                src="/static/shared/icon/content_copy_gm_grey_24dp.svg"
+                alt=""
+              >
             </button>
           
         
@@ -432,7 +512,7 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
     <a class="go-Main-headerLogo" href="https://go.dev/" aria-hidden="true" tabindex="-1" data-gtmc="header link" aria-label="Link to Go Homepage">
       <img height="78" width="207" src="/static/shared/logo/go-blue.svg" alt="Go">
     </a>
-    <h1 class="UnitHeader-titleHeading sonatype-iq-extension-vuln sonatype-iq-extension-vuln-evaluating" data-test-id="UnitHeader-title">text</h1>
+    <h1 class="UnitHeader-titleHeading" data-test-id="UnitHeader-title">text</h1>
     
       <span class="go-Chip go-Chip--inverted">package</span>
     
@@ -440,29 +520,42 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
     
     
       
-        <button class="go-Button go-Button--inline go-Clipboard js-clipboard" title="Copy path to clipboard.
-
-golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/x/text" data-gtmc="title button" tabindex="-1">
-          <img class="go-Icon go-Icon--accented" height="24" width="24" src="/static/shared/icon/content_copy_gm_grey_24dp.svg" alt="">
+        <button
+          class="go-Button go-Button--inline go-Clipboard js-clipboard"
+          title="Copy path to clipboard.&#10;&#10;golang.org/x/text"
+          aria-label="Copy Path to Clipboard"
+          data-to-copy="golang.org/x/text"
+          data-gtmc="title button"
+          tabindex="-1"
+        >
+          <img
+            class="go-Icon go-Icon--accented"
+            height="24"
+            width="24"
+            src="/static/shared/icon/content_copy_gm_grey_24dp.svg"
+            alt=""
+          />
         </button>
       
     
   </div>
 
     
+      
   <div class="go-Main-headerDetails">
     
       
   <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-version">
-    <a href="?tab=versions" aria-label="Version: v0.20.0" data-gtmc="header link" aria-describedby="version-description">
+    <a href="?tab=versions" aria-label="Version: v0.20.0" 
+    data-gtmc="header link" aria-describedby="version-description">
       <span class="go-textSubtle" aria-hidden="true">Version: </span>
         v0.20.0
     </a>
-    <div class="screen-reader-only" id="version-description" hidden="">
+    <div class="screen-reader-only" id="version-description" hidden>
       Opens a new window with list of versions in this module.
     </div>
     
-    <span class="DetailsHeader-badge--latest" data-test-id="UnitHeader-minorVersionBanner">
+    <span class="DetailsHeader-badge--goToLatest" data-test-id="UnitHeader-minorVersionBanner">
       <span class="go-Chip DetailsHeader-span--latest">Latest</span>
       <span class="go-Chip DetailsHeader-span--notAtLatest">
         Latest
@@ -488,32 +581,35 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
 
       
   <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-licenses">
-    License: <a href="/golang.org/x/text@v0.20.0?tab=licenses" data-test-id="UnitHeader-license" data-gtmc="header link" aria-describedby="license-description">BSD-3-Clause</a>
+    License: <a href="/golang.org/x/text@v0.20.0?tab=licenses" data-test-id="UnitHeader-license" 
+        data-gtmc="header link" aria-describedby="license-description">BSD-3-Clause</a>
       
     
   </span>
-  <div class="screen-reader-only" id="license-description" hidden="">
+  <div class="screen-reader-only" id="license-description" hidden>
     Opens a new window with license information.
   </div>
 
       
         
   <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-imports">
-    <a href="/golang.org/x/text@v0.20.0?tab=imports" aria-label="Imports: 0" data-gtmc="header link" aria-describedby="imports-description">
+    <a href="/golang.org/x/text@v0.20.0?tab=imports" aria-label="Imports: 0"
+        data-gtmc="header link" aria-describedby="imports-description">
       <span class="go-textSubtle">Imports: </span>0
     </a>
   </span>
-  <div class="screen-reader-only" id="imports-description" hidden="">
+  <div class="screen-reader-only" id="imports-description" hidden>
     Opens a new window with list of imports.
   </div>
 
         
   <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-importedby">
-    <a href="/golang.org/x/text@v0.20.0?tab=importedby" aria-label="Imported By: 12" data-gtmc="header link" aria-describedby="importedby-description">
-       <span class="go-textSubtle">Imported by: </span>12
+    <a href="/golang.org/x/text@v0.20.0?tab=importedby" aria-label="Imported By: 17"
+        data-gtmc="header link" aria-describedby="importedby-description">
+       <span class="go-textSubtle">Imported by: </span>17
     </a>
   </span>
-  <div class="screen-reader-only" id="importedby-description" hidden="">
+  <div class="screen-reader-only" id="importedby-description" hidden>
     Opens a new window with list of known importers.
   </div>
 
@@ -523,8 +619,8 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
   
   <div class="UnitHeader-overflowContainer">
     <svg class="UnitHeader-overflowImage" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-      <path d="M0 0h24v24H0z" fill="none"></path>
-      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
     </svg>
     <select class="UnitHeader-overflowSelect js-selectNav" tabindex="-1">
       <option value="/">Main</option>
@@ -546,10 +642,12 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
   </div>
 
 
+    
   </div>
 
 </header>
-    <aside class="go-Main-aside  js-mainAside"><div></div>
+    
+      <aside class="go-Main-aside  js-mainAside">
   
   <div class="UnitMeta">
     <h2 class="go-textLabel">Details</h2>
@@ -559,12 +657,14 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
         <summary class="go-textSubtle">
           
-  <img class="go-Icon go-Icon--accented" src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" height="24" width="24">
+  <img class="go-Icon go-Icon--accented"
+    tabindex="0"
+    role="button"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" aria-label="Valid file, toggle tooltip"height="24" width="24">
 
           Valid <a href="https://cs.opensource.google/go/x/text/+/v0.20.0:/go.mod" target="_blank" rel="noopener">go.mod</a> file
-          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+          <img class="go-Icon" role="button" tabindex="0" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" aria-label="Toggle go.mod validity tooltip" height="24" width="24">
         </summary>
-        <p>
+        <p aria-live="polite" role="tooltip">
           The Go module system was introduced in Go 1.11 and is the official dependency management
           solution for Go.
         </p>
@@ -574,12 +674,14 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
         <summary class="go-textSubtle">
           
-  <img class="go-Icon go-Icon--accented" src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" height="24" width="24">
+  <img class="go-Icon go-Icon--accented"
+    tabindex="0"
+    role="button"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" aria-label="Valid file, toggle tooltip"height="24" width="24">
 
           Redistributable license
-          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+          <img class="go-Icon" role="button" tabindex="0" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" aria-label="Toggle redistributable help tooltip" height="24" width="24">
         </summary>
-        <p>
+        <p aria-live="polite" role="tooltip">
           Redistributable licenses place minimal restrictions on how software can be used,
           modified, and redistributed.
         </p>
@@ -589,24 +691,28 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
         <summary class="go-textSubtle">
           
-  <img class="go-Icon go-Icon--accented" src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" height="24" width="24">
+  <img class="go-Icon go-Icon--accented"
+    tabindex="0"
+    role="button"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked" aria-label="Valid file, toggle tooltip"height="24" width="24">
 
           Tagged version
-          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+          <img class="go-Icon" role="button" tabindex="0" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" aria-label="Toggle tagged version tooltip" height="24" width="24">
         </summary>
-        <p>Modules with tagged versions give importers more predictable builds.</p>
+        <p aria-live="polite" role="tooltip">Modules with tagged versions give importers more predictable builds.</p>
       </details>
     </li>
     <li>
       <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
         <summary class="go-textSubtle">
           
-  <img class="go-Icon" src="/static/shared/icon/cancel_gm_grey_24dp.svg" alt="unchecked" height="24" width="24">
+  <img class="go-Icon"
+    tabindex="0"
+    role="button"src="/static/shared/icon/cancel_gm_grey_24dp.svg" alt="unchecked" aria-label="Missing or invalid file, toggle tooltip"height="24" width="24">
 
           Stable version
-          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+          <img class="go-Icon" role="button" tabindex="0" aria-label="Toggle stable version tooltip" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
         </summary>
-        <p>When a project reaches major version v1 it is considered stable.</p>
+        <p aria-live="polite" role="tooltip">When a project reaches major version v1 it is considered stable.</p>
       </details>
     </li>
     <li class="UnitMeta-detailsLearn">
@@ -623,11 +729,12 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       
     </div>
     
-      <h2 class="go-textLabel">Links</h2>
+      <h2 class="go-textLabel" data-test-id="links-heading">Links</h2>
       <ul class="UnitMeta-links">
         
           <li>
-            <a href="https://go.dev/security/policy" title="Report security issues in the Go standard library and sub-repositories">
+            <a href="https://go.dev/security/policy"
+                title="Report security issues in the Go standard library and sub-repositories">
               <img class="go-Icon" height="24" width="24" src="/static/shared/icon/security_grey_24dp.svg" alt="">
               Report a Vulnerability
             </a>
@@ -635,8 +742,10 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
         
         
           <li>
-            <a href="https://deps.dev/go/golang.org%2Fx%2Ftext/v0.20.0" title="View this module on Open Source Insights" target="_blank" rel="noopener" data-test-id="meta-link-depsdev">
-              <img class="depsdev-Icon" src="/static/shared/icon/depsdev-logo.svg" alt="Open Source Insights Logo">
+            <a href="https://deps.dev/go/golang.org%2Fx%2Ftext/v0.20.0" title="View this module on Open Source Insights"
+              target="_blank" rel="noopener" data-test-id="meta-link-depsdev">
+              <img class="depsdev-Icon" src="/static/shared/icon/depsdev-logo.svg"
+                alt="Open Source Insights Logo" />
               Open Source Insights
             </a>
           </li>
@@ -655,60 +764,66 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
   </div>
 
 </aside>
-    <nav class="go-Main-nav go-Main-nav--sticky js-mainNav" aria-label="Outline"><div></div>
+    
+    <nav class="go-Main-nav go-Main-nav--sticky js-mainNav" aria-label="Outline">
   <div class="go-Main-navDesktop">
     
   <div class="UnitOutline-jumpTo">
-    <button class="UnitOutline-jumpToInput go-ShortcutKey js-jumpToInput" aria-controls="jump-to-modal" aria-label="Open Jump to Identifier" data-shortcut="f" data-shortcut-alt="find" data-test-id="jump-to-button" data-gtmc="outline button">
+    <button class="UnitOutline-jumpToInput go-ShortcutKey js-jumpToInput"
+        aria-controls="jump-to-modal"
+        aria-label="Open Jump to Identifier"
+        data-shortcut="f"
+        data-shortcut-alt="find"
+        data-test-id="jump-to-button" data-gtmc="outline button">
       Jump to ...
     </button>
   </div>
-  <ul class="go-Tree js-tree" role="tree" aria-label="Outline" style="--js-tree-height: 172px;">
+  <ul class="go-Tree js-tree" role="tree" aria-label="Outline">
     
-      <li class="js-readmeOutline" role="none">
-        <a href="#section-readme" data-gtmc="outline link" tabindex="0" aria-level="1" aria-owns="_nav_group_README" aria-expanded="true" role="treeitem" aria-selected="true">
+      <li class="js-readmeOutline">
+        <a href="#section-readme" data-gtmc="outline link">
           README
         </a>
         
-  <ul id="_nav_group_README" role="group">
+  <ul id="readme-outline">
     
-      <li role="none">
-        <a href="#readme-cldr-versioning" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-cldr-versioning" data-gtmc="readme outline link">
           CLDR Versioning
         </a>
          
       </li>
     
-      <li role="none">
-        <a href="#readme-contribute" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-contribute" data-gtmc="readme outline link">
           Contribute
         </a>
          
       </li>
     
-      <li role="none">
-        <a href="#readme-testing" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-testing" data-gtmc="readme outline link">
           Testing
         </a>
          
       </li>
     
-      <li role="none">
-        <a href="#readme-generating-tables" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-generating-tables" data-gtmc="readme outline link">
           Generating Tables
         </a>
          
       </li>
     
-      <li role="none">
-        <a href="#readme-versions" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-versions" data-gtmc="readme outline link">
           Versions
         </a>
          
       </li>
     
-      <li role="none">
-        <a href="#readme-report-issues" data-gtmc="readme outline link" tabindex="-1" aria-level="2" role="treeitem">
+      <li>
+        <a href="#readme-report-issues" data-gtmc="readme outline link">
           Report Issues
         </a>
          
@@ -719,15 +834,15 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       </li>
     
     
-      <li role="none">
-        <a href="#section-documentation" data-gtmc="outline link" tabindex="-1" aria-level="1" aria-owns="_nav_group_Documentation" aria-expanded="false" role="treeitem">
+      <li>
+        <a href="#section-documentation" data-gtmc="outline link">
           Documentation
         </a>
         
-<ul role="group" id="_nav_group_Documentation">
+<ul>
   
-    <li role="none">
-      <a href="#pkg-overview" data-gtmc="doc outline link" tabindex="-1" aria-level="2" role="treeitem">Overview</a>
+    <li>
+      <a href="#pkg-overview" data-gtmc="doc outline link">Overview</a>
     </li>
   
   
@@ -736,15 +851,15 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
       </li>
     
     
-      <li role="none">
-        <a href="#section-sourcefiles" data-gtmc="outline link" tabindex="-1" aria-level="1" role="treeitem">
+      <li>
+        <a href="#section-sourcefiles" data-gtmc="outline link">
           Source Files
         </a>
       </li>
     
     
-      <li role="none">
-        <a href="#section-directories" data-gtmc="outline link" tabindex="-1" aria-level="1" role="treeitem">
+      <li>
+        <a href="#section-directories" data-gtmc="outline link">
           Directories
         </a>
       </li>
@@ -753,7 +868,13 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
 
   </div>
   <div class="go-Main-navMobile js-mainNavMobile">
-    <label class="go-Label" aria-label="Menu"><select class="go-Select js-selectNav"><optgroup label="Outline"><option label="README" value="golang.org/x/text@v0.20.0#section-readme">README</option><option label="Documentation" value="golang.org/x/text@v0.20.0#section-documentation">Documentation</option><option label="Source Files" value="golang.org/x/text@v0.20.0#section-sourcefiles">Source Files</option><option label="Directories" value="golang.org/x/text@v0.20.0#section-directories">Directories</option></optgroup><optgroup label="README"><option label="CLDR Versioning" value="golang.org/x/text@v0.20.0#readme-cldr-versioning">CLDR Versioning</option><option label="Contribute" value="golang.org/x/text@v0.20.0#readme-contribute">Contribute</option><option label="Testing" value="golang.org/x/text@v0.20.0#readme-testing">Testing</option><option label="Generating Tables" value="golang.org/x/text@v0.20.0#readme-generating-tables">Generating Tables</option><option label="Versions" value="golang.org/x/text@v0.20.0#readme-versions">Versions</option><option label="Report Issues" value="golang.org/x/text@v0.20.0#readme-report-issues">Report Issues</option></optgroup><optgroup label="Documentation"><option label="Overview" value="golang.org/x/text@v0.20.0#pkg-overview">Overview</option></optgroup></select></label>
+    <label class="go-Label">
+      <select class="go-Select">
+        
+          <option selected disabled>README</option>
+        
+      </select>
+    </label>
   </div>
 </nav>
     <article class="go-Main-article js-mainContent">
@@ -761,16 +882,16 @@ golang.org/x/text" aria-label="Copy Path to Clipboard" data-to-copy="golang.org/
     <div class="UnitDetails-content js-unitDetailsContent" data-test-id="UnitDetails-content">
       
         
-  <div class="UnitReadme js-readme UnitReadme--toggle">
+  <div class="UnitReadme UnitReadme--expanded js-readme">
     <h2 class="UnitReadme-title" id="section-readme">
       <img class="go-Icon" height="24" width="24" src="/static/shared/icon/chrome_reader_mode_gm_grey_24dp.svg" alt="">
       README
-      <a class="UnitReadme-idLink" href="#section-readme" aria-label="Go to Readme">¶</a>
+      <a class="UnitReadme-idLink" href="#section-readme" title="Go to Readme" aria-label="Go to Readme">¶</a>
     </h2>
     
       <div class="UnitReadme-content" data-test-id="Unit-readmeContent">
         <div class="Overview-readmeContent js-readmeContent"><h3 class="h1" id="readme-go-text">Go Text</h3>
-<p><a href="https://pkg.go.dev/golang.org/x/text" rel="nofollow"><img src="https://pkg.go.dev/badge/golang.org/x/text.svg" alt="Go Reference"></a></p>
+<p><a href="https://pkg.go.dev/golang.org/x/text" rel="nofollow"><img src="https://pkg.go.dev/badge/golang.org/x/text.svg" alt="Go Reference"/></a></p>
 <p>This repository holds supplementary Go packages for text processing,
 many involving Unicode.</p>
 <h4 class="h2" id="readme-cldr-versioning">CLDR Versioning</h4>
@@ -792,7 +913,7 @@ tables. This directory will also serve as a cache.</p>
 <p>Run</p>
 <pre><code>go test ./...
 </code></pre>
-<p>from this directory to run all tests. Add the "-tags icu" flag to also run
+<p>from this directory to run all tests. Add the &#34;-tags icu&#34; flag to also run
 ICU conformance tests (if available). This requires that you have the correct
 ICU version installed on your system.</p>
 <p>TODO:</p>
@@ -825,12 +946,16 @@ So updating to a different version may not work.</p>
 <p>The files in DATA/{iana|icu|w3|whatwg} are currently not versioned.</p>
 <h4 class="h2" id="readme-report-issues">Report Issues</h4>
 <p>The main issue tracker for the text repository is located at
-<a href="https://go.dev/issues" rel="nofollow">https://go.dev/issues</a>. Prefix your issue with "x/text:" in the
+<a href="https://go.dev/issues" rel="nofollow">https://go.dev/issues</a>. Prefix your issue with &#34;x/text:&#34; in the
 subject line, so it is easy to find.</p>
 </div>
       </div>
-      <button class="UnitReadme-expandLink js-readmeExpand" data-test-id="readme-expand" data-gtmc="readme button" aria-label="Expand Readme">Expand ▾</button>
-      <button class="UnitReadme-collapseLink js-readmeCollapse" data-test-id="readme-collapse" data-gtmc="readme button" aria-label="Expand Readme">Collapse ▴</button>
+      <button class="UnitReadme-expandLink js-readmeExpand"
+          data-test-id="readme-expand" data-gtmc="readme button"
+          aria-label="Expand Readme">Expand ▾</button>
+      <button class="UnitReadme-collapseLink js-readmeCollapse"
+          data-test-id="readme-collapse" data-gtmc="readme button"
+          aria-label="Expand Readme">Collapse ▴</button>
     
   </div>
 
@@ -842,7 +967,7 @@ subject line, so it is easy to find.</p>
     <h2 class="UnitDoc-title" id="section-documentation">
       <img class="go-Icon" height="24" width="24" src="/static/shared/icon/code_gm_grey_24dp.svg" alt="">
       Documentation
-      <a class="UnitDoc-idLink" href="#section-documentation" aria-label="Go to Documentation">¶</a>
+      <a class="UnitDoc-idLink" href="#section-documentation" title="Go to Documentation" aria-label="Go to Documentation">¶</a>
     </h2>
     
   
@@ -854,13 +979,13 @@ subject line, so it is easy to find.</p>
         
 
 <div class="Documentation-content js-docContent"> <section class="Documentation-overview">
-    <h3 tabindex="-1" id="pkg-overview" class="Documentation-overviewHeader">Overview <a href="#pkg-overview" aria-label="Go to Overview">¶</a></h3>
+    <h3 tabindex="-1" id="pkg-overview" class="Documentation-overviewHeader">Overview <a href="#pkg-overview" title="Go to Overview" aria-label="Go to Overview">¶</a></h3>
 
 <p>text is a repository of text-related packages related to internationalization
 (i18n) and localization (l10n), such as character encodings, text
 transformations, and locale-specific text handling.
-</p><p>There is a 30 minute video, recorded on 2017-11-30, on the "State of
-golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">https://www.youtube.com/watch?v=uYrDrMEGu58</a>
+</p><p>There is a 30 minute video, recorded on 2017-11-30, on the &#34;State of
+golang.org/x/text&#34; at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">https://www.youtube.com/watch?v=uYrDrMEGu58</a>
 </p>
 </section></div> 
 
@@ -881,15 +1006,11 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     <h2 class="UnitFiles-title" id="section-sourcefiles">
       <img class="go-Icon" height="24" width="24" src="/static/shared/icon/insert_drive_file_gm_grey_24dp.svg" alt="">
       Source Files
-      <a class="UnitFiles-idLink" href="#section-sourcefiles" aria-label="Go to Source Files">¶</a>
-    </h2>
-    <div class="UnitFiles-titleLink">
+      <a class="UnitFiles-idLink" href="#section-sourcefiles" title="Go to Source Files" aria-label="Go to Source Files">¶</a>
+    </h2><div class="UnitFiles-titleLink">
       <a href="https://cs.opensource.google/go/x/text/+/v0.20.0:" target="_blank" rel="noopener">View all Source files</a>
-    </div>
-    <div>
-      <ul class="UnitFiles-fileList"><li>
-            <a href="https://cs.opensource.google/go/x/text/+/v0.20.0:doc.go" target="_blank" rel="noopener" title="doc.go">doc.go</a>
-          </li></ul>
+    </div><div>
+      <ul class="UnitFiles-fileList"><li><a href="https://cs.opensource.google/go/x/text/+/v0.20.0:doc.go" target="_blank" rel="noopener" title="doc.go">doc.go</a></li></ul>
     </div>
   </div>
 
@@ -900,26 +1021,32 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     <h2 class="UnitDirectories-title" id="section-directories">
       <img class="go-Icon" height="24" width="24" src="/static/shared/icon/folder_gm_grey_24dp.svg" alt="">
       Directories
-      <a class="UnitDirectories-idLink" href="#section-directories" aria-label="Go to Directories">¶</a>
+      <a class="UnitDirectories-idLink" href="#section-directories" title="Go to Directories" aria-label="Go to Directories">¶</a>
     </h2>
     <div class="UnitDirectories-toggles">
       <div class="UnitDirectories-toggleButtons">
-        <button class="js-showInternalDirectories" data-test-id="internal-directories-toggle" data-gtmc="directories button" aria-label="Show Internal Directories" aria-describedby="showInternal-description" style="display: block;">
+        <button class="js-showInternalDirectories" data-test-id="internal-directories-toggle"
+            data-gtmc="directories button" aria-label="Show Internal Directories">
           Show internal
         </button>
-        <button class="js-expandAllDirectories" data-test-id="directories-toggle" data-gtmc="directories button" aria-label="Expand all directories" aria-live="polite" style="display: block;">Expand all</button>
+        <button class="js-expandAllDirectories" data-test-id="directories-toggle"
+            data-gtmc="directories button" aria-label="Expand All Directories">
+          Expand all
+        </button>
       </div>
     </div>
-    <table class="UnitDirectories-table UnitDirectories-table--tree js-expandableTable" data-test-id="UnitDirectories-table">
-      <tbody><tr class="UnitDirectories-tableHeader UnitDirectories-tableHeader--tree">
+    <table class="UnitDirectories-table UnitDirectories-table--tree js-expandableTable"
+          data-test-id="UnitDirectories-table">
+      <tr class="UnitDirectories-tableHeader UnitDirectories-tableHeader--tree">
         <th>Path</th>
         <th class="UnitDirectories-desktopSynopsis">Synopsis</th>
       </tr>
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="cases">
+  <tr
+      class="">
+    <td data-id="cases" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/cases">cases</a>
             
@@ -927,19 +1054,26 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package cases provides general and language-specific case mappers.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package cases provides general and language-specific case mappers.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package cases provides general and language-specific case mappers.</td></tr></tr>
 
       
           
   
-  <tr class="" aria-controls="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite ">
-    <td data-aria-owns="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite " id="cmd">
+  <tr data-aria-controls="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite "
+      class="">
+    <td data-id="cmd" data-aria-owns="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="5 more from" aria-controls="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite " aria-labelledby="cmd-button cmd" id="cmd-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="5 more from"
+                data-aria-controls="cmd-gotext cmd-gotext/examples/extract cmd-gotext/examples/extract_http cmd-gotext/examples/extract_http/pkg cmd-gotext/examples/rewrite "
+                data-aria-labelledby="cmd-button cmd"
+                data-id="cmd-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><span>cmd</span>
-      </div></div></td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="cmd-gotext">
+      </td>
+      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr data-id="cmd-gotext" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -949,7 +1083,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">gotext is a tool for managing text in Go source code.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">gotext is a tool for managing text in Go source code.</td></tr><tr class="hidden" id="cmd-gotext/examples/extract">
+      <td class="UnitDirectories-desktopSynopsis">gotext is a tool for managing text in Go source code.</td><tr data-id="cmd-gotext/examples/extract" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -959,7 +1093,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="cmd-gotext/examples/extract_http">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="cmd-gotext/examples/extract_http" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -969,7 +1103,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="cmd-gotext/examples/extract_http/pkg">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="cmd-gotext/examples/extract_http/pkg" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -979,7 +1113,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="cmd-gotext/examples/rewrite">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="cmd-gotext/examples/rewrite" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -994,18 +1128,25 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="" aria-controls="collate-build collate-tools/colcmp ">
-    <td data-aria-owns="collate-build collate-tools/colcmp " id="collate">
+  <tr data-aria-controls="collate-build collate-tools/colcmp "
+      class="">
+    <td data-id="collate" data-aria-owns="collate-build collate-tools/colcmp ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="2 more from" aria-controls="collate-build collate-tools/colcmp " aria-labelledby="collate-button collate" id="collate-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="2 more from"
+                data-aria-controls="collate-build collate-tools/colcmp "
+                data-aria-labelledby="collate-button collate"
+                data-id="collate-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/collate">collate</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">Package collate contains types for comparing and sorting Unicode strings according to a given collation order.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package collate contains types for comparing and sorting Unicode strings according to a given collation order.</td></tr><tr class="hidden" id="collate-build">
+      <td class="UnitDirectories-desktopSynopsis">Package collate contains types for comparing and sorting Unicode strings according to a given collation order.</td></tr><tr data-id="collate-build" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1015,7 +1156,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="collate-tools/colcmp">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="collate-tools/colcmp" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1030,8 +1171,9 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="currency">
+  <tr
+      class="">
+    <td data-id="currency" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/currency">currency</a>
             
@@ -1039,13 +1181,14 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package currency contains currency-related functionality.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package currency contains currency-related functionality.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package currency contains currency-related functionality.</td></tr></tr>
 
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="date">
+  <tr
+      class="">
+    <td data-id="date" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/date">date</a>
             
@@ -1053,23 +1196,30 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr>
+      <td class="UnitDirectories-desktopSynopsis"></td></tr></tr>
 
       
           
   
-  <tr class="" aria-controls="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 ">
-    <td data-aria-owns="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 " id="encoding">
+  <tr data-aria-controls="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 "
+      class="">
+    <td data-id="encoding" data-aria-owns="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="12 more from" aria-controls="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 " aria-labelledby="encoding-button encoding" id="encoding-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="12 more from"
+                data-aria-controls="encoding-charmap encoding-htmlindex encoding-ianaindex encoding-internal encoding-internal/enctest encoding-internal/identifier encoding-japanese encoding-korean encoding-simplifiedchinese encoding-traditionalchinese encoding-unicode encoding-unicode/utf32 "
+                data-aria-labelledby="encoding-button encoding"
+                data-id="encoding-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/encoding">encoding</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">Package encoding defines an interface for character encodings, such as Shift JIS and Windows 1252, that can convert to and from UTF-8.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package encoding defines an interface for character encodings, such as Shift JIS and Windows 1252, that can convert to and from UTF-8.</td></tr><tr class="hidden" id="encoding-charmap">
+      <td class="UnitDirectories-desktopSynopsis">Package encoding defines an interface for character encodings, such as Shift JIS and Windows 1252, that can convert to and from UTF-8.</td></tr><tr data-id="encoding-charmap" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1079,7 +1229,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package charmap provides simple character encodings such as IBM Code Page 437 and Windows 1252.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package charmap provides simple character encodings such as IBM Code Page 437 and Windows 1252.</td></tr><tr class="hidden" id="encoding-htmlindex">
+      <td class="UnitDirectories-desktopSynopsis">Package charmap provides simple character encodings such as IBM Code Page 437 and Windows 1252.</td><tr data-id="encoding-htmlindex" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1089,7 +1239,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package htmlindex maps character set encoding names to Encodings as recommended by the W3C for use in HTML 5.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package htmlindex maps character set encoding names to Encodings as recommended by the W3C for use in HTML 5.</td></tr><tr class="hidden" id="encoding-ianaindex">
+      <td class="UnitDirectories-desktopSynopsis">Package htmlindex maps character set encoding names to Encodings as recommended by the W3C for use in HTML 5.</td><tr data-id="encoding-ianaindex" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1099,7 +1249,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package ianaindex maps names to Encodings as specified by the IANA registry.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package ianaindex maps names to Encodings as specified by the IANA registry.</td></tr><tr class="UnitDirectories-internal hidden" id="encoding-internal">
+      <td class="UnitDirectories-desktopSynopsis">Package ianaindex maps names to Encodings as specified by the IANA registry.</td><tr data-id="encoding-internal" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1109,7 +1259,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package internal contains code that is shared among encoding implementations.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package internal contains code that is shared among encoding implementations.</td></tr><tr class="UnitDirectories-internal hidden" id="encoding-internal/enctest">
+      <td class="UnitDirectories-desktopSynopsis">Package internal contains code that is shared among encoding implementations.</td><tr data-id="encoding-internal/enctest" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1119,7 +1269,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="UnitDirectories-internal hidden" id="encoding-internal/identifier">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="encoding-internal/identifier" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1129,7 +1279,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package identifier defines the contract between implementations of Encoding and Index by defining identifiers that uniquely identify standardized coded character sets (CCS) and character encoding schemes (CES), which we will together refer to as encodings, for which Encoding implementations provide converters to and from UTF-8.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package identifier defines the contract between implementations of Encoding and Index by defining identifiers that uniquely identify standardized coded character sets (CCS) and character encoding schemes (CES), which we will together refer to as encodings, for which Encoding implementations provide converters to and from UTF-8.</td></tr><tr class="hidden" id="encoding-japanese">
+      <td class="UnitDirectories-desktopSynopsis">Package identifier defines the contract between implementations of Encoding and Index by defining identifiers that uniquely identify standardized coded character sets (CCS) and character encoding schemes (CES), which we will together refer to as encodings, for which Encoding implementations provide converters to and from UTF-8.</td><tr data-id="encoding-japanese" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1139,7 +1289,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package japanese provides Japanese encodings such as EUC-JP and Shift JIS.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package japanese provides Japanese encodings such as EUC-JP and Shift JIS.</td></tr><tr class="hidden" id="encoding-korean">
+      <td class="UnitDirectories-desktopSynopsis">Package japanese provides Japanese encodings such as EUC-JP and Shift JIS.</td><tr data-id="encoding-korean" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1149,7 +1299,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package korean provides Korean encodings such as EUC-KR.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package korean provides Korean encodings such as EUC-KR.</td></tr><tr class="hidden" id="encoding-simplifiedchinese">
+      <td class="UnitDirectories-desktopSynopsis">Package korean provides Korean encodings such as EUC-KR.</td><tr data-id="encoding-simplifiedchinese" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1159,7 +1309,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package simplifiedchinese provides Simplified Chinese encodings such as GBK.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package simplifiedchinese provides Simplified Chinese encodings such as GBK.</td></tr><tr class="hidden" id="encoding-traditionalchinese">
+      <td class="UnitDirectories-desktopSynopsis">Package simplifiedchinese provides Simplified Chinese encodings such as GBK.</td><tr data-id="encoding-traditionalchinese" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1169,7 +1319,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package traditionalchinese provides Traditional Chinese encodings such as Big5.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package traditionalchinese provides Traditional Chinese encodings such as Big5.</td></tr><tr class="hidden" id="encoding-unicode">
+      <td class="UnitDirectories-desktopSynopsis">Package traditionalchinese provides Traditional Chinese encodings such as Big5.</td><tr data-id="encoding-unicode" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1179,7 +1329,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package unicode provides Unicode encodings such as UTF-16.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package unicode provides Unicode encodings such as UTF-16.</td></tr><tr class="hidden" id="encoding-unicode/utf32">
+      <td class="UnitDirectories-desktopSynopsis">Package unicode provides Unicode encodings such as UTF-16.</td><tr data-id="encoding-unicode/utf32" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1194,14 +1344,21 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="" aria-controls="feature-plural ">
-    <td data-aria-owns="feature-plural " id="feature">
+  <tr data-aria-controls="feature-plural "
+      class="">
+    <td data-id="feature" data-aria-owns="feature-plural ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="1 more from" aria-controls="feature-plural " aria-labelledby="feature-button feature" id="feature-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="1 more from"
+                data-aria-controls="feature-plural "
+                data-aria-labelledby="feature-button feature"
+                data-id="feature-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><span>feature</span>
-      </div></div></td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="hidden" id="feature-plural">
+      </td>
+      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr data-id="feature-plural" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1216,18 +1373,25 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="UnitDirectories-internal" aria-controls="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal ">
-    <td data-aria-owns="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal " id="internal">
+  <tr data-aria-controls="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal "
+      class="UnitDirectories-internal">
+    <td data-id="internal" data-aria-owns="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="17 more from" aria-controls="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal " aria-labelledby="internal-button internal" id="internal-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton UnitDirectories-internal"
+                aria-expanded="false"
+                aria-label="17 more from"
+                data-aria-controls="internal-catmsg internal-cldrtree internal-colltab internal-export/idna internal-export/unicode internal-format internal-gen internal-gen/bitfield internal-language internal-language/compact internal-number internal-stringset internal-tag internal-testtext internal-triegen internal-ucd internal-utf8internal "
+                data-aria-labelledby="internal-button internal"
+                data-id="internal-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/internal">internal</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">Package internal contains non-exported functionality that are used by packages in the text repository.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package internal contains non-exported functionality that are used by packages in the text repository.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-catmsg">
+      <td class="UnitDirectories-desktopSynopsis">Package internal contains non-exported functionality that are used by packages in the text repository.</td></tr><tr data-id="internal-catmsg" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1237,7 +1401,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package catmsg contains support types for package x/text/message/catalog.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package catmsg contains support types for package x/text/message/catalog.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-cldrtree">
+      <td class="UnitDirectories-desktopSynopsis">Package catmsg contains support types for package x/text/message/catalog.</td><tr data-id="internal-cldrtree" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1247,7 +1411,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package cldrtree builds and generates a CLDR index file, including all inheritance.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package cldrtree builds and generates a CLDR index file, including all inheritance.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-colltab">
+      <td class="UnitDirectories-desktopSynopsis">Package cldrtree builds and generates a CLDR index file, including all inheritance.</td><tr data-id="internal-colltab" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1257,7 +1421,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package colltab contains functionality related to collation tables.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package colltab contains functionality related to collation tables.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-export/idna">
+      <td class="UnitDirectories-desktopSynopsis">Package colltab contains functionality related to collation tables.</td><tr data-id="internal-export/idna" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1267,7 +1431,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package idna implements IDNA2008 using the compatibility processing defined by UTS (Unicode Technical Standard) #46, which defines a standard to deal with the transition from IDNA2003.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package idna implements IDNA2008 using the compatibility processing defined by UTS (Unicode Technical Standard) #46, which defines a standard to deal with the transition from IDNA2003.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-export/unicode">
+      <td class="UnitDirectories-desktopSynopsis">Package idna implements IDNA2008 using the compatibility processing defined by UTS (Unicode Technical Standard) #46, which defines a standard to deal with the transition from IDNA2003.</td><tr data-id="internal-export/unicode" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1277,7 +1441,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package unicode generates the Unicode tables in core.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package unicode generates the Unicode tables in core.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-format">
+      <td class="UnitDirectories-desktopSynopsis">Package unicode generates the Unicode tables in core.</td><tr data-id="internal-format" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1287,7 +1451,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package format contains types for defining language-specific formatting of values.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package format contains types for defining language-specific formatting of values.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-gen">
+      <td class="UnitDirectories-desktopSynopsis">Package format contains types for defining language-specific formatting of values.</td><tr data-id="internal-gen" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1297,7 +1461,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package gen contains common code for the various code generation tools in the text repository.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package gen contains common code for the various code generation tools in the text repository.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-gen/bitfield">
+      <td class="UnitDirectories-desktopSynopsis">Package gen contains common code for the various code generation tools in the text repository.</td><tr data-id="internal-gen/bitfield" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1307,7 +1471,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package bitfield converts annotated structs into integer values.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package bitfield converts annotated structs into integer values.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-language">
+      <td class="UnitDirectories-desktopSynopsis">Package bitfield converts annotated structs into integer values.</td><tr data-id="internal-language" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1317,7 +1481,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis"></div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis"></td></tr><tr class="UnitDirectories-internal hidden" id="internal-language/compact">
+      <td class="UnitDirectories-desktopSynopsis"></td><tr data-id="internal-language/compact" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1327,7 +1491,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package compact defines a compact representation of language tags.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package compact defines a compact representation of language tags.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-number">
+      <td class="UnitDirectories-desktopSynopsis">Package compact defines a compact representation of language tags.</td><tr data-id="internal-number" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1337,7 +1501,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package number contains tools and data for formatting numbers.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package number contains tools and data for formatting numbers.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-stringset">
+      <td class="UnitDirectories-desktopSynopsis">Package number contains tools and data for formatting numbers.</td><tr data-id="internal-stringset" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1347,7 +1511,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package stringset provides a way to represent a collection of strings compactly.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package stringset provides a way to represent a collection of strings compactly.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-tag">
+      <td class="UnitDirectories-desktopSynopsis">Package stringset provides a way to represent a collection of strings compactly.</td><tr data-id="internal-tag" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1357,7 +1521,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package tag contains functionality handling tags and related data.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package tag contains functionality handling tags and related data.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-testtext">
+      <td class="UnitDirectories-desktopSynopsis">Package tag contains functionality handling tags and related data.</td><tr data-id="internal-testtext" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1367,7 +1531,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package testtext contains test data that is of common use to the text repository.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package testtext contains test data that is of common use to the text repository.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-triegen">
+      <td class="UnitDirectories-desktopSynopsis">Package testtext contains test data that is of common use to the text repository.</td><tr data-id="internal-triegen" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1377,7 +1541,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package triegen implements a code generator for a trie for associating unsigned integer values with UTF-8 encoded runes.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package triegen implements a code generator for a trie for associating unsigned integer values with UTF-8 encoded runes.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-ucd">
+      <td class="UnitDirectories-desktopSynopsis">Package triegen implements a code generator for a trie for associating unsigned integer values with UTF-8 encoded runes.</td><tr data-id="internal-ucd" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1387,7 +1551,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package ucd provides a parser for Unicode Character Database files, the format of which is defined in https://www.unicode.org/reports/tr44/.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package ucd provides a parser for Unicode Character Database files, the format of which is defined in https://www.unicode.org/reports/tr44/.</td></tr><tr class="UnitDirectories-internal hidden" id="internal-utf8internal">
+      <td class="UnitDirectories-desktopSynopsis">Package ucd provides a parser for Unicode Character Database files, the format of which is defined in https://www.unicode.org/reports/tr44/.</td><tr data-id="internal-utf8internal" class="UnitDirectories-internal">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1402,18 +1566,25 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="" aria-controls="language-display ">
-    <td data-aria-owns="language-display " id="language">
+  <tr data-aria-controls="language-display "
+      class="">
+    <td data-id="language" data-aria-owns="language-display ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="1 more from" aria-controls="language-display " aria-labelledby="language-button language" id="language-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="1 more from"
+                data-aria-controls="language-display "
+                data-aria-labelledby="language-button language"
+                data-id="language-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/language">language</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">Package language implements BCP 47 language tags and related functionality.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package language implements BCP 47 language tags and related functionality.</td></tr><tr class="hidden" id="language-display">
+      <td class="UnitDirectories-desktopSynopsis">Package language implements BCP 47 language tags and related functionality.</td></tr><tr data-id="language-display" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1428,18 +1599,25 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="" aria-controls="message-catalog message-pipeline ">
-    <td data-aria-owns="message-catalog message-pipeline " id="message">
+  <tr data-aria-controls="message-catalog message-pipeline "
+      class="">
+    <td data-id="message" data-aria-owns="message-catalog message-pipeline ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="2 more from" aria-controls="message-catalog message-pipeline " aria-labelledby="message-button message" id="message-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="2 more from"
+                data-aria-controls="message-catalog message-pipeline "
+                data-aria-labelledby="message-button message"
+                data-id="message-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/message">message</a>
             
           </div>
-          <div class="UnitDirectories-mobileSynopsis">Package message implements formatted I/O for localized strings with functions analogous to the fmt's print functions.</div>
+          <div class="UnitDirectories-mobileSynopsis">Package message implements formatted I/O for localized strings with functions analogous to the fmt&#39;s print functions.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package message implements formatted I/O for localized strings with functions analogous to the fmt's print functions.</td></tr><tr class="hidden" id="message-catalog">
+      <td class="UnitDirectories-desktopSynopsis">Package message implements formatted I/O for localized strings with functions analogous to the fmt&#39;s print functions.</td></tr><tr data-id="message-catalog" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1449,7 +1627,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package catalog defines collections of translated format strings.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package catalog defines collections of translated format strings.</td></tr><tr class="hidden" id="message-pipeline">
+      <td class="UnitDirectories-desktopSynopsis">Package catalog defines collections of translated format strings.</td><tr data-id="message-pipeline" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1464,8 +1642,9 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="number">
+  <tr
+      class="">
+    <td data-id="number" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/number">number</a>
             
@@ -1473,13 +1652,14 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package number formats numbers according to the customs of different locales.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package number formats numbers according to the customs of different locales.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package number formats numbers according to the customs of different locales.</td></tr></tr>
 
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="runes">
+  <tr
+      class="">
+    <td data-id="runes" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/runes">runes</a>
             
@@ -1487,13 +1667,14 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package runes provide transforms for UTF-8 encoded text.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package runes provide transforms for UTF-8 encoded text.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package runes provide transforms for UTF-8 encoded text.</td></tr></tr>
 
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="search">
+  <tr
+      class="">
+    <td data-id="search" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/search">search</a>
             
@@ -1501,23 +1682,30 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package search provides language-specific search and string matching.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package search provides language-specific search and string matching.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package search provides language-specific search and string matching.</td></tr></tr>
 
       
           
   
-  <tr class="" aria-controls="secure-bidirule secure-precis ">
-    <td data-aria-owns="secure-bidirule secure-precis " id="secure">
+  <tr data-aria-controls="secure-bidirule secure-precis "
+      class="">
+    <td data-id="secure" data-aria-owns="secure-bidirule secure-precis ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="2 more from" aria-controls="secure-bidirule secure-precis " aria-labelledby="secure-button secure" id="secure-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="2 more from"
+                data-aria-controls="secure-bidirule secure-precis "
+                data-aria-labelledby="secure-button secure"
+                data-id="secure-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/secure">secure</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">secure is a repository of text security related packages.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">secure is a repository of text security related packages.</td></tr><tr class="hidden" id="secure-bidirule">
+      <td class="UnitDirectories-desktopSynopsis">secure is a repository of text security related packages.</td></tr><tr data-id="secure-bidirule" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1527,23 +1715,24 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package bidirule implements the Bidi Rule defined by RFC 5893.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package bidirule implements the Bidi Rule defined by RFC 5893.</td></tr><tr class="hidden" id="secure-precis">
+      <td class="UnitDirectories-desktopSynopsis">Package bidirule implements the Bidi Rule defined by RFC 5893.</td><tr data-id="secure-precis" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
             <a href="/golang.org/x/text@v0.20.0/secure/precis">precis</a>
             
           </span>
-          <div class="UnitDirectories-mobileSynopsis">Package precis contains types and functions for the preparation, enforcement, and comparison of internationalized strings ("PRECIS") as defined in RFC 8264.</div>
+          <div class="UnitDirectories-mobileSynopsis">Package precis contains types and functions for the preparation, enforcement, and comparison of internationalized strings (&#34;PRECIS&#34;) as defined in RFC 8264.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package precis contains types and functions for the preparation, enforcement, and comparison of internationalized strings ("PRECIS") as defined in RFC 8264.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package precis contains types and functions for the preparation, enforcement, and comparison of internationalized strings (&#34;PRECIS&#34;) as defined in RFC 8264.</td></tr>
 
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="transform">
+  <tr
+      class="">
+    <td data-id="transform" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/transform">transform</a>
             
@@ -1551,23 +1740,30 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package transform provides reader and writer wrappers that transform the bytes passing through as well as various transformations.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package transform provides reader and writer wrappers that transform the bytes passing through as well as various transformations.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package transform provides reader and writer wrappers that transform the bytes passing through as well as various transformations.</td></tr></tr>
 
       
           
   
-  <tr class="" aria-controls="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames ">
-    <td data-aria-owns="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames " id="unicode">
+  <tr data-aria-controls="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames "
+      class="">
+    <td data-id="unicode" data-aria-owns="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames ">
       <div class="UnitDirectories-pathCell">
-        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton" aria-expanded="false" aria-label="5 more from" aria-controls="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames " aria-labelledby="unicode-button unicode" id="unicode-button">
-              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg" alt="">
+        <div><button type="button" class="go-Button go-Button--inline UnitDirectories-toggleButton"
+                aria-expanded="false"
+                aria-label="5 more from"
+                data-aria-controls="unicode-bidi unicode-cldr unicode-norm unicode-rangetable unicode-runenames "
+                data-aria-labelledby="unicode-button unicode"
+                data-id="unicode-button">
+              <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_right_gm_grey_24dp.svg"
+                  alt="">
             </button><a href="/golang.org/x/text@v0.20.0/unicode">unicode</a>
             
           </div>
           <div class="UnitDirectories-mobileSynopsis">unicode holds packages with implementations of Unicode standards that are mostly used as building blocks for other packages in golang.org/x/text, layout engines, or are otherwise more low-level in nature.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">unicode holds packages with implementations of Unicode standards that are mostly used as building blocks for other packages in golang.org/x/text, layout engines, or are otherwise more low-level in nature.</td></tr><tr class="hidden" id="unicode-bidi">
+      <td class="UnitDirectories-desktopSynopsis">unicode holds packages with implementations of Unicode standards that are mostly used as building blocks for other packages in golang.org/x/text, layout engines, or are otherwise more low-level in nature.</td></tr><tr data-id="unicode-bidi" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1577,7 +1773,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package bidi contains functionality for bidirectional text support.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package bidi contains functionality for bidirectional text support.</td></tr><tr class="hidden" id="unicode-cldr">
+      <td class="UnitDirectories-desktopSynopsis">Package bidi contains functionality for bidirectional text support.</td><tr data-id="unicode-cldr" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1587,7 +1783,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package cldr provides a parser for LDML and related XML formats.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package cldr provides a parser for LDML and related XML formats.</td></tr><tr class="hidden" id="unicode-norm">
+      <td class="UnitDirectories-desktopSynopsis">Package cldr provides a parser for LDML and related XML formats.</td><tr data-id="unicode-norm" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1597,7 +1793,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package norm contains types and functions for normalizing Unicode strings.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package norm contains types and functions for normalizing Unicode strings.</td></tr><tr class="hidden" id="unicode-rangetable">
+      <td class="UnitDirectories-desktopSynopsis">Package norm contains types and functions for normalizing Unicode strings.</td><tr data-id="unicode-rangetable" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1607,7 +1803,7 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package rangetable provides utilities for creating and inspecting unicode.RangeTables.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package rangetable provides utilities for creating and inspecting unicode.RangeTables.</td></tr><tr class="hidden" id="unicode-runenames">
+      <td class="UnitDirectories-desktopSynopsis">Package rangetable provides utilities for creating and inspecting unicode.RangeTables.</td><tr data-id="unicode-runenames" class="">
       <td>
         <div class="UnitDirectories-subdirectory">
           <span>
@@ -1622,8 +1818,9 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       
           
   
-  <tr class="">
-    <td data-aria-owns="" id="width">
+  <tr
+      class="">
+    <td data-id="width" data-aria-owns="">
       <div class="UnitDirectories-pathCell">
         <div><a href="/golang.org/x/text@v0.20.0/width">width</a>
             
@@ -1631,17 +1828,17 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <div class="UnitDirectories-mobileSynopsis">Package width provides functionality for handling different widths in text.</div>
         </div>
       </td>
-      <td class="UnitDirectories-desktopSynopsis">Package width provides functionality for handling different widths in text.</td></tr>
+      <td class="UnitDirectories-desktopSynopsis">Package width provides functionality for handling different widths in text.</td></tr></tr>
 
       
-    </tbody></table>
+    </table>
   </div>
 
       
     </div>
   </div>
-  <div id="showInternal-description" hidden=""> Click to show internal directories. </div>
-  <div id="hideInternal-description" hidden=""> Click to hide internal directories. </div>
+  <div id="showInternal-description" hidden> Click to show internal directories. </div>
+  <div id="hideInternal-description" hidden> Click to hide internal directories. </div>
 </article>
     <footer class="go-Main-footer"></footer>
   </main>
@@ -1651,18 +1848,22 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     
     <div class="go-Footer-links">
       <div class="go-Footer-linkColumn">
-        <a href="https://go.dev/solutions" class="go-Footer-link go-Footer-link--primary" data-gtmc="footer link">
+        <a href="https://go.dev/solutions" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
           Why Go
         </a>
-        <a href="https://go.dev/solutions#use-cases" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://go.dev/solutions#use-cases" class="go-Footer-link"
+            data-gtmc="footer link">
           Use Cases
         </a>
-        <a href="https://go.dev/solutions#case-studies" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://go.dev/solutions#case-studies" class="go-Footer-link"
+            data-gtmc="footer link">
           Case Studies
         </a>
       </div>
       <div class="go-Footer-linkColumn">
-        <a href="https://learn.go.dev/" class="go-Footer-link go-Footer-link--primary" data-gtmc="footer link">
+        <a href="https://learn.go.dev/" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
           Get Started
         </a>
         <a href="https://play.golang.org" class="go-Footer-link" data-gtmc="footer link">
@@ -1671,15 +1872,18 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
         <a href="https://tour.golang.org" class="go-Footer-link" data-gtmc="footer link">
           Tour
         </a>
-        <a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="go-Footer-link"
+            data-gtmc="footer link">
           Stack Overflow
         </a>
-        <a href="https://go.dev/help" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://go.dev/help" class="go-Footer-link"
+            data-gtmc="footer link">
           Help
         </a>
       </div>
       <div class="go-Footer-linkColumn">
-        <a href="https://pkg.go.dev" class="go-Footer-link go-Footer-link--primary" data-gtmc="footer link">
+        <a href="https://pkg.go.dev" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
           Packages
         </a>
         <a href="/std" class="go-Footer-link" data-gtmc="footer link">
@@ -1693,7 +1897,8 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
         </a>
       </div>
       <div class="go-Footer-linkColumn">
-        <a href="https://go.dev/project" class="go-Footer-link go-Footer-link--primary" data-gtmc="footer link">
+        <a href="https://go.dev/project" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
           About
         </a>
         <a href="https://go.dev/dl/" class="go-Footer-link" data-gtmc="footer link">Download</a>
@@ -1701,10 +1906,11 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
         <a href="https://github.com/golang/go/issues" class="go-Footer-link" data-gtmc="footer link">
           Issue Tracker
         </a>
-        <a href="https://go.dev/doc/devel/release.html" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://go.dev/doc/devel/release.html" class="go-Footer-link"
+            data-gtmc="footer link">
           Release Notes
         </a>
-        <a href="https://blog.golang.org/go-brand" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://go.dev/brand" class="go-Footer-link" data-gtmc="footer link">
           Brand Guidelines
         </a>
         <a href="https://go.dev/conduct" class="go-Footer-link" data-gtmc="footer link">
@@ -1712,14 +1918,16 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
         </a>
       </div>
       <div class="go-Footer-linkColumn">
-        <a href="https://www.twitter.com/golang" class="go-Footer-link go-Footer-link--primary" data-gtmc="footer link">
+        <a href="https://www.twitter.com/golang" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
           Connect
         </a>
         <a href="https://www.twitter.com/golang" class="go-Footer-link" data-gtmc="footer link">
           Twitter
         </a>
         <a href="https://github.com/golang" class="go-Footer-link" data-gtmc="footer link">GitHub</a>
-        <a href="https://invite.slack.golangbridge.org/" class="go-Footer-link" data-gtmc="footer link">
+        <a href="https://invite.slack.golangbridge.org/" class="go-Footer-link"
+            data-gtmc="footer link">
           Slack
         </a>
         <a href="https://reddit.com/r/golang" class="go-Footer-link" data-gtmc="footer link">
@@ -1734,7 +1942,8 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
       </div>
     </div>
     <div class="go-Footer-bottom">
-      <img class="go-Footer-gopher" width="1431" height="901" src="/static/shared/gopher/pilot-bust-1431x901.svg" alt="Gopher in flight goggles">
+      <img class="go-Footer-gopher"  width="1431" height="901"
+          src="/static/shared/gopher/pilot-bust-1431x901.svg" alt="Gopher in flight goggles">
       <ul class="go-Footer-listRow">
         <li class="go-Footer-listItem">
           <a href="https://go.dev/copyright" data-gtmc="footer link">Copyright</a>
@@ -1743,12 +1952,14 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           <a href="https://go.dev/tos" data-gtmc="footer link">Terms of Service</a>
         </li>
         <li class="go-Footer-listItem">
-          <a href="http://www.google.com/intl/en/policies/privacy/" data-gtmc="footer link" target="_blank" rel="noopener">
+          <a href="http://www.google.com/intl/en/policies/privacy/" data-gtmc="footer link"
+              target="_blank" rel="noopener">
             Privacy Policy
           </a>
         </li>
         <li class="go-Footer-listItem">
-          <a href="https://go.dev/s/pkgsite-feedback" target="_blank" rel="noopener" data-gtmc="footer link">
+          <a href="https://go.dev/s/pkgsite-feedback" target="_blank" rel="noopener"
+              data-gtmc="footer link">
             Report an Issue
           </a>
         </li>
@@ -1767,8 +1978,10 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
           </button>
         </li>
       </ul>
-      <a class="go-Footer-googleLogo" href="https://google.com" target="_blank" rel="noopener" data-gtmc="footer link">
-        <img class="go-Footer-googleLogoImg" height="24" width="72" src="/static/shared/logo/google-white.svg" alt="Google logo">
+      <a class="go-Footer-googleLogo" href="https://google.com" target="_blank"rel="noopener"
+          data-gtmc="footer link">
+        <img class="go-Footer-googleLogoImg" height="24" width="72"
+            src="/static/shared/logo/google-white.svg" alt="Google logo">
       </a>
     </div>
   </footer>
@@ -1778,8 +1991,20 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     <form method="dialog" data-gmtc="jump to form" aria-label="Jump to Identifier">
       <div class="Dialog-title go-Modal-header">
         <h2>Jump to</h2>
-        <button class="go-Button go-Button--inline" type="button" data-modal-close="" data-gtmc="modal button" aria-label="Close">
-          <img class="go-Icon" height="24" width="24" src="/static/shared/icon/close_gm_grey_24dp.svg" alt="">
+        <button
+          class="go-Button go-Button--inline"
+          type="button"
+          data-modal-close
+          data-gtmc="modal button"
+          aria-label="Close"
+        >
+          <img
+            class="go-Icon"
+            height="24"
+            width="24"
+            src="/static/shared/icon/close_gm_grey_24dp.svg"
+            alt=""
+          />
         </button>
       </div>
       <div class="JumpDialog-filter">
@@ -1798,8 +2023,20 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     <form method="dialog">
       <div class="go-Modal-header">
         <h2>Keyboard shortcuts</h2>
-        <button class="go-Button go-Button--inline" type="button" data-modal-close="" data-gtmc="modal button" aria-label="Close">
-          <img class="go-Icon" height="24" width="24" src="/static/shared/icon/close_gm_grey_24dp.svg" alt="">
+        <button
+          class="go-Button go-Button--inline"
+          type="button"
+          data-modal-close
+          data-gtmc="modal button"
+          aria-label="Close"
+        >
+          <img
+            class="go-Icon"
+            height="24"
+            width="24"
+            src="/static/shared/icon/close_gm_grey_24dp.svg"
+            alt=""
+          />
         </button>
       </div>
       <div class="go-Modal-body">
@@ -1828,9 +2065,9 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
   </dialog>
 
     
-      <section class="Cookie-notice js-cookieNotice Cookie-notice--visible">
+      <section class="Cookie-notice js-cookieNotice">
         <div>go.dev uses cookies from Google to deliver and enhance the quality of its services and to
-        analyze traffic. <a target="_blank" href="https://policies.google.com/technologies/cookies">Learn more.</a></div>
+        analyze traffic. <a target=_blank href="https://policies.google.com/technologies/cookies">Learn more.</a></div>
         <div><button class="go-Button">Okay</button></div>
       </section>
     
@@ -1851,8 +2088,8 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     
     
   
-  <div class="js-canonicalURLPath" data-canonical-url-path="/golang.org/x/text@v0.20.0" hidden=""></div>
-  <div class="js-playgroundVars" data-modulepath="golang.org/x/text" data-version="v0.20.0" hidden=""></div>
+  <div class="js-canonicalURLPath" data-canonical-url-path="/golang.org/x/text@v0.20.0" hidden></div>
+  <div class="js-playgroundVars" data-modulepath="golang.org/x/text" data-version="v0.20.0" hidden></div>
   <script>
     loadScript('/static/frontend/unit/main/main.js')
   </script>
@@ -1861,10 +2098,5 @@ golang.org/x/text" at <a href="https://www.youtube.com/watch?v=uYrDrMEGu58">http
     loadScript('/static/frontend/unit/unit.js')
   </script>
 
-  
-
-<script type="text/javascript" id="" charset="">(function(){var a=google_tag_manager["rm"]["30425926"](6);"undefined"===typeof a&&(a=String(.05>Math.random()),document.cookie="HaTS_BKT\x3d"+a+"; path\x3d/; max-age\x3d2592000;");"true"===a&&(a=.35>Math.random())&&(document.cookie="HaTS_BKT\x3dfalse; path\x3d/; max-age\x3d2592000;",a=document.createElement("script"),a.src="https://www.gstatic.com/feedback/js/help/prod/service/lazy.min.js",a.type="text/javascript",document.head.appendChild(a),a.onload=function(){var b=window.help.service.Lazy.create(0,{apiKey:"AIzaSyDfBPfajByU2G6RAjUf5sjkMSSLNTj7MMc",
-locale:"en-US"});b.requestSurvey({triggerId:"EJJUtF6Xk0njVvnD1rP0UdhL1wiE",callback:function(c){c.surveyData&&b.presentSurvey({surveyData:c.surveyData,colorScheme:1,customZIndex:1E4})}})})})();</script><script type="text/javascript" id="" charset="">(function(){var c=new Map([["/","Jump to search"],["f","Jump to identifier"],["?","Help"],["y","Copy canonical URL path"]]);document.addEventListener("keydown",function(a){var b=a.target.tagName;"INPUT"===b||"SELECT"===b||"TEXTAREA"===b||a.target.isContentEditable||a.metaKey||a.ctrlKey||(a=a.key,c.has(a)&&window.dataLayer.push({event:"keypress",event_category:"hotkeys",event_action:"hotkey pressed",event_label:a}))})})();</script>
-<iframe height="0" width="0" style="display: none; visibility: hidden;"></iframe><script type="text/javascript" id="" charset="">(function(){function c(a){window.dataLayer.push({event:"error",event_category:"Script",event_action:"uncaught error",event_label:a&&(a.stack||a.name+": "+a.message)||"(not set)"})}var b=window.__err&&window.__err.p||[];b.forEach(function(a){c(a.error)});window.addEventListener("error",function(a){c(a.error)})})();
-(function(){function c(){Array.from(b.values()).forEach(function(a){window.dataLayer.push({event:"error",event_category:"Script",event_action:"unhandled rejection",event_label:a&&(a.stack||a.message)||"(not set)"})});b.clear()}var b=new Map;window.addEventListener("unhandledrejection",function(a){b.set(a.promise,a.reason);"undefined"!==typeof window.requestIdleCallback?window.requestIdleCallback(function(){c()},{timeout:1E3}):window.setTimeout(function(){c()},250)});window.addEventListener("rejectionhandled",
-function(a){b["delete"](a.promise)})})();</script></body></html>
+  </body>
+</html>
