@@ -57,13 +57,14 @@ get_data "nuget.org/Newtonsoft.Json-13.0.1.html" "https://www.nuget.org/packages
 get_data "nuget.org/Newtonsoft.Json-13.0.3.html" "https://www.nuget.org/packages/Newtonsoft.Json/13.0.3"
 
 # packagist.org (PHP / Composer)
-get_data "packagist.org/fomvasss-laravel-its-lte-4.22.html" "https://packagist.org/packages/fomvasss/laravel-its-lte#4.22"
+get_data "packagist.org/fomvasss-laravel-its-lte-4.24.html" "https://packagist.org/packages/fomvasss/laravel-its-lte"
+#get_data "packagist.org/fomvasss-laravel-its-lte-4.22.html" "https://packagist.org/packages/fomvasss/laravel-its-lte#4.22" # Doesn't respect fragment
 
-# PyPi
-get_data "pypi.org/Django-4.2.1.html" "https://pypi.org/project/Django/4.2.1/"
-get_data "pypi.org/numpy-1.14.0.html" "https://pypi.org/project/numpy/1.14.0/"
-get_data "pypi.org/Twisted-19.2.0.html" "https://pypi.org/project/Twisted/19.2.0/"
-get_data "pypi.org/mediapipe-0.10.14.html" "https://pypi.org/project/mediapipe/0.10.14/"
+# PyPi - BROKEN as the DOM is rendered using Javascript
+#get_data "pypi.org/Django-4.2.1.html" "https://pypi.org/project/Django/4.2.1/"
+#get_data "pypi.org/numpy-1.14.0.html" "https://pypi.org/project/numpy/1.14.0/"
+#get_data "pypi.org/mediapipe-0.10.14.html" "https://pypi.org/project/mediapipe/0.10.14/"
+#get_data "pypi.org/Twisted-19.2.0.html" "https://pypi.org/project/Twisted/19.2.0/"
 
 # repo.maven.apache.org (Maven)
 

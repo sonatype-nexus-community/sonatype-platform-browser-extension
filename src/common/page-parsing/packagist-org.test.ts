@@ -49,8 +49,8 @@ describe('packagist.org Page Parsing', () => {
     test('/fomvasss/laravel-its-lte', () => {
         assertPageParsing(
             'https://packagist.org/packages/fomvasss/laravel-its-lte',
-            'packagist.org/fomvasss-laravel-its-lte-4.22.html',
-            [PackageURL.fromString('pkg:composer/fomvasss/laravel-its-lte@4.22')]
+            'packagist.org/fomvasss-laravel-its-lte-4.24.html',
+            [PackageURL.fromString('pkg:composer/fomvasss/laravel-its-lte@4.24.0')]
         )
     })
 
