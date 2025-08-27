@@ -66,6 +66,11 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
                     status: MessageResponseStatus.SUCCESS,
                     componentIdentities: purls.map((purl) => purl.toString())
                 })
+
+                if (purls.length == 0) {
+                    // No Component Identities - remove any annotations
+                    pageParser.removeAnnotations()
+                }
             } else {
                 logger.logContent('Could not determine Repo Type for URL', LogLevel.DEBUG, url)
                 sendResponse({
