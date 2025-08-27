@@ -32,8 +32,8 @@ get_data "conan.io/libxft-2.3.6.html" "https://conan.io/center/recipes/libxft?ve
 get_data "cran.r-project.org/oysteR-0.1.1.html" "https://cran.r-project.org/web/packages/oysteR/index.html"
 
 # crates.io (Cargo)
-get_data "crates.io/cargo-pants-0.4.25.html" "https://crates.io/crates/cargo-pants/0.4.25"
-get_data "crates.io/cargo-pants-0.4.24.html" "https://crates.io/crates/cargo-pants/0.4.24"
+#get_data "crates.io/cargo-pants-0.4.25.html" "https://crates.io/crates/cargo-pants/0.4.25" # Page rendered by JS
+#get_data "crates.io/cargo-pants-0.4.24.html" "https://crates.io/crates/cargo-pants/0.4.24" # Page rendered by JS
 
 # Go (pkg.go.dev)
 get_data "pkg.go.dev/golang.org-x-text-0.20.0.html" "https://pkg.go.dev/golang.org/x/text@v0.20.0"
