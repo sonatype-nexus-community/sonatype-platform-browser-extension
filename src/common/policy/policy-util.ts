@@ -23,8 +23,19 @@ export interface PolicyThreatLevelSummary {
 }
 
 export class PolicyThreatLevelUtil {
-  public static getAnnotationCssClassForThreatLevel(threatLevel: number): string {
+    public static getAnnotationCssClassForThreatLevel(threatLevel: number): string {
       return `sonatype-policy-violation-${categoryByPolicyThreatLevel[threatLevel]}`
+    }
+
+    public static getColorForThreatLevel(threatLevel: number): string {
+        switch (categoryByPolicyThreatLevel[threatLevel]) {
+            case 'critical':
+                return '#cc0129'
+            case 'severe': 
+                return '#ff8300'
+            default:
+                return '#02b3fe'
+        }
     }
 
     public static getIconForThreatLevel(threatLevel: number): string {

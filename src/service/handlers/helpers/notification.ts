@@ -29,14 +29,31 @@ export class NotificationHelper {
 
     notifyOnComponentEvaluationComplete = (tabId: number): Promise<void> => {
         const maxThreatLevel = this.extensionDataState.getMaxThreatLevel(tabId) as ThreatLevelNumber
+        const totalPolicyViolations = this.extensionDataState.getPolicyViolationCount(tabId)
 
         const notificationPromises = Array<Promise<unknown>>()
         notificationPromises.push(
-            ThisBrowser.action.disable(tabId).then(() => {
-                ThisBrowser.action.setIcon({
-                    tabId: tabId,
-                    path: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
-                })
+            ThisBrowser.action.setIcon({
+                tabId: tabId,
+                path: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
+            })
+        )
+        notificationPromises.push(
+            ThisBrowser.action.setBadgeBackgroundColor({
+                tabId: tabId,
+                color: PolicyThreatLevelUtil.getColorForThreatLevel(maxThreatLevel),
+            })
+        )
+        notificationPromises.push(
+            ThisBrowser.action.setBadgeText({
+                tabId: tabId,
+                text: `${totalPolicyViolations}`,
+            })
+        )
+        notificationPromises.push(
+            ThisBrowser.action.setTitle({
+                tabId: tabId,
+                title: `${totalPolicyViolations} Policy Violations - click to view details`,
             })
         )
 

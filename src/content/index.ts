@@ -35,7 +35,6 @@ ThisBrowser.runtime
     .connect({ name: 'CONTENT-SCRIPT' })
     .onMessage.addListener((request: MessageRequestExtensionConfigurationUpdated) => {
         if (request.messageType === MessageRequestType.EXTENSION_CONFIGURATION_UPDATED) {
-            logger.logContent("NEW DATA", LogLevel.ERROR, request)
             logger.setLevel(request.newExtensionConfig.logLevel)
         }
     }
