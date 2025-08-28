@@ -63,7 +63,7 @@ export default function MainSidePanel() {
                 {renderBySidePanelMode()}
             </NxPageMain>
             <NxGlobalFooter2>
-                <span>Version {ThisBrowser.runtime.getManifest().version}</span>
+                <span>{ThisBrowser.i18n.getMessage('RELEASE_VERSION', ThisBrowser.runtime.getManifest().version)}</span>
             </NxGlobalFooter2>
         </NxGlobalFooter2.Container>
     )
