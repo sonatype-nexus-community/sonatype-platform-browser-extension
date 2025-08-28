@@ -98,7 +98,7 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 await this.handleComponentsFound(tabId, repoType.id, componentIdentities)
             }
         } catch (error) {
-            logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error)
+            logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error, url, tabId, repoType.id)
             await this.handleTabError(tabId, repoType.id)
         }
     }
