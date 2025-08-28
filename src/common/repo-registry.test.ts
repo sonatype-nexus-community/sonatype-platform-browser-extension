@@ -20,6 +20,6 @@ import { DefaultRepoRegistry } from './repo-registry'
 describe('RepoRegistry', () => { 
     test('DefaultRepoRegistry', () => { 
         const drr = DefaultRepoRegistry
-        expect(drr.getCount()).toEqual(17)
+        expect(drr.getCount()).toEqual(16)
     })
 })
