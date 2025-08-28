@@ -32,6 +32,9 @@ export class ServiceWorkerNotificationOnClickedHandler extends BaseServiceWorker
                     })
                 }
                 break
+            case 'extension-updated':
+                ThisBrowser.tabs.create({ url: 'options.html?release-notes' })
+                break
             default:
                 ThisBrowser.notifications.clear(notificationId)
         }

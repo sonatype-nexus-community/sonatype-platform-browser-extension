@@ -25,14 +25,7 @@ import { loadExtensionSettings } from "../helpers"
 export class ServiceWorkerRuntimeOnInstalledHandler {
 
     constructor(private readonly analytics: Analytics) { 
-        logger.logServiceWorker("New ServiceWorkerRuntimeOnInstalledHandler", LogLevel.DEBUG, this)
-
-        // ThisBrowser.storage.local.get([SETTINGS_STORAGE_KEY]).then((storageSettings) => {
-        //     this.currentExtensionConfig = storageSettings as ExtensionConfiguration
-        // }).catch((err) => {
-        //     logger.logServiceWorker("Error loading Settings - using Default Settings", LogLevel.ERROR, err)
-        //     this.currentExtensionConfig = DEFAULT_EXTENSION_SETTINGS
-        // })        
+        logger.logServiceWorker("New ServiceWorkerRuntimeOnInstalledHandler", LogLevel.DEBUG, this)    
     }
 
     public handleOnInstalled = async (details: OnInstalledDetails) => {
@@ -98,7 +91,7 @@ export class ServiceWorkerRuntimeOnInstalledHandler {
                     upgradeResposne: "SUCCESS",
                 })
             }).then(() => {
-                ThisBrowser.notifications.create({
+                ThisBrowser.notifications.create(`extension-updated`, {
                     type: 'basic',
                     iconUrl: 'images/Sonatype-platform-icon.png',
                     title: 'Sonatype Platform Extension Upgdated',
