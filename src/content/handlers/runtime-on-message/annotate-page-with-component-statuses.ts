@@ -31,7 +31,7 @@ export class AnnotatePageWithComponentStatusesMessageHandler extends BaseRuntime
         const repoType = DefaultRepoRegistry.getRepoById(message.repoTypeId)
 
         // Annotate Page Title
-        $(repoType.titleSelector).removeClass('sonatype-pending')
+        $(repoType.titleSelector).removeClass('sonatype-pending sonatype-policy-violation-critical sonatype-policy-violation-severe sonatype-policy-violation-moderate sonatype-policy-violation-low sonatype-policy-violation-none')
         $(repoType.titleSelector).addClass(PolicyThreatLevelUtil.getAnnotationCssClassForThreatLevel(message.maxThreatLevel))
         
         // Annotate each Purl / Component

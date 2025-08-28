@@ -30,7 +30,7 @@ export class Nxrm3Repo extends BaseRepo {
 
     readonly purlType: string = ''
 
-    readonly titleSelector: string = ''
+    readonly titleSelector: string = '.nx-global-header-2'
 
     readonly versionPath: string = ''
 

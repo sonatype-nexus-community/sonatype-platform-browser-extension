@@ -76,6 +76,14 @@ describe('NXRM3 Page Parsing', () => {
         )
     })
 
+    test('maven2: #browse/browse:maven-proxy:org%2Fapache%2Flogging%2Flog4j%2Flog4j%2F2.17.2', () => {
+        assertPageParsing(
+            `${NXRM_BASE_URL}#browse/browse:maven-proxy:org%2Fapache%2Flogging%2Flog4j%2Flog4j%2F2.17.2`,
+            'nxrm3/browse-maven2-component.html',
+            undefined
+        )
+    })
+
     test('maven2: #browse/browse:maven-central:commons-logging%2Fcommons-logging%2F1.1.3%2Fcommons-logging-1.1.3.jar', () => {
         assertPageParsing(
             `${NXRM_BASE_URL}#browse/browse:maven-central:commons-logging%2Fcommons-logging%2F1.1.3%2Fcommons-logging-1.1.3.jar`,
