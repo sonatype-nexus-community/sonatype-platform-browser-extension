@@ -14,7 +14,10 @@ The following are the supported public Open Source Registries.
 
 #### Alpine Linux
 
-- `https://pkgs.alpinelinux.org/`
+*None*
+
+> [!NOTE]
+> `https://pkgs.alpinelinux.org/` was previously supported, but data no longer exists to make this useful.
 
 
 #### C / C++

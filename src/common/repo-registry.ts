@@ -16,7 +16,7 @@
 
 import { ExternalRepositoryManager, ExternalRepositoryManagerType } from './configuration/types'
 import { logger, LogLevel } from './logger'
-import { AlpineLinuxOrgRepo } from './repo-type/alpine'
+// import { AlpineLinuxOrgRepo } from './repo-type/alpine'
 import { BaseRepo } from './repo-type/base'
 import { CentralSonatypeComRepo } from './repo-type/central-sonatype-com'
 import { CocoaPodsOrgRepo } from './repo-type/cocoa-pods-org'
@@ -88,7 +88,7 @@ class RepoRegistry {
 export const DefaultRepoRegistry = new RepoRegistry()
 
 // Register all standard repositories
-DefaultRepoRegistry.registerRepo(new AlpineLinuxOrgRepo())
+// DefaultRepoRegistry.registerRepo(new AlpineLinuxOrgRepo())
 DefaultRepoRegistry.registerRepo(new CentralSonatypeComRepo())
 DefaultRepoRegistry.registerRepo(new CocoaPodsOrgRepo())
 DefaultRepoRegistry.registerRepo(new ConanIoRepo())
