@@ -25,6 +25,7 @@ import Component from "./component"
 import ComponentSelector from "./component-selector"
 import UnsupportedSite from "./unsupported-registry"
 import NoComponentsIdentified from "./no-components-identified"
+import TabError from "./tab-error"
 
 export default function Components() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
@@ -87,7 +88,7 @@ export default function Components() {
         
             case TabDataStatus.ERROR:
                 return (
-                    <>There was an error :-(</>
+                    <TabError />
                 )
             
             case TabDataStatus.COMPLETE:
