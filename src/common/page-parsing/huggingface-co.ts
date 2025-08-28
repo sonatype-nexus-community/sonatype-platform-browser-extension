@@ -86,7 +86,8 @@ export class HuggingfaceCoPageParser extends BasePageParser {
                         qualifiers,
                         undefined
                     )
-                    this.annotateDomForPurl(p, domFileRow)
+                    // Disabled for now - see https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/191
+                    // this.annotateDomForPurl(p, domFileRow)
                     matchedPurls.push(p)
                 }
             })
