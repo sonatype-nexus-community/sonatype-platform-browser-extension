@@ -1,378 +1,226 @@
 {
-    "EXTENSION_NAME": {
-        "message": "Sonatype Platform Browser Extension",
-        "description": "The full name for this browser extension."
-    },
-    "EXTENSION_DESCRIPTION": {
-        "message": "Μετακινήστε την ασφάλεια αριστερά με την επέκταση του Sonatype - Σαρώστε μητρώα ανοιχτού κώδικα για γνωστά θέματα ασφαλείας.",
-        "description": "Description of this browser extension."
-    },
-    "RELEASE_VERSION": {
-        "message": "Έκδοση $VERSION$",
-        "description": "The release version of this browser extension",
-        "placeholders": {
-            "VERSION": {
-                "content": "$1",
-                "example": "2.0.0"
-            }
-        }
-    },
-    "ALL_VERSIONS": {
-        "message": "Όλες οι εκδόσεις",
-        "description": "The list of all the available component versions"
-    },
-    "CATALOG_DATE": {
-        "message": "Ημερομηνία καταλόγου",
-        "description": "The date this component version was added to the Sonatype data catalog"
-    },
-    "SONATYPE_IQ_SERVER": {
-        "message": "Sonatype IQ Server",
-        "description": "Branded product name for Sonatype IQ Server"
-    },
-    "SONATYPE_FIREWALL": {
-        "message": "Sonatype Repository Firewall",
-        "description": "Branded product name for Sonatype Repository Firewall"
-    },
-    "SONATYPE_LIFECYCLE": {
-        "message": "Sonatype Lifecycle",
-        "description": "Branded product name for Sonatype Lifecycle"
-    },
-    "SONATYPE_LIFECYCLE_ALP": {
-        "message": "Advanced Legal Pack for Sonatype Lifecycle",
-        "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
-    },
-    "BUTTON_CLOSE": {
-        "message": "Κλείσιμο",
-        "description": "Close button text"
-    },
-    "GITHUB_ISSUE": {
-        "message": "GitHub Issue",
-        "description": "GitHub Issue"
-    },
-    "LABEL_URL": {
-        "message": "URL",
-        "description": "Label for the field where you input your Sonatype IQ Server URL"
-    },
-    "LABEL_USERNAME": {
-        "message": "'Ονομα χρήστη",
-        "description": "Username label"
-    },
-    "LABEL_PASSWORD": {
-        "message": "Κωδικός ή token χρήστη",
-        "description": "Password label"
-    },
-    "LABEL_SONATYPE_APPLICATION": {
-        "message": "Sonatype Lifecycle εφαρμογή",
-        "description": "Application label"
-    },
-    "LABEL_SELECT_AN_APPLICATION": {
-        "message": "-- Διαλέξτε εφαρμογή --",
-        "description": "Default option in Application List"
-    },
-    "LABEL_LOG_LEVEL": {
-        "message": "Επίπεδο log επέκτασης",
-        "description": "Label for Log Level option"
-    },
-    "LINK_BUG_REPORT": {
-        "message": "Αναφέρετε ένα σφάλμα",
-        "description": "Link text used for reporting a bug."
-    },
-    "LINK_FEATURE_REQUEST": {
-        "message": "Κάντε ένα αίτημα δυνατότητας",
-        "description": "Link text used for making a feature request."
-    },
-    "LINK_TEXT_HERE": {
-        "message": "Εδώ",
-        "description": "Link text used for generic link to something [here]."
-    },
-    "HELP_PAGE_TITLE": {
-        "message": "Βοήθεια",
-        "description": "Page Title for Options page"
-    },
-    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
-        "message": "Πού μπορώ να βρώ βοήθεια;",
-        "description": "Title of the first Help Tile"
-    },
-    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
-        "message": "Διαθέτουμε λεπτομερή τεκμηρίωση για την επέκταση Sonatype Platform",
-        "description": "Content for the first Help Tile"
-    },
-    "HELP_TILE_TITLE_FEATURE_REQUEST": {
-        "message": "Πώς μπορώ να κάνω ένα αίτημα δυνατότητας;",
-        "description": "Title of the first Help Tile"
-    },
-    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
-        "message": "Διαθέτουμε λεπτομερή τεκμηρίωση για την επέκταση Sonatype Platform. Εκτιμούμε πολύ τα σχόλια. Μπορείτε να ανοίξετε ένα ζήτημα GitHub με την ιδέα ή την ερώτησή σας ή να απευθυνθείτε στον αποκλειστικό σας εκπρόσωπο Επιτυχίας Πελατών.",
-        "description": "Content for the first Help Tile"
-    },
-    "HELP_TILE_TITLE_RAISE_BUG": {
-        "message": "Νομίζω ότι βρήκα ενα σφάλμα - πώς το αναφέρω;",
-        "description": "Title of the first Help Tile"
-    },
-    "HELP_TILE_CONTENT_RAISE_BUG": {
-        "message": "Εκτιμούμε πολύ τα σχόλια. Εάν πιστεύετε ότι έχετε βρει ένα σφάλμα, ανοίξτε ένα ζήτημα και δώστε όσες περισσότερες πληροφορίες μπορείτε, όπως:",
-        "description": "Content for the first Help Tile"
-    },
-    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
-        "message": "Λεπτομέρειες του προγράμματος περιήγησής σας στο Web (όνομα και έκδοση)",
-        "description": "First item of detail we request when raising a Bug"
-    },
-    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
-        "message": "Έκδοση της επέκτασης Sonatype Platform Browser που έχετε εγκαταστήσει",
-        "description": "Second item of detail we request when raising a Bug"
-    },
-    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
-        "message": "Τις ενέργειες που κάνατε",
-        "description": "Third item of detail we request when raising a Bug"
-    },
-    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
-        "message": "Την αναμενόμενη συμπεριφορά",
-        "description": "Fourth item of detail we request when raising a Bug"
-    },
-    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
-        "message": "Την πραγματική (απροσδόκητη) συμπεριφορά",
-        "description": "Fifth item of detail we request when raising a Bug"
-    },
-    "HIGHEST_POLICY_THREAT_LEVELS": {
-        "message": "Τα υψηλότερα επίπεδα απειλών πολιτικής (Policy Threat Levels)",
-        "description": "Header when displaying the highest threat levels by policy"
-    },
-    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
-        "message": "Το υψηλότερο $POLICY_TYPE_LABEL$ επίπεδο απειλών πολιτικής (policy threat level) για την εφάρμογη: $APP_NAME$",
-        "description": "The release version of this browser extension",
-        "placeholders": {
-            "POLICY_TYPE_LABEL": {
-                "content": "$1",
-                "example": "Security, Architecture, License, Other"
-            },
-            "APP_NAME": {
-                "content": "$2",
-                "example": "sample-application"
-            }
-        }
-    },
-    "LEGAL_EFFECTIVE_LICENSE": {
-        "message": "Iσχύων",
-        "description": "The effective license of the component"
-    },
-    "LEGAL_OBSERVED_LICENSE": {
-        "message": "Παρατηρήθηκε",
-        "description": "The observed license of the component"
-    },
-    "LEGAL_DECLARED_LICENSE": {
-        "message": "Δηλώθηκε",
-        "description": "The declared license of the component"
-    },
-    "LEGAL_TABLE_THREAT_GROUP": {
-        "message": "Ομάδα απειλών",
-        "description": "The column header in the security table for threat group"
-    },
-    "LEGAL_TABLE_LICENSE": {
-        "message": "Άδεια",
-        "description": "The column header in the security table for license"
-    },
-    "LEGAL_TABLE_COPY_TEXT": {
-        "message": "Αντιγραφή κειμένου",
-        "description": "The column header in the security table for copy text"
-    },
-    "LEGAL_COPY_TEXT_TOOLTIP": {
-        "message": "Αντιγραφή κειμένου άδειας",
-        "description": "Tooltip for the copy license text button"
-    },
-    "OPTIONS_PAGE_TITLE": {
-        "message": "Επιλογές επέκτασης",
-        "description": "Page Title for Options page"
-    },
-    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-        "message": "Ευχαριστούμε που εγκαταστήσατε την επέκταση Sonatype Platform Browser",
-        "description": "Page Title for Options page upon first installation"
-    },
-    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
-        "message": "Ξεκινώντας",
-        "description": "Sub Heading on Options Page in Install Mode"
-    },
-    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
-        "message": "Ακολουθήστε τώρα τα παρακάτω βήματα για να συνδέσετε αυτήν την επέκταση στον Sonatype IQ διακομιστή σας.",
-        "description": "Description paragraph on Options Page in Install Mode"
-    },
-    "OPTIONS_CURRENT_CONNECTION": {
-        "message": "Τρέχων τύπος σύνδεσης",
-        "description": "Current Connection Type prompt"
-    },
-    "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
-        "message": "Διαμόρφωση",
-        "description": "Options Tab name for Sonatype Configuration"
-    },
-    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-        "message": "Προχωρημένες επιλογές",
-        "description": "Options Tab name for General Configuration"
-    },
-    "OPTIONS_PAGE_SONATYPE_POINT_1": {
-        "message": "Εισαγάγετε τη διεύθυνση URL για τον διακομιστή Sonatype IQ και στη συνέχεια παραχωρήστε τα δικαιώματα που απαιτούνται για αυτήν την επέκταση για επικοινωνία με τον διακομιστή Sonatype IQ.",
-        "description": "First point of configuration for Sonatype IQ Server"
-    },
-    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
-        "message": "Παραχωρήστε δικαιώματα στον Sonatype IQ διακομιστή σας",
-        "description": "Button text for 'Grant Permission' button"
-    },
-    "OPTIONS_PAGE_SONATYPE_POINT_2": {
-        "message": "Δώστε το όνομα χρήστη και το κωδικό σας για τον Sonatype IQ διακομιστή. Στη συνέχεια, συνδεθείτε για να ανακτήσετε τη λίστα των διαθέσιμων εφαρμογών.",
-        "description": "Second point of configuration for Sonatype IQ Server"
-    },
-    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
-        "message": "Σύνδεση",
-        "description": "Button text for 'Connect' button"
-    },
-    "OPTIONS_PAGE_SONATYPE_POINT_3": {
-        "message": "Επιλέξτε μια Εφαρμογή από τη διαθέσιμη λίστα στον Sonatype IQ διακομιστή.",
-        "description": "Third point of configuration for Sonatype IQ Server"
-    },
-    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
-        "message": "Οι πολιτικές (policies) της εφαρμογής με τις οποίες θα αξιολογηθούν τα στοιχεία.",
-        "description": "Tooltip as to why an Application is to be selected"
-    },
-    "OPTIONS_SUCCESS_MESSAGE": {
-        "message": "Συγχαρητήρια! Πραγματοποιήσατε επιτυχή έλεγχο ταυτότητας με τον Sonatype IQ διακομιστή και έχετε επιλέξει μια εφαρμογή! Μπορείτε να κλείσετε αυτήν την καρτέλα του προγράμματος περιήγησης για να συνεχίσετε.",
-        "description": "Success message to display once Sonatype IQ has been configured"
-    },
-    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
-        "message": "Παρακαλώ επιλέξτε μια εφαρμογή από την παραπάνω λίστα.",
-        "description": "Info message to direct to choose an Application"
-    },
-    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
-        "message": "Παρουσιάστηκε σφάλμα κατά τη σύνδεση.",
-        "description": "Error message showed if Sonatype IQ credentials are incorrect"
-    },
-    "POLICY_TABLE_THREAT": {
-        "message": "ΑΠΕΙΛΗ",
-        "description": "The column header in the policy table for threat"
-    },
-    "POLICY_TABLE_POLICY": {
-        "message": "ΠΟΛΙΤΙΚΗ (POLICIES)",
-        "description": "The column header in the policy table for policy"
-    },
-    "POLICY_TABLE_CONSTRAINT": {
-        "message": "ΠΕΡΙΟΡΙΣΜΟΙ",
-        "description": "The column header in the policy table for constraint name"
-    },
-    "POLICY_TABLE_CONDITION": {
-        "message": "ΠΡΟΫΠΌΘΕΣΗ",
-        "description": "The column header in the policy table for condition"
-    },
-    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
-        "message": "Δεν μπορέσαμε να βρούμε αυτή την βελόνα στα άχυρα!",
-        "description": "Message to inform a user that the current package is not known by Sonatype"
-    },
-    "POPUP_TAB_INFO": {
-        "message": "Πληροφορίες",
-        "description": "Component Information top-level tab in Popup "
-    },
-    "POPUP_TAB_INFO_TOOLTIP": {
-        "message": "Πληροφορίες στοιχείων",
-        "description": "Component Information top-level tab in Popup "
-    },
-    "POPUP_TAB_POLICY": {
-        "message": "Πολιτική (Policy)",
-        "description": "Policy violations top-level tab in Popup. All policy violations for this component."
-    },
-    "POPUP_TAB_REMEDIATION": {
-        "message": "Αποκατάσταση ασφάλειας",
-        "description": "List of recommended version as well as a complete list of the versions available."
-    },
-    "POPUP_TAB_VERSIONS": {
-        "message": "Εκδόσεις",
-        "description": "List of all versions available if there are no policy violations"
-    },
-    "POPUP_TAB_REMEDIATION_TOOLTIP": {
-        "message": "Αποκατάσταση ασφάλειας και πληροφορίες έκδοσης για $VERSION_COUNT$ εκδόσεις",
-        "description": "Toolip for the POPUP_TAB_REMEDIATION",
-        "placeholders": {
-            "VERSION_COUNT": {
-                "content": "$1",
-                "example": "0"
-            }
-        }
-    },
-    "POPUP_TAB_POLICY_TOOLIP": {
-        "message": "Sonatype Lifecycle Παραβιάσεις Πολιτικής (Policy) Αξιολόγησης Εφαρμογών: $APPNAME$",
-        "description": "Toolip for the POPUP_TAB_POLICY",
-        "placeholders": {
-            "APPNAME": {
-                "content": "$1",
-                "example": "sandbox-application"
-            }
-        }
-    },
-    "POPUP_TAB_SECURITY": {
-        "message": "Ασφάλεια",
-        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
-    },
-    "POPUP_TAB_SECURITY_TOOLTIP": {
-        "message": "Ζητήματα ασφαλείας που καταγράφονται σε αυτό το στοιχείο",
-        "description": "Tooltip for POPUP_TAB_SECURITY"
-    },
-    "POPUP_TAB_LEGAL": {
-        "message": "Νομικά",
-        "description": "Legal/License top-level tab in Popup. List of licenses for this component"
-    },
-    "POPUP_TAB_LEGAL_TOOLTIP": {
-        "message": "Πληροφορίες άδειας χρήσης για το στοιχείο",
-        "description": "Legal/License top-level tab in Popup tooltip"
-    },
-    "RECOMMENDED_VERSIONS": {
-        "message": "Προτεινόμενες εκδόσεις",
-        "description": "The list of the recommended version from Lifecycle"
-    },
-    "SECURITY_TABLE_CVSS": {
-        "message": "CVSS",
-        "description": "The column header in the security table for cvss"
-    },
-    "SECURITY_TABLE_ISSUE": {
-        "message": "ΘΈΜΑ",
-        "description": "The column header in the security table for issue"
-    },
-    "SIDEBAR_LINK_GETTING_STARTED": {
-        "message": "Ξεκινώντας",
-        "description": "Sidebar Navigation Link in Options Page"
-    },
-    "SIDEBAR_LINK_HELP": {
-        "message": "Βοήθεια",
-        "description": "Sidebar Navigation Link in Options Page"
-    },
-    "SIDEBAR_LINK_OPTIONS": {
-        "message": "Επιλογές",
-        "description": "Sidebar Navigation Link in Options Page"
-    },
-    "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
-        "message": "Ζητήστε υποστήριξη",
-        "description": "Sidebar Footer Link in Options Page"
-    },
-    "SUPPORTED": {
-        "message": "Υποστηρίζεται",
-        "description": "Used when a product, feature, or function is supported in the current configuration"
-    },
-    "GITHUB_STARS": {
-        "message": "Βαθμολογία",
-        "description": "The number of GitHub stars for the project"
-    },
-    "GITHUB_FORKS": {
-        "message": "Forks",
-        "description": "The number of GitHub forks for the project"
-    },
-    "DOES_IQ_SUPPORT_FEATURE": {
-        "message": "Ο διακομιστής Sonatype IQ περιλαμβάνει υποστήριξη για",
-        "description": "Prompt in Options about what features IQ Licence supports"
-    },
-    "EXAMPLE": {
-        "message": "Παράδειγμα",
-        "description": "Example links to public repositories"
-    },
-    "SUGGESTED_VERSION": {
-        "message": "Προτεινόμενη Έκδοση",
-        "description": "Suggested Version (IQ 184+)"
-    },
-    "GOLDEN_VERSION": {
-        "message": "Χρυσή Έκδοση",
-        "description": "Golden Version (IQ 184+)"
-    }
+  "CATALOG_DATE": {
+    "message": "Ημερομηνία καταλόγου",
+    "description": "The date this component version was added to the Sonatype data catalog"
+  },
+  "DOES_IQ_SUPPORT_FEATURE": {
+    "message": "Ο διακομιστής Sonatype IQ περιλαμβάνει υποστήριξη για",
+    "description": "Prompt in Options about what features IQ Licence supports"
+  },
+  "EXAMPLE": {
+    "message": "Παράδειγμα",
+    "description": "Example links to public repositories"
+  },
+  "EXTENSION_NAME": {
+    "message": "Sonatype Platform Browser Extension",
+    "description": "The full name for this browser extension."
+  },
+  "GOLDEN_VERSION": {
+    "message": "Χρυσή Έκδοση",
+    "description": "Golden Version (IQ 184+)"
+  },
+  "HELP_PAGE_TITLE": {
+    "message": "Βοήθεια",
+    "description": "Page Title for Options page"
+  },
+  "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+    "message": "Διαθέτουμε λεπτομερή τεκμηρίωση για την επέκταση Sonatype Platform. Εκτιμούμε πολύ τα σχόλια. Μπορείτε να ανοίξετε ένα ζήτημα GitHub με την ιδέα ή την ερώτησή σας ή να απευθυνθείτε στον αποκλειστικό σας εκπρόσωπο Επιτυχίας Πελατών.",
+    "description": "Content for the first Help Tile"
+  },
+  "HELP_TILE_CONTENT_RAISE_BUG": {
+    "message": "Εκτιμούμε πολύ τα σχόλια. Εάν πιστεύετε ότι έχετε βρει ένα σφάλμα, ανοίξτε ένα ζήτημα και δώστε όσες περισσότερες πληροφορίες μπορείτε, όπως:",
+    "description": "Content for the first Help Tile"
+  },
+  "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+    "message": "Διαθέτουμε λεπτομερή τεκμηρίωση για την επέκταση Sonatype Platform",
+    "description": "Content for the first Help Tile"
+  },
+  "HELP_TILE_TITLE_FEATURE_REQUEST": {
+    "message": "Πώς μπορώ να κάνω ένα αίτημα δυνατότητας;",
+    "description": "Title of the first Help Tile"
+  },
+  "HELP_TILE_TITLE_RAISE_BUG": {
+    "message": "Νομίζω ότι βρήκα ενα σφάλμα - πώς το αναφέρω;",
+    "description": "Title of the first Help Tile"
+  },
+  "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+    "message": "Πού μπορώ να βρώ βοήθεια;",
+    "description": "Title of the first Help Tile"
+  },
+  "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+    "message": "Λεπτομέρειες του προγράμματος περιήγησής σας στο Web (όνομα και έκδοση)",
+    "description": "First item of detail we request when raising a Bug"
+  },
+  "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+    "message": "Έκδοση της επέκτασης Sonatype Platform Browser που έχετε εγκαταστήσει",
+    "description": "Second item of detail we request when raising a Bug"
+  },
+  "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+    "message": "Τις ενέργειες που κάνατε",
+    "description": "Third item of detail we request when raising a Bug"
+  },
+  "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+    "message": "Την αναμενόμενη συμπεριφορά",
+    "description": "Fourth item of detail we request when raising a Bug"
+  },
+  "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+    "message": "Την πραγματική (απροσδόκητη) συμπεριφορά",
+    "description": "Fifth item of detail we request when raising a Bug"
+  },
+  "LABEL_LOG_LEVEL": {
+    "message": "Επίπεδο log επέκτασης",
+    "description": "Label for Log Level option"
+  },
+  "LABEL_PASSWORD": {
+    "message": "Κωδικός ή token χρήστη",
+    "description": "Password label"
+  },
+  "LABEL_SELECT_AN_APPLICATION": {
+    "message": "-- Διαλέξτε εφαρμογή --",
+    "description": "Default option in Application List"
+  },
+  "LABEL_SONATYPE_APPLICATION": {
+    "message": "Sonatype Lifecycle εφαρμογή",
+    "description": "Application label"
+  },
+  "LABEL_URL": {
+    "message": "URL",
+    "description": "Label for the field where you input your Sonatype IQ Server URL"
+  },
+  "LABEL_USERNAME": {
+    "message": "'Ονομα χρήστη",
+    "description": "Username label"
+  },
+  "LEGAL_DECLARED_LICENSE": {
+    "message": "Δηλώθηκε",
+    "description": "The declared license of the component"
+  },
+  "LEGAL_EFFECTIVE_LICENSE": {
+    "message": "Iσχύων",
+    "description": "The effective license of the component"
+  },
+  "LEGAL_OBSERVED_LICENSE": {
+    "message": "Παρατηρήθηκε",
+    "description": "The observed license of the component"
+  },
+  "LINK_BUG_REPORT": {
+    "message": "Αναφέρετε ένα σφάλμα",
+    "description": "Link text used for reporting a bug."
+  },
+  "LINK_FEATURE_REQUEST": {
+    "message": "Κάντε ένα αίτημα δυνατότητας",
+    "description": "Link text used for making a feature request."
+  },
+  "LINK_TEXT_HERE": {
+    "message": "Εδώ",
+    "description": "Link text used for generic link to something [here]."
+  },
+  "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+    "message": "Παρουσιάστηκε σφάλμα κατά τη σύνδεση.",
+    "description": "Error message showed if Sonatype IQ credentials are incorrect"
+  },
+  "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+    "message": "Παρακαλώ επιλέξτε μια εφαρμογή από την παραπάνω λίστα.",
+    "description": "Info message to direct to choose an Application"
+  },
+  "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+    "message": "Ευχαριστούμε που εγκαταστήσατε την επέκταση Sonatype Platform Browser",
+    "description": "Page Title for Options page upon first installation"
+  },
+  "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+    "message": "Σύνδεση",
+    "description": "Button text for 'Connect' button"
+  },
+  "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+    "message": "Παραχωρήστε δικαιώματα στον Sonatype IQ διακομιστή σας",
+    "description": "Button text for 'Grant Permission' button"
+  },
+  "OPTIONS_PAGE_SONATYPE_POINT_1": {
+    "message": "Εισαγάγετε τη διεύθυνση URL για τον διακομιστή Sonatype IQ και στη συνέχεια παραχωρήστε τα δικαιώματα που απαιτούνται για αυτήν την επέκταση για επικοινωνία με τον διακομιστή Sonatype IQ.",
+    "description": "First point of configuration for Sonatype IQ Server"
+  },
+  "OPTIONS_PAGE_SONATYPE_POINT_2": {
+    "message": "Δώστε το όνομα χρήστη και το κωδικό σας για τον Sonatype IQ διακομιστή. Στη συνέχεια, συνδεθείτε για να ανακτήσετε τη λίστα των διαθέσιμων εφαρμογών.",
+    "description": "Second point of configuration for Sonatype IQ Server"
+  },
+  "OPTIONS_PAGE_SONATYPE_POINT_3": {
+    "message": "Επιλέξτε μια Εφαρμογή από τη διαθέσιμη λίστα στον Sonatype IQ διακομιστή.",
+    "description": "Third point of configuration for Sonatype IQ Server"
+  },
+  "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+    "message": "Προχωρημένες επιλογές",
+    "description": "Options Tab name for General Configuration"
+  },
+  "OPTIONS_SUCCESS_MESSAGE": {
+    "message": "Συγχαρητήρια! Πραγματοποιήσατε επιτυχή έλεγχο ταυτότητας με τον Sonatype IQ διακομιστή και έχετε επιλέξει μια εφαρμογή! Μπορείτε να κλείσετε αυτήν την καρτέλα του προγράμματος περιήγησης για να συνεχίσετε.",
+    "description": "Success message to display once Sonatype IQ has been configured"
+  },
+  "POLICY_TABLE_POLICY": {
+    "message": "ΠΟΛΙΤΙΚΗ (POLICIES)",
+    "description": "The column header in the policy table for policy"
+  },
+  "POLICY_TABLE_THREAT": {
+    "message": "ΑΠΕΙΛΗ",
+    "description": "The column header in the policy table for threat"
+  },
+  "POPUP_TAB_LEGAL": {
+    "message": "Νομικά",
+    "description": "Legal/License top-level tab in Popup. List of licenses for this component"
+  },
+  "POPUP_TAB_POLICY": {
+    "message": "Πολιτική (Policy)",
+    "description": "Policy violations top-level tab in Popup. All policy violations for this component."
+  },
+  "POPUP_TAB_REMEDIATION": {
+    "message": "Αποκατάσταση ασφάλειας",
+    "description": "List of recommended version as well as a complete list of the versions available."
+  },
+  "POPUP_TAB_SECURITY": {
+    "message": "Ασφάλεια",
+    "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
+  },
+  "RECOMMENDED_VERSIONS": {
+    "message": "Προτεινόμενες εκδόσεις",
+    "description": "The list of the recommended version from Lifecycle"
+  },
+  "SECURITY_TABLE_CVSS": {
+    "message": "CVSS",
+    "description": "The column header in the security table for cvss"
+  },
+  "SECURITY_TABLE_ISSUE": {
+    "message": "ΘΈΜΑ",
+    "description": "The column header in the security table for issue"
+  },
+  "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
+    "message": "Ζητήστε υποστήριξη",
+    "description": "Sidebar Footer Link in Options Page"
+  },
+  "SIDEBAR_LINK_GETTING_STARTED": {
+    "message": "Ξεκινώντας",
+    "description": "Sidebar Navigation Link in Options Page"
+  },
+  "SIDEBAR_LINK_HELP": {
+    "message": "Βοήθεια",
+    "description": "Sidebar Navigation Link in Options Page"
+  },
+  "SONATYPE_FIREWALL": {
+    "message": "Sonatype Repository Firewall",
+    "description": "Branded product name for Sonatype Repository Firewall"
+  },
+  "SONATYPE_LIFECYCLE": {
+    "message": "Sonatype Lifecycle",
+    "description": "Branded product name for Sonatype Lifecycle"
+  },
+  "SONATYPE_LIFECYCLE_ALP": {
+    "message": "Advanced Legal Pack for Sonatype Lifecycle",
+    "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
+  },
+  "SUGGESTED_VERSION": {
+    "message": "Προτεινόμενη Έκδοση",
+    "description": "Suggested Version (IQ 184+)"
+  },
+  "SUPPORTED": {
+    "message": "Υποστηρίζεται",
+    "description": "Used when a product, feature, or function is supported in the current configuration"
+  }
 }
