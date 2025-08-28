@@ -23,6 +23,8 @@ import { ComponentData, TabDataStatus } from "../../common/data/types"
 import { logger, LogLevel } from "../../common/logger"
 import Component from "./component"
 import ComponentSelector from "./component-selector"
+import UnsupportedSite from "./unsupported-registry"
+import NoComponentsIdentified from "./no-components-identified"
 
 export default function Components() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
@@ -80,21 +82,7 @@ export default function Components() {
             
             case TabDataStatus.NO_COMPONENTS:
                 return (
-                    <section className="nx-tile" aria-label="No Components Identified">
-                        <header className="nx-tile-header">
-                            <hgroup className="nx-tile-header__headings">
-                            <div className="nx-tile-header__title">
-                                <h2 className="nx-h2">No Components Identified</h2>
-                            </div>
-                            <h3 className="nx-tile-header__subtitle">
-                                You might not be on the right page yet!
-                            </h3>
-                            </hgroup>
-                        </header>
-                        <div className="nx-tile-content">
-                            ADD SOME INSTRUCTIONS AND POINTERS HERE.
-                        </div>
-                    </section>
+                    <NoComponentsIdentified repoTypeId={extensionTabDataContext.repoTypeId} />
                 )
         
             case TabDataStatus.ERROR:
@@ -115,7 +103,7 @@ export default function Components() {
             case TabDataStatus.NOT_SUPPORTED:
             default:
                 return (
-                    <>The current site is not supported.</>
+                    <UnsupportedSite />
                 )
 
         }
