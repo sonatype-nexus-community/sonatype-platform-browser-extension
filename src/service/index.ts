@@ -57,7 +57,11 @@ async function broadcastExtensionConfiguration(message: MessageRequestExtensionC
         broadcastClientsExtensionConfiguration.size
     )
     for (const client of broadcastClientsExtensionConfiguration.values()) {
-        client.postMessage(message)
+        try {
+            client.postMessage(message)
+        } catch (err) {
+            logger.logServiceWorker("Failed to broadcast extension configuration to client", LogLevel.WARN, client, err)
+        }
     }
 }
 
@@ -69,7 +73,11 @@ async function broadcastAllData(message: MessageRequestExtensionDataUpdated) {
         broadcastClientsAllData.size
     )
     for (const client of broadcastClientsAllData.values()) {
-        client.postMessage(message)
+        try {
+            client.postMessage(message)
+        } catch (err) {
+            logger.logServiceWorker("Failed to broadcast all data to client", LogLevel.WARN, client, err)
+        }
     }
 }
 
@@ -88,7 +96,8 @@ self.addEventListener('activate', (event) => {
 
         ThisBrowser.runtime.onConnect.addListener(async function (port: PortType) {
             port.onDisconnect.addListener((port: PortType) => {
-                logger.logServiceWorker('Client disconnected', LogLevel.DEBUG, port)
+                const runtimeError = chrome.runtime.lastError
+                logger.logServiceWorker('Client disconnected', LogLevel.DEBUG, port, runtimeError)
                 broadcastClientsAllData.delete(port)
                 broadcastClientsExtensionConfiguration.delete(port)
             })
