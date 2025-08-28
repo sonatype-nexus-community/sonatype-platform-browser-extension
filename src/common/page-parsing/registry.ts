@@ -15,7 +15,7 @@
  */
 import { DefaultRepoRegistry } from "../repo-registry"
 import { RepositoryId } from "../repo-type/types"
-import { AlpineLinuxOrgPageParser } from "./alpinelinux-org"
+// import { AlpineLinuxOrgPageParser } from "./alpinelinux-org"
 import { BasePageParser } from "./base"
 import { CentralSonatypeComPageParser } from "./central-sonatype-com"
 import { CocoaPodsOrgPageParser } from "./cocoapods-org"
