@@ -1,210 +1,366 @@
 {
-  "CATALOG_DATE": {
-    "message": "Luettelon päivämäärä",
-    "description": "Päivämäärä, jolloin tämä komponenttiversio lisättiin Sonatype-tietoluetteloon"
-  },
-  "DOES_IQ_SUPPORT_FEATURE": {
-    "message": "Tukeeko Sonatype Lifecycle-serverisi X",
-    "description": "Prompt in Options about what features IQ Licence supports"
-  },
-  "EXAMPLE": {
-    "message": "Esimerkki",
-    "description": "Example links to public repositories"
-  },
-  "EXTENSION_NAME": {
-    "message": "Sonatype Platform-selainlaajennus",
-    "description": "Tämän selainlaajennuksen nimi."
-  },
-  "GOLDEN_VERSION": {
-    "message": "Kultainen versio",
-    "description": "Golden Version (IQ 184+)"
-  },
-  "HELP_PAGE_TITLE": {
-    "message": "Apua",
-    "description": "Otsikko asetussivulle"
-  },
-  "HELP_TILE_CONTENT_FEATURE_REQUEST": {
-    "message": "Sonatype Platform-selainlaajennukselle on saatavilla yksityiskohtainen dokumentaatio alla. Arvostamme palautetta suuresti. Voit avata GitHub-ongelman ideallasi tai kysymykselläsi tai ottaa yhteyttä meihin sähköpostitse.",
-    "description": "Ensimmäisen ohjeruudun sisältö"
-  },
-  "HELP_TILE_CONTENT_RAISE_BUG": {
-    "message": "Arvostamme suuresti palautetta. Jos uskot löytäneesi virheen, avaa Issue ja anna mahdollisimman paljon tietoa, mukaan lukien:",
-    "description": "Ensimmäisen ohje-paneelin sisältö"
-  },
-  "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
-    "message": "Sonatype Platform-selainlaajennukselle on saatavilla yksityiskohtainen dokumentaatio ",
-    "description": "Ensimmäisen ohjeruudun sisältö"
-  },
-  "HELP_TILE_TITLE_FEATURE_REQUEST": {
-    "message": "Miten voin tehdä ominaisuuspyynnön?",
-    "description": "Ensimmäisen ohjeruudn otsikko"
-  },
-  "HELP_TILE_TITLE_RAISE_BUG": {
-    "message": "Luulen löytäneeni virheen - kenelle kerron?",
-    "description": "Ensimmäisen ohje-paneelin otsikko"
-  },
-  "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
-    "message": "Mistä saan apua?",
-    "description": "Ensimmäisen ohjeruudun otsikko"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
-    "message": "Tietoa verkkoselaimesta (nimi ja versio)",
-    "description": "Ensimmäinen yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
-    "message": "Asentamasi Sonatype Platform -selaimen laajennuksen versio",
-    "description": "Toinen yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
-    "message": "Toiminnot, jonka suoritit",
-    "description": "Kolmas yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
-    "message": "Odotettu käyttäytyminen",
-    "description": "Neljäs yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
-    "message": "Todellinen (odottamaton) käyttäytyminen",
-    "description": "Viides yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
-  },
-  "INTEGRITY_RATING": {
-    "message": "Eheyden Arvo",
-    "description": "Component's Release Integrity Score"
-  },
-  "LABEL_LOG_LEVEL": {
-    "message": "Laajennuksen lokitaso",
-    "description": "Lokitason vaihtoehdon kenttä"
-  },
-  "LABEL_PASSWORD": {
-    "message": "Salasana tai käyttäjätoken",
-    "description": "Salasana-kenttä"
-  },
-  "LABEL_SELECT_AN_APPLICATION": {
-    "message": "-- Valitse sovellus --",
-    "description": "Oletusvaihtoehto sovellusluettelossa"
-  },
-  "LABEL_SONATYPE_APPLICATION": {
-    "message": "Sonatype Lifecycle -sovellus",
-    "description": "ApplicationID -kenttä"
-  },
-  "LABEL_USERNAME": {
-    "message": "Käyttäjänimi",
-    "description": "Käyttäjänimen kenttä"
-  },
-  "LEGAL_DECLARED_LICENSE": {
-    "message": "Ilmoitettu",
-    "description": "Komponentin ilmoitettu lisenssi"
-  },
-  "LEGAL_EFFECTIVE_LICENSE": {
-    "message": "Voimassa oleva",
-    "description": "Komponentin voimassa oleva lisenssi"
-  },
-  "LEGAL_OBSERVED_LICENSE": {
-    "message": "Havaittu",
-    "description": "Komponentin havaittu lisenssi"
-  },
-  "LINK_BUG_REPORT": {
-    "message": "Ilmoita virheestä",
-    "description": "Linkkiteksti virheen raportointiin."
-  },
-  "LINK_FEATURE_REQUEST": {
-    "message": "Tee ominaisuuspyyntö",
-    "description": "Linkkiteksti ominaisuuspyynnön tekemiseen."
-  },
-  "LINK_TEXT_HERE": {
-    "message": "täällä",
-    "description": "Linkkiteksti geneeriseen linkkiin johonkin [täällä]."
-  },
-  "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
-    "message": "Kirjautumisessa tapahtui virhe.",
-    "description": "Virheviesti näytetään, jos Sonatype Lifecycle -tunnukset ovat väärin"
-  },
-  "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
-    "message": "Valitse sovellus yllä olevasta luettelosta.",
-    "description": "Infoteksti ohjaamaan sovelluksen valintaan"
-  },
-  "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-    "message": "Kiitos Sonatype Platform -selaimen laajennuksen asennuksesta",
-    "description": "Sivun otsikko Asetukset-sivulle ensimmäisen asennuksen yhteydessä"
-  },
-  "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
-    "message": "Yhdistä",
-    "description": "'Yhdistä' -painikkeen teksti"
-  },
-  "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
-    "message": "Anna oikeudet Sonatype Lifecycle Serverillesi",
-    "description": "Painiketeksti 'Anna oikeudet' -painikkeelle"
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_1": {
-    "message": "Syötä URL Sonatype Lifecycle -Serverillesi ja myönnä tarvittavat oikeudet, jotta tämä laajennus voi kommunikoida Sonatype IQ Serverisi kanssa.",
-    "description": "Ensimmäinen kohta Sonatype Lifecycle Serverin konfiguraatiolle"
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_2": {
-    "message": "Anna käyttäjätunnuksesi ja tokenisi Sonatype Lifecycle -Serveriisi. Yhdistä sitten hakeaksesi luettelon saatavilla olevista sovelluksista.",
-    "description": "Toinen konfigurointikohta Sonatype Lifecycle -Serverille"
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_3": {
-    "message": "Valitse sovellus luettelosta, joka on saatavilla Sonatype Lifecycle -Serverissasi.",
-    "description": "Kolmas konfigurointikohta Sonatype Lifecycle -Serverille"
-  },
-  "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-    "message": "Yleiset asetukset",
-    "description": "Asetukset-välilehden nimi Yleiselle konfiguraatiolle"
-  },
-  "OPTIONS_SUCCESS_MESSAGE": {
-    "message": "Onnittelut! Olet onnistuneesti todentanut itsesi Sonatype Lifecycle -Serverillasi ja valinnut sovelluksen! Voit sulkea tämän selainvälilehden jatkaaksesi.",
-    "description": "Onnistumisviesti, joka näytetään, kun Sonatype Lifecycle on konfiguroitu onnistuneesti"
-  },
-  "POLICY_TABLE_POLICY": {
-    "message": "SÄÄNTÖ",
-    "description": "Sarakkeen otsikko sääntötaulukossa"
-  },
-  "POLICY_TABLE_THREAT": {
-    "message": "UHKA",
-    "description": "Sarakkeen otsikko uhka-politiikkataulukossa"
-  },
-  "POPUP_TAB_LEGAL": {
-    "message": "Oikeudellinen",
-    "description": "Oikeudellinen/Lisenssi ylätason välilehti Popupissa. Luettelo tämän komponentin lisensseistä"
-  },
-  "POPUP_TAB_POLICY": {
-    "message": "Käytäntö",
-    "description": "Käytäntörikkomukset ylätason välilehti Popupissa. Kaikki tämän komponentin politiikkaviolations."
-  },
-  "POPUP_TAB_REMEDIATION": {
-    "message": "Korjaustoimenpiteet",
-    "description": "Luettelo suositellusta versiosta sekä täydellinen luettelo saatavilla olevista versioista."
-  },
-  "POPUP_TAB_SECURITY": {
-    "message": "Turvallisuus",
-    "description": "Turvallisuus (CVE) ylätason välilehti Popupissa. Luettelo tämän komponentin CVE:istä"
-  },
-  "RECOMMENDED_VERSIONS": {
-    "message": "Suositellut versiot",
-    "description": "Luettelo suositellusta versiosta Lifecyclesta"
-  },
-  "SECURITY_TABLE_CVSS": {
-    "message": "CVSS",
-    "description": "Sarakkeen otsikko turvataulukossa cvss:lle"
-  },
-  "SECURITY_TABLE_ISSUE": {
-    "message": "ONGELMA",
-    "description": "Sarakkeen otsikko turvataulukossa ongelmalle"
-  },
-  "SIDEBAR_LINK_GETTING_STARTED": {
-    "message": "Aloita tästä",
-    "description": "Sivupalkin navigointilinkki asetussivulla"
-  },
-  "SIDEBAR_LINK_HELP": {
-    "message": "Apua",
-    "description": "Sivupalkin navigointilinkki asetussivulla"
-  },
-  "SUGGESTED_VERSION": {
-    "message": "Suositeltu versio",
-    "description": "Suggested Version (IQ 184+)"
-  },
-  "SUPPORTED": {
-    "message": "Tuettu",
-    "description": "Used when a product, feature, or function is supported in the current configuration"
-  }
+    "EXTENSION_NAME": {
+        "message": "Sonatype Platform-selainlaajennus",
+        "description": "Tämän selainlaajennuksen nimi."
+    },
+    "EXTENSION_DESCRIPTION": {
+        "message": "Skannaa avoimen lähdekoodin julkaisuja haittaohjelmien ja haavoittuvuuksien varalta Sonatype platform -selainlaajennuksella",
+        "description": "Tämän selainlaajennuksen kuvaus."
+    },
+    "RELEASE_VERSION": {
+        "message": "Versio $VERSION$",
+        "description": "Tämän selainlaajennuksen julkaisuversio",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
+    },
+    "ALL_VERSIONS": {
+        "message": "Kaikki versiot",
+        "description": "Luettelo kaikista saatavilla olevista komponenttiversioista"
+    },
+    "CATALOG_DATE": {
+        "message": "Luettelon päivämäärä",
+        "description": "Päivämäärä, jolloin tämä komponenttiversio lisättiin Sonatype-tietoluetteloon"
+    },
+    "INTEGRITY_RATING": {
+        "message": "Eheyden Arvo",
+        "description": "Component's Release Integrity Score"
+    },
+    "HYGIENE_RATING": {
+        "message": "Hygieniataso",
+        "description": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software."
+    },
+    "HYGIENE_RATING_DESC": {
+        "message": "Avoimen lähdekoodin projektin laatu (Jälkeenjäänyt, Esimerkki, Neutraali). Tämä lasketaan perustuen projekteihin, jotka osoittavat parhaat ja huonoimmat käytännöt laadukkaan avoimen lähdekoodin ohjelmiston tuottamisessa.",
+        "description": "The tooltip description of Hygiene Rating"
+    },
+    "SONATYPE_IQ_SERVER": {
+        "message": "Sonatype IQ Server",
+        "description": "Brändätty tuotenimi Sonatype IQ Serverille"
+    },
+    "BUTTON_CLOSE": {
+        "message": "Sulje",
+        "description": "Sulje-painikkeen teksti"
+    },
+    "GITHUB_ISSUE": {
+        "message": "GitHub-issue",
+        "description": "GitHub-ongelma"
+    },
+    "LABEL_USERNAME": {
+        "message": "Käyttäjänimi",
+        "description": "Käyttäjänimen kenttä"
+    },
+    "LABEL_PASSWORD": {
+        "message": "Salasana tai käyttäjätoken",
+        "description": "Salasana-kenttä"
+    },
+    "LABEL_SONATYPE_APPLICATION": {
+        "message": "Sonatype Lifecycle -sovellus",
+        "description": "ApplicationID -kenttä"
+    },
+    "LABEL_SELECT_AN_APPLICATION": {
+        "message": "-- Valitse sovellus --",
+        "description": "Oletusvaihtoehto sovellusluettelossa"
+    },
+    "LABEL_LOG_LEVEL": {
+        "message": "Laajennuksen lokitaso",
+        "description": "Lokitason vaihtoehdon kenttä"
+    },
+    "LINK_BUG_REPORT": {
+        "message": "Ilmoita virheestä",
+        "description": "Linkkiteksti virheen raportointiin."
+    },
+    "LINK_FEATURE_REQUEST": {
+        "message": "Tee ominaisuuspyyntö",
+        "description": "Linkkiteksti ominaisuuspyynnön tekemiseen."
+    },
+    "LINK_TEXT_HERE": {
+        "message": "täällä",
+        "description": "Linkkiteksti geneeriseen linkkiin johonkin [täällä]."
+    },
+    "HELP_PAGE_TITLE": {
+        "message": "Apua",
+        "description": "Otsikko asetussivulle"
+    },
+    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+        "message": "Mistä saan apua?",
+        "description": "Ensimmäisen ohjeruudun otsikko"
+    },
+    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+        "message": "Sonatype Platform-selainlaajennukselle on saatavilla yksityiskohtainen dokumentaatio ",
+        "description": "Ensimmäisen ohjeruudun sisältö"
+    },
+    "HELP_TILE_TITLE_FEATURE_REQUEST": {
+        "message": "Miten voin tehdä ominaisuuspyynnön?",
+        "description": "Ensimmäisen ohjeruudn otsikko"
+    },
+    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+        "message": "Sonatype Platform-selainlaajennukselle on saatavilla yksityiskohtainen dokumentaatio alla. Arvostamme palautetta suuresti. Voit avata GitHub-ongelman ideallasi tai kysymykselläsi tai ottaa yhteyttä meihin sähköpostitse.",
+        "description": "Ensimmäisen ohjeruudun sisältö"
+    },
+    "HELP_TILE_TITLE_BUG_REPORT": {
+        "message": "Miten voin ilmoittaa virheestä?",
+        "description": "Ensimmäisen ohjeruudun otsikko"
+    },
+    "HELP_TILE_CONTENT_BUG_REPORT": {
+        "message": "Sonatype Platform-selainlaajennukselle on saatavilla yksityiskohtainen dokumentaatio alla. Arvostamme palautetta suuresti. Voit avata GitHub-ongelman ideallasi tai kysymykselläsi tai ottaa yhteyttä meihin sähköpostitse.",
+        "description": "Ensimmäisen ohjeruudun sisältö"
+    },
+    "HELP_TILE_TITLE_RAISE_BUG": {
+        "message": "Luulen löytäneeni virheen - kenelle kerron?",
+        "description": "Ensimmäisen ohje-paneelin otsikko"
+    },
+    "HELP_TILE_CONTENT_RAISE_BUG": {
+        "message": "Arvostamme suuresti palautetta. Jos uskot löytäneesi virheen, avaa Issue ja anna mahdollisimman paljon tietoa, mukaan lukien:",
+        "description": "Ensimmäisen ohje-paneelin sisältö"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+        "message": "Tietoa verkkoselaimesta (nimi ja versio)",
+        "description": "Ensimmäinen yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+        "message": "Asentamasi Sonatype Platform -selaimen laajennuksen versio",
+        "description": "Toinen yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+        "message": "Toiminnot, jonka suoritit",
+        "description": "Kolmas yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+        "message": "Odotettu käyttäytyminen",
+        "description": "Neljäs yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+        "message": "Todellinen (odottamaton) käyttäytyminen",
+        "description": "Viides yksityiskohta, jonka pyydämme ilmoittaessasi virheestä"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS": {
+        "message": "Suurimmat uhkatasot",
+        "description": "Otsikko näytettäessä suurimmat uhkatasot konfiguraation mukaan"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
+        "message": "Suurin $POLICY_TYPE_LABEL$ konfiguraation uhkataso sovellukselle: $APP_NAME$",
+        "description": "Tämän selaimen laajennuksen julkaisuversio",
+        "placeholders": {
+            "POLICY_TYPE_LABEL": {
+                "content": "$1",
+                "example": "Turvallisuus, Arkkitehtuuri, Lisenssi, Muu"
+            },
+            "APP_NAME": {
+                "content": "$2",
+                "example": "esimerkki-sovellus"
+            }
+        }
+    },
+    "LEGAL_EFFECTIVE_LICENSE": {
+        "message": "Voimassa oleva",
+        "description": "Komponentin voimassa oleva lisenssi"
+    },
+    "LEGAL_OBSERVED_LICENSE": {
+        "message": "Havaittu",
+        "description": "Komponentin havaittu lisenssi"
+    },
+    "LEGAL_DECLARED_LICENSE": {
+        "message": "Ilmoitettu",
+        "description": "Komponentin ilmoitettu lisenssi"
+    },
+    "LEGAL_TABLE_THREAT_GROUP": {
+        "message": "Uhkaryhmä",
+        "description": "Otsikko turvallisuustaulukossa uhkaryhmälle"
+    },
+    "LEGAL_TABLE_LICENSE": {
+        "message": "Lisenssi",
+        "description": "Otsikko turvallisuustaulukossa lisenssille"
+    },
+    "LEGAL_TABLE_COPY_TEXT": {
+        "message": "Kopioi teksti",
+        "description": "Otsikko turvallisuustaulukossa kopiointitekstille"
+    },
+    "LEGAL_COPY_TEXT_TOOLTIP": {
+        "message": "Kopioi lisenssiteksti",
+        "description": "Vihje kopiointitekstin painikkeelle"
+    },
+    "OPTIONS_PAGE_TITLE": {
+        "message": "Laajennuksen asetukset",
+        "description": "Sivun otsikko Asetukset-sivulle"
+    },
+    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+        "message": "Kiitos Sonatype Platform -selaimen laajennuksen asennuksesta",
+        "description": "Sivun otsikko Asetukset-sivulle ensimmäisen asennuksen yhteydessä"
+    },
+    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
+        "message": "Aloittaminen",
+        "description": "Alaotsikko Asetukset-sivulla Asennustilassa"
+    },
+    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
+        "message": "Seuraa alla olevia ohjeita liittääksesi tämän laajennuksen Sonatype Lifecycle -Serveriisi.",
+        "description": "Kuvaus Asetukset-sivulla Asennustilassa"
+    },
+    "OPTIONS_CURRENT_CONNECTION": {
+        "message": "Nykyinen yhteystyyppi",
+        "description": "Nykyinen yhteystyyppi -viesti"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
+        "message": "Sonatype-konfiguraatio",
+        "description": "Asetukset-välilehden nimi Sonatype-konfiguraatiolle"
+    },
+    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+        "message": "Yleiset asetukset",
+        "description": "Asetukset-välilehden nimi Yleiselle konfiguraatiolle"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_1": {
+        "message": "Syötä URL Sonatype Lifecycle -Serverillesi ja myönnä tarvittavat oikeudet, jotta tämä laajennus voi kommunikoida Sonatype IQ Serverisi kanssa.",
+        "description": "Ensimmäinen kohta Sonatype Lifecycle Serverin konfiguraatiolle"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+        "message": "Anna oikeudet Sonatype Lifecycle Serverillesi",
+        "description": "Painiketeksti 'Anna oikeudet' -painikkeelle"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_2": {
+        "message": "Anna käyttäjätunnuksesi ja tokenisi Sonatype Lifecycle -Serveriisi. Yhdistä sitten hakeaksesi luettelon saatavilla olevista sovelluksista.",
+        "description": "Toinen konfigurointikohta Sonatype Lifecycle -Serverille"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+        "message": "Yhdistä",
+        "description": "'Yhdistä' -painikkeen teksti"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_3": {
+        "message": "Valitse sovellus luettelosta, joka on saatavilla Sonatype Lifecycle -Serverissasi.",
+        "description": "Kolmas konfigurointikohta Sonatype Lifecycle -Serverille"
+    },
+    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
+        "message": "Sovelluksen säännöt, joihin komponentteja arvioidaan.",
+        "description": "Työkaluvihje, miksi sovellus on valittava"
+    },
+    "OPTIONS_SUCCESS_MESSAGE": {
+        "message": "Onnittelut! Olet onnistuneesti todentanut itsesi Sonatype Lifecycle -Serverillasi ja valinnut sovelluksen! Voit sulkea tämän selainvälilehden jatkaaksesi.",
+        "description": "Onnistumisviesti, joka näytetään, kun Sonatype Lifecycle on konfiguroitu onnistuneesti"
+    },
+    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+        "message": "Valitse sovellus yllä olevasta luettelosta.",
+        "description": "Infoteksti ohjaamaan sovelluksen valintaan"
+    },
+    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+        "message": "Kirjautumisessa tapahtui virhe.",
+        "description": "Virheviesti näytetään, jos Sonatype Lifecycle -tunnukset ovat väärin"
+    },
+    "POLICY_TABLE_THREAT": {
+        "message": "UHKA",
+        "description": "Sarakkeen otsikko uhka-politiikkataulukossa"
+    },
+    "POLICY_TABLE_POLICY": {
+        "message": "SÄÄNTÖ",
+        "description": "Sarakkeen otsikko sääntötaulukossa"
+    },
+    "POLICY_TABLE_CONSTRAINT": {
+        "message": "RAJOITE",
+        "description": "Sarakkeen otsikko rajoitetaulukossa"
+    },
+    "POLICY_TABLE_CONDITION": {
+        "message": "EHTO",
+        "description": "Sarakkeen otsikko ehtotaulukossa"
+    },
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "Emme löytäneet tätä neulaa heinäsuovasta!",
+        "description": "Viesti, jolla informoidaan käyttäjää, että nykyistä pakettia ei ole tunnistettu Sonatype Lifecyclessä"
+    },
+    "POPUP_TAB_INFO": {
+        "message": "Info",
+        "description": "Komponenttitiedot ylätason välilehti Popupissa"
+    },
+    "POPUP_TAB_INFO_TOOLTIP": {
+        "message": "Komponenttitiedot",
+        "description": "Komponenttitiedot ylätason välilehti Popupissa"
+    },
+    "POPUP_TAB_POLICY": {
+        "message": "Käytäntö",
+        "description": "Käytäntörikkomukset ylätason välilehti Popupissa. Kaikki tämän komponentin politiikkaviolations."
+    },
+    "POPUP_TAB_REMEDIATION": {
+        "message": "Korjaustoimenpiteet",
+        "description": "Luettelo suositellusta versiosta sekä täydellinen luettelo saatavilla olevista versioista."
+    },
+    "POPUP_TAB_VERSIONS": {
+        "message": "Versiot",
+        "description": "Luettelo kaikista saatavilla olevista versioista, jos politiikkaviolations ei ole"
+    },
+    "POPUP_TAB_REMEDIATION_TOOLTIP": {
+        "message": "Korjaustoimenpiteet ja versiotiedot $VERSION_COUNT$ versiolle",
+        "description": "Työkaluvihje POPUP_TAB_REMEDIATION:lle",
+        "placeholders": {
+            "VERSION_COUNT": {
+                "content": "$1",
+                "example": "0"
+            }
+        }
+    },
+    "POPUP_TAB_POLICY_TOOLIP": {
+        "message": "Sonatype Lifecycle Appliation -arviointikäytännön rikkomukset: $APPNAME$",
+        "description": "Työkaluvihje POPUP_TAB_POLICY:lle",
+        "placeholders": {
+            "APPNAME": {
+                "content": "$1",
+                "example": "sandbox-sovellus"
+            }
+        }
+    },
+    "POPUP_TAB_SECURITY": {
+        "message": "Turvallisuus",
+        "description": "Turvallisuus (CVE) ylätason välilehti Popupissa. Luettelo tämän komponentin CVE:istä"
+    },
+    "POPUP_TAB_SECURITY_TOOLTIP": {
+        "message": "Tämän komponentin turvallisuusongelmat",
+        "description": "Työkaluvihje POPUP_TAB_SECURITY:lle"
+    },
+    "POPUP_TAB_LEGAL": {
+        "message": "Oikeudellinen",
+        "description": "Oikeudellinen/Lisenssi ylätason välilehti Popupissa. Luettelo tämän komponentin lisensseistä"
+    },
+    "POPUP_TAB_LEGAL_TOOLTIP": {
+        "message": "Komponentin lisenssitiedot",
+        "description": "Oikeudellinen/Lisenssi ylätason välilehti Popupin työkaluvihje"
+    },
+    "RECOMMENDED_VERSIONS": {
+        "message": "Suositellut versiot",
+        "description": "Luettelo suositellusta versiosta Lifecyclesta"
+    },
+    "SECURITY_TABLE_CVSS": {
+        "message": "CVSS",
+        "description": "Sarakkeen otsikko turvataulukossa cvss:lle"
+    },
+    "SECURITY_TABLE_ISSUE": {
+        "message": "ONGELMA",
+        "description": "Sarakkeen otsikko turvataulukossa ongelmalle"
+    },
+    "SIDEBAR_LINK_GETTING_STARTED": {
+        "message": "Aloita tästä",
+        "description": "Sivupalkin navigointilinkki asetussivulla"
+    },
+    "SIDEBAR_LINK_HELP": {
+        "message": "Apua",
+        "description": "Sivupalkin navigointilinkki asetussivulla"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "Tukeeko Sonatype Lifecycle-serverisi X",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "SUPPORTED": {
+        "message": "Tuettu",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
+    "EXAMPLE": {
+        "message": "Esimerkki",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Suositeltu versio",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Kultainen versio",
+        "description": "Golden Version (IQ 184+)"
+    }
 }

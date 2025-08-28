@@ -1,278 +1,462 @@
 {
-  "ADVANCED_OPTIONS_PAGE_TITLE": {
-    "description": "Page Title for Options page",
-    "message": "Advanced Options"
-  },
-  "CATALOG_DATE": {
-    "description": "The date this component version was added to the Sonatype data catalog",
-    "message": "Catalog Date"
-  },
-  "CONFIGURE_NXIQ_PAGE_TITLE": {
-    "description": "Page Title for Options page",
-    "message": "Connect to Sonatype IQ Server"
-  },
-  "CONFIGURE_NXRM_PAGE_TITLE": {
-    "description": "Page Title for Options page",
-    "message": "Configure Sonatype Nexus Repository connections"
-  },
-  "DOES_IQ_SUPPORT_FEATURE": {
-    "description": "Prompt in Options about what features IQ Licence supports",
-    "message": "Does your Sonatype IQ Server include support for"
-  },
-  "EXAMPLE": {
-    "description": "Example links to public repositories",
-    "message": "Example"
-  },
-  "EXTENSION_NAME": {
-    "description": "The full name for this browser extension.",
-    "message": "Sonatype Platform Browser Extension"
-  },
-  "GOLDEN_VERSION": {
-    "description": "Golden Version (IQ 184+)",
-    "message": "Golden Version"
-  },
-  "HELP_PAGE_TITLE": {
-    "description": "Page Title for Options page",
-    "message": "Help"
-  },
-  "HELP_TILE_CONTENT_FEATURE_REQUEST": {
-    "description": "Content for the first Help Tile",
-    "message": "We have detailed documentation for the Sonatype Platform Browser Extension available below. We greatly value feedback. You can open a GitHub Issue with your idea or question or reach out to your dedicated Customer Success representative."
-  },
-  "HELP_TILE_CONTENT_RAISE_BUG": {
-    "description": "Content for the first Help Tile",
-    "message": "We greatly value feedback. If you believe you have found a bug, please open an Issue and provide as much information as you can including:"
-  },
-  "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
-    "description": "Content for the first Help Tile",
-    "message": "We have detailed documentation for the Sonatype Platform Browser Extension available "
-  },
-  "HELP_TILE_TITLE_FEATURE_REQUEST": {
-    "description": "Title of the first Help Tile",
-    "message": "How can I make a Feature Request?"
-  },
-  "HELP_TILE_TITLE_RAISE_BUG": {
-    "description": "Title of the first Help Tile",
-    "message": "I think I found a bug - who do I tell?"
-  },
-  "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
-    "description": "Title of the first Help Tile",
-    "message": "Where do I go to get help?"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
-    "description": "First item of detail we request when raising a Bug",
-    "message": "Details of your Web Browser (name and version)"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
-    "description": "Second item of detail we request when raising a Bug",
-    "message": "Version of the Sonatype Platform Browser Extension you have installed"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
-    "description": "Third item of detail we request when raising a Bug",
-    "message": "The action(s) you performed"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
-    "description": "Fourth item of detail we request when raising a Bug",
-    "message": "The expected behaviour"
-  },
-  "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
-    "description": "Fifth item of detail we request when raising a Bug",
-    "message": "The actual (unexpected) behaviour"
-  },
-  "INTEGRITY_RATING": {
-    "description": "Component's Release Integrity Score",
-    "message": "Integrity Rating"
-  },
-  "LABEL_ENABLE_NOTFIICATIONS": {
-    "description": "Label for Enable Notifications option",
-    "message": "Enable Notifications"
-  },
-  "LABEL_ENABLE_NOTFIICATIONS_DESCRIPTION": {
-    "description": "Label for Enable Notifications option",
-    "message": "When enabled, we'll use System Notifications to alert you about Components threats."
-  },
-  "LABEL_ENABLE_PAGE_ANNOTATIONS": {
-    "description": "Label for Enable Page Annotations option",
-    "message": "Enable Page Annotations"
-  },
-  "LABEL_ENABLE_PAGE_ANNOTATIONS_DESCRIPTION": {
-    "description": "Label for Enable Page Annotations option",
-    "message": "When enabled, we'll use annotate the current page to alert you about Component threats."
-  },
-  "LABEL_LOG_LEVEL": {
-    "description": "Label for Log Level option",
-    "message": "Logging Level"
-  },
-  "LABEL_LOG_LEVEL_DESCRIPTION": {
-    "description": "Label for Log Level option",
-    "message": "Controls how much logging is sent to your browser console. WARN is a safe value for normal operation."
-  },
-  "LABEL_PASSWORD": {
-    "description": "Password label",
-    "message": "Password or User Token"
-  },
-  "LABEL_SELECT_AN_APPLICATION": {
-    "description": "Default option in Application List",
-    "message": "-- Select an Application --"
-  },
-  "LABEL_SONATYPE_APPLICATION": {
-    "description": "Application label",
-    "message": "Sonatype Lifecycle Application"
-  },
-  "LABEL_URL": {
-    "description": "Label for the field where you input your Sonatype IQ Server URL",
-    "message": "URL"
-  },
-  "LABEL_USERNAME": {
-    "description": "Username label",
-    "message": "Username"
-  },
-  "LEGAL_DECLARED_LICENSE": {
-    "description": "The declared license of the component",
-    "message": "Declared"
-  },
-  "LEGAL_EFFECTIVE_LICENSE": {
-    "description": "The effective license of the component",
-    "message": "Effective"
-  },
-  "LEGAL_OBSERVED_LICENSE": {
-    "description": "The observed license of the component",
-    "message": "Observed"
-  },
-  "LINK_BUG_REPORT": {
-    "description": "Link text used for reporting a bug.",
-    "message": "Report a Bug"
-  },
-  "LINK_FEATURE_REQUEST": {
-    "description": "Link text used for making a feature request.",
-    "message": "Make a feature request"
-  },
-  "LINK_TEXT_HERE": {
-    "description": "Link text used for generic link to something [here].",
-    "message": "here"
-  },
-  "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
-    "description": "Error message showed if Sonatype IQ credentials are incorrect",
-    "message": "There was an error signing in."
-  },
-  "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
-    "description": "Info message to direct to choose an Application",
-    "message": "Please select an application from the list above."
-  },
-  "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
-    "description": "Page Title for Options page upon first installation",
-    "message": "Thanks for installing the Sonatype Platform Browser Extension"
-  },
-  "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
-    "description": "Button text for 'Connect' button",
-    "message": "Connect"
-  },
-  "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
-    "description": "Button text for 'Grant Permission' button",
-    "message": "Grant Permissions to your Sonatype IQ Server"
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_1": {
-    "description": "First point of configuration for Sonatype IQ Server",
-    "message": "Enter the URL for your Sonatype IQ Server and then grant the permissions needed for this extension to communicate with your Sonatype IQ Server."
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_2": {
-    "description": "Second point of configuration for Sonatype IQ Server",
-    "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications."
-  },
-  "OPTIONS_PAGE_SONATYPE_POINT_3": {
-    "description": "Third point of configuration for Sonatype IQ Server",
-    "message": "Select an Application from the list available on your Sonatype IQ Server."
-  },
-  "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
-    "description": "Options Tab name for General Configuration",
-    "message": "Advanced Options"
-  },
-  "OPTIONS_PAGE_TAB_SONATYPE_IQ": {
-    "description": "Options Tab name for Sonatype IQ Configuration",
-    "message": "Sonatype IQ"
-  },
-  "OPTIONS_PAGE_TAB_SONATYPE_NEXUS_REPOSITORY": {
-    "description": "Options Tab name for Sonatype Nexus Repository Configuration",
-    "message": "Sonatype Nexus Repository"
-  },
-  "OPTIONS_SUCCESS_MESSAGE": {
-    "description": "Success message to display once Sonatype IQ has been configured",
-    "message": "Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected! You may close this browser tab to continue."
-  },
-  "POLICY_TABLE_POLICY": {
-    "description": "The column header in the policy table for policy",
-    "message": "POLICY"
-  },
-  "POLICY_TABLE_THREAT": {
-    "description": "The column header in the policy table for threat",
-    "message": "THREAT"
-  },
-  "POPUP_TAB_LEGAL": {
-    "description": "Legal/License top-level tab in Popup. List of licenses for this component",
-    "message": "Legal"
-  },
-  "POPUP_TAB_POLICY": {
-    "description": "Policy violations top-level tab in Popup. All policy violations for this component.",
-    "message": "Policy"
-  },
-  "POPUP_TAB_REMEDIATION": {
-    "description": "List of recommended version as well as a complete list of the versions available.",
-    "message": "Remediation"
-  },
-  "POPUP_TAB_SECURITY": {
-    "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component",
-    "message": "Security"
-  },
-  "RECOMMENDED_VERSIONS": {
-    "description": "The list of the recommended version from Lifecycle",
-    "message": "Recommended Versions"
-  },
-  "RELEASE_NOTES_PAGE_TITLE": {
-    "description": "Page Title for Release Notes page",
-    "message": "Release Notes"
-  },
-  "SECURITY_TABLE_CVSS": {
-    "description": "The column header in the security table for cvss",
-    "message": "CVSS"
-  },
-  "SECURITY_TABLE_ISSUE": {
-    "description": "The column header in the security table for issue",
-    "message": "ISSUE"
-  },
-  "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
-    "description": "Sidebar Footer Link in Options Page",
-    "message": "Request Support"
-  },
-  "SIDEBAR_LINK_GETTING_STARTED": {
-    "description": "Sidebar Navigation Link in Options Page",
-    "message": "Getting Started"
-  },
-  "SIDEBAR_LINK_HELP": {
-    "description": "Sidebar Navigation Link in Options Page",
-    "message": "Help"
-  },
-  "SIDEBAR_RELEASE_NOTES": {
-    "description": "Sidebar Navigation Link in Options Page",
-    "message": "Release Notes"
-  },
-  "SONATYPE_FIREWALL": {
-    "description": "Branded product name for Sonatype Repository Firewall",
-    "message": "Sonatype Repository Firewall"
-  },
-  "SONATYPE_LIFECYCLE": {
-    "description": "Branded product name for Sonatype Lifecycle",
-    "message": "Sonatype Lifecycle"
-  },
-  "SONATYPE_LIFECYCLE_ALP": {
-    "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle",
-    "message": "Advanced Legal Pack for Sonatype Lifecycle"
-  },
-  "SUGGESTED_VERSION": {
-    "description": "Suggested Version (IQ 184+)",
-    "message": "Suggested Version"
-  },
-  "SUPPORTED": {
-    "description": "Used when a product, feature, or function is supported in the current configuration",
-    "message": "Supported"
-  }
+    "EXTENSION_NAME": {
+        "message": "Sonatype Platform Browser Extension",
+        "description": "The full name for this browser extension."
+    },
+    "EXTENSION_DESCRIPTION": {
+        "message": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
+        "description": "Description of this browser extension."
+    },
+    "RELEASE_VERSION": {
+        "message": "Release $VERSION$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
+    },
+    "ALL_VERSIONS": {
+        "message": "All Versions",
+        "description": "The list of all the available component versions"
+    },
+    "CATALOG_DATE": {
+        "message": "Catalog Date",
+        "description": "The date this component version was added to the Sonatype data catalog"
+    },
+    "INTEGRITY_RATING": {
+        "message": "Integrity Rating",
+        "description": "Component's Release Integrity Score"
+    },
+    "HYGIENE_RATING": {
+        "message": "Hygiene Rating",
+        "description": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software."
+    },
+    "HYGIENE_RATING_DESC": {
+        "message": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software.",
+        "description": "The tooltip description of Hygiene Rating"
+    },
+    "SONATYPE_IQ_SERVER": {
+        "message": "Sonatype IQ Server",
+        "description": "Branded product name for Sonatype IQ Server"
+    },
+    "SONATYPE_FIREWALL": {
+        "message": "Sonatype Repository Firewall",
+        "description": "Branded product name for Sonatype Repository Firewall"
+    },
+    "SONATYPE_LIFECYCLE": {
+        "message": "Sonatype Lifecycle",
+        "description": "Branded product name for Sonatype Lifecycle"
+    },
+    "SONATYPE_LIFECYCLE_ALP": {
+        "message": "Advanced Legal Pack for Sonatype Lifecycle",
+        "description": "Branded product name for Advanced Legal Pack for Sonatype Lifecycle"
+    },
+    "BUTTON_CLOSE": {
+        "message": "Close",
+        "description": "Close button text"
+    },
+    "GITHUB_ISSUE": {
+        "message": "GitHub Issue",
+        "description": "GitHub Issue"
+    },
+    "LABEL_URL": {
+        "message": "URL",
+        "description": "Label for the field where you input your Sonatype IQ Server URL"
+    },
+    "LABEL_USERNAME": {
+        "message": "Username",
+        "description": "Username label"
+    },
+    "LABEL_PASSWORD": {
+        "message": "Password or User Token",
+        "description": "Password label"
+    },
+    "LABEL_SONATYPE_APPLICATION": {
+        "message": "Sonatype Lifecycle Application",
+        "description": "Application label"
+    },
+    "LABEL_SELECT_AN_APPLICATION": {
+        "message": "-- Select an Application --",
+        "description": "Default option in Application List"
+    },
+    "LABEL_LOG_LEVEL": {
+        "message": "Logging Level",
+        "description": "Label for Log Level option"
+    },
+    "LABEL_LOG_LEVEL_DESCRIPTION": {
+        "message": "Controls how much logging is sent to your browser console. WARN is a safe value for normal operation.",
+        "description": "Label for Log Level option"
+    },
+    "LABEL_ENABLE_NOTFIICATIONS": {
+        "message": "Enable Notifications",
+        "description": "Label for Enable Notifications option"
+    },
+    "LABEL_ENABLE_NOTFIICATIONS_DESCRIPTION": {
+        "message": "When enabled, we'll use System Notifications to alert you about Components threats.",
+        "description": "Label for Enable Notifications option"
+    },
+    "LABEL_ENABLE_PAGE_ANNOTATIONS": {
+        "message": "Enable Page Annotations",
+        "description": "Label for Enable Page Annotations option"
+    },
+    "LABEL_ENABLE_PAGE_ANNOTATIONS_DESCRIPTION": {
+        "message": "When enabled, we'll use annotate the current page to alert you about Component threats.",
+        "description": "Label for Enable Page Annotations option"
+    },
+    "LINK_BUG_REPORT": {
+        "message": "Report a Bug",
+        "description": "Link text used for reporting a bug."
+    },
+    "LINK_FEATURE_REQUEST": {
+        "message": "Make a feature request",
+        "description": "Link text used for making a feature request."
+    },
+    "LINK_TEXT_HERE": {
+        "message": "here",
+        "description": "Link text used for generic link to something [here]."
+    },
+    "RELEASE_NOTES_PAGE_TITLE": {
+        "message": "Release Notes",
+        "description": "Page Title for Release Notes page"
+    },
+    "HELP_PAGE_TITLE": {
+        "message": "Help",
+        "description": "Page Title for Options page"
+    },
+    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+        "message": "Where do I go to get help?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available ",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_FEATURE_REQUEST": {
+        "message": "How can I make a Feature Request?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+        "message": "We have detailed documentation for the Sonatype Platform Browser Extension available below. We greatly value feedback. You can open a GitHub Issue with your idea or question or reach out to your dedicated Customer Success representative.",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_RAISE_BUG": {
+        "message": "I think I found a bug - who do I tell?",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_RAISE_BUG": {
+        "message": "We greatly value feedback. If you believe you have found a bug, please open an Issue and provide as much information as you can including:",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+        "message": "Details of your Web Browser (name and version)",
+        "description": "First item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+        "message": "Version of the Sonatype Platform Browser Extension you have installed",
+        "description": "Second item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+        "message": "The action(s) you performed",
+        "description": "Third item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+        "message": "The expected behaviour",
+        "description": "Fourth item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+        "message": "The actual (unexpected) behaviour",
+        "description": "Fifth item of detail we request when raising a Bug"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS": {
+        "message": "Highest Policy Threat Levels",
+        "description": "Header when displaying the highest threat levels by policy"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
+        "message": "The highest $POLICY_TYPE_LABEL$ policy threat level for application: $APP_NAME$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "POLICY_TYPE_LABEL": {
+                "content": "$1",
+                "example": "Security, Architecture, License, Other"
+            },
+            "APP_NAME": {
+                "content": "$2",
+                "example": "sample-application"
+            }
+        }
+    },
+    "LEGAL_EFFECTIVE_LICENSE": {
+        "message": "Effective",
+        "description": "The effective license of the component"
+    },
+    "LEGAL_OBSERVED_LICENSE": {
+        "message": "Observed",
+        "description": "The observed license of the component"
+    },
+    "LEGAL_DECLARED_LICENSE": {
+        "message": "Declared",
+        "description": "The declared license of the component"
+    },
+    "LEGAL_TABLE_THREAT_GROUP": {
+        "message": "Threat Group",
+        "description": "The column header in the security table for threat group"
+    },
+    "LEGAL_TABLE_LICENSE": {
+        "message": "License",
+        "description": "The column header in the security table for license"
+    },
+    "LEGAL_TABLE_COPY_TEXT": {
+        "message": "Copy Text",
+        "description": "The column header in the security table for copy text"
+    },
+    "LEGAL_COPY_TEXT_TOOLTIP": {
+        "message": "Copy License Text",
+        "description": "Tooltip for the copy license text button"
+    },
+    "ADVANCED_OPTIONS_PAGE_TITLE": {
+        "message": "Advanced Options",
+        "description": "Page Title for Options page"
+    },
+    "CONFIGURE_NXIQ_PAGE_TITLE": {
+        "message": "Connect to Sonatype IQ Server",
+        "description": "Page Title for Options page"
+    },
+    "CONFIGURE_NXRM_PAGE_TITLE": {
+        "message": "Configure Sonatype Nexus Repository connections",
+        "description": "Page Title for Options page"
+    },
+    "OPTIONS_PAGE_TITLE": {
+        "message": "Extension Options",
+        "description": "Page Title for Options page"
+    },
+    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+        "message": "Thanks for installing the Sonatype Platform Browser Extension",
+        "description": "Page Title for Options page upon first installation"
+    },
+    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
+        "message": "Getting Started",
+        "description": "Sub Heading on Options Page in Install Mode"
+    },
+    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
+        "message": "Please now follow the steps below to connect this extension to your Sonatype IQ Server.",
+        "description": "Description paragraph on Options Page in Install Mode"
+    },
+    "OPTIONS_CURRENT_CONNECTION": {
+        "message": "Current Connection Type",
+        "description": "Current Connection Type prompt"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_IQ": {
+        "message": "Sonatype IQ",
+        "description": "Options Tab name for Sonatype IQ Configuration"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_NEXUS_REPOSITORY": {
+        "message": "Sonatype Nexus Repository",
+        "description": "Options Tab name for Sonatype Nexus Repository Configuration"
+    },
+    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+        "message": "Advanced Options",
+        "description": "Options Tab name for General Configuration"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_1": {
+        "message": "Enter the URL for your Sonatype IQ Server and then grant the permissions needed for this extension to communicate with your Sonatype IQ Server.",
+        "description": "First point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+        "message": "Grant Permissions to your Sonatype IQ Server",
+        "description": "Button text for 'Grant Permission' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_2": {
+        "message": "Provide your username and token for your Sonatype IQ Server. Then connect to retrieve the list of available applications.",
+        "description": "Second point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_EXISTING_CREDENTIALS_INVALID": {
+        "message": "Your existing credentials are invalid - please update them",
+        "description": "If during use the configured credentials become invalid, this message is used to ask the user to update their credentials."
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+        "message": "Connect",
+        "description": "Button text for 'Connect' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_3": {
+        "message": "Select an Application from the list available on your Sonatype IQ Server.",
+        "description": "Third point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
+        "message": "The application policies that components will be evaluated against.",
+        "description": "Tooltip as to why an Application is to be selected"
+    },
+    "OPTIONS_SUCCESS_MESSAGE": {
+        "message": "Congratulations! You successfully authenticated with your Sonatype IQ Server and have an application selected! You may close this browser tab to continue.",
+        "description": "Success message to display once Sonatype IQ has been configured"
+    },
+    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+        "message": "Please select an application from the list above.",
+        "description": "Info message to direct to choose an Application"
+    },
+    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+        "message": "There was an error signing in.",
+        "description": "Error message showed if Sonatype IQ credentials are incorrect"
+    },
+    "POLICY_TABLE_THREAT": {
+        "message": "THREAT",
+        "description": "The column header in the policy table for threat"
+    },
+    "POLICY_TABLE_POLICY": {
+        "message": "POLICY",
+        "description": "The column header in the policy table for policy"
+    },
+    "POLICY_TABLE_CONSTRAINT": {
+        "message": "CONSTRAINT",
+        "description": "The column header in the policy table for constraint name"
+    },
+    "POLICY_TABLE_CONDITION": {
+        "message": "CONDITION",
+        "description": "The column header in the policy table for condition"
+    },
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "We were unable to find that peanut in a haystack!",
+        "description": "Message to inform a user that the current package is not known by Sonatype"
+    },
+    "POPUP_TAB_INFO": {
+        "message": "Info",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_INFO_TOOLTIP": {
+        "message": "Component Information",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_POLICY": {
+        "message": "Policy",
+        "description": "Policy violations top-level tab in Popup. All policy violations for this component."
+    },
+    "POPUP_TAB_REMEDIATION": {
+        "message": "Remediation",
+        "description": "List of recommended version as well as a complete list of the versions available."
+    },
+    "POPUP_TAB_VERSIONS": {
+        "message": "Versions",
+        "description": "List of all versions available if there are no policy violations"
+    },
+    "POPUP_TAB_REMEDIATION_TOOLTIP": {
+        "message": "Remediation and version info for $VERSION_COUNT$ versions",
+        "description": "Toolip for the POPUP_TAB_REMEDIATION",
+        "placeholders": {
+            "VERSION_COUNT": {
+                "content": "$1",
+                "example": "0"
+            }
+        }
+    },
+    "POPUP_TAB_POLICY_TOOLIP": {
+        "message": "Sonatype Lifecycle Application Evaluation Policy Violations: $APPNAME$",
+        "description": "Toolip for the POPUP_TAB_POLICY",
+        "placeholders": {
+            "APPNAME": {
+                "content": "$1",
+                "example": "sandbox-application"
+            }
+        }
+    },
+    "POPUP_TAB_SECURITY": {
+        "message": "Security",
+        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
+    },
+    "POPUP_TAB_SECURITY_TOOLTIP": {
+        "message": "Security Issues cataloged against this component",
+        "description": "Tooltip for POPUP_TAB_SECURITY"
+    },
+    "POPUP_TAB_LEGAL": {
+        "message": "Legal",
+        "description": "Legal/License top-level tab in Popup. List of licenses for this component"
+    },
+    "POPUP_TAB_LEGAL_TOOLTIP": {
+        "message": "License information for component",
+        "description": "Legal/License top-level tab in Popup tooltip"
+    },
+    "RECOMMENDED_VERSIONS": {
+        "message": "Recommended Versions",
+        "description": "The list of the recommended version from Lifecycle"
+    },
+    "SIDEBAR_RELEASE_NOTES": {
+        "message": "Release Notes",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SECURITY_TABLE_CVSS": {
+        "message": "CVSS",
+        "description": "The column header in the security table for cvss"
+    },
+    "SECURITY_TABLE_ISSUE": {
+        "message": "ISSUE",
+        "description": "The column header in the security table for issue"
+    },
+    "SIDEBAR_LINK_GETTING_STARTED": {
+        "message": "Getting Started",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_HELP": {
+        "message": "Help",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_OPTIONS": {
+        "message": "Options",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
+        "message": "Request Support",
+        "description": "Sidebar Footer Link in Options Page"
+    },
+    "SUPPORTED": {
+        "message": "Supported",
+        "description": "Used when a product, feature, or function is supported in the current configuration"
+    },
+    "GITHUB_STARS": {
+        "message": "Stars",
+        "description": "The number of GitHub stars for the project"
+    },
+    "GITHUB_FORKS": {
+        "message": "Forks",
+        "description": "The number of GitHub forks for the project"
+    },
+    "DOES_IQ_SUPPORT_FEATURE": {
+        "message": "Does your Sonatype IQ Server include support for",
+        "description": "Prompt in Options about what features IQ Licence supports"
+    },
+    "EXAMPLE": {
+        "message": "Example",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "Suggested Version",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "Golden Version",
+        "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Safe-to-use version of the component (including its dependencies) with no resulting breaking changes, with no policy violation(s)",
+        "description": "See https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Next version with no policy violation(s)",
+        "description": "See https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Next version with no policy action failure(s)",
+        "description": "See https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Next version with no policy violation(s) for this component and its dependencies",
+        "description": "See https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Next version with no policy action failure(s) for this component and its dependencies",
+        "description": "See https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "See Sonatype IQ Server",
+        "description": "Fallback in case API does not provide a remediation type"
+    }
 }
