@@ -18,7 +18,7 @@ import { ComponentStateUtil } from '../../common/component/component-state-util'
 import { ComponentStateType, ThisBrowser } from '../../common/constants'
 import { TabDataStatus } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
-import { MessageRequestType } from '../../common/message/constants'
+import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
 import { MessageResponsePageComponentIdentitiesParsed } from '../../common/message/types'
 import { DefaultRepoRegistry } from '../../common/repo-registry'
 import { ActiveInfo, ChangeInfo, RemoveInfo, TabType } from '../../common/types'
@@ -82,7 +82,12 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 repoTypeId: repoType.id,
             })
 
-            logger.logServiceWorker('Component Identified from Content Script', LogLevel.DEBUG, msgResponse)
+            if ((msgResponse as MessageResponsePageComponentIdentitiesParsed).status != MessageResponseStatus.SUCCESS) {
+                await this.handleTabError(tabId, repoType.id)
+                return
+            }
+
+            logger.logServiceWorker('Component(s) Identified from Content Script', LogLevel.DEBUG, msgResponse)
 
             const componentIdentities = (msgResponse as MessageResponsePageComponentIdentitiesParsed)
                 .componentIdentities
@@ -94,7 +99,21 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
             }
         } catch (error) {
             logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error)
+            await this.handleTabError(tabId, repoType.id)
         }
+    }
+
+    private async handleTabError(tabId: number, repoTypeId: string): Promise<void> {
+        const newExtensionTabsData = this.extensionDataState.tabsData
+
+        newExtensionTabsData.tabs[tabId] = {
+            tabId,
+            components: {},
+            status: TabDataStatus.ERROR,
+            repoTypeId,
+        }
+
+        await this.updateExtensionTabData(newExtensionTabsData)
     }
 
     private async handleNoComponents(tabId: number, repoTypeId: string): Promise<void> {

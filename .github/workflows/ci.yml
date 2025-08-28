@@ -37,6 +37,8 @@ jobs:
             - name: NPM install
               run: npm i
 
+            - run: ls -alR
+
             - name: Build
               run: npm run prod
 
