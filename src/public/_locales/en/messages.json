@@ -38,8 +38,8 @@
         "description": "The tooltip description of Hygiene Rating"
     },
     "SONATYPE_IQ_SERVER": {
-        "message": "Sonatype IQ Server",
-        "description": "Branded product name for Sonatype IQ Server"
+        "message": "Sonatype IQ",
+        "description": "Branded product name for Sonatype IQ"
     },
     "SONATYPE_FIREWALL": {
         "message": "Sonatype Repository Firewall",
@@ -458,5 +458,13 @@
     "REMEDIATION_LABEL_": {
         "message": "See Sonatype IQ Server",
         "description": "Fallback in case API does not provide a remediation type"
+    },
+    "CONNECTED_TO": {
+        "message": "Connected to",
+        "description": "Used in status to state connection status with Sonatype IQ"
+    },
+    "NOT_CONFIGURED": {
+        "message": "Not configured",
+        "description": "Used in status to explain not connected to Sonatype IQ"
     }
 }
