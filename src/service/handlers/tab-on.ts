@@ -216,7 +216,6 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
             LogLevel.DEBUG,
             tabId
         )
-        // propogateCurrentComponentState(tabId, ComponentState.CLEAR)
 
         // Not required in Side Panel mode
         ThisBrowser.action.disable(tabId, () => {
