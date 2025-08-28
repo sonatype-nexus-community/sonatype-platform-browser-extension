@@ -61,9 +61,9 @@ class PageParserRegistry {
 export const DefaultPageParserRegistry = new PageParserRegistry
 
 // Register all standard repositories
-DefaultPageParserRegistry.registerPageParser(
-    new AlpineLinuxOrgPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.PKGS_ALPINELINUX_ORG_PACKAGE))
-)
+// DefaultPageParserRegistry.registerPageParser(
+//     new AlpineLinuxOrgPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.PKGS_ALPINELINUX_ORG_PACKAGE))
+// )
 DefaultPageParserRegistry.registerPageParser(
     new CentralSonatypeComPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.CENTRAL_SONATYPE_COM))
 )
