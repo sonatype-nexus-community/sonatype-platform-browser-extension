@@ -374,5 +374,143 @@
     "GOLDEN_VERSION": {
         "message": "Χρυσή Έκδοση",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Ασφαλής προς χρήση έκδοση του στοιχείου (συμπεριλαμβανομένων των εξαρτήσεών του) χωρίς αποτελεσματικές αλλαγές που προκαλούν διακοπή, χωρίς παραβίαση(εις) πολιτικής",
+        "description": "Δείτε https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Επόμενη έκδοση χωρίς παραβίαση(εις) πολιτικής",
+        "description": "Δείτε https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Επόμενη έκδοση χωρίς αποτυχία(ες) ενέργειας πολιτικής",
+        "description": "Δείτε https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Επόμενη έκδοση χωρίς παραβίαση(εις) πολιτικής για αυτό το στοιχείο και τις εξαρτήσεις του",
+        "description": "Δείτε https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Επόμενη έκδοση χωρίς αποτυχία(ες) ενέργειας πολιτικής για αυτό το στοιχείο και τις εξαρτήσεις του",
+        "description": "Δείτε https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Δείτε Sonatype IQ Server",
+        "description": "Εφεδρικό σε περίπτωση που το API δεν παρέχει τύπο αποκατάστασης"
+    },
+    "CONNECTED_TO": {
+        "message": "Συνδεδεμένο με",
+        "description": "Χρησιμοποιείται στην κατάσταση για να δηλώσει την κατάσταση σύνδεσης με το Sonatype IQ"
+    },
+    "NOT_CONFIGURED": {
+        "message": "Δεν έχει διαμορφωθεί",
+        "description": "Χρησιμοποιείται στην κατάσταση για να εξηγήσει ότι δεν υπάρχει σύνδεση με το Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Διαμόρφωση επέκτασης",
+        "description": "Κείμενο συμβουλής που χρησιμοποιείται για το εικονίδιο γραναζιού στο πλευρικό πάνελ"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Παραβιάσεις πολιτικής",
+        "description": "Ετικέτα για τον δείκτη περίληψης παραβιάσεων πολιτικής"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Επιστροφή στο στοιχείο",
+        "description": "Κειμενικός σύνδεσμος για επιστροφή στο στοιχείο στο πλευρικό πάνελ"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "Κατάσταση KEV",
+        "description": "Ετικέτα στο πλευρικό πάνελ για την κατάσταση KEV"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Γνωστό ότι εκμεταλλεύεται",
+        "description": "Λέξεις προς εμφάνιση εάν KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "Δεν είναι γνωστό ότι εκμεταλλεύεται",
+        "description": "Λέξεις προς εμφάνιση εάν KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Περιγραφή από CVE",
+        "description": "Κεφαλίδα ακορντεόν για περιγραφή από NVD όπου υπάρχει."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Εξήγηση Sonatype",
+        "description": "Κεφαλίδα ακορντεόν για την εξήγηση του Sonatype."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Σύσταση Sonatype",
+        "description": "Κεφαλίδα ακορντεόν για τη σύσταση του Sonatype."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Ανίχνευση",
+        "description": "Κεφαλίδα ακορντεόν για λεπτομέρειες ανίχνευσης."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Συμβουλές",
+        "description": "Κεφαλίδα ακορντεόν για λεπτομέρειες συμβουλών."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "Δεν υπάρχουν συμβουλές.",
+        "description": "Κείμενο που εμφανίζεται στο ακορντεόν συμβουλών όταν δεν υπάρχουν συμβουλές."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Άλλες λεπτομέρειες",
+        "description": "Κεφαλίδα ακορντεόν για άλλες λεπτομέρειες / Meta πληροφορίες."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Γρήγορη διαδρομή",
+        "description": "Κειμενικό όνομα για SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Βαθιά ανάλυση",
+        "description": "Κειμενικό όνομα για SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Δημόσια έρευνα",
+        "description": "Κειμενικό όνομα για SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Έρευνα προμηθευτή",
+        "description": "Κειμενικό όνομα για SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Επιλογή στοιχείου",
+        "description": "Επικεφαλίδα για τον επιλογέα στοιχείων όπου βρίσκονται πολλαπλές ταυτότητες στοιχείων σε μια δεδομένη σελίδα."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Εντοπίστηκαν πολλαπλά στοιχεία - επιλέξτε ποιο να δείτε λεπτομέρειες",
+        "description": "Υπο-ετικέτα κάτω από COMPONENTS_SELECT_COMPONENT"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Σχεδόν εκεί...",
+        "description": "Επικεφαλίδα στο πλευρικό πάνελ όταν προβάλλετε ένα υποστηριζόμενο μητρώο αλλά ίσως μια σελίδα όπου δεν υπάρχουν ταυτότητες στοιχείων."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Το $REPO_URL$ είναι ένα υποστηριζόμενο μητρώο ανοιχτού κώδικα για αυτήν την επέκταση, αλλά πρέπει να πλοηγηθείτε σε μια πιο συγκεκριμένη σελίδα για την εκμάθηση στοιχείων.",
+        "description": "Περιεχόμενο στο πλευρικό πάνελ όταν προβάλλετε ένα υποστηριζόμενο μητρώο αλλά ίσως μια σελίδα όπου δεν υπάρχουν ταυτότητες στοιχείων.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "Τι ντροπή...",
+        "description": "Επικεφαλίδα στο πλευρικό πάνελ όταν υπάρχει ένα απροσδόκητο σφάλμα."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "Υπήρξε ένα απροσδόκητο σφάλμα. Δοκιμάστε να επαναφορτώσετε αυτήν τη σελίδα· ίσως ελέγξτε ότι μπορείτε να έχετε πρόσβαση στον Sonatype IQ Server σας; Τέλος, μπορείτε να δοκιμάσετε να επαναφορτώσετε αυτήν την επέκταση.",
+        "description": "Περιεχόμενο στο πλευρικό πάνελ όταν υπάρχει ένα απροσδόκητο σφάλμα."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "Η τρέχουσα ιστοσελίδα δεν υποστηρίζεται από αυτήν την επέκταση.",
+        "description": "Επικεφαλίδα στο πλευρικό πάνελ όταν προβάλλετε μια σελίδα που δεν είναι υποστηριζόμενο μητρώο."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "Πιθανότατα προσπαθήσαμε να κλείσουμε αυτό το πλευρικό πάνελ για εσάς (και ο περιηγητής σας αγνόησε το αίτημά μας 😔) - απλώς πατήστε το X (πάνω δεξιά) για να κρύψετε αυτό το πλευρικό πάνελ προς το παρόν.",
+        "description": "Περιεχόμενο στο πλευρικό πάνελ όταν προβάλλετε μια σελίδα που δεν είναι υποστηριζόμενο μητρώο."
     }
 }

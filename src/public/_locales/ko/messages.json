@@ -370,5 +370,143 @@
     "GOLDEN_VERSION": {
         "message": "골든 버전",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "중단 변경 사항 없이 정책 위반 없는 구성 요소(종속성 포함)의 안전한 사용 버전",
+        "description": "https://help.sonatype.com/en/component-remediation-rest-api.html 참조"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "정책 위반이 없는 다음 버전",
+        "description": "https://help.sonatype.com/en/component-remediation-rest-api.html 참조"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "정책 작업 실패가 없는 다음 버전",
+        "description": "https://help.sonatype.com/en/component-remediation-rest-api.html 참조"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "이 구성 요소 및 그 종속성에 대한 정책 위반이 없는 다음 버전",
+        "description": "https://help.sonatype.com/en/component-remediation-rest-api.html 참조"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "이 구성 요소 및 그 종속성에 대한 정책 작업 실패가 없는 다음 버전",
+        "description": "https://help.sonatype.com/en/component-remediation-rest-api.html 참조"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Sonatype IQ Server 참조",
+        "description": "API가 수정 유형을 제공하지 않는 경우의 대체"
+    },
+    "CONNECTED_TO": {
+        "message": "연결됨:",
+        "description": "Sonatype IQ와의 연결 상태를 나타내기 위해 상태에서 사용됨"
+    },
+    "NOT_CONFIGURED": {
+        "message": "구성되지 않음",
+        "description": "Sonatype IQ에 연결되지 않았음을 설명하기 위해 상태에서 사용됨"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "확장 프로그램 구성",
+        "description": "사이드 패널의 기어 아이콘에 사용되는 툴팁 텍스트"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "정책 위반",
+        "description": "정책 위반 요약 표시기에 대한 레이블"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "구성 요소로 돌아가기",
+        "description": "사이드 패널에서 구성 요소로 돌아가는 텍스트 링크"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV 상태",
+        "description": "KEV 상태에 대한 사이드 패널의 레이블"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "악용되는 것으로 알려짐",
+        "description": "KEV === true인 경우 표시할 단어"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "악용되는 것으로 알려지지 않음",
+        "description": "KEV === false인 경우 표시할 단어"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "CVE 설명",
+        "description": "존재하는 경우 NVD 설명에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype 설명",
+        "description": "Sonatype 설명에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype 권장 사항",
+        "description": "Sonatype 권장 사항에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "탐지",
+        "description": "탐지 세부 정보에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "권고 사항",
+        "description": "권고 사항 세부 정보에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "권고 사항 없음.",
+        "description": "권고 사항이 없을 때 권고 사항 아코디언에 표시되는 텍스트."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "기타 세부 정보",
+        "description": "기타 세부 정보 / 메타 정보에 대한 아코디언 헤더."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "빠른 추적",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK에 대한 텍스트 이름"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "심층 분석",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE에 대한 텍스트 이름"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "공개 연구",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH에 대한 텍스트 이름"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "공급업체 연구",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH에 대한 텍스트 이름"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "구성 요소 선택",
+        "description": "주어진 페이지에서 여러 구성 요소 ID가 발견되는 구성 요소 선택기에 대한 제목."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "여러 구성 요소가 식별됨 - 세부 정보를 볼 것을 선택하세요",
+        "description": "COMPONENTS_SELECT_COMPONENT 아래의 하위 레이블"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "거의 다 왔습니다...",
+        "description": "지원되는 레지스트리를 보고 있지만 구성 요소 ID가 없는 페이지일 때 사이드 패널의 제목."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$은(는) 이 확장 프로그램에서 지원되는 오픈 소스 레지스트리이지만, 구성 요소 인텔리전스를 위해 더 구체적인 페이지로 이동해야 합니다.",
+        "description": "지원되는 레지스트리를 보고 있지만 구성 요소 ID가 없는 페이지일 때 사이드 패널의 내용.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "당황스럽네요...",
+        "description": "예상치 못한 오류가 있을 때 사이드 패널의 제목."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "예상치 못한 오류가 발생했습니다. 이 페이지를 다시 로드해 보세요. Sonatype IQ Server에 액세스할 수 있는지 확인해 보세요. 마지막으로 이 확장 프로그램을 다시 로드해 볼 수 있습니다.",
+        "description": "예상치 못한 오류가 있을 때 사이드 패널의 내용."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "현재 사이트는 이 확장 프로그램에서 지원되지 않습니다.",
+        "description": "지원되지 않는 레지스트리인 페이지를 볼 때 사이드 패널의 제목."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "아마도 이 사이드 패널을 닫으려고 했지만 (브라우저가 요청을 무시했습니다 😔) - X (오른쪽 위)를 눌러 지금 이 사이드 패널을 숨기세요.",
+        "description": "지원되지 않는 레지스트리인 페이지를 볼 때 사이드 패널의 내용."
     }
 }
