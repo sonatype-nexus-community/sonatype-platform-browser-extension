@@ -466,5 +466,111 @@
     "NOT_CONFIGURED": {
         "message": "Not configured",
         "description": "Used in status to explain not connected to Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Configure Extension",
+        "description": "Tooltip text used for gear icon in side panel"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Policy Violations",
+        "description": "Label for Policy Violations summary indicator"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Back to Component",
+        "description": "Textual link to go back to Component in the side panel"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV Status",
+        "description": "Lable in side panel for KEV Status"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Known to be exploited",
+        "description": "Words to display if KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "Not known to be exploited",
+        "description": "Words to display if KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Description from CVE",
+        "description": "Accordion header for descripton from NVD where present."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype Explanation",
+        "description": "Accordion header for Sonatype's explanation."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype Recommendation",
+        "description": "Accordion header for Sonatype's recommendation."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Detection",
+        "description": "Accordion header for Detection details."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Advisories",
+        "description": "Accordion header for Advisories details."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "No advisories.",
+        "description": "Text displayed in Advisories accordion when there are no advisories."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Other Details",
+        "description": "Accordion header for Other Details / Meta Information."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Fast-Track",
+        "description": "Textual name for SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Deep Dive",
+        "description": "Textual name for SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Public Research",
+        "description": "Textual name for SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Vendor Research",
+        "description": "Textual name for SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Select Component",
+        "description": "Heading for Component Selector where multiple component identities are found on a given page."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Multiple components identified - choose which to view details on",
+        "description": "Sub label under COMPONENTS_SELECT_COMPONENT"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Almost there...",
+        "description": "Heading in Side Panel when viewing a supported registry but perhaps a page where there are no component identities."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ is a supported Open Source Registry for this Extension, but you need to navigate to a more specific page for Component Intelligence.",
+        "description": "Content in Side Panel when viewing a supported registry but perhaps a page where there are no component identities.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "How embarassing...",
+        "description": "Heading in Side Panel when there is an unexpected error."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "There's been an unexpected error. Try reloading this page; perhaps check you can access your Sonaype IQ Server? Lastly, you can try reloading this extension.",
+        "description": "Content in Side Panel when there is an unexpected error."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "The current site is not supported by this Extension.",
+        "description": "Heading in Side Panel when viewing a page that is not a supported registry."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "We probably tried to close this Side Panel for you (and your browser ignored our request 😔) - just hit the X (top right) to hide this side panel for now.",
+        "description": "Content in Side Panel when viewing a page that is not a supported registry."
     }
 }

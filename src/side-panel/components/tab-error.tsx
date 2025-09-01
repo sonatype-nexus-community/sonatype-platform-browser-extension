@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxErrorAlert } from "@sonatype/react-shared-components"
-import React from "react"
+import { NxErrorAlert } from '@sonatype/react-shared-components'
+import React from 'react'
+import { ThisBrowser } from '../../common/constants'
 
 export default function TabError() {
     return (
         <section className='nx-tile'>
             <div className='nx-tile-content'>
                 <NxErrorAlert>
-                    <h3 className="nx-h3">How embarassing...</h3>
-                    <p className="nx-p">
-                        There&apos;s been an unexpected error.
-                    </p>
+                    <h3 className='nx-h3'>{ThisBrowser.i18n.getMessage('HEADING_UNEXPECTED_ERROR')}</h3>
+                    <p className='nx-p'>{ThisBrowser.i18n.getMessage('CONTENT_UNEXPECTED_ERROR')}</p>
                 </NxErrorAlert>
             </div>
         </section>

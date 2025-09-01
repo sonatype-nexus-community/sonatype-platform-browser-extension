@@ -15,18 +15,16 @@
  */
 import { NxInfoAlert } from "@sonatype/react-shared-components"
 import React from "react"
+import { ThisBrowser } from "../../common/constants"
 
 export default function UnsupportedSite() {
     return (
         <section className='nx-tile'>
             <div className='nx-tile-content'>
                 <NxInfoAlert>
-                    <h3 className="nx-h3">Ooops...</h3>
+                    <h3 className="nx-h3">{ThisBrowser.i18n.getMessage('HEADING_UNSUPPORTED_REGISTRY')}</h3>
                     <p className="nx-p">
-                        The current site is not supported by this Extension.
-                    </p>
-                    <p className="nx-p">
-                        We probably tried to close this Side Panel for you - just hit the <strong>X</strong> to hide this side panel for now.
+                        {ThisBrowser.i18n.getMessage('CONTENT_UNSUPPORTED_REGISTRY')}
                     </p>
                 </NxInfoAlert>
             </div>

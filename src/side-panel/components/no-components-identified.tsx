@@ -16,6 +16,7 @@
 import { NxInfoAlert } from "@sonatype/react-shared-components"
 import React from "react"
 import { DefaultRepoRegistry } from "../../common/repo-registry"
+import { ThisBrowser } from "../../common/constants"
 
 export default function NoComponentsIdentified(props: Readonly<{ repoTypeId: string }>) {
     const repo = DefaultRepoRegistry.getRepoById(props.repoTypeId)
@@ -24,9 +25,9 @@ export default function NoComponentsIdentified(props: Readonly<{ repoTypeId: str
         <section className='nx-tile'>
             <div className='nx-tile-content'>
                 <NxInfoAlert>
-                    <h3 className="nx-h3">Almost there...</h3>
+                    <h3 className="nx-h3">{ThisBrowser.i18n.getMessage('HEADING_NO_COMPONENTS_IDENTIFIED')}</h3>
                     <p className="nx-p">
-                        {repo.baseUrl} is a supported Open Source Registry for this Extension, but you need to navigate to a more specific page for Component Intelligence.
+                        {ThisBrowser.i18n.getMessage('CONTENT_NO_COMPONENTS_IDENTIFIED', repo.baseUrl)}
                     </p>
                 </NxInfoAlert>
             </div>

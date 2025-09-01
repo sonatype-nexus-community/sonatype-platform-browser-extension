@@ -18,6 +18,7 @@ import { getUniqueId, NxFormGroup, NxFormSelect, nxFormSelectStateHelpers } from
 import React from 'react'
 import { PackageURL } from 'packageurl-js'
 import { friendlyPackageUrlString } from '../../common/purl-utils'
+import { ThisBrowser } from '../../common/constants'
 
 export default function ComponentSelector(
     props: Readonly<{
@@ -36,7 +37,7 @@ export default function ComponentSelector(
     return (
         <section className="nx-tile">
             <div className="nx-tile-content">
-                <NxFormGroup label={`Select Component`} sublabel="Multiple components identified - choose which to view details on">
+                <NxFormGroup label={ThisBrowser.i18n.getMessage('COMPONENTS_SELECT_COMPONENT')} sublabel={ThisBrowser.i18n.getMessage('COMPONENTS_SELECT_COMPONENT_SUB_LABEL')}>
                     <NxFormSelect onChange={onChange} {...selectedComponent} className="nx-form-select--long">
                         {props.componentPurls.map((purl) => {
                             const packageUrl = PackageURL.fromString(purl)
