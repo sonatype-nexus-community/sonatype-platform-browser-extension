@@ -26,6 +26,8 @@ import { BaseServiceWorkerHandler } from './base'
 import { IqMessageHelper } from './helpers/iq'
 import { NotificationHelper } from './helpers/notification'
 import { BaseRepo } from '../../common/repo-type/base'
+import { ANALYTICS_EVENT_TYPES } from '../../common/analytics/analytics'
+import { PackageURL } from 'packageurl-js'
 
 export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
     public handleOnActivated = (activeInfo: ActiveInfo) => {
@@ -93,13 +95,57 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 .componentIdentities
 
             if (componentIdentities.length === 0) {
+                await this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITY_CALCULATED_NONE,
+                    {
+                        page_url: url,
+                        repo_type_id: repoType.id,
+                        repo_type_url: repoType.baseUrl
+                    }
+                )
                 await this.handleNoComponents(tabId, repoType.id)
             } else {
+                const eventPromises = componentIdentities.map((p) => {
+                    const purl = PackageURL.fromString(p)
+                    return this.analytics.fireEvent(
+                        ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITY_CALCULATED,
+                        {
+                            page_url: url,
+                            repo_type_id: repoType.id,
+                            repo_type_url: repoType.baseUrl,
+                            purl_type: purl.type,
+                            purl_namespace: purl.namespace,
+                            purl_name: purl.name,
+                            purl_version: purl.version,
+                            purl_subpath: purl.subpath,
+                            purl: purl.toString()
+                        }
+                    )
+                })
+                eventPromises.push(this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITIES_CALCULATED,
+                    {
+                        page_url: url,
+                        repo_type_id: repoType.id,
+                        repo_type_url: repoType.baseUrl,
+                        component_count: componentIdentities.length
+                    }
+                ))
                 await this.handleComponentsFound(tabId, repoType.id, componentIdentities)
+                await Promise.all(eventPromises)
             }
         } catch (error) {
             logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error, url, tabId, repoType.id)
             await this.handleTabError(tabId, repoType.id)
+            await this.analytics.fireEvent(
+                ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITIES_CALCULATE_FAILURE,
+                {
+                    page_url: url,
+                    repo_type_id: repoType.id,
+                    repo_type_url: repoType.baseUrl,
+                    error: (error as Error).message
+                }
+            )
         }
     }
 

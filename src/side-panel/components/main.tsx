@@ -20,7 +20,7 @@ import { logger, LogLevel } from '../../common/logger'
 import Components from './components'
 import VulnerabilityPanel from './vulnerability'
 
-export default function MainSidePanel() {      
+export default function MainSidePanel() {
     const [mode, setMode] = useState<SIDE_PANEL_MODE>()
     const [tabId, setTabId] = useState<number | undefined>(undefined)
     const [vulnerabilityReference, setVulnerabilityReference] = useState<string | undefined>(undefined)

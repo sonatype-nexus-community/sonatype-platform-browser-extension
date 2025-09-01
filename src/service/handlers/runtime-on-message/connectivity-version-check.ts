@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ANALYTICS_EVENT_TYPES } from '../../../common/analytics/analytics'
 import { ExtensionConfiguration } from '../../../common/configuration/types'
 import { logger, LogLevel } from '../../../common/logger'
 import { MessageRequestIqConnectivityAndVersionCheck, MessageResponseFunction } from '../../../common/message/types'
@@ -36,6 +37,12 @@ export class ConnectivityAndVersionCheckMessageHandler extends BaseRuntimeOnMess
             })
             .then(async (newExtensionConfig: ExtensionConfiguration) => {
                 const msgResp = await this.updateExtensionConfiguration(newExtensionConfig)
+                await this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.IQ_CONNECTION_CHECK,
+                    {
+                        iq_version: msgResp.newConfiguration.iqVersion,
+                    }
+                )
                 sendResponse(msgResp)
             })
     }

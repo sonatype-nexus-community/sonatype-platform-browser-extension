@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ANALYTICS_EVENT_TYPES } from '../../../common/analytics/analytics'
 import { ExternalRepositoryManager, ExternalRepositoryManagerStatus, ExternalRepositoryManagerType } from '../../../common/configuration/types'
 import { logger, LogLevel } from '../../../common/logger'
 import { MessageResponseStatus } from '../../../common/message/constants'
@@ -34,6 +35,12 @@ export class RequestNewExternalRepositoryManagerMessageHandler extends BaseRunti
                 status: MessageResponseStatus.FAILURE,
                 status_detail: "External Repository Manager already registered"
             })
+            this.analytics.fireEvent(
+                ANALYTICS_EVENT_TYPES.EXTERNAL_REPOSITORY_MANAGER_ALREADY_REGISTERED,
+                {
+                    external_repo_url: message.url
+                }
+            )
             return Promise.resolve()
         }
 
@@ -59,6 +66,16 @@ export class RequestNewExternalRepositoryManagerMessageHandler extends BaseRunti
             return this.detectExternalRepositoryTypeAndVersion(message.url)
         }).then((extRepoManager) => {
             this.updateInSettings(message.url, extRepoManager)
+            this.analytics.fireEvent(
+                ANALYTICS_EVENT_TYPES.EXTERNAL_REPOSITORY_MANAGER_REGISTERED,
+                {
+                    external_repo_id: extRepoManager.id,
+                    external_repo_type: extRepoManager.type,
+                    external_repo_status: extRepoManager.status,
+                    external_repo_url: extRepoManager.url,
+                    external_repo_version: extRepoManager.version
+                }
+            )
         }).then(() => {
             sendResponse({
                 status: MessageResponseStatus.SUCCESS

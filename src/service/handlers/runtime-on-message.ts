@@ -61,38 +61,44 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
             case MessageRequestType.CONNECTIVITY_AND_VERSION_CHECK:
                 messageHandler = new ConnectivityAndVersionCheckMessageHandler(
                     this.extensionConfigurationState,
-                    this.iqMessageHelper
+                    this.iqMessageHelper,
+                    this.analytics
                 )
                 break
             case MessageRequestType.LOAD_APPLICATIONS:
                 messageHandler = new LoadApplicationsMessageHandler(
                     this.extensionConfigurationState,
-                    this.iqMessageHelper
+                    this.iqMessageHelper,
+                    this.analytics
                 )
                 break
             case MessageRequestType.LOAD_VULNERABILITY:
                 messageHandler = new LoadVulnerabilityMessageHandler(
                     this.extensionConfigurationState,
                     this.iqMessageHelper,
+                    this.analytics,
                     this.extensionDataState.vulnerabilityData
                 )
                 break
             case MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER:
                 messageHandler = new RequestNewExternalRepositoryManagerMessageHandler(
                     this.extensionConfigurationState,
-                    this.iqMessageHelper
+                    this.iqMessageHelper,
+                    this.analytics
                 )
                 break
             case MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER:
                 messageHandler = new RequestRemovalExternalRepositoryManagerMessageHandler(
                     this.extensionConfigurationState,
-                    this.iqMessageHelper
+                    this.iqMessageHelper,
+                    this.analytics
                 )
                 break
             case MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION:
                 messageHandler = new PersistExtensionConfigurationMessageHandler(
                     this.extensionConfigurationState,
-                    this.iqMessageHelper
+                    this.iqMessageHelper,
+                    this.analytics
                 )
                 break
         }

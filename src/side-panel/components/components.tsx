@@ -16,6 +16,7 @@
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { NxButton, NxFontAwesomeIcon, NxLoadingSpinner } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
+import { Analytics } from '../../common/analytics/analytics'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import { ExtensionTabDataContext } from '../../common/context/extension-tab-data'
@@ -23,11 +24,12 @@ import { ComponentData, TabDataStatus } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
 import Component from './component'
 import ComponentSelector from './component-selector'
-import UnsupportedSite from './unsupported-registry'
 import NoComponentsIdentified from './no-components-identified'
 import TabError from './tab-error'
+import UnsupportedSite from './unsupported-registry'
 
 export default function Components() {
+    const analytics = new Analytics()
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const extensionTabDataContext = useContext(ExtensionTabDataContext)
 
@@ -53,6 +55,11 @@ export default function Components() {
                     setComponentPurls(newPurls)
                     setCurrentPurl(newPurls[0])
                     setCurrentComponent(extensionTabDataContext.components[newPurls[0]])
+
+                    analytics.firePageViewEvent(
+                        `Side Panel Component: ${newPurls[0]}`,
+                        window.location.href,
+                    )
                 }
             }
         }
@@ -74,6 +81,11 @@ export default function Components() {
         try {
             setCurrentPurl(purl)
             setCurrentComponent(extensionTabDataContext.components[purl])
+
+            analytics.firePageViewEvent(
+                `Side Panel Component: ${purl}`,
+                window.location.href,
+            )
         } catch (err) {
             logger.logReact('Selected PURL is not indexed for this Tab', LogLevel.ERROR, purl, err)
         }
