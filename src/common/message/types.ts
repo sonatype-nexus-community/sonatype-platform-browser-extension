@@ -135,6 +135,7 @@ export interface MessageResponseExtensionConfigurationUpdated extends MessageRes
 export interface MessageResponseIqConnectivityAndVersionCheck extends MessageResponse, SonatypeSolutionSupport {
     iqAuthenticated: boolean
     iqLastAuthenticated: Date
+    iqLastError: string | undefined
     iqVersion: number
 }
 

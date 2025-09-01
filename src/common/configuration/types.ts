@@ -62,6 +62,7 @@ export interface ExtensionConfiguration extends SonatypeSolutionSupport {
     logLevel: LogLevel
     iqApplications: Array<ApiApplicationDTO>
     iqAuthenticated: boolean
+    iqLastError: string | undefined
     iqLastAuthenticated: number
     iqVersion: number
     enableNotifications: boolean
@@ -77,6 +78,7 @@ export const DEFAULT_EXTENSION_SETTINGS: ExtensionConfiguration = {
     supportsLifecycleAlp: false,
     iqApplications: [],
     iqAuthenticated: false,
+    iqLastError: undefined,
     iqLastAuthenticated: 0,
     iqVersion: NaN,
     enableNotifications: true,

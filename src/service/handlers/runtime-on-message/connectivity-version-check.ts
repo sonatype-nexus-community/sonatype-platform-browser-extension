@@ -16,6 +16,7 @@
 import { ANALYTICS_EVENT_TYPES } from '../../../common/analytics/analytics'
 import { ExtensionConfiguration } from '../../../common/configuration/types'
 import { logger, LogLevel } from '../../../common/logger'
+import { MessageResponseStatus } from '../../../common/message/constants'
 import { MessageRequestIqConnectivityAndVersionCheck, MessageResponseFunction } from '../../../common/message/types'
 import { MessageSender } from '../../../common/types'
 import { BaseRuntimeOnMessageHandler } from './base'
@@ -29,6 +30,7 @@ export class ConnectivityAndVersionCheckMessageHandler extends BaseRuntimeOnMess
                 const newExtensionConfig = this.extensionConfigurationState.getExtensionConfig()
                 newExtensionConfig.iqAuthenticated = msgResp.iqAuthenticated
                 newExtensionConfig.iqLastAuthenticated = msgResp.iqLastAuthenticated.getTime()
+                newExtensionConfig.iqLastError = msgResp.iqLastError
                 newExtensionConfig.iqVersion = msgResp.iqVersion
                 newExtensionConfig.supportsFirewall = msgResp.supportsFirewall
                 newExtensionConfig.supportsLifecycle = msgResp.supportsLifecycle
