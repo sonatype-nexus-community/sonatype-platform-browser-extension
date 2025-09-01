@@ -38,16 +38,31 @@ export class IqMessageHelper {
                 "status": MessageResponseStatus.SUCCESS,
                 "iqAuthenticated": true,
                 "iqLastAuthenticated": new Date(),
+                "iqLastError": undefined,
                 "iqVersion": iqVersion,
                 "supportsFirewall": iqCapabilities.supportsFirewall,
                 "supportsLifecycle": iqCapabilities.supportsLifecycle,
                 "supportsLifecycleAlp": iqCapabilities.supportsLifecycleAlp
             }
         } catch (err) {
+            if (err instanceof ResponseError) {
+                if (err.response.status === 401) {
+                    const responseBody = await err.response.blob()
+                    return {
+                        "status": MessageResponseStatus.AUTH_ERROR,
+                        "iqAuthenticated": false,
+                        "iqLastAuthenticated": new Date(),
+                        "iqLastError": `${err.message}: [${err.response.status}] ${await responseBody.text()}`,
+                        "iqVersion": IQ_VERSION_UNKNOWN,
+                        ...DEFAULT_SONATYPE_SOLUTION_SUPPORT
+                    }
+                }
+            }
             return {
                 "status": MessageResponseStatus.FAILURE,
                 "status_error": err,
                 "iqAuthenticated": false,
+                "iqLastError": err.message,
                 "iqLastAuthenticated": new Date(0),
                 "iqVersion": IQ_VERSION_UNKNOWN,
                 ...DEFAULT_SONATYPE_SOLUTION_SUPPORT

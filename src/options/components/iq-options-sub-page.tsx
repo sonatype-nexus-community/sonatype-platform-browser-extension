@@ -323,14 +323,6 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                     <p className='nx-p'>
                                         <strong>2)</strong> {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                                     </p>
-                                    {extensionConfigContext.user !== undefined &&
-                                        extensionConfigContext.token !== undefined &&
-                                        extensionConfigContext.iqAuthenticated !== true &&
-                                        checkingConnection !== true && (
-                                        <NxStatefulErrorAlert>
-                                            Your credentials are invalid - please update them
-                                        </NxStatefulErrorAlert>
-                                    )}
                                     <div className='nx-form-row'>
                                         <NxFormGroup label={ThisBrowser.i18n.getMessage('LABEL_USERNAME')} isRequired>
                                             <NxStatefulTextInput
@@ -438,9 +430,12 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                 extensionConfigContext.user !== undefined &&
                                 extensionConfigContext.token !== undefined &&
                                 extensionConfigContext.iqAuthenticated === false &&
+                                extensionConfigContext.iqLastAuthenticated > 0 &&
                                 checkingConnection !== true && (
                                 <NxStatefulErrorAlert>
                                     {ThisBrowser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
+                                    <br /><br />
+                                    {extensionConfigContext.iqLastError}
                                 </NxStatefulErrorAlert>
                             )}
                         </section>
