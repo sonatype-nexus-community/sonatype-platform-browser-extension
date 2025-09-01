@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ThisBrowser } from '../constants'
+import { GIT_COMMIT_HASH, ThisBrowser } from '../constants'
 import {
     MEASUREMENT_ID,
     API_SECRET,
@@ -35,7 +35,6 @@ export enum ANALYTICS_EVENT_TYPES {
     IQ_CONNECTION_CHECK = 'IQ_CONNECTION_CHECK',
     EXTERNAL_REPOSITORY_MANAGER_ALREADY_REGISTERED = 'EXTERNAL_REPOSITORY_MANAGER_ALREADY_REGISTERED',
     EXTERNAL_REPOSITORY_MANAGER_REGISTERED = 'EXTERNAL_REPOSITORY_MANAGER_REGISTERED',
-
 
     // Deprecated post 3.0.0+
     PURL_CALCULATED = 'PURL_CALCULATED',
@@ -106,6 +105,7 @@ export class Analytics {
         
         // Load in Extension Version
         params['extension_version'] = extension.version
+        params['extension_version_git'] = GIT_COMMIT_HASH
 
         try {
             await fetch(`${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`, {

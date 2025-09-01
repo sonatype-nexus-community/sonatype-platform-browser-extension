@@ -15,7 +15,7 @@
  */
 import { NxGlobalFooter2, NxPageMain } from '@sonatype/react-shared-components'
 import React, { useEffect, useState } from 'react'
-import { SIDE_PANEL_MODE, ThisBrowser } from '../../common/constants'
+import { GIT_COMMIT_HASH, SIDE_PANEL_MODE, ThisBrowser } from '../../common/constants'
 import { logger, LogLevel } from '../../common/logger'
 import Components from './components'
 import VulnerabilityPanel from './vulnerability'
@@ -63,7 +63,10 @@ export default function MainSidePanel() {
                 {renderBySidePanelMode()}
             </NxPageMain>
             <NxGlobalFooter2>
-                <span>{ThisBrowser.i18n.getMessage('RELEASE_VERSION', ThisBrowser.runtime.getManifest().version)}</span>
+                <span>
+                    {ThisBrowser.i18n.getMessage('RELEASE_VERSION', ThisBrowser.runtime.getManifest().version)}&nbsp;
+                    <em>({GIT_COMMIT_HASH.substring(0, 10)})</em>
+                </span>
             </NxGlobalFooter2>
         </NxGlobalFooter2.Container>
     )

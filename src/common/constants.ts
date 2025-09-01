@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export const GIT_COMMIT_HASH = 'UNSTABLE'
 export const IQ_VERSION_UNKNOWN = NaN
 export const IQ_SANDBOX_APPLICATION_PUBLIC_ID = ''
 export const OWNER_TYPE_APPLICATION = 'application'
