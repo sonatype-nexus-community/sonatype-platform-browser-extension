@@ -24,7 +24,7 @@ import { BasePageParser } from './base'
 
 export class CratesIoPageParser extends BasePageParser {
 
-    private emberDomSelector: EmberDOMSelector
+    private readonly emberDomSelector: EmberDOMSelector
 
     constructor(readonly repoType: BaseRepo, readonly enableDomAnnotation: boolean = true) {
         super(repoType, enableDomAnnotation)

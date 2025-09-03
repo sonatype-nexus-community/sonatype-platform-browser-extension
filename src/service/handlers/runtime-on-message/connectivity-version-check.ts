@@ -16,7 +16,6 @@
 import { ANALYTICS_EVENT_TYPES } from '../../../common/analytics/analytics'
 import { ExtensionConfiguration } from '../../../common/configuration/types'
 import { logger, LogLevel } from '../../../common/logger'
-import { MessageResponseStatus } from '../../../common/message/constants'
 import { MessageRequestIqConnectivityAndVersionCheck, MessageResponseFunction } from '../../../common/message/types'
 import { MessageSender } from '../../../common/types'
 import { BaseRuntimeOnMessageHandler } from './base'

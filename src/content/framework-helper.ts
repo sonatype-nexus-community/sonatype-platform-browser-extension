@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { logger, LogLevel } from "../common/logger"
 
 interface FrameworkDetectionConfig {
@@ -23,7 +22,7 @@ interface FrameworkDetectionConfig {
 }
 
 class FrameworkRenderDetector {
-    private config: Required<Omit<FrameworkDetectionConfig, 'frameworks'>> & { frameworks: ('react' | 'ember')[] }
+    private readonly config: Required<Omit<FrameworkDetectionConfig, 'frameworks'>> & { frameworks: ('react' | 'ember')[] }
     private checkCount = 0
     private maxChecks: number
 
@@ -146,12 +145,6 @@ class FrameworkRenderDetector {
         return hasContent && !hasVisibleLoaders
     }
 
-    private checkNetworkActivity(): boolean {
-        // Check if there are ongoing fetch requests or XHR
-        const activeRequests = (performance as any).getEntriesByType?.('navigation')?.length > 0
-        return !activeRequests
-    }
-
     private isFrameworkRendered(): boolean {
         // Combine multiple detection strategies for enabled frameworks
         const results: { [key: string]: boolean } = {}
@@ -226,64 +219,3 @@ export async function waitForFrameworkPage(config?: FrameworkDetectionConfig): P
         throw error
     }
 }
-
-// Advanced usage with callback
-export function onFrameworkPageReady(
-    callback: () => void,
-    errorCallback?: (error: Error) => void,
-    config?: FrameworkDetectionConfig
-): void {
-    waitForFrameworkPage(config)
-        .then(callback)
-        .catch((error) => {
-            if (errorCallback) {
-                errorCallback(error)
-            } else {
-                logger.logContent('Framework page detection failed:', LogLevel.ERROR, error)
-            }
-        })
-}
-
-// // Legacy React-specific callback function
-// export function onReactPageReady(
-//     callback: () => void,
-//     errorCallback?: (error: Error) => void,
-//     config?: Omit<FrameworkDetectionConfig, 'frameworks'>
-// ): void {
-//     return onFrameworkPageReady(callback, errorCallback, { ...config, frameworks: ['react'] })
-// }
-
-// // Auto-initialize when script loads
-// ;(function () {
-//     // Default initialization - you can customize this
-//     const autoDetect = true // Set to false if you want manual control
-
-//     if (autoDetect) {
-//         onFrameworkPageReady(
-//             () => {
-//                 console.log('🚀 Framework application is ready!')
-//                 // Add your custom logic here
-//                 document.body.setAttribute('data-framework-ready', 'true')
-
-//                 // Dispatch custom event for other scripts to listen to
-//                 const event = new CustomEvent('frameworkPageReady', {
-//                     detail: { timestamp: Date.now() },
-//                 })
-//                 document.dispatchEvent(event)
-//             },
-//             (error) => {
-//                 console.warn('⚠️ Could not confirm framework page render:', error.message)
-//                 // Fallback logic here if needed
-//             },
-//             {
-//                 timeout: 15000, // 15 seconds
-//                 checkInterval: 200, // Check every 200ms
-//                 debug: true, // Enable logging
-//                 frameworks: ['react', 'ember'], // Detect both React and Ember
-//             }
-//         )
-//     }
-// })()
-
-// Export the detector class for advanced usage
-export { FrameworkRenderDetector }
