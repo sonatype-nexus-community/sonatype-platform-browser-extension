@@ -26,6 +26,7 @@ import { PytorchHuggingFaceParser } from './hugging-face/pytorch'
 import { SafetensorsHuggingFaceParser } from './hugging-face/safetensors'
 import { TensorFlowHuggingFaceParser } from './hugging-face/tensor-flow'
 import { OpenVinoHuggingFaceParser } from './hugging-face/openvino'
+import { RustHuggingFaceParser } from './hugging-face/rust'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
 
@@ -43,6 +44,8 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         this.PARSERS.push(new TensorFlowHuggingFaceParser())
         // GGUF
         this.PARSERS.push(new GGUFHuggingFaceParser())
+        // Rust
+        this.PARSERS.push(new RustHuggingFaceParser())
         // OpenVino
         this.PARSERS.push(new OpenVinoHuggingFaceParser())
     }
