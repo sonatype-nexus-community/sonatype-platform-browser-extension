@@ -31,7 +31,7 @@ export class Nxrm3PageParser extends BasePageParser {
         }
     }
 
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const uriPath = url.replace(this.repoType.baseUrl, '')
         logger.logContent('Normalised URI Path: ', LogLevel.DEBUG, uriPath)
 

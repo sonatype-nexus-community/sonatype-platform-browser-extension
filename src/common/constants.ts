@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const DEFAULT_EMBER_DOM_SELECTOR_TIMEOUT = 10000
 export const GIT_COMMIT_HASH = 'UNSTABLE'
 export const IQ_VERSION_UNKNOWN = NaN
 export const IQ_SANDBOX_APPLICATION_PUBLIC_ID = ''

@@ -19,7 +19,7 @@ import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
 
 export class AlpineLinuxOrgPageParser extends BasePageParser {  
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const pathResults = this.parsePath(url)
 
         if (pathResults?.groups) {

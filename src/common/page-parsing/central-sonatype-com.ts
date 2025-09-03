@@ -22,7 +22,7 @@ const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
 export class CentralSonatypeComPageParser extends BasePageParser {    
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const pomResult = POM_PACKAGING_REGEX.exec($('pre[data-test="pom-file"]').text())
         let type = 'jar'
         if (pomResult?.groups !== undefined) {

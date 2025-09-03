@@ -18,7 +18,7 @@ import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
 
 export class MvnRepositoryComPageParser extends BasePageParser {
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const p = generatePackageURLComplete(

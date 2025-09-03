@@ -27,7 +27,7 @@ export class CratesIoRepo extends BaseRepo {
 
     readonly purlType: string = PURL_TYPE_CARGO
    
-    readonly titleSelector: string = "main h1"
+    readonly titleSelector: string = "main > div > div > h1"
    
     readonly versionPath: string = '{artifactId}/{version}'
    

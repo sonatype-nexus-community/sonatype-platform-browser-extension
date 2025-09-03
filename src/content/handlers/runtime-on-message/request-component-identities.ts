@@ -62,7 +62,7 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
                 const pageParser = DefaultPageParserRegistry.getParserByRepoId(repoType.id)
                 pageParser.annotateDomPageTitle()
 
-                const purls = pageParser.parsePage(url)
+                const purls = await pageParser.parsePage(url)
                 logger.logContent(
                     'Component Identities parsed',
                     LogLevel.DEBUG,

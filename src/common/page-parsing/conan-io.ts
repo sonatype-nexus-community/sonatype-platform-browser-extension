@@ -19,7 +19,7 @@ import { generatePackageURL } from '../purl-utils'
 import { BasePageParser } from './base'
 
 export class ConanIoPageParser extends BasePageParser {
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const version = $(this.repoType.versionDomPath).text().trim().split('/')[1]

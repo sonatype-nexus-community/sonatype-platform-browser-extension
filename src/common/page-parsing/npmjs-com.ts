@@ -20,7 +20,7 @@ import { stripHtmlComments } from '../string'
 import { BasePageParser } from './base'
 
 export class NpmJsComPageParser extends BasePageParser {
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {
             const pageVersion = stripHtmlComments($(this.repoType.versionDomPath).first().text()).split('•')[0].trim()

@@ -24,13 +24,13 @@ import { Nxrm3Repo } from '../repo-type/nxrm3'
 const NXRM_BASE_URL = 'https://repo.tld/'
 const parser = new Nxrm3PageParser(new Nxrm3Repo('http-repo.tld/', NXRM_BASE_URL, '3.70.0-01'))
 
-function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+async function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
         const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = parser.parsePage(url)
+    const packageURLs = await parser.parsePage(url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

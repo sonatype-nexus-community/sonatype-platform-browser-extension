@@ -24,7 +24,7 @@ const PYPI_KNOWN_SOURCE_DISTRIBUTION_EXTENSIONS = [PYPI_DEFAULT_EXTENSION, 'tar.
 const PYPI_EXTENSION_SELECTOR = '#files > div.file div.file__card'
 
 export class PypiOrgPageParser extends BasePageParser {
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         let allPagePurls: PackageURL[] = []
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {

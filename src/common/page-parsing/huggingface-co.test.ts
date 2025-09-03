@@ -70,13 +70,13 @@ describe('huggingface.co Page Parsing', () => {
                 PackageURL.fromString('pkg:huggingface/mohsen2/pytorch_model.bin@802c755142cb8be0c10e3673c0bddc8004791f81?extension=bin&model=pytorch_model&model_format=pytorch')
             ]
          }
-    ])('$name', ({url, testFile, expectedPurls}) => { 
+    ])('$name', async ({url, testFile, expectedPurls}) => { 
         if (testFile) {
             const html = readFileSync(join(__dirname, 'testdata', 'huggingface.co', testFile))
             window.document.body.innerHTML = html.toString()
         }
             
-        const packageURLs = parser.parsePage(url)
+        const packageURLs = await parser.parsePage(url)
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expectedPurls.length)
 
