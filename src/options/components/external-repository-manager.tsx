@@ -17,8 +17,9 @@ import { NxCloseButton, NxIntermediateStatusIndicator, NxLoadingSpinner, NxNegat
 import React from 'react'
 import { ExternalRepositoryManager, ExternalRepositoryManagerStatus } from '../../common/configuration/types'
 import { ThisBrowser } from '../../common/constants'
-import { sendRuntimeMessage } from '../../common/message/helpers'
+import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { MessageRequestType } from '../../common/message/constants'
+import { logger, LogLevel } from '../../common/logger'
 
 export default function ExternalRepositoryManagerItem (
     props: Readonly<{ externalRepositoryManager: ExternalRepositoryManager }>
@@ -30,6 +31,11 @@ export default function ExternalRepositoryManagerItem (
             sendRuntimeMessage({
                 messageType: MessageRequestType.REQUEST_REMOVAL_EXTERNAL_REPOSITORY_MANAGER,
                 url
+            }).then(() => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in removeExternalRepositoryManager', LogLevel.WARN, lastError)
+                }
             })
         })
     }

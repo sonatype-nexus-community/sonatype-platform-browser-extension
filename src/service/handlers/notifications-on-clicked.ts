@@ -15,6 +15,7 @@
  */
 import { ThisBrowser } from "../../common/constants"
 import { logger, LogLevel } from "../../common/logger"
+import { lastRuntimeError } from "../../common/message/helpers"
 import { BaseServiceWorkerHandler } from "./base"
 
 export class ServiceWorkerNotificationOnClickedHandler extends BaseServiceWorkerHandler { 
@@ -28,15 +29,34 @@ export class ServiceWorkerNotificationOnClickedHandler extends BaseServiceWorker
                     chrome.sidePanel.open({
                         tabId: parseInt(notificationId.split('|')[1])
                     }).then(() => {
-                        ThisBrowser.notifications.clear(notificationId)
+                        const lastError = lastRuntimeError()
+                        if (lastError) {
+                            logger.logReact('Runtime Error in ServiceWorkerNotificationOnClickedHandler#component-evaluation-notification', LogLevel.WARN, lastError)
+                        }
+                        ThisBrowser.notifications.clear(notificationId).then(() => {
+                            const lastError = lastRuntimeError()
+                            if (lastError) {
+                                logger.logReact('Runtime Error in ServiceWorkerNotificationOnClickedHandler#component-evaluation-notification-clear', LogLevel.WARN, lastError)
+                            }
+                        })
                     })
                 }
                 break
             case 'extension-updated':
-                ThisBrowser.tabs.create({ url: 'options.html?release-notes' })
+                ThisBrowser.tabs.create({ url: 'options.html?release-notes' }).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in ServiceWorkerNotificationOnClickedHandler#extension-updated', LogLevel.WARN, lastError)
+                    }
+                })
                 break
             default:
-                ThisBrowser.notifications.clear(notificationId)
+                ThisBrowser.notifications.clear(notificationId).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in ServiceWorkerNotificationOnClickedHandler#default', LogLevel.WARN, lastError)
+                    }
+                })
         }
     }
 }

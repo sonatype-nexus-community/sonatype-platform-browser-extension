@@ -15,7 +15,7 @@
  */
 import { ThisBrowser } from "../constants"
 import { logger, LogLevel } from "../logger"
-import { MessageRequestOptions } from "../types"
+import { MessageRequestOptions, RuntimeLastError } from "../types"
 import { AnyMessageRequest } from "./types"
 
 function sendRuntimeMessage(message: AnyMessageRequest, options?: MessageRequestOptions): Promise<unknown> {
@@ -27,4 +27,12 @@ function sendRuntimeMessage(message: AnyMessageRequest, options?: MessageRequest
     }
 }
 
-export { sendRuntimeMessage }
+function lastRuntimeError(): RuntimeLastError {
+    if (ThisBrowser === chrome) {
+        return chrome.runtime.lastError
+    } else {
+        return browser.runtime.lastError
+    }
+} 
+
+export { lastRuntimeError, sendRuntimeMessage }

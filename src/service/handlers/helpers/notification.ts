@@ -20,6 +20,7 @@ import { ExtensionDataState } from '../../../common/data/extension-data'
 import { logger, LogLevel } from '../../../common/logger'
 import { MessageRequestType } from '../../../common/message/constants'
 import { PolicyThreatLevelUtil } from '../../../common/policy/policy-util'
+import { lastRuntimeError } from '../../../common/message/helpers'
 
 export class NotificationHelper {
     public constructor(
@@ -36,24 +37,44 @@ export class NotificationHelper {
             ThisBrowser.action.setIcon({
                 tabId: tabId,
                 path: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
+            }).then(() => { 
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in NotificationHelper#action-set-icon', LogLevel.WARN, lastError)
+                }
             })
         )
         notificationPromises.push(
             ThisBrowser.action.setBadgeBackgroundColor({
                 tabId: tabId,
                 color: PolicyThreatLevelUtil.getColorForThreatLevel(maxThreatLevel),
+            }).then(() => { 
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in NotificationHelper#action-set-backgroundColor', LogLevel.WARN, lastError)
+                }
             })
         )
         notificationPromises.push(
             ThisBrowser.action.setBadgeText({
                 tabId: tabId,
                 text: `${totalPolicyViolations}`,
+            }).then(() => { 
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in NotificationHelper#action-set-badgeText', LogLevel.WARN, lastError)
+                }
             })
         )
         notificationPromises.push(
             ThisBrowser.action.setTitle({
                 tabId: tabId,
                 title: `${totalPolicyViolations} Policy Violations - click to view details`,
+            }).then(() => { 
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in NotificationHelper#action-set-title', LogLevel.WARN, lastError)
+                }
             })
         )
 
@@ -66,7 +87,12 @@ export class NotificationHelper {
                     message: `Component triggers Policy at Threat Level ${maxThreatLevel}`,
                     buttons: [{ title: 'View Details' }],
                     priority: 1,
-                }).then(() => { })
+                }).then(() => { 
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in NotificationHelper#notification-create-component', LogLevel.WARN, lastError)
+                    }
+                })
             )
         }
 
@@ -89,7 +115,12 @@ export class NotificationHelper {
                 maxThreatLevel,
                 purlsWithThreatLevel: purlsWithThreatLevel,
                 repoTypeId: this.extensionDataState.tabsData.tabs[tabId].repoTypeId
-            }).then(() => { }))
+            }).then(() => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in NotificationHelper#tabs-sendMessage', LogLevel.WARN, lastError)
+                }
+             }))
             
         }
 

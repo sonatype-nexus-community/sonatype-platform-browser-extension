@@ -27,6 +27,7 @@ import ComponentSelector from './component-selector'
 import NoComponentsIdentified from './no-components-identified'
 import TabError from './tab-error'
 import UnsupportedSite from './unsupported-registry'
+import { lastRuntimeError } from '../../common/message/helpers'
 
 export default function Components() {
     const analytics = new Analytics()
@@ -136,6 +137,11 @@ export default function Components() {
                         onClick={() => {
                             ThisBrowser.tabs.create({
                                 url: extensionConfigContext.host,
+                            }).then(() => {
+                                const lastError = lastRuntimeError()
+                                if (lastError) {
+                                    logger.logReact('Runtime Error in Components#tabs-create-iq', LogLevel.WARN, lastError)
+                                }
                             })
                         }}>
                         <img
@@ -151,6 +157,11 @@ export default function Components() {
                         onClick={() => {
                             ThisBrowser.tabs.create({
                                 url: 'options.html',
+                            }).then(() => {
+                                const lastError = lastRuntimeError()
+                                if (lastError) {
+                                    logger.logReact('Runtime Error in Components#tabs-create-options', LogLevel.WARN, lastError)
+                                }
                             })
                         }}>
                         <NxFontAwesomeIcon icon={faCog} />

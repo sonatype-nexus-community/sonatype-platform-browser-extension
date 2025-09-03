@@ -18,7 +18,7 @@ import { ThisBrowser } from "../common/constants"
 import { SonatypeIqError } from "../common/error"
 import { logger, LogLevel } from "../common/logger"
 import { MessageRequestType, MessageResponseStatus } from "../common/message/constants"
-import { sendRuntimeMessage } from "../common/message/helpers"
+import { lastRuntimeError, sendRuntimeMessage } from "../common/message/helpers"
 import { MessageResponseExtensionConfigurationUpdated } from "../common/message/types"
 
 export default class ExtensionConfigurationStateHelper {
@@ -30,6 +30,11 @@ export default class ExtensionConfigurationStateHelper {
     public static async doConnectivityAndVersionCheck() {
         const msgResponse = await sendRuntimeMessage({
             messageType: MessageRequestType.CONNECTIVITY_AND_VERSION_CHECK
+        }).finally(() => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in doConnectivityAndVersionCheck', LogLevel.WARN, lastError)
+            }
         })
         return msgResponse
     }
@@ -122,6 +127,11 @@ export default class ExtensionConfigurationStateHelper {
             messageType: MessageRequestType.SET_NEW_EXTENSION_CONFIGURATION,
             newExtensionConfig
         }).then((msgResponse: MessageResponseExtensionConfigurationUpdated) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in persistExtensionConfiguration', LogLevel.WARN, lastError)
+            }
+
             if (msgResponse.status === MessageResponseStatus.SUCCESS) {
                 ExtensionConfigurationStateHelper.extensionConfiguration = msgResponse.newConfiguration
             } else {
@@ -135,6 +145,12 @@ export default class ExtensionConfigurationStateHelper {
             logger.logReact(`ExtensionConfigurationStateHelper requestBrowserPermissionsForIq`, LogLevel.DEBUG)
             const granted = await ThisBrowser.permissions.request({
                 origins: [ExtensionConfigurationStateHelper.getUnifiedIqUrl()]
+            }).then((granted) => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in requestBrowserPermissionsForIq', LogLevel.WARN, lastError)
+                }
+                return granted
             })
             ExtensionConfigurationStateHelper.hasBrowserPermissionToIqHost = granted
             return granted
@@ -148,6 +164,11 @@ export default class ExtensionConfigurationStateHelper {
             await ThisBrowser.permissions.contains({
                 origins: [ExtensionConfigurationStateHelper.getUnifiedIqUrl()],
             }).then((result: boolean) => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in reviewUpdatedExtensionConfiguration', LogLevel.WARN, lastError)
+                }
+
                 logger.logReact("ExtensionConfigurationStateHelper.reviewUpdatedExtensionConfiguration: hasBrowserPermissionToIqHost", LogLevel.DEBUG, result)
                 ExtensionConfigurationStateHelper.hasBrowserPermissionToIqHost = result
             })

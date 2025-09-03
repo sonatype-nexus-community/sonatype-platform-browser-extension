@@ -42,7 +42,7 @@ import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import { logger, LogLevel } from '../../common/logger'
 import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
-import { sendRuntimeMessage } from '../../common/message/helpers'
+import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { MessageResponseIqConnectivityAndVersionCheck } from '../../common/message/types'
 import ExtensionConfigurationStateHelper from '../configuration-state-helper'
 import { isHttpUriValidator, nonEmptyValidator } from './validators'
@@ -68,28 +68,34 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
     useEffect(() => {
         if (extensionConfigContext.host !== undefined) {
             ThisBrowser.permissions.contains(
-            {
-                origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
-            },
-            (result: boolean) => {
-                if (ThisBrowser.runtime.lastError) {
-                    logger.logReact('Error in hasOriginPermission', LogLevel.WARN, chrome.runtime.lastError)
+                {
+                    origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
+                },
+                (result: boolean) => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in IQOptionsSubPage#useEffect-1', LogLevel.WARN, lastError)
+                    }
+                    if (result) {
+                        setHasPermissions(true)
+                    } else {
+                        setHasPermissions(false)
+                    }
                 }
-                if (result) {
-                    setHasPermissions(true)
-                } else {
-                    setHasPermissions(false)
-                }
-            }
-        )
+            )
         }
     }, [extensionConfigContext, iqUrl.trimmedValue])
 
-    useEffect(() => { 
+    useEffect(() => {
         // IQ is connected - get Applications
         if (extensionConfigContext.iqAuthenticated) {
             sendRuntimeMessage({
-                messageType: MessageRequestType.LOAD_APPLICATIONS
+                messageType: MessageRequestType.LOAD_APPLICATIONS,
+            }).then(() => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in IQOptionsSubPage#useEffect-2', LogLevel.WARN, lastError)
+                }
             })
         }
     }, [extensionConfigContext.iqAuthenticated])
@@ -108,9 +114,11 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                 origins: [iqUrl.trimmedValue.endsWith('/') ? iqUrl.trimmedValue : `${iqUrl.trimmedValue}/`],
             },
             (result: boolean) => {
-                if (chrome.runtime.lastError) {
-                    logger.logReact('Error in hasOriginPermission', LogLevel.WARN, ThisBrowser.runtime.lastError)
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in IQOptionsSubPage#askForPermissions-1', LogLevel.WARN, lastError)
                 }
+
                 if (result) {
                     setHasPermissions(true)
                 } else {
@@ -128,6 +136,10 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                     origins: [extensionConfigContext.host as string],
                 },
                 (granted: boolean) => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in IQOptionsSubPage#askForPermissions-2', LogLevel.WARN, lastError)
+                    }
                     setHasPermissions(granted)
                 }
             )
@@ -183,8 +195,13 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
 
         // Check Connectivity and Determine IQ Version
         sendRuntimeMessage({
-            messageType: MessageRequestType.CONNECTIVITY_AND_VERSION_CHECK
+            messageType: MessageRequestType.CONNECTIVITY_AND_VERSION_CHECK,
         }).then((msgResponse: MessageResponseIqConnectivityAndVersionCheck) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in IQOptionsSubPage#handleLoginCheck', LogLevel.WARN, lastError)
+            }
+
             if (msgResponse.status === MessageResponseStatus.SUCCESS) {
                 setCheckingConnection(false)
             }
@@ -199,7 +216,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                         &#127881; {ThisBrowser.i18n.getMessage('OPTIONS_INSTALL_MODE_PAGE_TITLE')} &#127881;
                     </NxPageTitle>
                 )}
-                {props.install !== true && <NxPageTitle>{ThisBrowser.i18n.getMessage('CONFIGURE_NXIQ_PAGE_TITLE')}</NxPageTitle>}
+                {props.install !== true && (
+                    <NxPageTitle>{ThisBrowser.i18n.getMessage('CONFIGURE_NXIQ_PAGE_TITLE')}</NxPageTitle>
+                )}
             </h1>
 
             <NxTile>
@@ -230,7 +249,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         {extensionConfigContext.supportsLifecycle === false && <span>?</span>}
                                         {extensionConfigContext.supportsLifecycle === true && (
                                             <div>
-                                                <NxTag color='turquoise'>{ThisBrowser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                                <NxTag color='turquoise'>
+                                                    {ThisBrowser.i18n.getMessage('SUPPORTED')}
+                                                </NxTag>
                                             </div>
                                         )}
                                     </div>
@@ -246,7 +267,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         alt={ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         title={ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
                                         className={
-                                            extensionConfigContext.supportsLifecycleAlp === false ? 'dim-image' : 'not-dim'
+                                            extensionConfigContext.supportsLifecycleAlp === false
+                                                ? 'dim-image'
+                                                : 'not-dim'
                                         }
                                     />
                                     <div>
@@ -261,7 +284,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         {extensionConfigContext.supportsLifecycleAlp === false && <span>?</span>}
                                         {extensionConfigContext.supportsLifecycleAlp === true && (
                                             <div>
-                                                <NxTag color='turquoise'>{ThisBrowser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                                <NxTag color='turquoise'>
+                                                    {ThisBrowser.i18n.getMessage('SUPPORTED')}
+                                                </NxTag>
                                             </div>
                                         )}
                                     </div>
@@ -292,7 +317,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         {extensionConfigContext.supportsFirewall === false && <span>?</span>}
                                         {extensionConfigContext.supportsFirewall === true && (
                                             <div>
-                                                <NxTag color='turquoise'>{ThisBrowser.i18n.getMessage('SUPPORTED')}</NxTag>
+                                                <NxTag color='turquoise'>
+                                                    {ThisBrowser.i18n.getMessage('SUPPORTED')}
+                                                </NxTag>
                                             </div>
                                         )}
                                     </div>
@@ -321,7 +348,8 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                             {hasPermissions && (
                                 <div>
                                     <p className='nx-p'>
-                                        <strong>2)</strong> {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
+                                        <strong>2)</strong>{' '}
+                                        {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_2')}
                                     </p>
                                     <div className='nx-form-row'>
                                         <NxFormGroup label={ThisBrowser.i18n.getMessage('LABEL_USERNAME')} isRequired>
@@ -389,21 +417,24 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         <a
                                             href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
                                             target='_blank'
-                                            className='nx-btn' rel="noreferrer">
+                                            className='nx-btn'
+                                            rel='noreferrer'>
                                             Maven {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
                                             <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
                                         </a>
                                         <a
                                             href='https://www.npmjs.com/package/handlebars/v/4.7.5'
                                             target='_blank'
-                                            className='nx-btn' rel="noreferrer">
+                                            className='nx-btn'
+                                            rel='noreferrer'>
                                             npmjs {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
                                             <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
                                         </a>
                                         <a
                                             href='https://pypi.org/project/feedparser/6.0.10/'
                                             target='_blank'
-                                            className='nx-btn' rel="noreferrer">
+                                            className='nx-btn'
+                                            rel='noreferrer'>
                                             PyPI {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
                                             <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
                                         </a>
@@ -432,12 +463,13 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                 extensionConfigContext.iqAuthenticated === false &&
                                 extensionConfigContext.iqLastAuthenticated > 0 &&
                                 checkingConnection !== true && (
-                                <NxStatefulErrorAlert>
-                                    {ThisBrowser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
-                                    <br /><br />
-                                    {extensionConfigContext.iqLastError}
-                                </NxStatefulErrorAlert>
-                            )}
+                                    <NxStatefulErrorAlert>
+                                        {ThisBrowser.i18n.getMessage('OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED')}
+                                        <br />
+                                        <br />
+                                        {extensionConfigContext.iqLastError}
+                                    </NxStatefulErrorAlert>
+                                )}
                         </section>
                     </NxGrid.Row>
                 </NxTile.Content>

@@ -28,14 +28,20 @@ import { NotificationHelper } from './helpers/notification'
 import { BaseRepo } from '../../common/repo-type/base'
 import { ANALYTICS_EVENT_TYPES } from '../../common/analytics/analytics'
 import { PackageURL } from 'packageurl-js'
+import { lastRuntimeError } from '../../common/message/helpers'
 
 export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
     public handleOnActivated = (activeInfo: ActiveInfo) => {
         logger.logServiceWorker(`ServiceWorkerTabOnHandler.handleOnActivated: `, LogLevel.DEBUG, activeInfo)
 
-        ThisBrowser.tabs.get(activeInfo.tabId, (tab: TabType) => {
+        ThisBrowser.tabs.get(activeInfo.tabId).then((tab: TabType) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in ServiceWorkerTabOnHandler.handleOnActivated', LogLevel.WARN, lastError)
+            }
+
             if (
-                !ThisBrowser.runtime.lastError &&
+                lastError === undefined &&
                 tab.url !== undefined &&
                 tab.status == chrome.tabs.TabStatus.COMPLETE
             ) {
@@ -82,6 +88,13 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
                 externalReopsitoryManagers: this.extensionConfigurationState.getExtensionConfig().externalRepositoryManagers,
                 repoTypeId: repoType.id,
+            }).then((msgResponse) => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in ServiceWorkerTabOnHandler.processTabForRepo', LogLevel.WARN, lastError)
+                }
+
+                return msgResponse
             })
 
             if ((msgResponse as MessageResponsePageComponentIdentitiesParsed).status != MessageResponseStatus.SUCCESS) {
