@@ -62,7 +62,7 @@ export async function loadExtensionDataAndSettings(): Promise<{
 
             logger.logServiceWorker('Read Data & Settings from Local Storage', LogLevel.DEBUG, localStorage)
             return {
-                settings: localStorage.settings as ExtensionConfiguration,
+                settings: (localStorage.settings as ExtensionConfiguration) || DEFAULT_EXTENSION_SETTINGS,
                 tabsData: (localStorage.tabs as ExtensionTabsData) || DEFAULT_TABS_DATA,
                 vulnerabilityData:
                     (localStorage.vulnerabilityData as ExtensionVulnerabilitiesData) || DEFAULT_VULNERABILITY_DATA,
