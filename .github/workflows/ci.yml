@@ -6,9 +6,6 @@ on:
     pull_request:
         paths-ignore:
             - 'README.md'
-    pull_request_target:
-        branches:
-            - main
     push:
         branches:
             - main
