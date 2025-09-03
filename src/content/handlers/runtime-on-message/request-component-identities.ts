@@ -23,6 +23,8 @@ import { MessageSender } from "../../../common/types"
 import { BaseRuntimeOnMessageHandler } from "./base"
 import { ExternalRepositoryManagerType } from '../../../common/configuration/types'
 import { Nxrm3PageParser } from '../../../common/page-parsing/nxrm3'
+import { KNOWN_FRAMEWORKS } from '../../../common/repo-type/base'
+import { waitForFrameworkPage } from '../../framework-helper'
 
 // const domReady = new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve))
 
@@ -44,18 +46,23 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
             })
         }
 
-        $(function () {
-        // return domReady.then(() => {
-            logger.logContent('DOM is ready', LogLevel.DEBUG, message)
+        $(async function () {
+            logger.logContent('DOM is ready', LogLevel.DEBUG, message, window.document.body.innerHTML)
 
             const url = window.location.href
             const repoType = DefaultRepoRegistry.getRepoForUrl(url)
+
             if (repoType !== undefined) {
+                if (repoType.knownFramework !== KNOWN_FRAMEWORKS.NONE) {
+                    // Wait for Framework to render
+                    await waitForFrameworkPage({ timeout: 20000 })
+                }
+
                 logger.logServiceWorker('Determining Component Identities for Page', LogLevel.DEBUG, url, repoType)
                 const pageParser = DefaultPageParserRegistry.getParserByRepoId(repoType.id)
                 pageParser.annotateDomPageTitle()
 
-                const purls = pageParser.parsePage(url)
+                const purls = await pageParser.parsePage(url)
                 logger.logContent(
                     'Component Identities parsed',
                     LogLevel.DEBUG,

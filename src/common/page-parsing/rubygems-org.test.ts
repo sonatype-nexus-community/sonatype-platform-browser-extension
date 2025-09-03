@@ -22,13 +22,13 @@ import { RubygemsOrgRepo } from '../repo-type/rubygems-org'
 
 const parser = new RubygemsOrgPageParser(new RubygemsOrgRepo)
 
-function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+async function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
         const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = parser.parsePage(url)
+    const packageURLs = await parser.parsePage(url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)

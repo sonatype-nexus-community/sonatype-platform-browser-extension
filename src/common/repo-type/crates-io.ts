@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { PURL_TYPE_CARGO } from "../purl-types"
-import { BaseRepo } from "./base"
+import { BaseRepo, KNOWN_FRAMEWORKS } from "./base"
 import { RepositoryId } from "./types"
 
 // This is used by Extension Service Worker - cannot directly or indirectly require
@@ -27,13 +27,17 @@ export class CratesIoRepo extends BaseRepo {
 
     readonly purlType: string = PURL_TYPE_CARGO
    
-    readonly titleSelector: string = "h1[class*='heading']"
+    readonly titleSelector: string = "main > div > div > h1"
    
     readonly versionPath: string = '{artifactId}/{version}'
    
     readonly pathRegex: RegExp = /^(?<artifactId>[^/#?]*)(\/(?<version>[^/#?]*))?(\?(?<query>([^#]*)))?(#(?<fragment>(.*)))?$/
    
     readonly versionDomPath: string = 'h1 small'
+
+    readonly domReadyPathCheck: string = 'h1 header'
+
+    readonly knownFramework: KNOWN_FRAMEWORKS = KNOWN_FRAMEWORKS.EMBER
    
     readonly supportsVersionNavigation: boolean = true
    

@@ -44,7 +44,7 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         this.PARSERS.push(new GGUFHuggingFaceParser())
     }
 
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         let allPagePurls: PackageURL[] = []
         const pathResults = this.parsePath(url)
         if (pathResults?.groups) {

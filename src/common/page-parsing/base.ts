@@ -50,7 +50,7 @@ export abstract class BasePageParser {
         return $(`purl-${getPurlHash(purl)}`)
     }
 
-    abstract parsePage(url: string): PackageURL[]
+    abstract parsePage(url: string): Promise<PackageURL[]>
 
     parsePath(url: string): RegExpExecArray | null {
         const results = this.repoType?.pathRegex.exec(url.replace(this.repoType?.baseUrl, ''))

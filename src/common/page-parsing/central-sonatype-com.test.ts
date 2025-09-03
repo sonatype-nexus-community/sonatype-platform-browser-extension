@@ -112,13 +112,13 @@ describe('central.sonatype.com Page Parsing', () => {
                 PackageURL.fromString('pkg:maven/commons-io/commons-io@2.15.1?type=jar')
             ]
         }
-    ])('$name', ({ url, testFile, expectedPurls }) => {
+    ])('$name', async ({ url, testFile, expectedPurls }) => {
         if (testFile) {
             const html = readFileSync(join(__dirname, 'testdata', 'central.sonatype.com', testFile))
             window.document.body.innerHTML = html.toString()
         }
             
-        const packageURLs = parser.parsePage(url)
+        const packageURLs = await parser.parsePage(url)
         if (expectedPurls) {
             expect(packageURLs).toBeDefined()
             expect(packageURLs?.length).toBe(expectedPurls.length)

@@ -29,7 +29,7 @@ interface NamespaceContainer {
 }
 
 export class PkgGoDevPageParser extends BasePageParser {
-    parsePage(url: string): PackageURL[] {
+    async parsePage(url: string): Promise<PackageURL[]> {
         const uri = new URL(url)
         let nameAndNamespace: NamespaceContainer | undefined
         const nameVersion = uri.pathname.split('@')

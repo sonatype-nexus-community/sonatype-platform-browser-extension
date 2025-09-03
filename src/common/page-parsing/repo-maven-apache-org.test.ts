@@ -23,13 +23,13 @@ import { RepoMavenApacheOrgRepo } from '../repo-type/repo-maven-apache-org'
 
 const parser = new RepoMavenApacheOrgPageParser(new RepoMavenApacheOrgRepo)
 
-function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
+async function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
         const html = readFileSync(join(__dirname, 'testdata', domFile))
         window.document.body.innerHTML = html.toString()
     }
         
-    const packageURLs = parser.parsePage(url)
+    const packageURLs = await parser.parsePage(url)
     if (expected) {
         expect(packageURLs).toBeDefined()
         expect(packageURLs?.length).toBe(expected.length)
