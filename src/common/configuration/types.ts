@@ -72,7 +72,7 @@ export interface ExtensionConfiguration extends SonatypeSolutionSupport {
 }
 
 export const DEFAULT_EXTENSION_SETTINGS: ExtensionConfiguration = {
-    logLevel: LogLevel.TRACE,
+    logLevel: LogLevel.WARN,
     supportsFirewall: false,
     supportsLifecycle: false,
     supportsLifecycleAlp: false,
