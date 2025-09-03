@@ -23,6 +23,7 @@ import { ExtensionDataState } from '../common/data/extension-data'
 import { ExtensionTabsData, ExtensionVulnerabilitiesData } from '../common/data/types'
 import { logger, LogLevel } from '../common/logger'
 import { MessageRequestType } from '../common/message/constants'
+import { lastRuntimeError } from '../common/message/helpers'
 import {
     MessageRequestExtensionConfigurationUpdated,
     MessageRequestExtensionDataUpdated,
@@ -95,7 +96,7 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
 
     ThisBrowser.runtime.onConnect.addListener(async function (port: PortType) {
         port.onDisconnect.addListener((port: PortType) => {
-            const runtimeError = chrome.runtime.lastError
+            const runtimeError = lastRuntimeError()
             logger.logServiceWorker('Client disconnected', LogLevel.DEBUG, port, runtimeError)
             broadcastClientsAllData.delete(port)
             broadcastClientsExtensionConfiguration.delete(port)
