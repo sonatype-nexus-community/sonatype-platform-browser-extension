@@ -23,7 +23,7 @@ interface EmberSelectorConfig {
 }
 
 class EmberDOMSelector {
-    private readonly config: Required<EmberSelectorConfig>
+    private config: Required<EmberSelectorConfig>
 
     constructor(config: EmberSelectorConfig = {}) {
         this.config = {
