@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ThisBrowser } from '../constants'
+import { GIT_COMMIT_HASH, ThisBrowser } from '../constants'
 import {
     MEASUREMENT_ID,
     API_SECRET,
@@ -28,8 +28,17 @@ export enum ANALYTICS_EVENT_TYPES {
     EXTENSION_INSTALL = 'EXTENSION_INSTALL',
     EXTENSION_UPDATE = 'EXTENSION_UPDATE',
     EXTENSION_CONFIG_UPGRADE = 'EXTENSION_CONFIG_UPGRADE',
+    COMPONENT_IDENTITIES_CALCULATED = 'COMPONENT_IDENTITIES_CALCULATED',
+    COMPONENT_IDENTITIES_CALCULATE_FAILURE = 'COMPONENT_IDENTITIES_CALCULATE_FAILURE',
+    COMPONENT_IDENTITY_CALCULATED = 'COMPONENT_IDENTITY_CALCULATED',
+    COMPONENT_IDENTITY_CALCULATED_NONE = 'COMPONENT_IDENTITY_CALCULATED_NONE',
+    IQ_CONNECTION_CHECK = 'IQ_CONNECTION_CHECK',
+    EXTERNAL_REPOSITORY_MANAGER_ALREADY_REGISTERED = 'EXTERNAL_REPOSITORY_MANAGER_ALREADY_REGISTERED',
+    EXTERNAL_REPOSITORY_MANAGER_REGISTERED = 'EXTERNAL_REPOSITORY_MANAGER_REGISTERED',
+
+    // Deprecated post 3.0.0+
     PURL_CALCULATED = 'PURL_CALCULATED',
-    PURL_CALCULATE_FAILURE = 'PURL_CALCULATE_FAILURE',
+    PURL_CALCULATE_FAILURE = 'PURL_CALCULATE_FAILURE'
 }
 
 const extension = ThisBrowser.runtime.getManifest()
@@ -96,6 +105,7 @@ export class Analytics {
         
         // Load in Extension Version
         params['extension_version'] = extension.version
+        params['extension_version_git'] = GIT_COMMIT_HASH
 
         try {
             await fetch(`${GA_ENDPOINT}?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`, {
@@ -110,7 +120,6 @@ export class Analytics {
                     ],
                 }),
             })
-            // console.log(await response.text())
         } catch (e) {
             console.error('Google Analytics request failed with an exception', e)
         }

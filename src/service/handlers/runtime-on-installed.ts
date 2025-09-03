@@ -20,19 +20,13 @@ import { logger, LogLevel } from "../../common/logger"
 import { OnInstalledDetails } from "../../common/types"
 import { DEFAULT_EXTENSION_SETTINGS } from "../../common/configuration/types"
 import { loadExtensionSettings } from "../helpers"
+import { lastRuntimeError } from "../../common/message/helpers"
 
 
 export class ServiceWorkerRuntimeOnInstalledHandler {
 
     constructor(private readonly analytics: Analytics) { 
-        logger.logServiceWorker("New ServiceWorkerRuntimeOnInstalledHandler", LogLevel.DEBUG, this)
-
-        // ThisBrowser.storage.local.get([SETTINGS_STORAGE_KEY]).then((storageSettings) => {
-        //     this.currentExtensionConfig = storageSettings as ExtensionConfiguration
-        // }).catch((err) => {
-        //     logger.logServiceWorker("Error loading Settings - using Default Settings", LogLevel.ERROR, err)
-        //     this.currentExtensionConfig = DEFAULT_EXTENSION_SETTINGS
-        // })        
+        logger.logServiceWorker("New ServiceWorkerRuntimeOnInstalledHandler", LogLevel.DEBUG, this)    
     }
 
     public handleOnInstalled = async (details: OnInstalledDetails) => {
@@ -44,7 +38,12 @@ export class ServiceWorkerRuntimeOnInstalledHandler {
             // Can't rely on messages as this handler is instantiated before Service Worker is guaranteed to be active
             await ThisBrowser.storage.local.set({ [STORAGE_KEY_SETTINGS]: DEFAULT_EXTENSION_SETTINGS }).then(() => {
                 logger.logServiceWorker("Installed DEFAULT settings at Extension install", LogLevel.INFO)
-                ThisBrowser.tabs.create({ url: 'options.html?install' })
+                ThisBrowser.tabs.create({ url: 'options.html?install' }).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in ServiceWorkerRuntimeOnInstalledHandler#INSTALL', LogLevel.WARN, lastError)
+                    }
+                })
                 return this.analytics.fireEvent(ANALYTICS_EVENT_TYPES.EXTENSION_INSTALL, {
                     reason: details.reason,
                 })
@@ -98,13 +97,23 @@ export class ServiceWorkerRuntimeOnInstalledHandler {
                     upgradeResposne: "SUCCESS",
                 })
             }).then(() => {
-                ThisBrowser.notifications.create({
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in ServiceWorkerRuntimeOnInstalledHandler.performUpgrade', LogLevel.WARN, lastError)
+                }
+
+                ThisBrowser.notifications.create(`extension-updated`, {
                     type: 'basic',
                     iconUrl: 'images/Sonatype-platform-icon.png',
                     title: 'Sonatype Platform Extension Upgdated',
                     message: `Upgraded to version ${ThisBrowser.runtime.getManifest().version} - see whats new`,
                     buttons: [{ title: 'See what\'s changed' }],
                     priority: 0
+                }).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in ServiceWorkerRuntimeOnInstalledHandler.performUpgrade-notification-create', LogLevel.WARN, lastError)
+                    }
                 })
             })
         }

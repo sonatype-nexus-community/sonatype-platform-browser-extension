@@ -29,9 +29,10 @@ import { ExternalRepositoryManager } from '../../common/configuration/types'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import { MessageRequestType } from '../../common/message/constants'
-import { sendRuntimeMessage } from '../../common/message/helpers'
+import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { isHttpUriValidator } from './validators'
 import ExternalRepositoryManagerItem from './external-repository-manager'
+import { logger, LogLevel } from '../../common/logger'
 
 export default function ExternalRepositoryOptionsSubPage() {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
@@ -87,6 +88,11 @@ export default function ExternalRepositoryOptionsSubPage() {
                 sendRuntimeMessage({
                     messageType: MessageRequestType.REQUEST_NEW_EXTERNAL_REPOSITORY_MANAGER,
                     url: unifiedExternalRepositoryUrl,
+                }).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in askForPermissions', LogLevel.WARN, lastError)
+                    }
                 })
             })
     }

@@ -6,9 +6,9 @@ on:
     pull_request:
         paths-ignore:
             - 'README.md'
-    pull_request_target:
-        branches:
-            - main
+    # pull_request_target:
+    #     branches:
+    #         - main
     push:
         branches:
             - main
@@ -49,7 +49,7 @@ jobs:
         timeout-minutes: 5
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Setup Node
               uses: actions/setup-node@v4

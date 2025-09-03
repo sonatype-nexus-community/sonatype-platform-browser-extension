@@ -31,12 +31,12 @@
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link title="NuGet.org" type="application/opensearchdescription+xml" href="/opensearch.xml" rel="search">
 
-    <link href="/Content/gallery/css/site.min.css?v=LX-BE9-fuA5am-OHwMz2A97NR9weGSkaB4-JsuQOnjQ1" rel="stylesheet"/>
+    <link href="/Content/gallery/css/site.min.css?v=1na5Q3HPVSkugniYsNxjmE134E1C4dpzFOT5rmDYA-E1" rel="stylesheet"/>
 
     <link href="/Content/gallery/css/bootstrap.min.css" rel="stylesheet"/>
 
 
-    <script>
+    <script nonce="9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ=">
         // Check the browser preferred color scheme
         const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
         const defaultTheme = prefersDarkMode ? "dark" : "light";
@@ -100,36 +100,36 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" role="tablist">
                             <li class="active" role="presentation">
-        <a role="tab" aria-selected="true" href="/packages">
+        <a role="tab" name="Packages" aria-selected="true" href="/packages" class="link-to-add-local-search-filters">
             <span>Packages</span>
         </a>
     </li>
 
                             <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="/packages/manage/upload">
+        <a role="tab" name="Upload" aria-selected="false" href="/packages/manage/upload">
             <span>Upload</span>
         </a>
     </li>
 
     <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="/stats">
+        <a role="tab" name="Statistics" aria-selected="false" href="/stats">
             <span>Statistics</span>
         </a>
     </li>
                                                     <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="https://docs.microsoft.com/nuget/">
+        <a role="tab" name="Documentation" aria-selected="false" href="https://docs.microsoft.com/nuget/">
             <span>Documentation</span>
         </a>
     </li>
 
                             <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="/downloads">
+        <a role="tab" name="Downloads" aria-selected="false" href="/downloads">
             <span>Downloads</span>
         </a>
     </li>
 
                             <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="https://blog.nuget.org/">
+        <a role="tab" name="Blog" aria-selected="false" href="https://blog.nuget.org/">
             <span>Blog</span>
         </a>
     </li>
@@ -137,7 +137,7 @@
                     </ul>
                         <ul class="nav navbar-nav navbar-right" role="tablist">
     <li class="" role="presentation">
-        <a role="tab" aria-selected="false" href="/users/account/LogOn?returnUrl=%2Fpackages%2FNewtonsoft.Json%2F13.0.3" title="Sign in to an existing NuGet.org account">
+        <a role="tab" name="Sign in" aria-selected="false" href="/users/account/LogOn?returnUrl=%2Fpackages%2FNewtonsoft.Json%2F13.0.3" title="Sign in to an existing NuGet.org account">
             <span>Sign in</span>
         </a>
     </li>
@@ -149,7 +149,7 @@
 
         <div id="search-bar-header" class="container search-container">
             <div class="row">
-                <form aria-label="Package search bar" class="col-sm-12" action="/packages" method="get">
+                <form aria-label="Package search bar" class="col-sm-12" id="form-to-add-local-search-filters" action="/packages" method="get">
                     <div class="input-group">
     <input name="q" type="text" class="form-control input-brand" id="search" aria-label="Enter packages to search"
            placeholder="Search for packages..." autocomplete="off"
@@ -207,7 +207,7 @@
 
 
     <div id="skippedToContent">
-    
+    ﻿﻿
 
 
 
@@ -299,6 +299,14 @@
 
 
 
+    <div class="icon-text alert alert-brand-info" >
+        <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
+        
+                                There is a newer prerelease version of this package available.
+                                <br /> See the version list below for details.
+                            
+
+    </div>
 
 
 
@@ -322,8 +330,8 @@
            id="package-manager-tab" class="package-manager-tab"
            aria-selected="false" tabindex="-1"
            aria-controls="package-manager" role="tab" data-toggle="tab"
-           title="Switch to tab panel which contains package installation command for Package Manager">
-            Package Manager
+           title="Switch to tab panel which contains package installation command for Package Manager Console">
+            PMC
         </a>
     </li>
     <li role="presentation" class="">
@@ -333,6 +341,15 @@
            aria-controls="package-reference" role="tab" data-toggle="tab"
            title="Switch to tab panel which contains package installation command for PackageReference">
             PackageReference
+        </a>
+    </li>
+    <li role="presentation" class="">
+        <a href="#package-version"
+           id="package-version-tab" class="package-manager-tab"
+           aria-selected="false" tabindex="-1"
+           aria-controls="package-version" role="tab" data-toggle="tab"
+           title="Switch to tab panel which contains package installation command for Central Package Management">
+            CPM
         </a>
     </li>
     <li role="presentation" class="">
@@ -354,6 +371,15 @@
         </a>
     </li>
     <li role="presentation" class="">
+        <a href="#dotnet-run-file"
+           id="dotnet-run-file-tab" class="package-manager-tab"
+           aria-selected="false" tabindex="-1"
+           aria-controls="dotnet-run-file" role="tab" data-toggle="tab"
+           title="Switch to tab panel which contains package installation command for File-based Apps">
+            File-based Apps
+        </a>
+    </li>
+    <li role="presentation" class="">
         <a href="#cake"
            id="cake-tab" class="package-manager-tab"
            aria-selected="false" tabindex="-1"
@@ -366,37 +392,35 @@
                         <div class="tab-content">
 
     <div role="tabpanel" class="tab-pane active" id="dotnet-cli">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="dotnet-cli-text"><span class="install-command-row">dotnet add package Newtonsoft.Json --version 13.0.3</span>                <div class="copy-button">
-                    <button id="dotnet-cli-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the .NET CLI command" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    </div>
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="dotnet-cli-0001-text"><span class="install-command-row">dotnet add package Newtonsoft.Json --version 13.0.3</span>
+                    <div class="copy-button">
+<button id="dotnet-cli-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the .NET CLI command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            </div>
     <div role="tabpanel" class="tab-pane " id="package-manager">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="package-manager-text"><span class="install-command-row">NuGet\Install-Package Newtonsoft.Json -Version 13.0.3</span>                <div class="copy-button">
-                    <button id="package-manager-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the Package Manager command" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    <div class="icon-text alert alert-brand-info" >
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="package-manager-0001-text"><span class="install-command-row">NuGet\Install-Package Newtonsoft.Json -Version 13.0.3</span>
+                    <div class="copy-button">
+<button id="package-manager-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the PMC command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-info" >
         <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
         
 This command is intended to be used within the Package Manager Console in Visual Studio, as it uses the NuGet module's version of <a href='https://docs.microsoft.com/nuget/reference/ps-reference/ps-ref-install-package'>Install-Package</a>.
@@ -404,43 +428,81 @@ This command is intended to be used within the Package Manager Console in Visual
     </div>
     </div>
     <div role="tabpanel" class="tab-pane " id="package-reference">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="package-reference-text"><span class="install-command-row">&lt;PackageReference Include=&quot;Newtonsoft.Json&quot; Version=&quot;13.0.3&quot; /&gt;</span>                <div class="copy-button">
-                    <button id="package-reference-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the PackageReference XML node" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    <div class="icon-text alert alert-brand-info" >
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="package-reference-0001-text"><span class="install-command-row">&lt;PackageReference Include=&quot;Newtonsoft.Json&quot; Version=&quot;13.0.3&quot; /&gt;</span>
+                    <div class="copy-button">
+<button id="package-reference-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the PackageReference XML node" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-info" >
         <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
         
 For projects that support <a href="https://docs.microsoft.com/nuget/consume-packages/package-references-in-project-files">PackageReference</a>, copy this XML node into the project file to reference the package.
                     
     </div>
     </div>
+    <div role="tabpanel" class="tab-pane " id="package-version">
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="package-version-0001-text"><span class="install-command-row">&lt;PackageVersion Include=&quot;Newtonsoft.Json&quot; Version=&quot;13.0.3&quot; /&gt;</span>
+                    <div class="copy-button">
+<span class="package-manager-command-header">
+                            Directory.Packages.props
+                        </span>
+<button id="package-version-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the PackageVersion XML node" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="package-version-0002-text"><span class="install-command-row">&lt;PackageReference Include=&quot;Newtonsoft.Json&quot; /&gt;</span>
+                    <div class="copy-button">
+<span class="package-manager-command-header">
+                            Project file
+                        </span>
+<button id="package-version-0002-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the PackageVersion XML node" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-info" >
+        <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
+        
+For projects that support <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management">Central Package Management (CPM)</a>, copy this XML node into the solution Directory.Packages.props file to version the package.
+                    
+    </div>
+    </div>
     <div role="tabpanel" class="tab-pane " id="paket-cli">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="paket-cli-text"><span class="install-command-row">paket add Newtonsoft.Json --version 13.0.3</span>                <div class="copy-button">
-                    <button id="paket-cli-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the Paket CLI command" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    <div class="icon-text alert alert-brand-warning"   role="alert" aria-live="assertive"  >
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="paket-cli-0001-text"><span class="install-command-row">paket add Newtonsoft.Json --version 13.0.3</span>
+                    <div class="copy-button">
+<button id="paket-cli-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the Paket CLI command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-warning"   role="alert" aria-live="assertive"  >
         <i class="ms-Icon ms-Icon--Warning" aria-hidden="true"></i>
         
 <b display="none" aria-label="warning" role="alert"></b> The NuGet Team does not provide support for this client. Please contact its <a href="https://fsprojects.github.io/Paket/contact.html" aria-label="Contact the maintainers of the Paket CLI client">maintainers</a> for support.
@@ -448,47 +510,81 @@ For projects that support <a href="https://docs.microsoft.com/nuget/consume-pack
     </div>
     </div>
     <div role="tabpanel" class="tab-pane " id="script-interactive">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="script-interactive-text"><span class="install-command-row">#r &quot;nuget: Newtonsoft.Json, 13.0.3&quot;</span>                <div class="copy-button">
-                    <button id="script-interactive-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the Script &amp; Interactive command" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    <div class="icon-text alert alert-brand-info" >
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="script-interactive-0001-text"><span class="install-command-row">#r &quot;nuget: Newtonsoft.Json, 13.0.3&quot;</span>
+                    <div class="copy-button">
+<button id="script-interactive-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the Script &amp; Interactive command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-info" >
         <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
         
 #r directive can be used in F# Interactive and Polyglot Notebooks. Copy this into the interactive tool or source code of the script to reference the package.
                     
     </div>
     </div>
+    <div role="tabpanel" class="tab-pane " id="dotnet-run-file">
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="dotnet-run-file-0001-text"><span class="install-command-row">#:package Newtonsoft.Json@13.0.3</span>
+                    <div class="copy-button">
+<button id="dotnet-run-file-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the File-based Apps command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-info" >
+        <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
+        
+#:package directive can be used in C# file-based apps starting in .NET 10 preview 4. Copy this into a .cs file before any lines of code to reference the package.
+                    
+    </div>
+    </div>
     <div role="tabpanel" class="tab-pane " id="cake">
-        <div class="install-script-row">
-
-            
-            <pre class="install-script" id="cake-text"><span class="install-command-row">// Install Newtonsoft.Json as a Cake Addin
-#addin nuget:?package=Newtonsoft.Json&amp;version=13.0.3
-
-// Install Newtonsoft.Json as a Cake Tool
-#tool nuget:?package=Newtonsoft.Json&amp;version=13.0.3</span>                <div class="copy-button">
-                    <button id="cake-button" class="btn btn-brand-icon" type="button" 
-                    data-toggle="popover" data-placement="bottom" data-content="Copied."
-                    aria-label="Copy the Cake command" role="button">
-                        <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            </pre>
-        </div>
-
-    <div class="icon-text alert alert-brand-warning"   role="alert" aria-live="assertive"  >
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="cake-0001-text"><span class="install-command-row">#addin nuget:?package=Newtonsoft.Json&amp;version=13.0.3</span>
+                    <div class="copy-button">
+<span class="package-manager-command-header">
+                            Install as a Cake Addin
+                        </span>
+<button id="cake-0001-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the Cake command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="install-script-row">
+                
+                <pre class="install-script" id="cake-0002-text"><span class="install-command-row">#tool nuget:?package=Newtonsoft.Json&amp;version=13.0.3</span>
+                    <div class="copy-button">
+<span class="package-manager-command-header">
+                            Install as a Cake Tool
+                        </span>
+<button id="cake-0002-button" class="btn btn-brand-icon" type="button"
+                                data-toggle="popover" data-placement="bottom" data-content="Copied."
+                                aria-label="Copy the Cake command" role="button">
+                            <span class="ms-Icon ms-Icon--Copy" aria-hidden="true"></span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </pre>
+            </div>
+            <div class="icon-text alert alert-brand-warning"   role="alert" aria-live="assertive"  >
         <i class="ms-Icon ms-Icon--Warning" aria-hidden="true"></i>
         
 <b display="none" aria-label="warning" role="alert"></b> The NuGet Team does not provide support for this client. Please contact its <a href="https://cakebuild.net/support/nuget" aria-label="Contact the maintainers of the Cake client">maintainers</a> for support.
@@ -585,34 +681,34 @@ For projects that support <a href="https://docs.microsoft.com/nuget/consume-pack
                                 <div id="readme-container">
 
 
-                                    <h2 id="logo-json.net"><img src="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/Doc/icons/logo.jpg" class="img-fluid" alt="Logo" /> Json.NET</h2>
-<p><a href="https://www.nuget.org/packages/Newtonsoft.Json/" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/nuget/v/Newtonsoft.Json.svg?style=flat-square" class="img-fluid" alt="NuGet version (Newtonsoft.Json)" /></a>
-<a href="https://dev.azure.com/jamesnk/Public/_build/latest?definitionId=8" rel="noopener noreferrer nofollow"><img src="https://dev.azure.com/jamesnk/Public/_apis/build/status/JamesNK.Newtonsoft.Json?branchName=master" class="img-fluid" alt="Build status" /></a></p>
+                                    <h2 id="logo-jsonnet"><img src="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/Doc/icons/logo.jpg" class="img-fluid" alt="Logo"> Json.NET</h2>
+<p><a href="https://www.nuget.org/packages/Newtonsoft.Json/" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/nuget/v/Newtonsoft.Json.svg?style=flat-square" class="img-fluid" alt="NuGet version (Newtonsoft.Json)"></a>
+<a href="https://dev.azure.com/jamesnk/Public/_build/latest?definitionId=8" rel="noopener noreferrer nofollow"><img src="https://dev.azure.com/jamesnk/Public/_apis/build/status/JamesNK.Newtonsoft.Json?branchName=master" class="img-fluid" alt="Build status"></a></p>
 <p>Json.NET is a popular high-performance JSON framework for .NET</p>
 <h3 id="serialize-json">Serialize JSON</h3>
 <pre><code class="language-csharp">Product product = new Product();
-product.Name = &quot;Apple&quot;;
+product.Name = "Apple";
 product.Expiry = new DateTime(2008, 12, 28);
-product.Sizes = new string[] { &quot;Small&quot; };
+product.Sizes = new string[] { "Small" };
 
 string json = JsonConvert.SerializeObject(product);
 // {
-//   &quot;Name&quot;: &quot;Apple&quot;,
-//   &quot;Expiry&quot;: &quot;2008-12-28T00:00:00&quot;,
-//   &quot;Sizes&quot;: [
-//     &quot;Small&quot;
+//   "Name": "Apple",
+//   "Expiry": "2008-12-28T00:00:00",
+//   "Sizes": [
+//     "Small"
 //   ]
 // }
 </code></pre>
 <h3 id="deserialize-json">Deserialize JSON</h3>
-<pre><code class="language-csharp">string json = @&quot;{
+<pre><code class="language-csharp">string json = @"{
   'Name': 'Bad Boys',
   'ReleaseDate': '1995-4-7T00:00:00',
   'Genres': [
     'Action',
     'Comedy'
   ]
-}&quot;;
+}";
 
 Movie m = JsonConvert.DeserializeObject&lt;Movie&gt;(json);
 
@@ -621,17 +717,17 @@ string name = m.Name;
 </code></pre>
 <h3 id="linq-to-json">LINQ to JSON</h3>
 <pre><code class="language-csharp">JArray array = new JArray();
-array.Add(&quot;Manual text&quot;);
+array.Add("Manual text");
 array.Add(new DateTime(2000, 5, 23));
 
 JObject o = new JObject();
-o[&quot;MyArray&quot;] = array;
+o["MyArray"] = array;
 
 string json = o.ToString();
 // {
-//   &quot;MyArray&quot;: [
-//     &quot;Manual text&quot;,
-//     &quot;2000-05-23T00:00:00&quot;
+//   "MyArray": [
+//     "Manual text",
+//     "2000-05-23T00:00:00"
 //   ]
 // }
 </code></pre>
@@ -714,6 +810,38 @@ string json = o.ToString();
                                 <span class="sr-only">net8.0-tvos was computed.&nbsp;</span>
                                 <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net8.0-windows</span>
                                 <span class="sr-only">net8.0-windows was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0</span>
+                                <span class="sr-only">net9.0 was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-android</span>
+                                <span class="sr-only">net9.0-android was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-browser</span>
+                                <span class="sr-only">net9.0-browser was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-ios</span>
+                                <span class="sr-only">net9.0-ios was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-maccatalyst</span>
+                                <span class="sr-only">net9.0-maccatalyst was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-macos</span>
+                                <span class="sr-only">net9.0-macos was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-tvos</span>
+                                <span class="sr-only">net9.0-tvos was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net9.0-windows</span>
+                                <span class="sr-only">net9.0-windows was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0</span>
+                                <span class="sr-only">net10.0 was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-android</span>
+                                <span class="sr-only">net10.0-android was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-browser</span>
+                                <span class="sr-only">net10.0-browser was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-ios</span>
+                                <span class="sr-only">net10.0-ios was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-maccatalyst</span>
+                                <span class="sr-only">net10.0-maccatalyst was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-macos</span>
+                                <span class="sr-only">net10.0-macos was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-tvos</span>
+                                <span class="sr-only">net10.0-tvos was computed.&nbsp;</span>
+                                <span aria-hidden="true" class="framework-badge-computed framework-table-margin">net10.0-windows</span>
+                                <span class="sr-only">net10.0-windows was computed.&nbsp;</span>
                     </td>
                 </tr>
                 <tr>
@@ -1047,7 +1175,7 @@ string json = o.ToString();
                 <div role="tabpanel" class="tab-pane " id="usedby-tab" aria-label="Used by tab content">
                         <div class="used-by" id="used-by">
                                     <h3>
-                                        <strong>NuGet packages </strong> (46.3K)
+                                        <strong>NuGet packages </strong> (48.4K)
                                     </h3>
                                     <p>
                                         Showing the top 5 NuGet packages that depend on Newtonsoft.Json:
@@ -1062,21 +1190,6 @@ string json = o.ToString();
                                         <tbody class="no-border">
                                                 <tr>
                                                     <td class="used-by-desc-column">
-                                                        <a class="text-left ngp-link" href="/packages/Microsoft.AspNetCore.JsonPatch/">
-                                                            Microsoft.AspNetCore.JsonPatch
-                                                        </a>
-                                                            <i class="ms-Icon ms-Icon--SkypeCircleCheck reserved-indicator" title="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."
-                                                               alt="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."></i>
-                                                        <p class="used-by-desc">ASP.NET Core support for JSON PATCH.
-
-This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/af22effae4069a5dfb9b0735859de48820104f5b</p>
-                                                    </td>
-                                                    <td>
-                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">982.0M</label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="used-by-desc-column">
                                                         <a class="text-left ngp-link" href="/packages/Microsoft.TestPlatform.TestHost/">
                                                             Microsoft.TestPlatform.TestHost
                                                         </a>
@@ -1085,7 +1198,22 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                         <p class="used-by-desc">Testplatform host executes the test using specified adapter.</p>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">941.6M</label>
+                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">1.2B</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a class="text-left ngp-link" href="/packages/Microsoft.AspNetCore.JsonPatch/">
+                                                            Microsoft.AspNetCore.JsonPatch
+                                                        </a>
+                                                            <i class="ms-Icon ms-Icon--SkypeCircleCheck reserved-indicator" title="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."
+                                                               alt="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."></i>
+                                                        <p class="used-by-desc">ASP.NET Core support for JSON PATCH.
+
+This package was built from the source code at https://github.com/dotnet/dotnet/tree/30000d883e06c122311a66894579bc12329a09d4</p>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">1.2B</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1098,7 +1226,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                         <p class="used-by-desc">Json.NET BSON adds support for reading and writing BSON</p>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">827.9M</label>
+                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">1.0B</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1111,32 +1239,30 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                         <p class="used-by-desc">This package adds support for formatting and content negotiation to System.Net.Http. It includes support for JSON, XML, and form URL encoded data.</p>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">637.5M</label>
+                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">758.0M</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="used-by-desc-column">
-                                                        <a class="text-left ngp-link" href="/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/">
-                                                            Microsoft.AspNetCore.Mvc.NewtonsoftJson
+                                                        <a class="text-left ngp-link" href="/packages/Microsoft.EntityFrameworkCore.Design/">
+                                                            Microsoft.EntityFrameworkCore.Design
                                                         </a>
                                                             <i class="ms-Icon ms-Icon--SkypeCircleCheck reserved-indicator" title="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."
                                                                alt="The ID prefix of this package has been reserved for one of the owners of this package by NuGet.org."></i>
-                                                        <p class="used-by-desc">ASP.NET Core MVC features that use Newtonsoft.Json. Includes input and output formatters for JSON and JSON PATCH.
-
-This package was built from the source code at https://github.com/dotnet/aspnetcore/tree/af22effae4069a5dfb9b0735859de48820104f5b</p>
+                                                        <p class="used-by-desc">Shared design-time components for Entity Framework Core tools.</p>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">476.2M</label>
+                                                        <i class="ms-Icon ms-Icon--Download used-by-download-icon" aria-hidden="true"></i> <label class="used-by-count">681.9M</label>
                                                     </td>
                                                 </tr>
                                         </tbody>
                                     </table>
 
                                     <h3>
-                                        <strong>GitHub repositories </strong> (55)
+                                        <strong>GitHub repositories </strong> (3.6K)
                                     </h3>
                                     <p>
-                                        Showing the top 5 popular GitHub repositories that depend on Newtonsoft.Json:
+                                        Showing the top 20 popular GitHub repositories that depend on Newtonsoft.Json:
                                     </p>
                                     <table class="table borderless" aria-label="GitHub repositories that depend on Newtonsoft.Json">
                                         <thead>
@@ -1156,12 +1282,25 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">111.7K</label>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">122.6K</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="used-by-desc-column">
-                                                        <a data-index-number="1" class="text-left gh-link" href="https://github.com/PowerShell/PowerShell" target="_blank">
+                                                        <a data-index-number="1" class="text-left gh-link" href="https://github.com/shadowsocks/shadowsocks-windows" target="_blank">
+                                                            shadowsocks/shadowsocks-windows
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>A C# port of shadowsocks</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">59.0K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="2" class="text-left gh-link" href="https://github.com/PowerShell/PowerShell" target="_blank">
                                                             PowerShell/PowerShell
                                                         </a>
                                                         <div class="row used-by-desc">
@@ -1169,20 +1308,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">45.7K</label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="used-by-desc-column">
-                                                        <a data-index-number="2" class="text-left gh-link" href="https://github.com/dotnet/aspnetcore" target="_blank">
-                                                            dotnet/aspnetcore
-                                                        </a>
-                                                        <div class="row used-by-desc">
-                                                            <span>ASP.NET Core is a cross-platform .NET framework for building modern cloud-based web applications on Windows, Mac, or Linux.</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">35.6K</label>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">48.3K</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1191,24 +1317,219 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                             jellyfin/jellyfin
                                                         </a>
                                                         <div class="row used-by-desc">
-                                                            <span>The Free Software Media System</span>
+                                                            <span>The Free Software Media System - Server Backend &amp; API</span>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">35.4K</label>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">42.9K</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="used-by-desc-column">
-                                                        <a data-index-number="4" class="text-left gh-link" href="https://github.com/ShareX/ShareX" target="_blank">
-                                                            ShareX/ShareX
+                                                        <a data-index-number="4" class="text-left gh-link" href="https://github.com/dotnet/aspnetcore" target="_blank">
+                                                            dotnet/aspnetcore
                                                         </a>
                                                         <div class="row used-by-desc">
-                                                            <span>ShareX is a free and open source program that lets you capture or record any area of your screen and share it with a single press of a key. It also allows uploading images, text or other types of files to many supported destinations you can choose from.</span>
+                                                            <span>ASP.NET Core is a cross-platform .NET framework for building modern cloud-based web applications on Windows, Mac, or Linux.</span>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">29.8K</label>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">37.0K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="5" class="text-left gh-link" href="https://github.com/huiyadanli/RevokeMsgPatcher" target="_blank">
+                                                            huiyadanli/RevokeMsgPatcher
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>:trollface: A hex editor for WeChat/QQ/TIM - PC版微信/QQ/TIM防撤回补丁（我已经看到了，撤回也没用了）</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">34.3K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="6" class="text-left gh-link" href="https://github.com/ShareX/ShareX" target="_blank">
+                                                            ShareX/ShareX
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>ShareX is a free and open-source application that enables users to capture or record any area of their screen with a single keystroke. It also supports uploading images, text, and various file types to a wide range of destinations.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">33.5K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="7" class="text-left gh-link" href="https://github.com/dnSpy/dnSpy" target="_blank">
+                                                            dnSpy/dnSpy
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>.NET debugger and assembly editor</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">28.1K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="8" class="text-left gh-link" href="https://github.com/microsoft/semantic-kernel" target="_blank">
+                                                            microsoft/semantic-kernel
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>Integrate cutting-edge LLM technology quickly and easily into your apps</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">25.9K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="9" class="text-left gh-link" href="https://github.com/dotnet/maui" target="_blank">
+                                                            dotnet/maui
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>.NET MAUI is the .NET Multi-platform App UI, a framework for building native device applications spanning mobile, tablet, and desktop.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">22.9K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="10" class="text-left gh-link" href="https://github.com/CodeHubApp/CodeHub" target="_blank">
+                                                            CodeHubApp/CodeHub
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>CodeHub is an iOS application written using Xamarin</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">22.7K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="11" class="text-left gh-link" href="https://github.com/QL-Win/QuickLook" target="_blank">
+                                                            QL-Win/QuickLook
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>Bring macOS “Quick Look” feature to Windows</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">20.7K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="12" class="text-left gh-link" href="https://github.com/dotnet/roslyn" target="_blank">
+                                                            dotnet/roslyn
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>The Roslyn .NET compiler provides C# and Visual Basic languages with rich code analysis APIs.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">19.8K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="13" class="text-left gh-link" href="https://github.com/TGSAN/CMWTAT_Digital_Edition" target="_blank">
+                                                            TGSAN/CMWTAT_Digital_Edition
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>CloudMoe Windows 10/11 Activation Toolkit get digital license, the best open source Win 10/11 activator in GitHub. GitHub 上最棒的开源 Win10/Win11 数字权利（数字许可证）激活工具！</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">18.2K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="14" class="text-left gh-link" href="https://github.com/marticliment/UniGetUI" target="_blank">
+                                                            marticliment/UniGetUI
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>UniGetUI: The Graphical Interface for your package managers. Could be terribly described as a package manager manager to manage your package managers</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">17.7K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="15" class="text-left gh-link" href="https://github.com/ardalis/CleanArchitecture" target="_blank">
+                                                            ardalis/CleanArchitecture
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>Clean Architecture Solution Template: A proven Clean Architecture Template for ASP.NET Core 9</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">17.4K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="16" class="text-left gh-link" href="https://github.com/ppy/osu" target="_blank">
+                                                            ppy/osu
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>rhythm is just a *click* away!</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">17.1K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="17" class="text-left gh-link" href="https://github.com/bitwarden/server" target="_blank">
+                                                            bitwarden/server
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>Bitwarden infrastructure/backend (API, database, Docker, etc).</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">17.1K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="18" class="text-left gh-link" href="https://github.com/rocksdanister/lively" target="_blank">
+                                                            rocksdanister/lively
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>Free and open-source software that allows users to set animated desktop wallpapers and screensavers powered by WinUI 3.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">17.0K</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="used-by-desc-column">
+                                                        <a data-index-number="19" class="text-left gh-link" href="https://github.com/dotnet/runtime" target="_blank">
+                                                            dotnet/runtime
+                                                        </a>
+                                                        <div class="row used-by-desc">
+                                                            <span>.NET is a cross-platform runtime for cloud, mobile, desktop, and IoT apps.</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="ms-Icon ms-Icon--FavoriteStarFill gh-star" aria-hidden="true"></i> <label class="used-by-count">16.8K</label>
                                                     </td>
                                                 </tr>
                                         </tbody>
@@ -1222,11 +1543,30 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                 <tr>
                                     <th scope="col" role="columnheader">Version</th>
                                     <th scope="col" role="columnheader">Downloads</th>
-                                    <th scope="col" role="columnheader">Last updated</th>
+                                    <th scope="col" role="columnheader">
+                                        Last Updated
+                                    </th>
+
                                                                                                                 <th scope="col" role="columnheader" aria-hidden="true" abbr="Package Warnings"></th>
                                 </tr>
                             </thead>
                             <tbody class="no-border">
+                                        <tr>
+                                            <td>
+                                                <a href="/packages/Newtonsoft.Json/13.0.4-beta1" title="13.0.4-beta1">
+                                                    13.0.4-beta1
+                                                </a>
+                                            </td>
+                                            <td>
+                                                12,295
+                                            </td>
+                                            <td>
+                                                <span data-datetime="2025-07-31T06:53:05.4230000">7/31/2025</span>
+                                            </td>
+
+
+                                                <td class="package-icon-cell" aria-hidden="true"></td>
+                                        </tr>
                                         <tr class="bg-brand-info">
                                             <td>
                                                 <a href="/packages/Newtonsoft.Json/13.0.3" title="13.0.3">
@@ -1234,7 +1574,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                319,106,725
+                                                588,134,207
                                             </td>
                                             <td>
                                                 <span data-datetime="2023-03-08T07:42:54.6470000">3/8/2023</span>
@@ -1250,7 +1590,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                148,715,674
+                                                193,425,031
                                             </td>
                                             <td>
                                                 <span data-datetime="2022-11-24T03:02:39.5000000">11/24/2022</span>
@@ -1266,7 +1606,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                833,162,967
+                                                1,076,232,366
                                             </td>
                                             <td>
                                                 <span data-datetime="2021-03-22T20:10:49.4070000">3/22/2021</span>
@@ -1282,7 +1622,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                587,751,800
+                                                647,152,753
                                             </td>
                                             <td>
                                                 <span data-datetime="2019-11-09T01:27:30.7230000">11/9/2019</span>
@@ -1310,7 +1650,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                375,952,555
+                                                404,063,147
                                             </td>
                                             <td>
                                                 <span data-datetime="2019-04-22T01:21:49.9000000">4/22/2019</span>
@@ -1338,7 +1678,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                191,108,961
+                                                229,552,527
                                             </td>
                                             <td>
                                                 <span data-datetime="2018-11-27T18:11:37.0800000">11/27/2018</span>
@@ -1366,7 +1706,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                569,562,381
+                                                655,591,478
                                             </td>
                                             <td>
                                                 <span data-datetime="2018-03-24T20:18:14.7600000">3/24/2018</span>
@@ -1394,7 +1734,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                194,476,785
+                                                228,967,392
                                             </td>
                                             <td>
                                                 <span data-datetime="2018-02-17T20:59:20.7730000">2/17/2018</span>
@@ -1422,7 +1762,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                454,495,884
+                                                516,743,631
                                             </td>
                                             <td>
                                                 <span data-datetime="2017-06-18T02:10:29.6030000">6/18/2017</span>
@@ -1450,7 +1790,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                278,774,570
+                                                320,954,253
                                             </td>
                                             <td>
                                                 <span data-datetime="2017-04-02T06:37:50.9100000">4/2/2017</span>
@@ -1478,7 +1818,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                449,942,229
+                                                514,435,541
                                             </td>
                                             <td>
                                                 <span data-datetime="2017-03-20T07:18:50.8400000">3/20/2017</span>
@@ -1506,7 +1846,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                779,622,809
+                                                908,856,873
                                             </td>
                                             <td>
                                                 <span data-datetime="2016-06-22T08:11:45.4900000">6/22/2016</span>
@@ -1534,7 +1874,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                21,107,045
+                                                22,337,584
                                             </td>
                                             <td>
                                                 <span data-datetime="2016-03-14T09:03:38.6170000">3/14/2016</span>
@@ -1562,7 +1902,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                8,885,461
+                                                9,183,522
                                             </td>
                                             <td>
                                                 <span data-datetime="2016-01-09T01:06:39.3900000">1/9/2016</span>
@@ -1590,7 +1930,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                2,934,483
+                                                3,095,611
                                             </td>
                                             <td>
                                                 <span data-datetime="2015-12-29T01:03:30.7370000">12/29/2015</span>
@@ -1618,7 +1958,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                34,240,297
+                                                36,879,261
                                             </td>
                                             <td>
                                                 <span data-datetime="2015-06-22T12:00:36.4400000">6/22/2015</span>
@@ -1646,7 +1986,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                37,422,354
+                                                40,192,774
                                             </td>
                                             <td>
                                                 <span data-datetime="2015-01-11T07:30:45.8500000">1/11/2015</span>
@@ -1674,7 +2014,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                1,700,949
+                                                1,737,110
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-12-23T00:09:09.8870000">12/23/2014</span>
@@ -1702,7 +2042,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                7,166,668
+                                                7,420,441
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-10-24T10:57:02.8830000">10/24/2014</span>
@@ -1730,7 +2070,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                6,407,132
+                                                6,679,097
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-09-06T23:18:33.9870000">9/6/2014</span>
@@ -1758,7 +2098,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                59,723,425
+                                                67,720,569
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-08-03T09:19:01.7030000">8/3/2014</span>
@@ -1786,7 +2126,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                5,474,370
+                                                5,848,838
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-04-27T05:41:11.6130000">4/27/2014</span>
@@ -1814,7 +2154,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                1,827,187
+                                                1,908,638
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-03-30T05:55:21.7370000">3/30/2014</span>
@@ -1842,7 +2182,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                9,778,761
+                                                10,457,209
                                             </td>
                                             <td>
                                                 <span data-datetime="2014-02-01T11:01:37.4430000">2/1/2014</span>
@@ -1870,7 +2210,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                7,044,008
+                                                7,590,627
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-10-17T00:18:13.5800000">10/17/2013</span>
@@ -1898,7 +2238,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                843,252
+                                                848,950
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-10-14T10:30:44.2370000">10/14/2013</span>
@@ -1926,7 +2266,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                5,478,183
+                                                5,793,815
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-06-06T03:11:18.2870000">6/6/2013</span>
@@ -1954,7 +2294,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                1,826,010
+                                                1,864,472
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-05-08T09:22:03.6570000">5/8/2013</span>
@@ -1982,7 +2322,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                7,238,364
+                                                8,938,403
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-04-25T04:48:23.9670000">4/25/2013</span>
@@ -2010,7 +2350,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                744,860
+                                                754,204
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-04-14T01:30:54.2270000">4/14/2013</span>
@@ -2038,7 +2378,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                721,818
+                                                727,207
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-04-08T11:51:51.7530000">4/8/2013</span>
@@ -2066,7 +2406,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                8,703,596
+                                                10,650,624
                                             </td>
                                             <td>
                                                 <span data-datetime="2013-04-07T07:19:15.4330000">4/7/2013</span>
@@ -2094,7 +2434,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                14,053,002
+                                                14,788,568
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-11-20T10:02:18.9830000">11/20/2012</span>
@@ -2122,7 +2462,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                886,721
+                                                906,599
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-10-07T20:20:44.0330000">10/7/2012</span>
@@ -2150,7 +2490,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                886,603
+                                                907,195
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-09-08T10:48:50.6700000">9/8/2012</span>
@@ -2178,7 +2518,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                795,799
+                                                817,706
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-08-04T02:50:14.4370000">8/4/2012</span>
@@ -2206,7 +2546,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                820,231
+                                                839,325
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-06-09T07:42:21.5470000">6/9/2012</span>
@@ -2234,7 +2574,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                7,182,187
+                                                7,930,859
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-05-30T08:23:30.1930000">5/30/2012</span>
@@ -2262,7 +2602,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                486,852
+                                                498,947
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-05-08T09:08:45.2570000">5/8/2012</span>
@@ -2290,7 +2630,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                515,697
+                                                520,829
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-04-24T22:16:19.8570000">4/24/2012</span>
@@ -2318,7 +2658,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                426,100
+                                                433,696
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-04-13T14:02:58.7770000">4/13/2012</span>
@@ -2346,7 +2686,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                385,534
+                                                390,715
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-04-11T11:18:28.6870000">4/11/2012</span>
@@ -2374,7 +2714,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                2,314,979
+                                                2,438,907
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-03-20T09:12:47.3800000">3/20/2012</span>
@@ -2402,7 +2742,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                1,157,888
+                                                1,171,902
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-02-12T01:55:12.1670000">2/12/2012</span>
@@ -2430,7 +2770,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                649,980
+                                                656,270
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-01-24T09:35:40.1270000">1/24/2012</span>
@@ -2458,7 +2798,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                423,102
+                                                427,665
                                             </td>
                                             <td>
                                                 <span data-datetime="2012-01-23T07:56:04.6900000">1/23/2012</span>
@@ -2486,7 +2826,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                1,005,699
+                                                1,101,617
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-12-10T21:17:16.2630000">12/10/2011</span>
@@ -2514,7 +2854,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                422,044
+                                                426,407
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-11-19T09:38:20.1430000">11/19/2011</span>
@@ -2542,7 +2882,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                532,988
+                                                547,339
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-10-02T02:29:53.2830000">10/2/2011</span>
@@ -2570,7 +2910,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                928,804
+                                                942,532
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-04-23T04:49:46.6770000">4/23/2011</span>
@@ -2598,7 +2938,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                796,532
+                                                824,218
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-04-22T01:18:06.2870000">4/22/2011</span>
@@ -2626,7 +2966,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                                 </a>
                                             </td>
                                             <td>
-                                                4,101,024
+                                                4,524,115
                                             </td>
                                             <td>
                                                 <span data-datetime="2011-01-08T22:12:57.7130000">1/8/2011</span>
@@ -2667,15 +3007,15 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                     <div class="download-info">
                         <div class="download-info-row">
                             <span class="download-info-header">Total</span>
-                            <span class="download-info-content">5.5B</span>
+                            <span class="download-info-content">6.6B</span>
                         </div>
                         <div class="download-info-row">
                             <span class="download-info-header">Current version</span>
-                            <span class="download-info-content">319.1M</span>
+                            <span class="download-info-content">588.1M</span>
                         </div>
                         <div class="download-info-row">
                             <span class="download-info-header">Per day average</span>
-                            <span class="download-info-content">1.1M</span>
+                            <span class="download-info-content">1.2M</span>
                         </div>
                     </div>
                 </div>
@@ -2704,8 +3044,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
 
                             <li>
                                 <i class="ms-Icon ms-Icon--Certificate" aria-hidden="true"></i>
-<a href="https://licenses.nuget.org/MIT" aria-label="License MIT">MIT</a>                                    license
-                            </li>
+<a href="https://licenses.nuget.org/MIT" aria-label="License MIT">MIT license</a>                            </li>
 
                         <li>
                             <i class="ms-Icon ms-Icon--CloudDownload" aria-hidden="true"></i>
@@ -2818,10 +3157,10 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                                     onerror="this.src='https://nuget.org/Content/gallery/img/facebook-24x24.png'; this.onerror = null;"
  />
                     </a>
-                    <a href="https://twitter.com/intent/tweet?url=https://nuget.org/packages/Newtonsoft.Json/&text=Check+out+Newtonsoft.Json+on+%23NuGet." target="_blank" rel="nofollow noreferrer">
-                        <img width="24" height="24" alt="Tweet this package"
-                                src="https://nuget.org/Content/gallery/img/twitter.svg"
-                                    onerror="this.src='https://nuget.org/Content/gallery/img/twitter-24x24.png'; this.onerror = null;"
+                    <a href="https://x.com/intent/post?url=https://nuget.org/packages/Newtonsoft.Json/&text=Check+out+Newtonsoft.Json+on+%23NuGet." target="_blank" rel="nofollow noreferrer">
+                        <img width="24" height="24" alt="Share this package on X"
+                                src="https://nuget.org/Content/gallery/img/x.svg"
+                                    onerror="this.src='https://nuget.org/Content/gallery/img/x-24x24.png'; this.onerror = null;"
  />
                     </a>
                         <a href="/packages/Newtonsoft.Json/atom.xml" data-track="atom-feed">
@@ -2872,7 +3211,7 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
                 <div class="row">
                         <div class="col-md-12 footer-release-info">
                             <p>
-                                        &#169; Microsoft 2024 -
+                                        &#169; Microsoft 2025 -
 
                                 <a href="/policies/About">About</a> -
                                 <a href="/policies/Terms">Terms of Use</a> -
@@ -2886,38 +3225,38 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
         </div>
     </div>
 <!--
-    This is the NuGet Gallery version 5.0.0-main-10444721.
-        Deployed from dababdc2a6 Link: https://www.github.com/NuGet/NuGetGallery/commit/dababdc2a6
+    This is the NuGet Gallery version 5.0.0-main-12088480.
+        Deployed from 6655bb367c Link: https://www.github.com/NuGet/NuGetGallery/commit/6655bb367c
         Built on master Link: https://www.github.com/NuGet/NuGetGallery/tree/master
-        Built on 2024-10-24T04:10:42.0433117+00:00
-    Deployment label: PROD-USNC.ASE-5.0.0-main-10444721
-    You are on AW0MDWK00002U.
+        Built on 2025-08-01T18:41:36.3407770+00:00
+    Deployment label: PROD-USNC.ASE-5.0.0-main-12088480
+    You are on AW0MDWK000038.
 -->
 
 </footer>
 
-        <script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+        <script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js" nonce="9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ="></script>
 
-    <script src="/Scripts/gallery/site.min.js?v=8A55APczSWXzIupfcK7uWkeG_i-zVg0EvH1ZHn_ZMlY1"></script>
-
+    <script src="/Scripts/gallery/site.min.js?v=yvMAhX_Bwj39u_zPHHwzhhkqs9lRhigTp0EiholC7Xc1" nonce='9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ='></script>
+;
     
 
 
-    <style type="text/css">
-        #dotnet-cli .install-command-row::before {    content: "> "}#package-manager .install-command-row::before {    content: "PM> "}#paket-cli .install-command-row::before {    content: "> "}#script-interactive .install-command-row::before {    content: "> "}
+    <style type="text/css" nonce="9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ=">
+        #dotnet-cli .install-command-row::before {    content: "> "}#package-manager .install-command-row::before {    content: "PM> "}#script-interactive .install-command-row::before {    content: "> "}
     </style>
 
-    <script type="text/javascript">
+    <script type="text/javascript" nonce="9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ=">
         var packageId = "Newtonsoft.Json";
         var packageVersion = "13.0.3";
-        var packageManagers = ["dotnet-cli","package-manager","package-reference","paket-cli","script-interactive","cake"];
+        var packageManagers = ["dotnet-cli-0001","package-manager-0001","package-reference-0001","package-version-0001","package-version-0002","paket-cli-0001","script-interactive-0001","dotnet-run-file-0001","cake-0001","cake-0002"];
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js" integrity="sha512-gU7kztaQEl7SHJyraPfZLQCNnrKdaQi5ndOyt4L4UPL/FHDd/uB9Je6KDARIqwnNNE27hnqoWLBq+Kpe4iHfeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/fsharp.min.js" integrity="sha512-DXYctkkhmMYJ4vYp4Dm6jprD4ZareZ7ud/d9mGCKif/Dt3FnN95SjogHvwKvxXHoMAAkZX6EO6ePwpDIR1Y8jw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/dos.min.js" integrity="sha512-mz4SrGyk+dtPY9MNYOMkD81gp8ajViZ4S0VDuM/Zqg40cg9xgIBYSiL5fN79Htbz4f2+uR9lrDO6mgcjM+NAXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/powershell.min.js" integrity="sha512-pnt8OPBTOklRd4/iSW7msOiCVO4uvffF17Egr3c7AaN0h3qFnSu7L6UmdZJUCednMhhruTLRq7X9WbyAWNBegw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
+        <script nonce="9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ=">
         document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelectorAll('pre code').forEach((el) => {
                 hljs.highlightElement(el);
@@ -2925,8 +3264,8 @@ This package was built from the source code at https://github.com/dotnet/aspnetc
         });
         </script>
 
-    <script src="/Scripts/gallery/page-display-package.min.js?v=F8dGhNzBInq9tQ4nnK2Vko96gIoks5Y2mwmj7qU5qsA1"></script>
-
+    <script src="/Scripts/gallery/page-display-package.min.js?v=F8dGhNzBInq9tQ4nnK2Vko96gIoks5Y2mwmj7qU5qsA1" nonce='9MQU+mmhezCbKVQ+keTKDns/TWtysuCTFFZ1Er7LtGQ='></script>
+;
 
 </body>
 </html>

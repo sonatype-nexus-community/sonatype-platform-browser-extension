@@ -26,6 +26,7 @@ import { MessageRequestExtensionDataUpdated } from '../common/message/types'
 import { ActiveInfo, ChangeInfo, TabType, WindowType } from '../common/types'
 import { loadExtensionDataAndSettings } from '../service/helpers'
 import MainSidePanel from './components/main'
+import { lastRuntimeError } from '../common/message/helpers'
 
 const domNode = document.getElementById('root')
 domNode?.setAttribute('class', '')
@@ -33,23 +34,52 @@ const root = createRoot(domNode!)
 
 // Subscribe to tab changes
 ThisBrowser.tabs.query({ active: true, currentWindow: true }).then((tabs: TabType[]) => {
+    const lastError = lastRuntimeError()
+    if (lastError) {
+        logger.logReact('Runtime Error in Side Panel#tabs-query', LogLevel.WARN, lastError)
+    }
+    
     logger.logReact('Setting initial active Tab', LogLevel.DEBUG, tabs)
-    chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${tabs.pop()?.id}#1` })
+    chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${tabs.pop()?.id}#1` }).then(() => {
+        const lastError = lastRuntimeError()
+        if (lastError) {
+            logger.logReact('Runtime Error in Side Panel#tabs-query-sidepanel-setOptions', LogLevel.WARN, lastError)
+        }
+    })
 })
 ThisBrowser.tabs.onActivated.addListener(async (activeInfo: ActiveInfo) => {
     logger.logReact('SidePanel Tab onActivated', LogLevel.DEBUG, activeInfo)
     ThisBrowser.windows.getCurrent().then((window: WindowType) => {
+        const lastError = lastRuntimeError()
+        if (lastError) {
+            logger.logReact('Runtime Error in Side Panel#tabs-onActitvated', LogLevel.WARN, lastError)
+        }
         if (window && window.id === activeInfo.windowId) {
-            chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${activeInfo.tabId}#2` })
+            chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${activeInfo.tabId}#2` }).then(() => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in Side Panel#tabs-onActitvated-sidepanel-setOptions', LogLevel.WARN, lastError)
+                }
+            })
         }
     })
 })
 ThisBrowser.tabs.onUpdated.addListener((tabId: number, changeInfo: ChangeInfo, tab: TabType) => {
     logger.logReact(`SidePanel Tab handleOnUpdated: `, LogLevel.DEBUG, tabId, changeInfo, tab)
     ThisBrowser.windows.getCurrent().then((window: WindowType) => {
+        const lastError = lastRuntimeError()
+        if (lastError) {
+            logger.logReact('Runtime Error in Side Panel#tabs-onUpdated', LogLevel.WARN, lastError)
+        }
+
         if (window && window.id === tab.windowId) {
             if (changeInfo.status == 'complete' && tab.active && tab.url !== undefined) {
-                chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${tab.id}#3` })
+                chrome.sidePanel.setOptions({ path: `side-panel.html?tabId=${tab.id}#3` }).then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in Side Panel#tabs-onUpdated-sidepanel-setOptions', LogLevel.WARN, lastError)
+                    }
+                })
             }
         }
     })

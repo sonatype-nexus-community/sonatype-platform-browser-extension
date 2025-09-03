@@ -362,5 +362,143 @@
     "GOLDEN_VERSION": {
         "message": "黄金版",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "组件（包括其依赖项）的安全使用版本，无破坏性更改，无策略违规",
+        "description": "参见 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "无策略违规的下一个版本",
+        "description": "参见 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "无策略操作失败的下一个版本",
+        "description": "参见 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "此组件及其依赖项无策略违规的下一个版本",
+        "description": "参见 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "此组件及其依赖项无策略操作失败的下一个版本",
+        "description": "参见 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "参见 Sonatype IQ Server",
+        "description": "当 API 不提供修复类型时的后备方案"
+    },
+    "CONNECTED_TO": {
+        "message": "已连接到",
+        "description": "在状态中用于声明与 Sonatype IQ 的连接状态"
+    },
+    "NOT_CONFIGURED": {
+        "message": "未配置",
+        "description": "在状态中用于解释未连接到 Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "配置扩展",
+        "description": "侧面板中齿轮图标使用的工具提示文本"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "策略违规",
+        "description": "策略违规摘要指示器的标签"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "返回组件",
+        "description": "侧面板中返回组件的文本链接"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV 状态",
+        "description": "侧面板中 KEV 状态的标签"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "已知被利用",
+        "description": "当 KEV === true 时显示的词语"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "未知被利用",
+        "description": "当 KEV === false 时显示的词语"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "CVE 描述",
+        "description": "存在时 NVD 描述的手风琴标题。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype 解释",
+        "description": "Sonatype 解释的手风琴标题。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype 建议",
+        "description": "Sonatype 建议的手风琴标题。"
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "检测",
+        "description": "检测详情的手风琴标题。"
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "通告",
+        "description": "通告详情的手风琴标题。"
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "无通告。",
+        "description": "当没有通告时在通告手风琴中显示的文本。"
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "其他详情",
+        "description": "其他详情 / 元信息的手风琴标题。"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "快速通道",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK 的文本名称"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "深度分析",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE 的文本名称"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "公共研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH 的文本名称"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "供应商研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH 的文本名称"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "选择组件",
+        "description": "在给定页面上发现多个组件标识时组件选择器的标题。"
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "识别出多个组件 - 选择要查看详情的组件",
+        "description": "COMPONENTS_SELECT_COMPONENT 下方的子标签"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "快到了...",
+        "description": "查看受支持的注册表但可能是没有组件标识的页面时侧面板中的标题。"
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ 是此扩展支持的开源注册表，但您需要导航到更具体的页面以获取组件智能。",
+        "description": "查看受支持的注册表但可能是没有组件标识的页面时侧面板中的内容。",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "真尴尬...",
+        "description": "发生意外错误时侧面板中的标题。"
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "发生了意外错误。尝试重新加载此页面；也许检查您是否可以访问您的 Sonatype IQ Server？最后，您可以尝试重新加载此扩展。",
+        "description": "发生意外错误时侧面板中的内容。"
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "当前站点不受此扩展支持。",
+        "description": "查看不是受支持注册表的页面时侧面板中的标题。"
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "我们可能尝试为您关闭此侧面板（但您的浏览器忽略了我们的请求 😔）- 只需点击 X（右上角）暂时隐藏此侧面板。",
+        "description": "查看不是受支持注册表的页面时侧面板中的内容。"
     }
 }

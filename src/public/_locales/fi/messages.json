@@ -362,5 +362,143 @@
     "GOLDEN_VERSION": {
         "message": "Kultainen versio",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Turvallinen käyttöversio komponentista (mukaan lukien sen riippuvuudet) ilman tuloksena olevia rikkovia muutoksia, ilman käytäntörikkomusta/rikkomuksia",
+        "description": "Katso https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Seuraava versio ilman käytäntörikkomusta/rikkomuksia",
+        "description": "Katso https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Seuraava versio ilman käytäntötoiminnon epäonnistumista/epäonnistumisia",
+        "description": "Katso https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Seuraava versio ilman käytäntörikkomusta/rikkomuksia tälle komponentille ja sen riippuvuuksille",
+        "description": "Katso https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Seuraava versio ilman käytäntötoiminnon epäonnistumista/epäonnistumisia tälle komponentille ja sen riippuvuuksille",
+        "description": "Katso https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Katso Sonatype IQ Server",
+        "description": "Varajärjestely siinä tapauksessa, että API ei tarjoa korjaustyyppiä"
+    },
+    "CONNECTED_TO": {
+        "message": "Yhdistetty kohteeseen",
+        "description": "Käytetään tilassa ilmaisemaan yhteystilatusta Sonatype IQ:n kanssa"
+    },
+    "NOT_CONFIGURED": {
+        "message": "Ei määritetty",
+        "description": "Käytetään tilassa selittämään, että ei ole yhteydessä Sonatype IQ:hun"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Määritä laajennus",
+        "description": "Työkaluvihjeteksti, jota käytetään hammaspyöräkuvakkeelle sivupaneelissa"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Käytäntörikkomukset",
+        "description": "Merkintä käytäntörikkomusten yhteenvetoindikaattorille"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Takaisin komponenttiin",
+        "description": "Tekstilinkki palataksesi komponenttiin sivupaneelissa"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV-tila",
+        "description": "Merkintä sivupaneelissa KEV-tilalle"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Tiedetään hyödynnettävän",
+        "description": "Sanat näytettäväksi jos KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "Ei tiedetä hyödynnettävän",
+        "description": "Sanat näytettäväksi jos KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Kuvaus CVE:stä",
+        "description": "Haitariotsikko kuvaukselle NVD:stä kun saatavilla."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatyben selitys",
+        "description": "Haitariotsikko Sonatyben selitykselle."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatyben suositus",
+        "description": "Haitariotsikko Sonatyben suositukselle."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Havaitseminen",
+        "description": "Haitariotsikko havaitsemistiedoille."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Neuvot",
+        "description": "Haitariotsikko neuvotiedoille."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "Ei neuvoja.",
+        "description": "Teksti näytetään neuvohaitarissa kun neuvoja ei ole."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Muut tiedot",
+        "description": "Haitariotsikko muille tiedoille / metatiedoille."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Pikarata",
+        "description": "Tekstinimi SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK:lle"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Syvä sukellus",
+        "description": "Tekstinimi SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE:lle"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Julkinen tutkimus",
+        "description": "Tekstinimi SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH:lle"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Toimittajan tutkimus",
+        "description": "Tekstinimi SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH:lle"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Valitse komponentti",
+        "description": "Otsikko komponenttivalitsimelle, jossa useita komponentti-identiteettejä löytyy tietyllä sivulla."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Useita komponentteja tunnistettu - valitse mistä nähdä tiedot",
+        "description": "Ala-merkintä COMPONENTS_SELECT_COMPONENT:n alla"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Melkein siellä...",
+        "description": "Otsikko sivupaneelissa kun katsotaan tuettua rekisteriä mutta ehkä sivua jossa ei ole komponentti-identiteettejä."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ on tuettu avoimen lähdekoodin rekisteri tälle laajennukselle, mutta sinun täytyy navigoida tarkempaan sivuun komponenttiteknologiaa varten.",
+        "description": "Sisältö sivupaneelissa kun katsotaan tuettua rekisteriä mutta ehkä sivua jossa ei ole komponentti-identiteettejä.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "Kuinka noloa...",
+        "description": "Otsikko sivupaneelissa kun on odottamaton virhe."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "On tapahtunut odottamaton virhe. Yritä ladata tämä sivu uudelleen; ehkä tarkista että pääset käsiksi Sonatype IQ Server -palvelimeesi? Lopuksi, voit yrittää ladata tämän laajennuksen uudelleen.",
+        "description": "Sisältö sivupaneelissa kun on odottamaton virhe."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "Nykyistä sivustoa ei tue tämä laajennus.",
+        "description": "Otsikko sivupaneelissa kun katsotaan sivua joka ei ole tuettu rekisteri."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "Luultavasti yritimme sulkea tämän sivupaneelin puolestasi (ja selaimesi jätti pyyntömme huomiotta 😔) - vain paina X:ää (oikeassa yläkulmassa) piilottaaksesi tämän sivupaneelin toistaiseksi.",
+        "description": "Sisältö sivupaneelissa kun katsotaan sivua joka ei ole tuettu rekisteri."
     }
 }

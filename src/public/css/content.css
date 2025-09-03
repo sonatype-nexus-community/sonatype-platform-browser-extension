@@ -82,3 +82,21 @@
     vertical-align: middle;
     padding-right: 10px;
 }
+
+/* NXRM 3 Custom Styling */
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title {
+    padding: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom-width: 6px !important;
+}
+
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-pending:before,
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-policy-violation-critical:before,
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-policy-violation-severe:before,
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-policy-violation-moderate:before,
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-policy-violation-low:before,
+.sonatype-extension.sonatype-nxrm3.sonatype-page-title.sonatype-policy-violation-none:before {
+    content: none !important;
+}

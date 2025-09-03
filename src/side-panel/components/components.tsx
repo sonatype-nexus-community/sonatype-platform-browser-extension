@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { faCog } from "@fortawesome/free-solid-svg-icons"
-import { NxButton, NxFontAwesomeIcon, NxLoadingSpinner } from "@sonatype/react-shared-components"
-import React, { useContext, useEffect, useState } from "react"
-import { ThisBrowser } from "../../common/constants"
-import { ExtensionConfigurationContext } from "../../common/context/extension-configuration"
-import { ExtensionTabDataContext } from "../../common/context/extension-tab-data"
-import { ComponentData, TabDataStatus } from "../../common/data/types"
-import { logger, LogLevel } from "../../common/logger"
-import Component from "./component"
-import ComponentSelector from "./component-selector"
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { NxButton, NxFontAwesomeIcon, NxLoadingSpinner } from '@sonatype/react-shared-components'
+import React, { useContext, useEffect, useState } from 'react'
+import { Analytics } from '../../common/analytics/analytics'
+import { ThisBrowser } from '../../common/constants'
+import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
+import { ExtensionTabDataContext } from '../../common/context/extension-tab-data'
+import { ComponentData, TabDataStatus } from '../../common/data/types'
+import { logger, LogLevel } from '../../common/logger'
+import Component from './component'
+import ComponentSelector from './component-selector'
+import NoComponentsIdentified from './no-components-identified'
+import TabError from './tab-error'
+import UnsupportedSite from './unsupported-registry'
+import { lastRuntimeError } from '../../common/message/helpers'
 
 export default function Components() {
+    const analytics = new Analytics()
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
     const extensionTabDataContext = useContext(ExtensionTabDataContext)
-    
+
     const [componentPurls, setComponentPurls] = useState<Array<string>>([])
     const [currentComponent, setCurrentComponent] = useState<ComponentData | undefined>(undefined)
     const [currentPurl, setCurrentPurl] = useState<string>('')
@@ -37,18 +43,24 @@ export default function Components() {
             const newPurls = Object.keys(extensionTabDataContext.components)
             if (extensionTabDataContext.status === TabDataStatus.COMPLETE) {
                 // Sort arrays using localeCompare for proper string comparison
-                const sortedCurrentPurls = [...componentPurls].sort((a, b) => a.localeCompare(b));
-                const sortedNewPurls = [...newPurls].sort((a, b) => a.localeCompare(b));
-                
+                const sortedCurrentPurls = [...componentPurls].sort((a, b) => a.localeCompare(b))
+                const sortedNewPurls = [...newPurls].sort((a, b) => a.localeCompare(b))
+
                 // Compare arrays element by element instead of JSON stringify
-                const arraysAreEqual = sortedCurrentPurls.length === sortedNewPurls.length &&
-                    sortedCurrentPurls.every((purl, index) => purl === sortedNewPurls[index]);
-                
+                const arraysAreEqual =
+                    sortedCurrentPurls.length === sortedNewPurls.length &&
+                    sortedCurrentPurls.every((purl, index) => purl === sortedNewPurls[index])
+
                 if (!arraysAreEqual) {
-                    logger.logReact("Setting Component Purls", LogLevel.DEBUG, newPurls);
-                    setComponentPurls(newPurls);
-                    setCurrentPurl(newPurls[0]);
-                    setCurrentComponent(extensionTabDataContext.components[newPurls[0]]);
+                    logger.logReact('Setting Component Purls', LogLevel.DEBUG, newPurls)
+                    setComponentPurls(newPurls)
+                    setCurrentPurl(newPurls[0])
+                    setCurrentComponent(extensionTabDataContext.components[newPurls[0]])
+
+                    analytics.firePageViewEvent(
+                        `Side Panel Component: ${newPurls[0]}`,
+                        window.location.href,
+                    )
                 }
             }
         }
@@ -56,81 +68,82 @@ export default function Components() {
 
     useEffect(() => {
         if (currentPurl != '' && extensionTabDataContext.components[currentPurl]) {
-            logger.logReact("Current ComponentData updated", LogLevel.DEBUG, extensionTabDataContext.components[currentPurl])
+            logger.logReact(
+                'Current ComponentData updated',
+                LogLevel.DEBUG,
+                extensionTabDataContext.components[currentPurl]
+            )
             setCurrentComponent(extensionTabDataContext.components[currentPurl])
         }
     }, [currentPurl, extensionTabDataContext.components])
 
     function setComponentByPurl(purl: string) {
-        logger.logReact("Request to change displayed Component", LogLevel.DEBUG, purl)
+        logger.logReact('Request to change displayed Component', LogLevel.DEBUG, purl)
         try {
             setCurrentPurl(purl)
             setCurrentComponent(extensionTabDataContext.components[purl])
+
+            analytics.firePageViewEvent(
+                `Side Panel Component: ${purl}`,
+                window.location.href,
+            )
         } catch (err) {
-            logger.logReact("Selected PURL is not indexed for this Tab", LogLevel.ERROR, purl, err)
+            logger.logReact('Selected PURL is not indexed for this Tab', LogLevel.ERROR, purl, err)
         }
     }
 
     function renderBasedOnTabStatus() {
         switch (extensionTabDataContext.status) {
             case TabDataStatus.EVALUATING:
-                return (
-                    <NxLoadingSpinner />
-                )
-            
+                return <NxLoadingSpinner />
+
             case TabDataStatus.NO_COMPONENTS:
-                return (
-                    <section className="nx-tile" aria-label="No Components Identified">
-                        <header className="nx-tile-header">
-                            <hgroup className="nx-tile-header__headings">
-                            <div className="nx-tile-header__title">
-                                <h2 className="nx-h2">No Components Identified</h2>
-                            </div>
-                            <h3 className="nx-tile-header__subtitle">
-                                You might not be on the right page yet!
-                            </h3>
-                            </hgroup>
-                        </header>
-                        <div className="nx-tile-content">
-                            ADD SOME INSTRUCTIONS AND POINTERS HERE.
-                        </div>
-                    </section>
-                )
-        
+                return <NoComponentsIdentified repoTypeId={extensionTabDataContext.repoTypeId} />
+
             case TabDataStatus.ERROR:
-                return (
-                    <>There was an error :-(</>
-                )
-            
+                return <TabError />
+
             case TabDataStatus.COMPLETE:
                 return (
                     <>
                         {componentPurls.length > 1 && (
-                            <ComponentSelector componentPurls={componentPurls} selectedComponent={currentPurl} setPurl={setComponentByPurl} />
+                            <ComponentSelector
+                                componentPurls={componentPurls}
+                                selectedComponent={currentPurl}
+                                setPurl={setComponentByPurl}
+                            />
                         )}
                         <Component component={currentComponent!} />
                     </>
                 )
-        
+
             case TabDataStatus.NOT_SUPPORTED:
             default:
-                return (
-                    <>The current site is not supported.</>
-                )
-
+                return <UnsupportedSite />
         }
     }
 
     return (
         <>
-            <header className="nx-global-header">
-                <span role="status" className="nx-status-indicator nx-status-indicator--positive">Connected to Sonatype IQ {extensionConfigContext.iqVersion}</span>
-                <div className="nx-global-header__actions">
-                    <NxButton title="Access Sonatype IQ" variant="icon-only" onClick={() => {
-                        ThisBrowser.tabs.create({
-                            url: extensionConfigContext.host
-                        })
-                    }}>
+            <header className='nx-global-header'>
+                <span role='status' className='nx-status-indicator nx-status-indicator--positive'>
+                    {ThisBrowser.i18n.getMessage('CONNECTED_TO')} {ThisBrowser.i18n.getMessage('SONATYPE_IQ_SERVER')}{' '}
+                    {extensionConfigContext.iqVersion}
+                </span>
+                <div className='nx-global-header__actions'>
+                    <NxButton
+                        title={`Access ${ThisBrowser.i18n.getMessage('SONATYPE_IQ_SERVER')}`}
+                        variant='icon-only'
+                        onClick={() => {
+                            ThisBrowser.tabs.create({
+                                url: extensionConfigContext.host,
+                            }).then(() => {
+                                const lastError = lastRuntimeError()
+                                if (lastError) {
+                                    logger.logReact('Runtime Error in Components#tabs-create-iq', LogLevel.WARN, lastError)
+                                }
+                            })
+                        }}>
                         <img
                             id='iq-server-button-icon'
                             alt='Sonatype IQ Server Icon'
@@ -138,16 +151,24 @@ export default function Components() {
                             height={'20'}
                             width={'20'}></img>
                     </NxButton>
-                    <NxButton title="Configure Extension" variant="icon-only" onClick={() => {
-                        ThisBrowser.tabs.create({
-                            url: 'options.html'
-                        })
-                    }}><NxFontAwesomeIcon icon={faCog} /></NxButton>
+                    <NxButton
+                        title={ThisBrowser.i18n.getMessage('CONFIGURE_EXTENSION')}
+                        variant='icon-only'
+                        onClick={() => {
+                            ThisBrowser.tabs.create({
+                                url: 'options.html',
+                            }).then(() => {
+                                const lastError = lastRuntimeError()
+                                if (lastError) {
+                                    logger.logReact('Runtime Error in Components#tabs-create-options', LogLevel.WARN, lastError)
+                                }
+                            })
+                        }}>
+                        <NxFontAwesomeIcon icon={faCog} />
+                    </NxButton>
                 </div>
             </header>
             {renderBasedOnTabStatus()}
         </>
     )
-
-    
 }

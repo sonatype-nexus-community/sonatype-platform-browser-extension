@@ -370,5 +370,143 @@
     "GOLDEN_VERSION": {
         "message": "Versão Dourada",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Versão segura do componente (incluindo suas dependências) sem mudanças disruptivas resultantes, sem violação(ões) de política",
+        "description": "Veja https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Próxima versão sem violação(ões) de política",
+        "description": "Veja https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Próxima versão sem falha(s) de ação de política",
+        "description": "Veja https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Próxima versão sem violação(ões) de política para este componente e suas dependências",
+        "description": "Veja https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Próxima versão sem falha(s) de ação de política para este componente e suas dependências",
+        "description": "Veja https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Veja Sonatype IQ Server",
+        "description": "Substituto caso a API não forneça um tipo de remediação"
+    },
+    "CONNECTED_TO": {
+        "message": "Conectado a",
+        "description": "Usado no status para declarar o status de conexão com Sonatype IQ"
+    },
+    "NOT_CONFIGURED": {
+        "message": "Não configurado",
+        "description": "Usado no status para explicar que não está conectado ao Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Configurar extensão",
+        "description": "Texto de dica usado para o ícone de engrenagem no painel lateral"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Violações de política",
+        "description": "Rótulo para o indicador de resumo de violações de política"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Voltar ao componente",
+        "description": "Link textual para voltar ao componente no painel lateral"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "Status KEV",
+        "description": "Rótulo no painel lateral para o status KEV"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Conhecido por ser explorado",
+        "description": "Palavras para exibir se KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "Não conhecido por ser explorado",
+        "description": "Palavras para exibir se KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Descrição do CVE",
+        "description": "Cabeçalho de acordeão para descrição do NVD quando presente."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Explicação da Sonatype",
+        "description": "Cabeçalho de acordeão para a explicação da Sonatype."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Recomendação da Sonatype",
+        "description": "Cabeçalho de acordeão para a recomendação da Sonatype."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Detecção",
+        "description": "Cabeçalho de acordeão para detalhes de detecção."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Avisos",
+        "description": "Cabeçalho de acordeão para detalhes de avisos."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "Nenhum aviso.",
+        "description": "Texto exibido no acordeão de avisos quando não há avisos."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Outros detalhes",
+        "description": "Cabeçalho de acordeão para outros detalhes / informações meta."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Via rápida",
+        "description": "Nome textual para SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Análise profunda",
+        "description": "Nome textual para SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Pesquisa pública",
+        "description": "Nome textual para SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Pesquisa do fornecedor",
+        "description": "Nome textual para SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Selecionar componente",
+        "description": "Título para o seletor de componentes onde múltiplas identidades de componentes são encontradas numa página."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Múltiplos componentes identificados - escolha qual ver detalhes",
+        "description": "Sub-rótulo abaixo de COMPONENTS_SELECT_COMPONENT"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Quase lá...",
+        "description": "Título no painel lateral ao visualizar um registro suportado mas talvez uma página onde não há identidades de componentes."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ é um registro de código aberto suportado para esta extensão, mas você precisa navegar para uma página mais específica para inteligência de componentes.",
+        "description": "Conteúdo no painel lateral ao visualizar um registro suportado mas talvez uma página onde não há identidades de componentes.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "Que constrangimento...",
+        "description": "Título no painel lateral quando há um erro inesperado."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "Houve um erro inesperado. Tente recarregar esta página; talvez verifique se você pode acessar seu Sonatype IQ Server. Por último, você pode tentar recarregar esta extensão.",
+        "description": "Conteúdo no painel lateral quando há um erro inesperado."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "O site atual não é suportado por esta extensão.",
+        "description": "Título no painel lateral ao visualizar uma página que não é um registro suportado."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "Provavelmente tentamos fechar este painel lateral para você (e seu navegador ignorou nossa solicitação 😔) - apenas clique no X (canto superior direito) para ocultar este painel lateral por enquanto.",
+        "description": "Conteúdo no painel lateral ao visualizar uma página que não é um registro suportado."
     }
 }

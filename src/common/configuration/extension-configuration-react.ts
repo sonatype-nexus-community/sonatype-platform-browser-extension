@@ -16,6 +16,7 @@
 import { PackageURL } from "packageurl-js"
 import { ThisBrowser } from "../constants"
 import { logger, LogLevel } from "../logger"
+import { lastRuntimeError } from "../message/helpers"
 import { TabType } from "../types"
 import { ExtensionConfigurationState } from "./extension-configuration"
 
@@ -32,6 +33,11 @@ export class ExtensionConfigurationStateReact extends ExtensionConfigurationStat
     public loadSessionDataForCurrentTab = (): Promise<null> => {
         // Load Purls for this Tab from Session Storage
         return ThisBrowser.tabs.query({ active: true, currentWindow: true }).then((tabs: chrome.tabs.Tab[] | browser.tabs.Tab[]) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in ExtensionConfigurationStateReactloadSessionDataForCurrentTab', LogLevel.WARN, lastError)
+            }
+            
             [this.currentTab] = tabs
             const sessionKey = `Purls-Tab-${this.currentTab.id}`
             return ThisBrowser.storage.session.get(sessionKey).then((items: object) => {

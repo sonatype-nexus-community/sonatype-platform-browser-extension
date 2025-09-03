@@ -29,7 +29,7 @@ export type PortType = chrome.runtime.Port | browser.runtime.Port
 
 export type RemoveInfo = chrome.tabs.OnRemovedInfo | browser.tabs._OnRemovedRemoveInfo
 
-export type RuntimeLastError = chrome.runtime.LastError | browser.runtime._LastError
+export type RuntimeLastError = chrome.runtime.LastError | browser.runtime._LastError | undefined
 
 export type TabType = chrome.tabs.Tab | browser.tabs.Tab
 

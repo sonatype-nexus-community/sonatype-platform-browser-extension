@@ -27,7 +27,7 @@ export class PkgGoDevRepo extends BaseRepo {
 
     readonly purlType: string = PURL_TYPE_GOLANG
 
-    readonly titleSelector: string = 'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader > h1'
+    readonly titleSelector: string = 'body > main > header > div.go-Main-headerContent > div.go-Main-headerTitle.js-stickyHeader'
 
     readonly versionPath: string = '{groupAndArtifactId}/@{version}'
 

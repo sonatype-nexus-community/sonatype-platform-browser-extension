@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Analytics } from '../../../common/analytics/analytics'
 import { ExtensionConfigurationState } from '../../../common/configuration/extension-configuration'
 import { ExtensionConfiguration } from '../../../common/configuration/types'
 import {
-    ThisBrowser,
     STORAGE_KEY_SETTINGS,
-    STORAGE_KEY_VULNERABILITIES,
     STORAGE_KEY_TABS,
+    STORAGE_KEY_VULNERABILITIES,
+    ThisBrowser,
 } from '../../../common/constants'
 import { ExtensionTabsData, ExtensionVulnerabilitiesData } from '../../../common/data/types'
 import { logger, LogLevel } from '../../../common/logger'
@@ -36,7 +37,8 @@ import { IqMessageHelper } from '../helpers/iq'
 export abstract class BaseRuntimeOnMessageHandler {
     constructor(
         protected readonly extensionConfigurationState: ExtensionConfigurationState,
-        protected readonly iqMessageHelper: IqMessageHelper
+        protected readonly iqMessageHelper: IqMessageHelper,
+        protected readonly analytics: Analytics
     ) {}
 
     abstract handleMessage(

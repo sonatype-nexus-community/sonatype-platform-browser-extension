@@ -61,4 +61,10 @@ export abstract class BasePageParser {
             return null
         }
     }
+
+    removeAnnotations = () => {
+        logger.logContent(`Removing classes from ${this.repoType.titleSelector}`, LogLevel.DEBUG)
+        $(this.repoType.titleSelector).removeClass('sonatype-page-title')
+        $(this.repoType.titleSelector).removeClass('sonatype-pending')
+    }
 }

@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ANALYTICS_EVENT_TYPES } from '../../../common/analytics/analytics'
 import { ExtensionConfiguration } from '../../../common/configuration/types'
 import { logger, LogLevel } from '../../../common/logger'
+import { MessageResponseStatus } from '../../../common/message/constants'
 import { MessageRequestIqConnectivityAndVersionCheck, MessageResponseFunction } from '../../../common/message/types'
 import { MessageSender } from '../../../common/types'
 import { BaseRuntimeOnMessageHandler } from './base'
@@ -28,6 +30,7 @@ export class ConnectivityAndVersionCheckMessageHandler extends BaseRuntimeOnMess
                 const newExtensionConfig = this.extensionConfigurationState.getExtensionConfig()
                 newExtensionConfig.iqAuthenticated = msgResp.iqAuthenticated
                 newExtensionConfig.iqLastAuthenticated = msgResp.iqLastAuthenticated.getTime()
+                newExtensionConfig.iqLastError = msgResp.iqLastError
                 newExtensionConfig.iqVersion = msgResp.iqVersion
                 newExtensionConfig.supportsFirewall = msgResp.supportsFirewall
                 newExtensionConfig.supportsLifecycle = msgResp.supportsLifecycle
@@ -36,6 +39,12 @@ export class ConnectivityAndVersionCheckMessageHandler extends BaseRuntimeOnMess
             })
             .then(async (newExtensionConfig: ExtensionConfiguration) => {
                 const msgResp = await this.updateExtensionConfiguration(newExtensionConfig)
+                await this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.IQ_CONNECTION_CHECK,
+                    {
+                        iq_version: msgResp.newConfiguration.iqVersion,
+                    }
+                )
                 sendResponse(msgResp)
             })
     }

@@ -362,5 +362,143 @@
     "GOLDEN_VERSION": {
         "message": "黄金版",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "元件（包括其相依性）的安全使用版本，無破壞性變更，無政策違規",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "無政策違規的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "無政策動作失敗的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "此元件及其相依性無政策違規的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "此元件及其相依性無政策動作失敗的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "請參閱 Sonatype IQ Server",
+        "description": "當 API 不提供修復類型時的備用方案"
+    },
+    "CONNECTED_TO": {
+        "message": "已連線至",
+        "description": "在狀態中用於聲明與 Sonatype IQ 的連線狀態"
+    },
+    "NOT_CONFIGURED": {
+        "message": "未設定",
+        "description": "在狀態中用於解釋未連線至 Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "設定擴充功能",
+        "description": "側邊面板中齒輪圖示使用的工具提示文字"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "政策違規",
+        "description": "政策違規摘要指標的標籤"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "返回元件",
+        "description": "側邊面板中返回元件的文字連結"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV 狀態",
+        "description": "側邊面板中 KEV 狀態的標籤"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "已知被利用",
+        "description": "當 KEV === true 時顯示的文字"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "未知被利用",
+        "description": "當 KEV === false 時顯示的文字"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "CVE 描述",
+        "description": "存在時 NVD 描述的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype 解釋",
+        "description": "Sonatype 解釋的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype 建議",
+        "description": "Sonatype 建議的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "檢測",
+        "description": "檢測詳情的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "通告",
+        "description": "通告詳情的手風琴標題。"
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "無通告。",
+        "description": "當沒有通告時在通告手風琴中顯示的文字。"
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "其他詳情",
+        "description": "其他詳情 / 中繼資訊的手風琴標題。"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "快速通道",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "深度分析",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "公開研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "供應商研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH 的文字名稱"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "選擇元件",
+        "description": "在給定頁面上發現多個元件身分時元件選擇器的標題。"
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "識別出多個元件 - 選擇要檢視詳情的元件",
+        "description": "COMPONENTS_SELECT_COMPONENT 下方的子標籤"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "快要到了...",
+        "description": "檢視受支援的註冊表但可能是沒有元件身分的頁面時側邊面板中的標題。"
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ 是此擴充功能支援的開源註冊表，但您需要導覽至更具體的頁面以取得元件智慧。",
+        "description": "檢視受支援的註冊表但可能是沒有元件身分的頁面時側邊面板中的內容。",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "真糗...",
+        "description": "發生意外錯誤時側邊面板中的標題。"
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "發生了意外錯誤。嘗試重新載入此頁面；也許檢查您是否可以存取您的 Sonatype IQ Server？最後，您可以嘗試重新載入此擴充功能。",
+        "description": "發生意外錯誤時側邊面板中的內容。"
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "目前網站不受此擴充功能支援。",
+        "description": "檢視不是受支援註冊表的頁面時側邊面板中的標題。"
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "我們可能嘗試為您關閉此側邊面板（但您的瀏覽器忽略了我們的請求 😔）- 只需點擊 X（右上角）暫時隱藏此側邊面板。",
+        "description": "檢視不是受支援註冊表的頁面時側邊面板中的內容。"
     }
 }

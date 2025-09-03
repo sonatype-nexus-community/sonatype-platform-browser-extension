@@ -354,5 +354,143 @@
     "GOLDEN_VERSION": {
         "message": "Versió daurada",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Versió segura del component (incloses les seves dependències) sense canvis disruptius resultants, sense violació(ons) de política",
+        "description": "Veure https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Següent versió sense violació(ons) de política",
+        "description": "Veure https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Següent versió sense error(s) d'acció de política",
+        "description": "Veure https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Següent versió sense violació(ons) de política per aquest component i les seves dependències",
+        "description": "Veure https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Següent versió sense error(s) d'acció de política per aquest component i les seves dependències",
+        "description": "Veure https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Veure Sonatype IQ Server",
+        "description": "Reserva en cas que l'API no proporcioni un tipus de remediació"
+    },
+    "CONNECTED_TO": {
+        "message": "Connectat a",
+        "description": "Utilitzat a l'estat per indicar l'estat de connexió amb Sonatype IQ"
+    },
+    "NOT_CONFIGURED": {
+        "message": "No configurat",
+        "description": "Utilitzat a l'estat per explicar que no està connectat a Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Configurar extensió",
+        "description": "Text d'informació per a la icona d'engranatge al panell lateral"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Violacions de política",
+        "description": "Etiqueta per a l'indicador de resum de violacions de política"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Tornar al component",
+        "description": "Enllaç textual per tornar al component al panell lateral"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "Estat KEV",
+        "description": "Etiqueta al panell lateral per a l'estat KEV"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Conegut per ser explotat",
+        "description": "Paraules a mostrar si KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "No conegut per ser explotat",
+        "description": "Paraules a mostrar si KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Descripció del CVE",
+        "description": "Capçalera d'acordió per a la descripció d'NVD quan estigui present."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Explicació de Sonatype",
+        "description": "Capçalera d'acordió per a l'explicació de Sonatype."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Recomanació de Sonatype",
+        "description": "Capçalera d'acordió per a la recomanació de Sonatype."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Detecció",
+        "description": "Capçalera d'acordió per als detalls de detecció."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Avisos",
+        "description": "Capçalera d'acordió per als detalls d'avisos."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "Sense avisos.",
+        "description": "Text mostrat a l'acordió d'avisos quan no hi ha avisos."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Altres detalls",
+        "description": "Capçalera d'acordió per altres detalls / informació meta."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Via ràpida",
+        "description": "Nom textual per SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Anàlisi profunda",
+        "description": "Nom textual per SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Investigació pública",
+        "description": "Nom textual per SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Investigació del proveïdor",
+        "description": "Nom textual per SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Seleccionar component",
+        "description": "Capçalera per al selector de components on es troben múltiples identitats de components en una pàgina donada."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Múltiples components identificats - trieu quin veure els detalls",
+        "description": "Sub-etiqueta sota COMPONENTS_SELECT_COMPONENT"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Gairebé hi som...",
+        "description": "Capçalera al panell lateral quan es veu un registre compatible però potser una pàgina on no hi ha identitats de components."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ és un registre de codi obert compatible per aquesta extensió, però heu de navegar a una pàgina més específica per a la intel·ligència de components.",
+        "description": "Contingut al panell lateral quan es veu un registre compatible però potser una pàgina on no hi ha identitats de components.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "Quin bochorn...",
+        "description": "Capçalera al panell lateral quan hi ha un error inesperat."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "Hi ha hagut un error inesperat. Proveu de recarregar aquesta pàgina; potser comproveu que podeu accedir al vostre Sonatype IQ Server? Finalment, podeu provar de recarregar aquesta extensió.",
+        "description": "Contingut al panell lateral quan hi ha un error inesperat."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "El lloc actual no és compatible amb aquesta extensió.",
+        "description": "Capçalera al panell lateral quan es veu una pàgina que no és un registre compatible."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "Probablement hem intentat tancar aquest panell lateral per vosaltres (i el vostre navegador ha ignorat la nostra sol·licitud 😔) - només premeu la X (dalt a la dreta) per amagar aquest panell lateral per ara.",
+        "description": "Contingut al panell lateral quan es veu una pàgina que no és un registre compatible."
     }
 }

@@ -15,7 +15,7 @@
  */
 import { DefaultRepoRegistry } from "../repo-registry"
 import { RepositoryId } from "../repo-type/types"
-import { AlpineLinuxOrgPageParser } from "./alpinelinux-org"
+// import { AlpineLinuxOrgPageParser } from "./alpinelinux-org"
 import { BasePageParser } from "./base"
 import { CentralSonatypeComPageParser } from "./central-sonatype-com"
 import { CocoaPodsOrgPageParser } from "./cocoapods-org"
@@ -61,9 +61,9 @@ class PageParserRegistry {
 export const DefaultPageParserRegistry = new PageParserRegistry
 
 // Register all standard repositories
-DefaultPageParserRegistry.registerPageParser(
-    new AlpineLinuxOrgPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.PKGS_ALPINELINUX_ORG_PACKAGE))
-)
+// DefaultPageParserRegistry.registerPageParser(
+//     new AlpineLinuxOrgPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.PKGS_ALPINELINUX_ORG_PACKAGE))
+// )
 DefaultPageParserRegistry.registerPageParser(
     new CentralSonatypeComPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.CENTRAL_SONATYPE_COM))
 )

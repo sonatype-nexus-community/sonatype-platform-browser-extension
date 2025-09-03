@@ -18,7 +18,7 @@ import { ComponentStateUtil } from '../../common/component/component-state-util'
 import { ComponentStateType, ThisBrowser } from '../../common/constants'
 import { TabDataStatus } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
-import { MessageRequestType } from '../../common/message/constants'
+import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
 import { MessageResponsePageComponentIdentitiesParsed } from '../../common/message/types'
 import { DefaultRepoRegistry } from '../../common/repo-registry'
 import { ActiveInfo, ChangeInfo, RemoveInfo, TabType } from '../../common/types'
@@ -26,14 +26,22 @@ import { BaseServiceWorkerHandler } from './base'
 import { IqMessageHelper } from './helpers/iq'
 import { NotificationHelper } from './helpers/notification'
 import { BaseRepo } from '../../common/repo-type/base'
+import { ANALYTICS_EVENT_TYPES } from '../../common/analytics/analytics'
+import { PackageURL } from 'packageurl-js'
+import { lastRuntimeError } from '../../common/message/helpers'
 
 export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
     public handleOnActivated = (activeInfo: ActiveInfo) => {
         logger.logServiceWorker(`ServiceWorkerTabOnHandler.handleOnActivated: `, LogLevel.DEBUG, activeInfo)
 
-        ThisBrowser.tabs.get(activeInfo.tabId, (tab: TabType) => {
+        ThisBrowser.tabs.get(activeInfo.tabId).then((tab: TabType) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in ServiceWorkerTabOnHandler.handleOnActivated', LogLevel.WARN, lastError)
+            }
+
             if (
-                !ThisBrowser.runtime.lastError &&
+                lastError === undefined &&
                 tab.url !== undefined &&
                 tab.status == chrome.tabs.TabStatus.COMPLETE
             ) {
@@ -80,21 +88,91 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 messageType: MessageRequestType.REQUEST_COMPONENT_IDENTITIES_FROM_PAGE,
                 externalReopsitoryManagers: this.extensionConfigurationState.getExtensionConfig().externalRepositoryManagers,
                 repoTypeId: repoType.id,
+            }).then((msgResponse) => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in ServiceWorkerTabOnHandler.processTabForRepo', LogLevel.WARN, lastError)
+                }
+
+                return msgResponse
             })
 
-            logger.logServiceWorker('Component Identified from Content Script', LogLevel.DEBUG, msgResponse)
+            if ((msgResponse as MessageResponsePageComponentIdentitiesParsed).status != MessageResponseStatus.SUCCESS) {
+                await this.handleTabError(tabId, repoType.id)
+                return
+            }
+
+            logger.logServiceWorker('Component(s) Identified from Content Script', LogLevel.DEBUG, msgResponse)
 
             const componentIdentities = (msgResponse as MessageResponsePageComponentIdentitiesParsed)
                 .componentIdentities
 
             if (componentIdentities.length === 0) {
+                await this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITY_CALCULATED_NONE,
+                    {
+                        page_url: url,
+                        repo_type_id: repoType.id,
+                        repo_type_url: repoType.baseUrl
+                    }
+                )
                 await this.handleNoComponents(tabId, repoType.id)
             } else {
+                const eventPromises = componentIdentities.map((p) => {
+                    const purl = PackageURL.fromString(p)
+                    return this.analytics.fireEvent(
+                        ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITY_CALCULATED,
+                        {
+                            page_url: url,
+                            repo_type_id: repoType.id,
+                            repo_type_url: repoType.baseUrl,
+                            purl_type: purl.type,
+                            purl_namespace: purl.namespace,
+                            purl_name: purl.name,
+                            purl_version: purl.version,
+                            purl_subpath: purl.subpath,
+                            purl: purl.toString()
+                        }
+                    )
+                })
+                eventPromises.push(this.analytics.fireEvent(
+                    ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITIES_CALCULATED,
+                    {
+                        page_url: url,
+                        repo_type_id: repoType.id,
+                        repo_type_url: repoType.baseUrl,
+                        component_count: componentIdentities.length
+                    }
+                ))
                 await this.handleComponentsFound(tabId, repoType.id, componentIdentities)
+                await Promise.all(eventPromises)
             }
         } catch (error) {
-            logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error)
+            logger.logServiceWorker('Error processing tab for repo', LogLevel.ERROR, error, url, tabId, repoType.id)
+            await this.handleTabError(tabId, repoType.id)
+            await this.analytics.fireEvent(
+                ANALYTICS_EVENT_TYPES.COMPONENT_IDENTITIES_CALCULATE_FAILURE,
+                {
+                    page_url: url,
+                    repo_type_id: repoType.id,
+                    repo_type_url: repoType.baseUrl,
+                    error: (error as Error).message
+                }
+            )
         }
+    }
+
+    private async handleTabError(tabId: number, repoTypeId: string): Promise<void> {
+        const newExtensionTabsData = this.extensionDataState.tabsData
+
+        newExtensionTabsData.tabs[tabId] = {
+            tabId,
+            components: {},
+            status: TabDataStatus.ERROR,
+            repoTypeId,
+        }
+
+        await this.updateExtensionTabData(newExtensionTabsData)
     }
 
     private async handleNoComponents(tabId: number, repoTypeId: string): Promise<void> {
@@ -197,7 +275,6 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
             LogLevel.DEBUG,
             tabId
         )
-        // propogateCurrentComponentState(tabId, ComponentState.CLEAR)
 
         // Not required in Side Panel mode
         ThisBrowser.action.disable(tabId, () => {

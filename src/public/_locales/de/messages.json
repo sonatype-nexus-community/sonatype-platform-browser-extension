@@ -358,5 +358,143 @@
     "GOLDEN_VERSION": {
         "message": "Goldene Version",
         "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "Sichere Version der Komponente (einschließlich ihrer Abhängigkeiten) ohne resultierende Breaking Changes, ohne Richtlinienverletzung(en)",
+        "description": "Siehe https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "Nächste Version ohne Richtlinienverletzung(en)",
+        "description": "Siehe https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "Nächste Version ohne Richtlinienaktions-Fehler",
+        "description": "Siehe https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "Nächste Version ohne Richtlinienverletzung(en) für diese Komponente und ihre Abhängigkeiten",
+        "description": "Siehe https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "Nächste Version ohne Richtlinienaktions-Fehler für diese Komponente und ihre Abhängigkeiten",
+        "description": "Siehe https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "Siehe Sonatype IQ Server",
+        "description": "Fallback für den Fall, dass die API keinen Sanierungstyp bereitstellt"
+    },
+    "CONNECTED_TO": {
+        "message": "Verbunden mit",
+        "description": "Wird im Status verwendet, um den Verbindungsstatus mit Sonatype IQ anzugeben"
+    },
+    "NOT_CONFIGURED": {
+        "message": "Nicht konfiguriert",
+        "description": "Wird im Status verwendet, um zu erklären, dass keine Verbindung zu Sonatype IQ besteht"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "Erweiterung konfigurieren",
+        "description": "Tooltip-Text für das Zahnrad-Symbol im Seitenpanel"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "Richtlinienverletzungen",
+        "description": "Bezeichnung für den Zusammenfassungsindikator für Richtlinienverletzungen"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "Zurück zur Komponente",
+        "description": "Textlink, um zur Komponente im Seitenpanel zurückzukehren"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV-Status",
+        "description": "Bezeichnung im Seitenpanel für KEV-Status"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "Bekannt ausgenutzt zu werden",
+        "description": "Anzuzeigende Wörter, wenn KEV === true"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "Nicht bekannt ausgenutzt zu werden",
+        "description": "Anzuzeigende Wörter, wenn KEV === false"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "Beschreibung von CVE",
+        "description": "Akkordeon-Header für Beschreibung von NVD, falls vorhanden."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype-Erklärung",
+        "description": "Akkordeon-Header für Sonatypes Erklärung."
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype-Empfehlung",
+        "description": "Akkordeon-Header für Sonatypes Empfehlung."
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "Erkennung",
+        "description": "Akkordeon-Header für Erkennungsdetails."
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "Hinweise",
+        "description": "Akkordeon-Header für Hinweise-Details."
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "Keine Hinweise.",
+        "description": "Text, der im Hinweise-Akkordeon angezeigt wird, wenn keine Hinweise vorhanden sind."
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "Weitere Details",
+        "description": "Akkordeon-Header für weitere Details / Meta-Informationen."
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "Schnellspur",
+        "description": "Textname für SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "Tiefgehende Analyse",
+        "description": "Textname für SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "Öffentliche Forschung",
+        "description": "Textname für SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "Anbieterforschung",
+        "description": "Textname für SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "Komponente auswählen",
+        "description": "Überschrift für Komponentenauswahl, bei der mehrere Komponentenidentitäten auf einer Seite gefunden werden."
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "Mehrere Komponenten identifiziert - wählen Sie aus, welche Details angezeigt werden sollen",
+        "description": "Unter-Bezeichnung unter COMPONENTS_SELECT_COMPONENT"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "Fast geschafft...",
+        "description": "Überschrift im Seitenpanel beim Betrachten einer unterstützten Registry, aber möglicherweise einer Seite ohne Komponentenidentitäten."
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ ist eine unterstützte Open-Source-Registry für diese Erweiterung, aber Sie müssen zu einer spezifischeren Seite für Component Intelligence navigieren.",
+        "description": "Inhalt im Seitenpanel beim Betrachten einer unterstützten Registry, aber möglicherweise einer Seite ohne Komponentenidentitäten.",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "Wie peinlich...",
+        "description": "Überschrift im Seitenpanel bei einem unerwarteten Fehler."
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "Es ist ein unerwarteter Fehler aufgetreten. Versuchen Sie, diese Seite neu zu laden; überprüfen Sie vielleicht, ob Sie auf Ihren Sonatype IQ Server zugreifen können? Zuletzt können Sie versuchen, diese Erweiterung neu zu laden.",
+        "description": "Inhalt im Seitenpanel bei einem unerwarteten Fehler."
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "Die aktuelle Seite wird von dieser Erweiterung nicht unterstützt.",
+        "description": "Überschrift im Seitenpanel beim Betrachten einer Seite, die keine unterstützte Registry ist."
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "Wir haben wahrscheinlich versucht, dieses Seitenpanel für Sie zu schließen (und Ihr Browser hat unsere Anfrage ignoriert 😔) - drücken Sie einfach das X (oben rechts), um dieses Seitenpanel vorerst zu verstecken.",
+        "description": "Inhalt im Seitenpanel beim Betrachten einer Seite, die keine unterstützte Registry ist."
     }
 }

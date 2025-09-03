@@ -24,6 +24,13 @@ const DOM_SELECTOR_BROWSE_REPO_FORMAT = 'div.nx-info > table > tbody > tr:nth-ch
 
 export class Nxrm3PageParser extends BasePageParser {
 
+    annotateDomPageTitle = () => {
+        if (this.enableDomAnnotation) {
+            logger.logContent(`Adding classes to ${this.repoType.titleSelector}`, LogLevel.DEBUG)
+            $(this.repoType.titleSelector).first().addClass('sonatype-extension sonatype-nxrm3 sonatype-page-title sonatype-pending')
+        }
+    }
+
     parsePage(url: string): PackageURL[] {
         const uriPath = url.replace(this.repoType.baseUrl, '')
         logger.logContent('Normalised URI Path: ', LogLevel.DEBUG, uriPath)
@@ -91,15 +98,22 @@ export class Nxrm3PageParser extends BasePageParser {
     }
 
     private attemptPackageUrlMavenUrl(uriPath: string): PackageURL[] {
+        // #browse/browse:maven-proxy:org%2Fapache%2Flogging%2Flog4j%2Flog4j%2F2.17.2
         // #browse/browse:maven-central:org%2Fapache%2Flogging%2Flog4j%2Flog4j-core%2F2.12.0%2Flog4j-core-2.12.0.jar
         const urlParts = uriPath.split(':')
         const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
 
         if (componentParts.length >= 4) {
-            const fileExtension = (componentParts.pop() as string).split('.').pop() as string
+            const lastComponentPart = componentParts.pop() as string
             const version = componentParts.pop() as string
             const componentName = componentParts.pop() as string
             const componentGroup = componentParts.join('.')
+
+            if (!lastComponentPart.includes(componentName)) {
+                return []
+            }
+
+            const fileExtension = lastComponentPart.split('.').pop() as string
 
             return [generatePackageURLComplete(
                 PURL_TYPE_MAVEN,
@@ -143,21 +157,26 @@ export class Nxrm3PageParser extends BasePageParser {
     }
 
     private attemptPackageUrlPyPiUrl(uriPath: string): PackageURL[] {
+        // #browse/browse:pupy-proxy:zipp%2F3.15.0%2Fzipp-3.15.0.tar.gz
         // #browse/browse:pupy-proxy:babel%2F2.12.1%2FBabel-2.12.1-py3-none-any.whl
         const urlParts = uriPath.split(':')
         const componentParts = decodeURIComponent(urlParts.pop() as string).split('/')
 
         if (componentParts.length >= 3) {
-            componentParts.pop() as string // drop filename
+            const filename = componentParts.pop() as string
             const version = componentParts.pop() as string
             const componentName = componentParts.pop() as string
+
+            const qualifiers = {
+                extension: filename.split('.').pop() as string
+            }
 
             return [generatePackageURLComplete(
                 PURL_TYPE_PYPI,
                 encodeURIComponent(componentName),
                 encodeURIComponent(version),
                 undefined,
-                { extension: 'tar.gz' },
+                qualifiers,
                 undefined
             )]
         }

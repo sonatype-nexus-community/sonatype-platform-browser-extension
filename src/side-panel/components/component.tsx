@@ -47,7 +47,7 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
                 <NxTable>
                     <NxTable.Body>
                         <NxTable.Row>
-                            <NxTable.Cell>Policy Violations</NxTable.Cell>
+                            <NxTable.Cell>{ThisBrowser.i18n.getMessage('POLICY_VIOLATIONS')}</NxTable.Cell>
                             <NxTable.Cell>
                                 <NxSmallThreatCounter
                                     criticalCount={policyThreatLevelSummary?.criticalCount}
