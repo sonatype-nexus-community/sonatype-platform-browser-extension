@@ -24,7 +24,7 @@ interface FrameworkDetectionConfig {
 class FrameworkRenderDetector {
     private readonly config: Required<Omit<FrameworkDetectionConfig, 'frameworks'>> & { frameworks: ('react' | 'ember')[] }
     private checkCount = 0
-    private maxChecks: number
+    private readonly maxChecks: number
 
     constructor(config: FrameworkDetectionConfig = {}) {
         this.config = {
