@@ -27,6 +27,7 @@ import { SafetensorsHuggingFaceParser } from './hugging-face/safetensors'
 import { TensorFlowHuggingFaceParser } from './hugging-face/tensor-flow'
 import { OpenVinoHuggingFaceParser } from './hugging-face/openvino'
 import { RustHuggingFaceParser } from './hugging-face/rust'
+import { FlaxJaxHuggingFaceParser } from './hugging-face/flax-jax'
 
 const FILE_ROW_SELECTOR = 'div.contents > ul > li'
 
@@ -48,6 +49,8 @@ export class HuggingfaceCoPageParser extends BasePageParser {
         this.PARSERS.push(new RustHuggingFaceParser())
         // OpenVino
         this.PARSERS.push(new OpenVinoHuggingFaceParser())
+        // Flax/Jax
+        this.PARSERS.push(new FlaxJaxHuggingFaceParser())
     }
 
     async parsePage(url: string): Promise<PackageURL[]> {
