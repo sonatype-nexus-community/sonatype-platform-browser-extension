@@ -43,6 +43,10 @@ export class BasicHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
 }
 
 export class FilenameHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor(extension: string, modelFormat?: string) {
+        super(extension, '', modelFormat)
+    }
+
     qualifiers(filename: string): HuggingFaceQualifiers {
         return {
             extension: this.extension,
