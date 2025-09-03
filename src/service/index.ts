@@ -86,100 +86,98 @@ const onInstalledHandler = new ServiceWorkerRuntimeOnInstalledHandler(analytics)
 ThisBrowser.runtime.onInstalled.addListener(onInstalledHandler.handleOnInstalled)
 
 // 2 Service Worker Activated
-self.addEventListener('activate', (event) => {
-    logger.logServiceWorker('Service Worker Activated', LogLevel.DEBUG, event)
+logger.logServiceWorker('Service Worker Activated', LogLevel.DEBUG)
 
-    // Load Configuration
-    loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) => {
-        const extensionConfigurationState = new ExtensionConfigurationStateServiceWorker(settings, analytics)
-        const extensionDataState = new ExtensionDataState(tabsData, vulnerabilityData)
+// Load Configuration
+loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) => {
+    const extensionConfigurationState = new ExtensionConfigurationStateServiceWorker(settings, analytics)
+    const extensionDataState = new ExtensionDataState(tabsData, vulnerabilityData)
 
-        ThisBrowser.runtime.onConnect.addListener(async function (port: PortType) {
-            port.onDisconnect.addListener((port: PortType) => {
-                const runtimeError = chrome.runtime.lastError
-                logger.logServiceWorker('Client disconnected', LogLevel.DEBUG, port, runtimeError)
-                broadcastClientsAllData.delete(port)
-                broadcastClientsExtensionConfiguration.delete(port)
-            })
-            logger.logServiceWorker('Client connected', LogLevel.DEBUG, port)
-            if (allDataClientNames.includes(port.name)) {
-                broadcastClientsAllData.add(port)
-            } else {
-                broadcastClientsExtensionConfiguration.add(port)
-            }
-            await broadcastExtensionConfiguration({
-                messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
-                newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
-            })
-            await broadcastAllData({
-                messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
-                extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
-                tabsData: extensionDataState.tabsData,
-                vulnerabilitiesData: extensionDataState.vulnerabilityData,
-            })
+    ThisBrowser.runtime.onConnect.addListener(async function (port: PortType) {
+        port.onDisconnect.addListener((port: PortType) => {
+            const runtimeError = chrome.runtime.lastError
+            logger.logServiceWorker('Client disconnected', LogLevel.DEBUG, port, runtimeError)
+            broadcastClientsAllData.delete(port)
+            broadcastClientsExtensionConfiguration.delete(port)
         })
+        logger.logServiceWorker('Client connected', LogLevel.DEBUG, port)
+        if (allDataClientNames.includes(port.name)) {
+            broadcastClientsAllData.add(port)
+        } else {
+            broadcastClientsExtensionConfiguration.add(port)
+        }
+        await broadcastExtensionConfiguration({
+            messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
+            newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
+        })
+        await broadcastAllData({
+            messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
+            extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
+            tabsData: extensionDataState.tabsData,
+            vulnerabilitiesData: extensionDataState.vulnerabilityData,
+        })
+    })
 
-        // 2A Message Received
-        const onMessageHandler = new ServiceWorkerRuntimeOnMessageHandler(
-            analytics,
-            extensionConfigurationState,
-            extensionDataState
-        )
-        ThisBrowser.runtime.onMessage.addListener(onMessageHandler.handleOnMessage)
+    // 2A Message Received
+    const onMessageHandler = new ServiceWorkerRuntimeOnMessageHandler(
+        analytics,
+        extensionConfigurationState,
+        extensionDataState
+    )
+    ThisBrowser.runtime.onMessage.addListener(onMessageHandler.handleOnMessage)
 
-        // 2B Tab Activiy
-        const onTabHandler = new ServiceWorkerTabOnHandler(analytics, extensionConfigurationState, extensionDataState)
-        ThisBrowser.tabs.onActivated.addListener(onTabHandler.handleOnActivated)
-        ThisBrowser.tabs.onUpdated.addListener(onTabHandler.handleOnUpdated)
-        ThisBrowser.tabs.onRemoved.addListener(onTabHandler.handleOnRemoved)
+    // 2B Tab Activiy
+    const onTabHandler = new ServiceWorkerTabOnHandler(analytics, extensionConfigurationState, extensionDataState)
+    ThisBrowser.tabs.onActivated.addListener(onTabHandler.handleOnActivated)
+    ThisBrowser.tabs.onUpdated.addListener(onTabHandler.handleOnUpdated)
+    ThisBrowser.tabs.onRemoved.addListener(onTabHandler.handleOnRemoved)
 
-        // 2C Storage Changed
-        const storageHandler = (changes: { [key: string]: browser.storage.StorageChange }, areaName: string) => {
-            if (areaName == 'local') {
-                let configChanged = false
-                let tabsChanged = false
-                let vulnerabilitiesChanged = false
-                if (Object.keys(changes).includes(STORAGE_KEY_SETTINGS)) {
-                    extensionConfigurationState.setExtensionConfig(
-                        changes[STORAGE_KEY_SETTINGS]['newValue'] as ExtensionConfiguration
-                    )
-                    configChanged = true
-                }
-                if (Object.keys(changes).includes(STORAGE_KEY_TABS)) {
-                    extensionDataState.tabsData = changes[STORAGE_KEY_TABS]['newValue'] as ExtensionTabsData
-                    tabsChanged = true
-                }
-                if (Object.keys(changes).includes(STORAGE_KEY_VULNERABILITIES)) {
-                    extensionDataState.vulnerabilityData = changes[STORAGE_KEY_VULNERABILITIES][
-                        'newValue'
-                    ] as ExtensionVulnerabilitiesData
-                    vulnerabilitiesChanged = true
-                }
+    // 2C Storage Changed
+    const storageHandler = (changes: { [key: string]: browser.storage.StorageChange }, areaName: string) => {
+        if (areaName == 'local') {
+            let configChanged = false
+            let tabsChanged = false
+            let vulnerabilitiesChanged = false
+            if (Object.keys(changes).includes(STORAGE_KEY_SETTINGS)) {
+                extensionConfigurationState.setExtensionConfig(
+                    changes[STORAGE_KEY_SETTINGS]['newValue'] as ExtensionConfiguration
+                )
+                configChanged = true
+            }
+            if (Object.keys(changes).includes(STORAGE_KEY_TABS)) {
+                extensionDataState.tabsData = changes[STORAGE_KEY_TABS]['newValue'] as ExtensionTabsData
+                tabsChanged = true
+            }
+            if (Object.keys(changes).includes(STORAGE_KEY_VULNERABILITIES)) {
+                extensionDataState.vulnerabilityData = changes[STORAGE_KEY_VULNERABILITIES][
+                    'newValue'
+                ] as ExtensionVulnerabilitiesData
+                vulnerabilitiesChanged = true
+            }
 
-                // Broadcast Extension Config only
-                if (configChanged) {
-                    broadcastExtensionConfiguration({
-                        messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
-                        newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
-                    })
-                }
+            // Broadcast Extension Config only
+            if (configChanged) {
+                broadcastExtensionConfiguration({
+                    messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
+                    newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
+                })
+            }
 
-                // Broadcast All Data
-                if (configChanged || tabsChanged || vulnerabilitiesChanged) {
-                    broadcastAllData({
-                        messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
-                        extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
-                        tabsData: extensionDataState.tabsData,
-                        vulnerabilitiesData: extensionDataState.vulnerabilityData
-                    })
-                }
+            // Broadcast All Data
+            if (configChanged || tabsChanged || vulnerabilitiesChanged) {
+                broadcastAllData({
+                    messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
+                    extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
+                    tabsData: extensionDataState.tabsData,
+                    vulnerabilitiesData: extensionDataState.vulnerabilityData
+                })
             }
         }
-        // const onStorageChangedHandler = new ServiceWorkerStorageOnChangedHandler(analytics, extensionConfigurationState)
-        ThisBrowser.storage.onChanged.addListener(storageHandler)
+    }
+    // const onStorageChangedHandler = new ServiceWorkerStorageOnChangedHandler(analytics, extensionConfigurationState)
+    ThisBrowser.storage.onChanged.addListener(storageHandler)
 
-        // 2D Notification interacted with
-        const onClickedHandler = new ServiceWorkerNotificationOnClickedHandler(analytics, extensionConfigurationState, extensionDataState)
-        ThisBrowser.notifications.onClicked.addListener(onClickedHandler.handleOnClicked)
-    })
+    // 2D Notification interacted with
+    const onClickedHandler = new ServiceWorkerNotificationOnClickedHandler(analytics, extensionConfigurationState, extensionDataState)
+    ThisBrowser.notifications.onClicked.addListener(onClickedHandler.handleOnClicked)
 })
