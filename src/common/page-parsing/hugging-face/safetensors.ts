@@ -15,17 +15,20 @@
  */
 
 import { BaseHuggingFaceParser } from "./base"
-import { BaseHuggingFacePurlAdapter, BasicHuggingFacePurlAdapter } from "./purl-adapter"
+import { BaseHuggingFacePurlAdapter, SafetensorsHuggingFacePurlAdapter } from "./purl-adapter"
+
+const safetensorsFilenameMatchRegex = /^(.*\.safetensors\.index\.json)|(model\.safetensors)$/
 
 export class SafetensorsHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new BasicHuggingFacePurlAdapter('safetensors', 'model', 'safetensors')
+        return new SafetensorsHuggingFacePurlAdapter()
     }
 
     hasMatches(filename: string): boolean {
-        // Match *.safetensors
-        if ( filename.toLowerCase().endsWith('.safetensors')) {
+        // Match model.safetensors
+        // Match model.safetensors.index.json
+        if ((safetensorsFilenameMatchRegex.exec(filename)) !== null) {
             return true
         }
 

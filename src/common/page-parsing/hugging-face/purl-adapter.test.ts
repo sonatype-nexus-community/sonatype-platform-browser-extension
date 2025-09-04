@@ -15,7 +15,7 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import { PytorchHuggingFacePurlAdapter } from './purl-adapter'
+import { PytorchHuggingFacePurlAdapter, SafetensorsHuggingFacePurlAdapter } from './purl-adapter'
 
 describe('HF Purl Adapter: PytorchHuggingFacePurlAdapter', () => {
     it.each([
@@ -42,6 +42,31 @@ describe('HF Purl Adapter: PytorchHuggingFacePurlAdapter', () => {
         }
     ])('$name', ({ filename, extension, model, model_format }) => { 
         const adapter = new PytorchHuggingFacePurlAdapter()
+        const qualifiers = adapter.qualifiers(filename)
+        expect(qualifiers.extension).toEqual(extension)
+        expect(qualifiers.model).toEqual(model)
+        expect(qualifiers.model_format).toEqual(model_format)
+    })
+})
+
+describe('HF Purl Adapter: SafetensorsHuggingFacePurlAdapter', () => {
+    it.each([
+        {
+            name: 'FILENAME: model.safetensors.index.json',
+            filename: 'model.safetensors.index.json',
+            extension: 'safetensors',
+            model: 'model',
+            model_format: 'transformers-safetensors'
+        },
+        {
+            name: 'FILENAME: model.safetensors',
+            filename: 'model.safetensors',
+            extension: 'safetensors',
+            model: 'model',
+            model_format: 'safetensors'
+        }
+    ])('$name', ({ filename, extension, model, model_format }) => { 
+        const adapter = new SafetensorsHuggingFacePurlAdapter()
         const qualifiers = adapter.qualifiers(filename)
         expect(qualifiers.extension).toEqual(extension)
         expect(qualifiers.model).toEqual(model)

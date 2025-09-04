@@ -80,3 +80,28 @@ export class PytorchHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
         }
     }
 }
+
+export class SafetensorsHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor() {
+        super('', undefined, 'safetensors')
+    }
+
+    qualifiers(filename: string): HuggingFaceQualifiers {
+        const fParts = filename.split('.')
+        this.extension = fParts.pop() as string
+
+        if (this.extension === 'json') {
+            if (filename.toLowerCase().endsWith('.safetensors.index.json')) {
+                this.extension = 'safetensors'
+                this.model = 'model'
+                this.modelFormat = 'transformers-safetensors'
+            }
+        }
+
+        return {
+            extension: this.extension,
+            model: this.model || filename.substring(0, filename.length - this.extension.length - 1),
+            model_format: this.modelFormat
+        }
+    }
+}
