@@ -17,15 +17,15 @@
 import { BaseHuggingFaceParser } from "./base"
 import { BaseHuggingFacePurlAdapter, FilenameHuggingFacePurlAdapter } from "./purl-adapter"
 
-export class GGUFHuggingFaceParser extends BaseHuggingFaceParser {
+export class OpenVinoHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new FilenameHuggingFacePurlAdapter('gguf', 'gguf')
+        return new FilenameHuggingFacePurlAdapter('bin', 'openvino')
     }
 
     hasMatches(filename: string): boolean {
-        // Match *.gguf
-        if (filename.toLowerCase().endsWith('.gguf')) {
+        // Match openvino_*.bin
+        if (filename.toLowerCase().startsWith('openvino_') && filename.toLowerCase().endsWith('.bin')) {
             return true
         }
 

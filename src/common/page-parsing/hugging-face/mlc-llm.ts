@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { BaseHuggingFaceParser } from "./base"
-import { BaseHuggingFacePurlAdapter, FilenameHuggingFacePurlAdapter } from "./purl-adapter"
+import { BaseHuggingFacePurlAdapter, BasicHuggingFacePurlAdapter } from "./purl-adapter"
 
-export class GGUFHuggingFaceParser extends BaseHuggingFaceParser {
+export class MlcLlmHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new FilenameHuggingFacePurlAdapter('gguf', 'gguf')
+        return new BasicHuggingFacePurlAdapter('bin', 'ndarray-cache', 'mlc-llm')
     }
 
     hasMatches(filename: string): boolean {
-        // Match *.gguf
-        if (filename.toLowerCase().endsWith('.gguf')) {
+        // Match ndarray-cache.json
+        if (filename.toLowerCase() === 'ndarray-cache.json') {
             return true
         }
 

@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { BaseHuggingFaceParser } from "./base"
-import { BaseHuggingFacePurlAdapter, FilenameHuggingFacePurlAdapter } from "./purl-adapter"
+import { BaseHuggingFacePurlAdapter, BasicHuggingFacePurlAdapter } from "./purl-adapter"
 
-export class GGUFHuggingFaceParser extends BaseHuggingFaceParser {
+export class OnnxHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new FilenameHuggingFacePurlAdapter('gguf', 'gguf')
+        return new BasicHuggingFacePurlAdapter('onnx', 'model', 'onnx')
     }
 
     hasMatches(filename: string): boolean {
-        // Match *.gguf
-        if (filename.toLowerCase().endsWith('.gguf')) {
+        // Match *.onnx
+        if (filename.toLowerCase().endsWith('.onnx')) {
             return true
         }
 

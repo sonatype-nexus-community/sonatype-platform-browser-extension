@@ -27,6 +27,16 @@ describe('HF Parsing: SafetensorsHuggingFaceParser', () => {
             matches: true
         },
         {
+            name: 'MATCH: model.safetensors.index.json',
+            filename: 'model.safetensors.index.json',
+            matches: true
+        },
+        {
+            name: 'NO-MATCH: model-00001-of-00008.safetensors',
+            filename: 'model-00001-of-00008.safetensors',
+            matches: false
+        },
+        {
             name: 'NO-MATCH: README.md',
             filename: 'README.md',
             matches: false

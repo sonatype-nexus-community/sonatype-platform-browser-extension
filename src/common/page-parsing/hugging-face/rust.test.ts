@@ -15,30 +15,15 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import { PytorchHuggingFaceParser } from './pytorch'
+import { RustHuggingFaceParser } from './rust'
 
-describe('HF Parsing: PytorchHuggingFaceParser', () => {
-    const parser = new PytorchHuggingFaceParser()
+describe('HF Parsing: RustHuggingFaceParser', () => {
+    const parser = new RustHuggingFaceParser()
     
     it.each([
         {
-            name: 'MATCH: pytorch_model.bin',
-            filename: 'pytorch_model.bin',
-            matches: true
-        },
-        {
-            name: 'MATCH: GFPGANv1.4.pth',
-            filename: 'GFPGANv1.4.pth',
-            matches: true
-        },
-        {
-            name: 'MATCH: Something.pt',
-            filename: 'Something.pt',
-            matches: true
-        },
-        {
-            name: 'MATCH: localhostB64.pkl',
-            filename: 'localhostB64.pkl',
+            name: 'MATCH: rust_model.ot',
+            filename: 'rust_model.ot',
             matches: true
         },
         {

@@ -15,17 +15,17 @@
  */
 
 import { BaseHuggingFaceParser } from "./base"
-import { BaseHuggingFacePurlAdapter, FilenameHuggingFacePurlAdapter } from "./purl-adapter"
+import { BaseHuggingFacePurlAdapter, BasicHuggingFacePurlAdapter } from "./purl-adapter"
 
-export class GGUFHuggingFaceParser extends BaseHuggingFaceParser {
+export class RustHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new FilenameHuggingFacePurlAdapter('gguf', 'gguf')
+        return new BasicHuggingFacePurlAdapter('ot', 'rust_model', 'rust')
     }
 
     hasMatches(filename: string): boolean {
-        // Match *.gguf
-        if (filename.toLowerCase().endsWith('.gguf')) {
+        // Match *.ot
+        if (filename.toLowerCase().endsWith('.ot')) {
             return true
         }
 

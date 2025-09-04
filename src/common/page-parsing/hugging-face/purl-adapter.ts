@@ -18,6 +18,12 @@ export interface HuggingFaceQualifiers {
     [key: string]: string
 }
 
+interface IndexJsonConfig {
+    targetExtension: string
+    modelName: string
+    modelFormat: string
+}
+
 export abstract class BaseHuggingFacePurlAdapter {
     protected extension: string
     protected model: string
@@ -28,7 +34,32 @@ export abstract class BaseHuggingFacePurlAdapter {
         this.model = model ?? ''
         this.modelFormat = modelFormat ?? ''
     }
+    
     abstract qualifiers(filename: string): HuggingFaceQualifiers
+
+    protected processIndexJson(filename: string, config: IndexJsonConfig): void {
+        if (this.extension === 'json') {
+            const expectedSuffix = `.${config.targetExtension}.index.json`
+            if (filename.toLowerCase().endsWith(expectedSuffix)) {
+                this.extension = config.targetExtension
+                this.model = config.modelName
+                this.modelFormat = config.modelFormat
+            }
+        }
+    }
+
+    protected extractExtensionFromFilename(filename: string): void {
+        const fParts = filename.split('.')
+        this.extension = fParts.pop() as string
+    }
+
+    protected buildQualifiers(filename: string): HuggingFaceQualifiers {
+        return {
+            extension: this.extension,
+            model: this.model || filename.substring(0, filename.length - this.extension.length - 1),
+            model_format: this.modelFormat
+        }
+    }
 }
 
 export class BasicHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
@@ -43,11 +74,51 @@ export class BasicHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
 }
 
 export class FilenameHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor(extension: string, modelFormat?: string) {
+        super(extension, '', modelFormat)
+    }
+
     qualifiers(filename: string): HuggingFaceQualifiers {
         return {
             extension: this.extension,
             model: filename.substring(0, filename.length - this.extension.length - 1),
             model_format: this.modelFormat
         }
+    }
+}
+
+export class PytorchHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor() {
+        super('', undefined, 'pytorch')
+    }
+
+    qualifiers(filename: string): HuggingFaceQualifiers {
+        this.extractExtensionFromFilename(filename)
+        
+        this.processIndexJson(filename, {
+            targetExtension: 'bin',
+            modelName: 'pytorch_model',
+            modelFormat: 'transformers-pytorch'
+        })
+
+        return this.buildQualifiers(filename)
+    }
+}
+
+export class SafetensorsHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor() {
+        super('', undefined, 'safetensors')
+    }
+
+    qualifiers(filename: string): HuggingFaceQualifiers {
+        this.extractExtensionFromFilename(filename)
+        
+        this.processIndexJson(filename, {
+            targetExtension: 'safetensors',
+            modelName: 'model',
+            modelFormat: 'transformers-safetensors'
+        })
+
+        return this.buildQualifiers(filename)
     }
 }

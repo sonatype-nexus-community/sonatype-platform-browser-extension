@@ -15,30 +15,15 @@
  */
 
 import { describe, expect, it } from '@jest/globals'
-import { PytorchHuggingFaceParser } from './pytorch'
+import { OnnxHuggingFaceParser } from './onnx'
 
-describe('HF Parsing: PytorchHuggingFaceParser', () => {
-    const parser = new PytorchHuggingFaceParser()
+describe('HF Parsing: OnnxHuggingFaceParser', () => {
+    const parser = new OnnxHuggingFaceParser()
     
     it.each([
         {
-            name: 'MATCH: pytorch_model.bin',
-            filename: 'pytorch_model.bin',
-            matches: true
-        },
-        {
-            name: 'MATCH: GFPGANv1.4.pth',
-            filename: 'GFPGANv1.4.pth',
-            matches: true
-        },
-        {
-            name: 'MATCH: Something.pt',
-            filename: 'Something.pt',
-            matches: true
-        },
-        {
-            name: 'MATCH: localhostB64.pkl',
-            filename: 'localhostB64.pkl',
+            name: 'MATCH: model.onnx',
+            filename: 'model.onnx',
             matches: true
         },
         {
