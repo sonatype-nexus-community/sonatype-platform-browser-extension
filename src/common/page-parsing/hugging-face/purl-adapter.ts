@@ -65,9 +65,17 @@ export class PytorchHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
         const fParts = filename.split('.')
         this.extension = fParts.pop() as string
 
+        if (this.extension === 'json') {
+            if (filename.toLowerCase().endsWith('.bin.index.json')) {
+                this.extension = 'bin'
+                this.model = 'pytorch_model'
+                this.modelFormat = 'transformers-pytorch'
+            }
+        }
+
         return {
             extension: this.extension,
-            model: filename.substring(0, filename.length - this.extension.length - 1),
+            model: this.model || filename.substring(0, filename.length - this.extension.length - 1),
             model_format: this.modelFormat
         }
     }

@@ -17,6 +17,8 @@
 import { BaseHuggingFaceParser } from "./base"
 import { BaseHuggingFacePurlAdapter, PytorchHuggingFacePurlAdapter } from "./purl-adapter"
 
+const pytorchFilenameMatchRegex = /^(pytorch_model\.bin$)|(pytorch_model.*\.bin\.index\.json$)|(\.(pt|pth|pkl|pickle)$)/gm
+
 export class PytorchHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
@@ -24,9 +26,10 @@ export class PytorchHuggingFaceParser extends BaseHuggingFaceParser {
     }
 
     hasMatches(filename: string): boolean {
-        // Match pytorch*.bin
+        // Match pytorch_model.bin
+        // Match pytorch_model.bin.index.json
         // Match *.pt, *.pth, *.pkl, *.pickle
-        if ((/^(pytorch.*\.bin)|(\.(pt|pth|pkl|pickle))$/gm.exec(filename)) !== null) {
+        if ((pytorchFilenameMatchRegex.exec(filename)) !== null) {
             return true
         }
 
