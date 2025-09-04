@@ -17,7 +17,7 @@
 import { BaseHuggingFaceParser } from "./base"
 import { BaseHuggingFacePurlAdapter, SafetensorsHuggingFacePurlAdapter } from "./purl-adapter"
 
-const safetensorsFilenameMatchRegex = /^(.*\.safetensors\.index\.json)|(model\.safetensors)$/
+const safetensorsFilenameMatchRegex = /^(.*\.safetensors\.index\.json|model\.safetensors)$/
 
 export class SafetensorsHuggingFaceParser extends BaseHuggingFaceParser {
 
