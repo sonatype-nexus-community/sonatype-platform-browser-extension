@@ -22,8 +22,8 @@ describe('HF Parsing: MlcLlmHuggingFaceParser', () => {
     
     it.each([
         {
-            name: 'MATCH: mlc-chat-config.json',
-            filename: 'mlc-chat-config.json',
+            name: 'MATCH: ndarray-cache.json',
+            filename: 'ndarray-cache.json',
             matches: true
         },
         {
