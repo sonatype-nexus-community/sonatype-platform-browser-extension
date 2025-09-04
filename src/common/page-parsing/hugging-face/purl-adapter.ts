@@ -55,3 +55,20 @@ export class FilenameHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
         }
     }
 }
+
+export class PytorchHuggingFacePurlAdapter extends BaseHuggingFacePurlAdapter {
+    constructor() {
+        super('', undefined, 'pytorch')
+    }
+
+    qualifiers(filename: string): HuggingFaceQualifiers {
+        const fParts = filename.split('.')
+        this.extension = fParts.pop() as string
+
+        return {
+            extension: this.extension,
+            model: filename.substring(0, filename.length - this.extension.length - 1),
+            model_format: this.modelFormat
+        }
+    }
+}

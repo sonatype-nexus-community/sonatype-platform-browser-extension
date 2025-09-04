@@ -27,6 +27,21 @@ describe('HF Parsing: PytorchHuggingFaceParser', () => {
             matches: true
         },
         {
+            name: 'MATCH: GFPGANv1.4.pth',
+            filename: 'GFPGANv1.4.pth',
+            matches: true
+        },
+        {
+            name: 'MATCH: Something.pt',
+            filename: 'Something.pt',
+            matches: true
+        },
+        {
+            name: 'MATCH: localhostB64.pkl',
+            filename: 'localhostB64.pkl',
+            matches: true
+        },
+        {
             name: 'NO-MATCH: README.md',
             filename: 'README.md',
             matches: false

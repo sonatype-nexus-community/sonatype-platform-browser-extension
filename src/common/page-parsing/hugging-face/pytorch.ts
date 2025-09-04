@@ -15,17 +15,18 @@
  */
 
 import { BaseHuggingFaceParser } from "./base"
-import { BaseHuggingFacePurlAdapter, BasicHuggingFacePurlAdapter } from "./purl-adapter"
+import { BaseHuggingFacePurlAdapter, PytorchHuggingFacePurlAdapter } from "./purl-adapter"
 
 export class PytorchHuggingFaceParser extends BaseHuggingFaceParser {
 
     protected loadPurlAdapter(): BaseHuggingFacePurlAdapter {
-        return new BasicHuggingFacePurlAdapter('bin', 'pytorch_model', 'pytorch')
+        return new PytorchHuggingFacePurlAdapter()
     }
 
     hasMatches(filename: string): boolean {
         // Match pytorch*.bin
-        if (filename.toLowerCase().startsWith('pytorch') && filename.toLowerCase().endsWith('.bin')) {
+        // Match *.pt, *.pth, *.pkl, *.pickle
+        if ((/^(pytorch.*\.bin)|(\.(pt|pth|pkl|pickle))$/gm.exec(filename)) !== null) {
             return true
         }
 
