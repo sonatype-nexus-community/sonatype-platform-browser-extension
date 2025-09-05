@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ThisBrowser } from '../common/constants'
 import { ExtensionConfigurationContext } from '../common/context/extension-configuration'
@@ -131,6 +131,7 @@ function MySidePanelApp(
         {} as ExtensionVulnerabilitiesData
     )
     const [tabId, setTabId] = useState<number | undefined>(undefined)
+    const hasClosedRef = useRef(false)
 
     const pageParams = new URLSearchParams(window.location.search)
     useEffect(() => {
@@ -154,6 +155,14 @@ function MySidePanelApp(
     useEffect(() => {
         if (tabId !== undefined && Object.hasOwn(extensionTabsData.tabs, tabId)) {
             setExtensionTabData(extensionTabsData.tabs[tabId])
+        } else if (tabId !== undefined && !Object.hasOwn(extensionTabsData.tabs, tabId) && !hasClosedRef.current) {
+            logger.logReact("Auto Closing Side Panel", LogLevel.INFO, tabId, Object.hasOwn(extensionTabsData.tabs, tabId), extensionTabsData.tabs)
+            hasClosedRef.current = true
+            
+            // Small delay to ensure state updates are complete
+            setTimeout(() => {
+                window.close()
+            }, 100)
         }
     }, [extensionTabsData, tabId])
 
