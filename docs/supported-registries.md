@@ -12,6 +12,11 @@ toc: true
 
 The following are the supported public Open Source Registries.
 
+#### AI / ML
+
+- `https://huggingface.co` - see [here](./registry-details/hugging-face) for detailed information
+
+
 #### Alpine Linux
 
 *None*
@@ -70,4 +75,12 @@ The following are the supported public Open Source Registries.
 
 ## Private Open Source Registries
 
-Through [Advanced Configuration](./configure-external-repository-managers.html), you can also configure private installations of Sonatype Nexus Repository Manager.
+Through [Advanced Configuration](./configure-external-repository-managers.html), you can also configure private installations of Sonatype Nexus Repository Manager 3.
+
+### Supported Formats for Sonatype Nexus Repository Manager 3
+
+- CocoaPods
+- Cran / R
+- Maven
+- PyPi
+- Ruby
