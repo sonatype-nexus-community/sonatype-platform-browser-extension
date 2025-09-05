@@ -6,6 +6,11 @@ on:
         branches:
             - dev/v3.x.x
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
     build:
         name: Build
