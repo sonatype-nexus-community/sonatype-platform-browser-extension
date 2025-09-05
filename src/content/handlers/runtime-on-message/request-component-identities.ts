@@ -26,8 +26,6 @@ import { Nxrm3PageParser } from '../../../common/page-parsing/nxrm3'
 import { KNOWN_FRAMEWORKS } from '../../../common/repo-type/base'
 import { waitForFrameworkPage } from '../../framework-helper'
 
-// const domReady = new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve))
-
 export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntimeOnMessageHandler {
     
     handleMessage(message: MessageRequestRequestComponentIdentitiesFromPage, sender: MessageSender, sendResponse: MessageResponseFunction): Promise<void> {
