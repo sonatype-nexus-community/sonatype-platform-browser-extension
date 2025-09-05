@@ -74,6 +74,7 @@ export class RequestComponentIdentitiesFromPageMessageHandler extends BaseRuntim
 
                 if (purls.length == 0) {
                     // No Component Identities - remove any annotations
+                    logger.logContent('Removing Page Annotations - no Component Identities', LogLevel.DEBUG, purls)
                     pageParser.removeAnnotations()
                 }
             } else {

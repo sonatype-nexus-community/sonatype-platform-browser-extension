@@ -32,7 +32,7 @@ export class AnnotatePageWithComponentStatusesMessageHandler extends BaseRuntime
 
         // Annotate Page Title
         $(repoType.titleSelector).removeClass('sonatype-pending sonatype-policy-violation-critical sonatype-policy-violation-severe sonatype-policy-violation-moderate sonatype-policy-violation-low sonatype-policy-violation-none')
-        $(repoType.titleSelector).addClass(PolicyThreatLevelUtil.getAnnotationCssClassForThreatLevel(message.maxThreatLevel))
+        $(repoType.titleSelector).addClass(`sonatype-extension sonatype-page-title ${PolicyThreatLevelUtil.getAnnotationCssClassForThreatLevel(message.maxThreatLevel)}`)
         
         // Annotate each Purl / Component
         for (const purl in message.purlsWithThreatLevel) {
