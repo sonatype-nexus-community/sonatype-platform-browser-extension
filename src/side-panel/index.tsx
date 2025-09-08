@@ -27,6 +27,7 @@ import { ActiveInfo, ChangeInfo, TabType, WindowType } from '../common/types'
 import { loadExtensionDataAndSettings } from '../service/helpers'
 import MainSidePanel from './components/main'
 import { lastRuntimeError } from '../common/message/helpers'
+import '../public/css/side-panel.css'
 
 const domNode = document.getElementById('root')
 domNode?.setAttribute('class', '')
