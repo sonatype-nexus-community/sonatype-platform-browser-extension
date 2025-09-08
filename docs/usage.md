@@ -5,15 +5,16 @@ menus:
   main:
     title: Usage
     weight: 25
+toc: true
 ---
 
-When you browse to a website that is supported by the Sonatype Platform Browser Extension, such as [Maven Central](https://central.sonatype.com/) the extension will assess the component you are viewing and alert you if there are known issues.
+When you browse to a website that is supported by the Sonatype Platform Browser Extension, such as [Maven Central](https://central.sonatype.com/){:target="_blank"} the extension will assess the component you are viewing and alert you if there are known issues.
 
 ### Pinning the Extension
 
 Extension by default are not always visible - we recommend you Pin the Sonatype Platform Browser Extension so it is easily accessible as you navigate. To do this find the "Extensions" icon in the top right of your browser (usually) as highlighed in red:
 
-![Pinning the Extension - Step 1](./images/pin-extension-01.png)
+<img src="./images/pin-extension-01.png" alt="Pinning the Extension - Step 1" width="800" />
 
 Then click the Pin icon as highlighted next to the Sonatype Platform Browser Extension.
 
@@ -25,59 +26,66 @@ You'll now always have the Sonatype Platform Browser Extension icon visible in t
 
 As you browse supported registries, you'll notice the Sonatype Platform Browser Extension change colour to warn you when your Sonatype IQ Server reports issues for the component you are viewing.
 
-![Browsing Maven Central](./images/browse-01.png)
+<img src="./images/browse-01.png" alt="Browsing Maven Central" width="800" />
 
-To get the details behind the warning, click the Sonatype Platform Browser Extension icon (top right).
+To get the details behind the warning, click the Sonatype Platform Browser Extension icon (top right), or the Notification if you have those enabled (see [Advanced Options]({{ 'configure-advanced-options.html' | relative_url }})).
 
-### Component Information
+### Component Details Side Panel
 
 When you acess the Sonatype Platform Browser Extension, you'll be shown the information known by Sonatype about the component you are viewing.
 
-![Component Information](./images/extension-open-01.png)
+<a href="./images/extension-open-01.png">
+    <img src="./images/extension-open-01.png" alt="Component Information" width="800" />
+</a>
 
-### Remediation Advice
+This includes sub-sections:
 
-Accessing the "Remediation" tab will provide easy access to recommended versions along with a timeline of all known versions and how they stack up against your organisations policies in your Sonatype IQ Server.
+#### Remediation Advice
 
-![Remediation Information](./images/extension-open-02.png)
+Accessing the "Remediation" accordion will provide easy access to recommended versions based on your organisations policies in your Sonatype IQ Server.
 
-For Open Source Registries that support navigation to specific versions, you can click on the Remediation or Version to have your browser navigate to that version easily.
-See [this table](#public-registries) to see which Registries we have support for this.
+This will include [Golden Version](https://help.sonatype.com/en/component-details-page.html#golden-version){:target="_blank"} where available.
 
-### Policy Violation(s)
+<a href="./images/extension-open-golden-version.png">
+    <img src="./images/extension-open-golden-version.png" alt="Component Golden Version Remediation advice" width="800" />
+</a>
 
-The "Policy" tab allows you to understand why your Organisational policies were violated - i.e. what caused the violations.
+#### Policy Violation(s)
 
-![Policy Violation(s) Details](./images/extension-open-03.png)
+The "Policy" accordion allows you to understand why your Organisational policies were violated - i.e. what caused the violations.
 
-### Known Security Issues
+<a href="./images/extension-open-policy-violations.png">
+    <img src="./images/extension-open-policy-violations.png" alt="Component Policy Violations" width="800" />
+</a>
 
-The "Security" tab allows you to understand what known security issues affect the component you are viewing.
+#### Known Security Issues
 
-![Known Security Issues](./images/extension-open-04.png)
+The "Security" accordion allows you to understand what known security issues affect the component you are viewing.
 
-### Open Source License(s)
+<a href="./images/extension-open-security-issues.png">
+    <img src="./images/extension-open-security-issues.png" alt="Component Security Issues" width="800" />
+</a>
 
-The "Legal" tab allows you to understand what open source licenses apply or might apply to the component you are viewing.
+You can click on a Security Issue to directly access Sonatype's Vulnerability Intelligence:
 
-![Known Security Issues](./images/extension-open-05.png)
+<a href="./images/extension-open-view-vulnerabilituy.png">
+    <img src="./images/extension-open-view-vulnerabilituy.png" alt="View Security Issue in detail with Sonatype Intelligence" width="800" />
+</a>
 
-## Additional Feature Support
+Each of the accordions can be expanded to get deep insight into the Security Issue.
 
-Current and future additional features are available based on the additional capabilities provided by your Sonatype Platform license. In addition to having the correct license installed at the Sonatype IQ Server, some features require that they be enabled.
+#### Open Source License(s)
 
-[Advanced Legal Pack](https://help.sonatype.com/iqserver/product-information/add-on-packs/advanced-legal-pack-quickstart)
+The "Legal" accordion allows you to understand what open source licenses apply or might apply to the component you are viewing.
 
--   [Extended Observed License Detections](https://help.sonatype.com/iqserver/configuring/advanced-legal-pack-extended-observed-license-detections) - When enabled, the browser extenstion shows the observed licenses detected for that component.
+<a href="./images/extension-open-legal-licenses.png">
+    <img src="./images/extension-open-legal-licenses.png" alt="Component Open Source Licensing" width="800" />
+</a>
 
-## Caveats
+### Multiple Components Identified
 
-### PyPi Packages with No Source Distribution
+For some supported Open Source Registries, on a single page there may be multiple Component Identities available. Where multiple Component identities are discovered, you'll be show an additional Component Selector in the Side Panel:
 
-There are a few examples of projects published to PyPi (such as [mediapipe](https://pypi.org/project/mediapipe/)) that have not published a Source Distribution.
-
-By default, when the Sonatype Platform Browser Extension looks up data on PyPi packages, we default to looking up information based on it's Source Distribution - 
-this has no consideration as to your Python Version or Architecture.
-
-When looking up data based on a Built Distribution, this can include the Python Version and/or Architecture, and this may not provide an accurate representation
-of the risks associated with your use of the Package if your Python Version and/or Architrecture differ from the first Build Distribution in the list.
+<a href="./images/extension-open-component-selector.png">
+    <img src="./images/extension-open-component-selector.png" alt="Component Selector" width="800" />
+</a>

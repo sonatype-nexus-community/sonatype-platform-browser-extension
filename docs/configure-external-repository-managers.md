@@ -5,7 +5,7 @@ menus: configuration
 toc: true
 ---
 
-[&lt; Back](./configuration.html)
+[&lt; Back]({{ 'configuration.html' | relative_url }})
 
 If your organisation runs one or more installations of [Sonatype Nexus Repository](https://www.sonatype.com/products/sonatype-nexus-repository){:target="_blank"}, you can add these under "Sonatype Nexus Repository" options menu.
 

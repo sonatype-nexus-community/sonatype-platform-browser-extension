@@ -5,7 +5,7 @@ menus: configuration
 toc: true
 ---
 
-[&lt; Back](./configuration.html)
+[&lt; Back]({{ 'configuration.html' | relative_url }})
 
 The following advanced options are configurable.
 

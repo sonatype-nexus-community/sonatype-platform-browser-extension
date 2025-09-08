@@ -8,7 +8,7 @@ menus:
 ---
 
 > [!NOTE]  
-> The list of possible locales is available at [here](https://developer.chrome.com/docs/extensions/reference/api/i18n#locales)
+> The list of possible locales is available at [here](https://developer.chrome.com/docs/extensions/reference/api/i18n#locales){:target="_blank"}
 
 Yes - you read right - we have localised this extension!
 

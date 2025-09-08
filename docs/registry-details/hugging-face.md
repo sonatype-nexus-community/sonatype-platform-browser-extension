@@ -8,13 +8,15 @@ layout: default
 toc: true
 ---
 
+[&lt; Back]({{ 'supported-registries.html' | relative_url }})
+
 Hugging Face supports multiple formats, and often a repository contains models in various formats.
 
 For that reason, you can expect to see multiple Components identified for a single repository on Hugging Face.
 
 To trigger this Extension, be sure to be on the **`Files and versions`** section of the repository.
 
-Sonatype details the support for [Hugging Face Model Analysis here](https://help.sonatype.com/en/hugging-face-model-analysis.html){:target="\_blank"}.
+Sonatype details the support for [Hugging Face Model Analysis here](https://help.sonatype.com/en/hugging-face-model-analysis.html){:target="_blank"}.
 
 This Extension has the following supoprt for identifying Models:
 

@@ -53,5 +53,5 @@ Once successfully authenticated, you will be presented with a list of Sonatype I
 
 You can read more about the following advanced configuiration options:
 
-- [Configuring External Repository Managers](./configure-external-repository-managers.html)
-- [Advanced Options](./configure-advanced-options.html)
+- [Configuring External Repository Managers]({{ 'configure-external-repository-managers.html' | relative_url }})
+- [Advanced Options]({{ 'configure-advanced-options.html' | relative_url }})
