@@ -244,15 +244,14 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/open-source-security-dependency-management'>
-                                            {ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE')}
+                                            {ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE')}?
                                         </NxTextLink>
-                                        {extensionConfigContext.supportsLifecycle === false && <span>?</span>}
                                         {extensionConfigContext.supportsLifecycle === true && (
-                                            <div>
+                                            <p>
                                                 <NxTag color='turquoise'>
                                                     {ThisBrowser.i18n.getMessage('SUPPORTED')}
                                                 </NxTag>
-                                            </div>
+                                            </p>
                                         )}
                                     </div>
                                 </center>
@@ -279,15 +278,14 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/advanced-legal-pack'>
-                                            {ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}
+                                            {ThisBrowser.i18n.getMessage('SONATYPE_LIFECYCLE_ALP')}?
                                         </NxTextLink>
-                                        {extensionConfigContext.supportsLifecycleAlp === false && <span>?</span>}
                                         {extensionConfigContext.supportsLifecycleAlp === true && (
-                                            <div>
+                                            <p>
                                                 <NxTag color='turquoise'>
                                                     {ThisBrowser.i18n.getMessage('SUPPORTED')}
                                                 </NxTag>
-                                            </div>
+                                            </p>
                                         )}
                                     </div>
                                 </center>
@@ -312,15 +310,14 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                         <NxTextLink
                                             external
                                             href='https://www.sonatype.com/products/sonatype-repository-firewall'>
-                                            {ThisBrowser.i18n.getMessage('SONATYPE_FIREWALL')}
+                                            {ThisBrowser.i18n.getMessage('SONATYPE_FIREWALL')}?
                                         </NxTextLink>
-                                        {extensionConfigContext.supportsFirewall === false && <span>?</span>}
                                         {extensionConfigContext.supportsFirewall === true && (
-                                            <div>
+                                            <p>
                                                 <NxTag color='turquoise'>
                                                     {ThisBrowser.i18n.getMessage('SUPPORTED')}
                                                 </NxTag>
-                                            </div>
+                                            </p>
                                         )}
                                     </div>
                                 </center>
