@@ -410,31 +410,38 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                                     )
                                                 })}
                                             </NxFormSelect>
-                                        </NxFormGroup>
-                                        <a
-                                            href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
-                                            target='_blank'
-                                            className='nx-btn'
-                                            rel='noreferrer'>
-                                            Maven {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                        </a>
-                                        <a
-                                            href='https://www.npmjs.com/package/handlebars/v/4.7.5'
-                                            target='_blank'
-                                            className='nx-btn'
-                                            rel='noreferrer'>
-                                            npmjs {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                        </a>
-                                        <a
-                                            href='https://pypi.org/project/feedparser/6.0.10/'
-                                            target='_blank'
-                                            className='nx-btn'
-                                            rel='noreferrer'>
-                                            PyPI {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                        </a>
+                                    </NxFormGroup>
+                                    {extensionConfigContext.iqAuthenticated === true &&
+                                    extensionConfigContext.iqApplicationInternalId != undefined &&
+                                    extensionConfigContext.iqApplicationPublidId != undefined &&
+                                        hasPermissions && (
+                                        <>
+                                            <a
+                                                href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
+                                                target='_blank'
+                                                className='nx-btn'
+                                                rel='noreferrer'>
+                                                Maven {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            </a>
+                                            <a
+                                                href='https://www.npmjs.com/package/handlebars/v/4.7.5'
+                                                target='_blank'
+                                                className='nx-btn'
+                                                rel='noreferrer'>
+                                                npmjs {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            </a>
+                                            <a
+                                                href='https://pypi.org/project/feedparser/6.0.10/'
+                                                target='_blank'
+                                                className='nx-btn'
+                                                rel='noreferrer'>
+                                                PyPI {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                            </a>
+                                        </>
+                                        )}
                                     </React.Fragment>
                                 )}
 
