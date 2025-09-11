@@ -440,7 +440,9 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
 
                             {extensionConfigContext.iqAuthenticated === true &&
                                 extensionConfigContext.iqApplicationInternalId != undefined &&
-                                extensionConfigContext.iqApplicationPublidId != undefined && (
+                                extensionConfigContext.iqApplicationPublidId != undefined &&
+                                hasPermissions &&
+                                (
                                     <NxStatefulSuccessAlert>
                                         {ThisBrowser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
                                     </NxStatefulSuccessAlert>
