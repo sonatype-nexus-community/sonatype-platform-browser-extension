@@ -175,10 +175,10 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
             }
         }
     }
-    // const onStorageChangedHandler = new ServiceWorkerStorageOnChangedHandler(analytics, extensionConfigurationState)
     ThisBrowser.storage.onChanged.addListener(storageHandler)
 
     // 2D Notification interacted with
     const onClickedHandler = new ServiceWorkerNotificationOnClickedHandler(analytics, extensionConfigurationState, extensionDataState)
+    ThisBrowser.notifications.onButtonClicked.addListener(onClickedHandler.handleOnClicked)
     ThisBrowser.notifications.onClicked.addListener(onClickedHandler.handleOnClicked)
 })
