@@ -88,6 +88,7 @@ ThisBrowser.tabs.onUpdated.addListener((tabId: number, changeInfo: ChangeInfo, t
 
 loadExtensionDataAndSettings()
     .then(({ settings, tabsData, vulnerabilityData }) => {
+        logger.setLevel(settings.logLevel as number)
         logger.logReact('Read Data & Settings from Local Storage', LogLevel.DEBUG)
         root.render(
             <React.StrictMode>
@@ -109,6 +110,7 @@ ThisBrowser.runtime
     .connect({ name: 'SIDE-PANEL' })
     .onMessage.addListener((request: MessageRequestExtensionDataUpdated) => {
         if (request.messageType === MessageRequestType.EXTENSION_DATA_UPDATED) {
+            logger.setLevel(request.extensionConfiguration.logLevel as number)
             logger.logReact('[SIDE-PANEL] Received new Extension Data', LogLevel.DEBUG, request)
             root.render(
                 <React.StrictMode>
