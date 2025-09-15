@@ -28,7 +28,7 @@ export default function ReleaseNotesSubPage() {
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>
-                        <NxH2>Release <code>3.0.0</code> (20-Sep-2025)</NxH2>
+                        <NxH2>Release <code>3.0.0</code></NxH2>
                     </NxTile.HeaderTitle>
                 </NxTile.Header>
                 <NxTile.Content>
