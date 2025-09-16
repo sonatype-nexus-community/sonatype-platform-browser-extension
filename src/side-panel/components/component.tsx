@@ -102,8 +102,8 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
                             <p className='nx-p'>
                                 This could be for one of two reasons:<br />
 
-                                1. We have derived an incorrect PackageURL for this Component<br />
-                                2. You have found a Component Sonatype has not catalogued
+                                1. An invalid Package URL was generated for this Component<br />
+                                2. This Component has not been cataloged by Sonatype
                             </p>
                             <code>{props.component.componentDetails?.component?.packageUrl}</code>
                         </NxInfoAlert>
