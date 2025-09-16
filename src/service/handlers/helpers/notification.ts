@@ -34,96 +34,162 @@ export class NotificationHelper {
 
         const notificationPromises = Array<Promise<unknown>>()
         notificationPromises.push(
-            ThisBrowser.action.setIcon({
-                tabId: tabId,
-                path: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
-            }).then(() => { 
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in NotificationHelper#action-set-icon', LogLevel.WARN, lastError)
-                }
-            })
+            ThisBrowser.action
+                .setIcon({
+                    tabId: tabId,
+                    path: this.extensionDataState.hasExactMatches(tabId)
+                        ? PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel)
+                        : PolicyThreatLevelUtil.getIconForComponentsUnknown(),
+                })
+                .then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact('Runtime Error in NotificationHelper#action-set-icon', LogLevel.WARN, lastError)
+                    }
+                })
         )
         notificationPromises.push(
-            ThisBrowser.action.setBadgeBackgroundColor({
-                tabId: tabId,
-                color: PolicyThreatLevelUtil.getColorForThreatLevel(maxThreatLevel),
-            }).then(() => { 
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in NotificationHelper#action-set-backgroundColor', LogLevel.WARN, lastError)
-                }
-            })
+            ThisBrowser.action
+                .setBadgeBackgroundColor({
+                    tabId: tabId,
+                    color: this.extensionDataState.hasExactMatches(tabId)
+                        ? PolicyThreatLevelUtil.getColorForThreatLevel(maxThreatLevel)
+                        : PolicyThreatLevelUtil.getColourForComponentsUnknown(),
+                })
+                .then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact(
+                            'Runtime Error in NotificationHelper#action-set-backgroundColor',
+                            LogLevel.WARN,
+                            lastError
+                        )
+                    }
+                })
         )
         notificationPromises.push(
-            ThisBrowser.action.setBadgeText({
-                tabId: tabId,
-                text: `${totalPolicyViolations}`,
-            }).then(() => { 
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in NotificationHelper#action-set-badgeText', LogLevel.WARN, lastError)
-                }
-            })
+            ThisBrowser.action
+                .setBadgeText({
+                    tabId: tabId,
+                    text: this.extensionDataState.hasExactMatches(tabId) ? `${totalPolicyViolations}` : '?',
+                })
+                .then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact(
+                            'Runtime Error in NotificationHelper#action-set-badgeText',
+                            LogLevel.WARN,
+                            lastError
+                        )
+                    }
+                })
         )
         notificationPromises.push(
-            ThisBrowser.action.setTitle({
-                tabId: tabId,
-                title: `${totalPolicyViolations} Policy Violations - click to view details`,
-            }).then(() => { 
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in NotificationHelper#action-set-title', LogLevel.WARN, lastError)
-                }
-            })
+            ThisBrowser.action
+                .setTitle({
+                    tabId: tabId,
+                    title: this.extensionDataState.hasExactMatches(tabId)
+                        ? `${totalPolicyViolations} Policy Violations - click to view details`
+                        : 'Component(s) Unknown to Sonatype',
+                })
+                .then(() => {
+                    const lastError = lastRuntimeError()
+                    if (lastError) {
+                        logger.logReact(
+                            'Runtime Error in NotificationHelper#action-set-title',
+                            LogLevel.WARN,
+                            lastError
+                        )
+                    }
+                })
         )
 
         if (this.extensionConfigState.getExtensionConfig().enableNotifications) {
-            notificationPromises.push(
-                ThisBrowser.notifications.create(`component-evaluation-notification|${tabId}`, {
-                    type: 'basic',
-                    iconUrl: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
-                    title: 'Sonatype Evaluation',
-                    message: `Component triggers Policy at Threat Level ${maxThreatLevel}`,
-                    buttons: [{ title: 'View Details' }],
-                    priority: 1,
-                }).then(() => { 
-                    const lastError = lastRuntimeError()
-                    if (lastError) {
-                        logger.logReact('Runtime Error in NotificationHelper#notification-create-component', LogLevel.WARN, lastError)
-                    }
-                })
-            )
+            if (this.extensionDataState.hasExactMatches(tabId)) {
+                notificationPromises.push(
+                    ThisBrowser.notifications
+                        .create(`component-evaluation-notification|${tabId}`, {
+                            type: 'basic',
+                            iconUrl: PolicyThreatLevelUtil.getIconForThreatLevel(maxThreatLevel),
+                            title: 'Sonatype Evaluation',
+                            message: `Component triggers Policy at Threat Level ${maxThreatLevel}`,
+                            buttons: [{ title: 'View Details' }],
+                            priority: 1,
+                        })
+                        .then(() => {
+                            const lastError = lastRuntimeError()
+                            if (lastError) {
+                                logger.logReact(
+                                    'Runtime Error in NotificationHelper#notification-create-component#1',
+                                    LogLevel.WARN,
+                                    lastError
+                                )
+                            }
+                        })
+                )
+            } else {
+                notificationPromises.push(
+                    ThisBrowser.notifications
+                        .create(`component-evaluation-notification|${tabId}`, {
+                            type: 'basic',
+                            iconUrl: PolicyThreatLevelUtil.getIconForComponentsUnknown(),
+                            title: 'Sonatype Evaluation',
+                            message: `Component(s) are Unknown to Sonatype`,
+                            buttons: [{ title: 'View Details' }],
+                            priority: 1,
+                        })
+                        .then(() => {
+                            const lastError = lastRuntimeError()
+                            if (lastError) {
+                                logger.logReact(
+                                    'Runtime Error in NotificationHelper#notification-create-component#2',
+                                    LogLevel.WARN,
+                                    lastError
+                                )
+                            }
+                        })
+                )
+            }
         }
 
         if (this.extensionConfigState.getExtensionConfig().enablePageAnnotations) {
-            logger.logServiceWorker("Will Annotate Page Tab", LogLevel.DEBUG, tabId)
+            logger.logServiceWorker('Will Annotate Page Tab', LogLevel.DEBUG, tabId)
             const purlsWithThreatLevel = {}
             const tabIds = new Set<string>(Object.keys(this.extensionDataState.tabsData.tabs))
 
             if (tabIds.has(`${tabId}`)) {
                 const tabPurls = Object.keys(this.extensionDataState.tabsData.tabs[tabId].components)
                 tabPurls.forEach((purl) => {
-                    purlsWithThreatLevel[purl] = this.extensionDataState.getMaxThreatLevelForComponent(tabId, purl)
+                    purlsWithThreatLevel[purl] = {
+                        matchState: this.extensionDataState.getMatchState(tabId, purl),
+                        threatLevel: this.extensionDataState.getMaxThreatLevelForComponent(tabId, purl),
+                    }
                 })
             } else {
                 logger.logServiceWorker(`TabID ${tabId} not in known list`, LogLevel.DEBUG, tabIds)
             }
 
-            notificationPromises.push(ThisBrowser.tabs.sendMessage(tabId, {
-                messageType: MessageRequestType.ANNOTATE_PAGE_COMPONENT_IDENTITIES,
-                maxThreatLevel,
-                purlsWithThreatLevel: purlsWithThreatLevel,
-                repoTypeId: this.extensionDataState.tabsData.tabs[tabId].repoTypeId
-            }).then(() => {
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in NotificationHelper#tabs-sendMessage', LogLevel.WARN, lastError)
-                }
-             }))
-            
+            notificationPromises.push(
+                ThisBrowser.tabs
+                    .sendMessage(tabId, {
+                        messageType: MessageRequestType.ANNOTATE_PAGE_COMPONENT_IDENTITIES,
+                        maxThreatLevel,
+                        purlsWithThreatLevel: purlsWithThreatLevel,
+                        repoTypeId: this.extensionDataState.tabsData.tabs[tabId].repoTypeId,
+                    })
+                    .then(() => {
+                        const lastError = lastRuntimeError()
+                        if (lastError) {
+                            logger.logReact(
+                                'Runtime Error in NotificationHelper#tabs-sendMessage',
+                                LogLevel.WARN,
+                                lastError
+                            )
+                        }
+                    })
+            )
         }
 
-        return Promise.all(notificationPromises).then(() => { })
+        return Promise.all(notificationPromises).then(() => {})
     }
 }

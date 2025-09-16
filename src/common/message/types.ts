@@ -26,10 +26,17 @@ export interface MessageRequest {
     messageType: number
 }
 
+export interface PurlWithThreatLevelAndMatchState {
+    matchState: string,
+    threatLevel: ThreatLevelNumber
+}
+
 export interface MessageRequestAnnotatePageWithComponentStatuses extends MessageRequest {
     messageType: MessageRequestType.ANNOTATE_PAGE_COMPONENT_IDENTITIES,
     maxThreatLevel: ThreatLevelNumber
-    purlsWithThreatLevel: { [purl: string]: ThreatLevelNumber }
+    purlsWithThreatLevel: {
+        [purl: string]: PurlWithThreatLevelAndMatchState
+    }
     repoTypeId: string
 }
 
