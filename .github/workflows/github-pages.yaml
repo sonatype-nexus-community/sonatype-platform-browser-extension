@@ -5,6 +5,15 @@ on:
     push:
         branches:
             - main
+    # We need to re-published after a release to include generated CHANGELOG
+    workflow_run:
+        workflows:
+            - "Release"
+        types:
+            - completed
+        branches:
+            - main
+        
 
 permissions:
   contents: read
