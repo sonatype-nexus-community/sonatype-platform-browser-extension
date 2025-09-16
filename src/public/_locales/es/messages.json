@@ -504,5 +504,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "Probablemente intentamos cerrar este panel lateral por ti (y tu navegador ignoró nuestra solicitud 😔) - solo presiona la X (arriba a la derecha) para ocultar este panel lateral por ahora.",
         "description": "Contenido en el panel lateral al ver una página que no es un registro soportado."
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "Vaya...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "El componente con la siguiente PackageURL no es conocido por Sonatype.",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }

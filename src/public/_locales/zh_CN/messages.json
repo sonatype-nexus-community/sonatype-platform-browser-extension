@@ -500,5 +500,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "我们可能尝试为您关闭此侧面板（但您的浏览器忽略了我们的请求 😔）- 只需点击 X（右上角）暂时隐藏此侧面板。",
         "description": "查看不是受支持注册表的页面时侧面板中的内容。"
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "糟糕...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "具有以下PackageURL的组件不为Sonatype所知。",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }

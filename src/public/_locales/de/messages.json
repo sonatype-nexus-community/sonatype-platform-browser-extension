@@ -496,5 +496,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "Wir haben wahrscheinlich versucht, dieses Seitenpanel für Sie zu schließen (und Ihr Browser hat unsere Anfrage ignoriert 😔) - drücken Sie einfach das X (oben rechts), um dieses Seitenpanel vorerst zu verstecken.",
         "description": "Inhalt im Seitenpanel beim Betrachten einer Seite, die keine unterstützte Registry ist."
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "Ups...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "Die Komponente mit der folgenden PackageURL ist Sonatype nicht bekannt.",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }

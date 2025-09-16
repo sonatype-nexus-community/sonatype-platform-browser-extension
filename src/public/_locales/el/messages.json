@@ -512,5 +512,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "Πιθανότατα προσπαθήσαμε να κλείσουμε αυτό το πλευρικό πάνελ για εσάς (και ο περιηγητής σας αγνόησε το αίτημά μας 😔) - απλώς πατήστε το X (πάνω δεξιά) για να κρύψετε αυτό το πλευρικό πάνελ προς το παρόν.",
         "description": "Περιεχόμενο στο πλευρικό πάνελ όταν προβάλλετε μια σελίδα που δεν είναι υποστηριζόμενο μητρώο."
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "Ωχ όχι...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "Το στοιχείο με το ακόλουθο PackageURL δεν είναι γνωστό στη Sonatype.",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }

@@ -500,5 +500,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "Luultavasti yritimme sulkea tämän sivupaneelin puolestasi (ja selaimesi jätti pyyntömme huomiotta 😔) - vain paina X:ää (oikeassa yläkulmassa) piilottaaksesi tämän sivupaneelin toistaiseksi.",
         "description": "Sisältö sivupaneelissa kun katsotaan sivua joka ei ole tuettu rekisteri."
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "Hups...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "Komponentti seuraavalla PackageURL:lla ei ole Sonatypen tiedossa.",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }
