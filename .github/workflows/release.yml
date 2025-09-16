@@ -72,9 +72,9 @@ jobs:
 
             - name: Inject Production Google Analytics Configuration
               run: |
-                  sed -i -r 's|/debug/|/|g' src/utils/AnalyticsConfg.ts && 
-                  sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/utils/AnalyticsConfg.ts && 
-                  sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/utils/AnalyticsConfg.ts
+                  sed -i -r 's|/debug/|/|g' src/common/analytics/analytics-config.ts && 
+                  sed -i -r "s/GA_MEASUREMENT_ID/$GA_MEASUREMENT_ID/g" src/common/analytics/analytics-config.ts && 
+                  sed -i -r "s/GA_API_SECRET/$GA_API_SECRET/g" src/common/analytics/analytics-config.ts
               env:
                 GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
                 GA_API_SECRET: ${{ secrets.GA_API_SECRET }}
