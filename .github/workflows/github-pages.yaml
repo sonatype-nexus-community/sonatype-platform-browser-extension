@@ -33,6 +33,9 @@ jobs:
 
             - name: Checkout Code
               uses: actions/checkout@v5
+
+            - name: Get latest CHANGELOG
+              run: cp CHANGELOG.md docs/
                 
             - name: Build Site
               id: build
