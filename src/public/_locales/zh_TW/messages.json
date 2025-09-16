@@ -1,0 +1,504 @@
+{
+    "EXTENSION_NAME": {
+        "message": "Sonatype Platform瀏覽器擴展",
+        "description": "The full name for this browser extension."
+    },
+    "EXTENSION_DESCRIPTION": {
+        "message": "通過Sonatype Platform瀏覽器擴展來達到“安全左移”——掃描開源倉庫以檢測已知漏洞。",
+        "description": "Description of this browser extension."
+    },
+    "RELEASE_VERSION": {
+        "message": "版本 $VERSION$",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "VERSION": {
+                "content": "$1",
+                "example": "2.0.0"
+            }
+        }
+    },
+    "ALL_VERSIONS": {
+        "message": "全部版本",
+        "description": "The list of all the available component versions"
+    },
+    "CATALOG_DATE": {
+        "message": "發布日期",
+        "description": "The date this component version was add to the Sonatype data catalog"
+    },
+    "INTEGRITY_RATING": {
+        "message": "誠信評級",
+        "description": "Component's Release Integrity Score"
+    },
+    "HYGIENE_RATING": {
+        "message": "衛生評級",
+        "description": "The quality (Laggard, Exemplar, Neutral) of an open-source project. This is calculated based on the projects that exhibit the best and worst behaviors in producing quality open-source software."
+    },
+    "HYGIENE_RATING_DESC": {
+        "message": "開源項目的質量（落後者，模範，中立）。這是根據在生產高品質開源軟件方面表現出最佳和最差行為的項目計算得出的",
+        "description": "The tooltip description of Hygiene Rating"
+    },
+    "SONATYPE_IQ_SERVER": {
+        "message": "Sonatype IQ Server",
+        "description": "Branded product name for Sonatype IQ Server"
+    },
+    "BUTTON_CLOSE": {
+        "message": "關閉",
+        "description": "Close button text"
+    },
+    "GITHUB_ISSUE": {
+        "message": "GitHub Issue",
+        "description": "GitHub Issue"
+    },
+    "LABEL_USERNAME": {
+        "message": "用戶名",
+        "description": "Username label"
+    },
+    "LABEL_PASSWORD": {
+        "message": "密碼或用戶令牌",
+        "description": "Password label"
+    },
+    "LABEL_SONATYPE_APPLICATION": {
+        "message": "Sonatype Lifecycle 應用程序",
+        "description": "Application label"
+    },
+    "LABEL_SELECT_AN_APPLICATION": {
+        "message": "-- 選擇一個應用程序 --",
+        "description": "Default option in Application List"
+    },
+    "LABEL_LOG_LEVEL": {
+        "message": "擴展日誌級別",
+        "description": "Label for Log Level option"
+    },
+    "LINK_BUG_REPORT": {
+        "message": "報告錯誤",
+        "description": "Link text used for reporting a bug."
+    },
+    "LINK_FEATURE_REQUEST": {
+        "message": "提出功能請求",
+        "description": "Link text used for making a feature request."
+    },
+    "LINK_TEXT_HERE": {
+        "message": "在此處",
+        "description": "Link text used for generic link to somehting [here]."
+    },
+    "HELP_PAGE_TITLE": {
+        "message": "幫助",
+        "description": "Page Title for Options page"
+    },
+    "HELP_TILE_TITLE_WHERE_TO_GET_HELP": {
+        "message": "我應該在哪裡尋求幫助？",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_WHERE_TO_GET_HELP": {
+        "message": "我們提供了Sonatype Platform瀏覽器擴展的詳細文檔。",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_FEATURE_REQUEST": {
+        "message": "如何提出功能請求？",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_FEATURE_REQUEST": {
+        "message": "我們提供了Sonatype Platform瀏覽器擴展的詳細文檔。我們非常重視您的反饋。您可以在GitHub上打開一個Issue，分享您的想法或疑問，或聯繫您專屬的客戶成功代表。",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TILE_TITLE_RAISE_BUG": {
+        "message": "我認為我發現了一個錯誤 - 我應該告訴誰？",
+        "description": "Title of the first Help Tile"
+    },
+    "HELP_TILE_CONTENT_RAISE_BUG": {
+        "message": "我們非常重視反饋。如果您認為發現了一個錯誤，請打開一個Github Issue，並提供尽可能多的信息，包括：",
+        "description": "Content for the first Help Tile"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_1": {
+        "message": "您的Web瀏覽器詳細信息（名稱和版本）",
+        "description": "First item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_2": {
+        "message": "您已安裝的Sonatype Platform瀏覽器擴展版本",
+        "description": "Second item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_3": {
+        "message": "您執行的操作",
+        "description": "Third item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_4": {
+        "message": "期望的行為",
+        "description": "Fourth item of detail we request when raising a Bug"
+    },
+    "HELP_TITLE_CONTENT_BUG_DETAIL_5": {
+        "message": "實際（意料之外）的行為",
+        "description": "Fifth item of detail we request when raising a Bug"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS": {
+        "message": "最高策略威脅級別",
+        "description": "Header when displaying the highest threat levels by policy"
+    },
+    "HIGHEST_POLICY_THREAT_LEVELS_TOOLTIP": {
+        "message": "應用程序$APP_NAME$的最高$POLICY_TYPE_LABEL$策略威胁级别",
+        "description": "The release version of this browser extension",
+        "placeholders": {
+            "POLICY_TYPE_LABEL": {
+                "content": "$1",
+                "example": "Security, Architecture, License, Other"
+            },
+            "APP_NAME": {
+                "content": "$2",
+                "example": "sample-application"
+            }
+        }
+    },
+    "LEGAL_EFFECTIVE_LICENSE": {
+        "message": "Effective",
+        "description": "The effective license of the component"
+    },
+    "LEGAL_OBSERVED_LICENSE": {
+        "message": "Observed",
+        "description": "The observed license of the component"
+    },
+    "LEGAL_DECLARED_LICENSE": {
+        "message": "Declared",
+        "description": "The declared license of the component"
+    },
+    "LEGAL_TABLE_THREAT_GROUP": {
+        "message": "威胁组",
+        "description": "The column header in the security table for threat group"
+    },
+    "LEGAL_TABLE_LICENSE": {
+        "message": "許可證",
+        "description": "The column header in the security table for license"
+    },
+    "LEGAL_TABLE_COPY_TEXT": {
+        "message": "複製文本",
+        "description": "The column header in the security table for copy text"
+    },
+    "LEGAL_COPY_TEXT_TOOLTIP": {
+        "message": "複製許可證文本",
+        "description": "Tooltip for the copy license text button"
+    },
+    "OPTIONS_PAGE_TITLE": {
+        "message": "擴展選項",
+        "description": "Page Title for Options page"
+    },
+    "OPTIONS_INSTALL_MODE_PAGE_TITLE": {
+        "message": "感謝您安裝Sonatype Platform瀏覽器擴展",
+        "description": "Page Title for Options page upon first installation"
+    },
+    "OPTIONS_INSTALL_MODE_SUB_HEADING_GETTING_STARTED": {
+        "message": "入門指南",
+        "description": "Sub Heading on Options Page in Install Mode"
+    },
+    "OPTIONS_INSTALL_MODE_P_GETTING_STARTED": {
+        "message": "請按照以下步驟將此擴展連接到您的Sonatype IQ服務器。",
+        "description": "Description paragraph on Options Page in Install Mode"
+    },
+    "OPTIONS_CURRENT_CONNECTION": {
+        "message": "當前連接類型",
+        "description": "Current Connection Type prompt"
+    },
+    "OPTIONS_PAGE_TAB_SONATYPE_CONFIGURATION": {
+        "message": "Sonatype配置",
+        "description": "Options Tab name for Sonatype Configuration"
+    },
+    "OPTIONS_PAGE_TAB_GENERAL_CONFIGURATION": {
+        "message": "常規選項",
+        "description": "Options Tab name for General Configuration"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_1": {
+        "message": "輸入您的Sonatype IQ服務器URL，然後授予此擴展與您的Sonatype IQ服務器進行通信所需的權限。",
+        "description": "First point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_GRANT_PERMISSIONS": {
+        "message": "授予權限給您的Sonatype IQ服務器",
+        "description": "Button text for 'Grant Permission' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_2": {
+        "message": "提供您的Sonatype IQ服務器的用戶名和令牌。然後連接以檢索可用的應用程序列表。",
+        "description": "Second point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_SONATYPE_BUTTON_CONNECT_IQ": {
+        "message": "連接",
+        "description": "Button text for 'Connect' button"
+    },
+    "OPTIONS_PAGE_SONATYPE_POINT_3": {
+        "message": "從您的Sonatype IQ服務器上可用的應用程序列表中選擇一個應用程序。",
+        "description": "Third point of configuration for Sonatype IQ Server"
+    },
+    "OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION": {
+        "message": "組件將受到評估的應用程序策略。",
+        "description": "Tooltip as to why an Application is to be selected"
+    },
+    "OPTIONS_SUCCESS_MESSAGE": {
+        "message": "恭喜！您已成功通過Sonatype IQ服務器進行身份驗證並選擇了一個應用程序！您可以關閉此瀏覽器標籤以繼續。",
+        "description": "Success message to display once Sonatype IQ has been configured"
+    },
+    "OPTIONS_INFO_MESSAGE_CHOOSE_APPLICATION": {
+        "message": "請從上面的列表中選擇一個應用程序。",
+        "description": "Info message to direct to choose an Application"
+    },
+    "OPTIONS_ERROR_MESSAGE_UNAUTHENTICATED": {
+        "message": "登錄時出現錯誤。",
+        "description": "Error message showed if Sonatype IQ credentials are incorrect"
+    },
+    "POLICY_TABLE_THREAT": {
+        "message": "威胁",
+        "description": "The column header in the policy table for threat"
+    },
+    "POLICY_TABLE_POLICY": {
+        "message": "策略",
+        "description": "The column header in the policy table for policy"
+    },
+    "POLICY_TABLE_CONSTRAINT": {
+        "message": "限制",
+        "description": "The column header in the policy table for constraint name"
+    },
+    "POLICY_TABLE_CONDITION": {
+        "message": "條件",
+        "description": "The column header in the policy table for condition"
+    },
+    "POPUP_COMPONENT_UNKNOWN_MESSAGE": {
+        "message": "這個不是Sonatype可以識別的套件",
+        "description": "Message to inform a user that the current package is not known by Sonatype"
+    },
+    "POPUP_TAB_INFO": {
+        "message": "信息",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_INFO_TOOLTIP": {
+        "message": "套件信息",
+        "description": "Component Information top-level tab in Popup "
+    },
+    "POPUP_TAB_POLICY": {
+        "message": "策略",
+        "description": "Policy violations top-level tab in Popup. All policy violations for this component."
+    },
+    "POPUP_TAB_REMEDIATION": {
+        "message": "修復",
+        "description": "List of recommended version as well as a complete list of the versions available."
+    },
+    "POPUP_TAB_VERSIONS": {
+        "message": "版本",
+        "description": "List of all versions available if there are no policy violations"
+    },
+    "POPUP_TAB_REMEDIATION_TOOLTIP": {
+        "message": "$VERSION_COUNT$版本的修復和信息",
+        "description": "Toolip for the POPUP_TAB_REMEDIATION",
+        "placeholders": {
+            "VERSION_COUNT": {
+                "content": "$1",
+                "example": "0"
+            }
+        }
+    },
+    "POPUP_TAB_POLICY_TOOLIP": {
+        "message": "Sonatype Lifecycle應用程序評估違規策略：$APPNAME$",
+        "description": "Tooltip for the POPUP_TAB_POLICY",
+        "placeholders": {
+            "APPNAME": {
+                "content": "$1",
+                "example": "sandbox-application"
+            }
+        }
+    },
+    "POPUP_TAB_SECURITY": {
+        "message": "安全",
+        "description": "Security (CVEs) top-level tab in Popup. List of CVEs for this component"
+    },
+    "POPUP_TAB_SECURITY_TOOLTIP": {
+        "message": "針對此套件的安全問題",
+        "description": "Tooltip for POPUP_TAB_SECURITY"
+    },
+    "POPUP_TAB_LEGAL": {
+        "message": "法務",
+        "description": "Legal/License top-level tab in Popup. List of licenses for this component"
+    },
+    "POPUP_TAB_LEGAL_TOOLTIP": {
+        "message": "套件的許可證信息",
+        "description": "Legal/License top-level tab in Popup tooltip"
+    },
+    "RECOMMENDED_VERSIONS": {
+        "message": "推薦版本",
+        "description": "The list of the recommended version from Lifecycle"
+    },
+    "SECURITY_TABLE_CVSS": {
+        "message": "CVSS",
+        "description": "The column header in the security table for cvss"
+    },
+    "SECURITY_TABLE_ISSUE": {
+        "message": "問題",
+        "description": "The column header in the security table for issue"
+    },
+    "SIDEBAR_LINK_GETTING_STARTED": {
+        "message": "入門指南",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_HELP": {
+        "message": "幫助",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_LINK_OPTIONS": {
+        "message": "選項",
+        "description": "Sidebar Navigation Link in Options Page"
+    },
+    "SIDEBAR_FOOTER_LINK_REQUEST_SUPPORT": {
+        "message": "請求支持",
+        "description": "Sidebar Footer Link in Options Page"
+    },
+    "GITHUB_STARS": {
+        "message": "星標",
+        "description": "The number of GitHub stars for the project"
+    },
+    "GITHUB_FORKS": {
+        "message": "分叉",
+        "description": "The number of GitHub forks for the project"
+    },
+    "EXAMPLE": {
+        "message": "例子",
+        "description": "Example links to public repositories"
+    },
+    "SUGGESTED_VERSION": {
+        "message": "建议版本",
+        "description": "Suggested Version (IQ 184+)"
+    },
+    "GOLDEN_VERSION": {
+        "message": "黄金版",
+        "description": "Golden Version (IQ 184+)"
+    },
+    "REMEDIATION_LABEL_recommended_non_breaking_with_dependencies": {
+        "message": "元件（包括其相依性）的安全使用版本，無破壞性變更，無政策違規",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations": {
+        "message": "無政策違規的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing": {
+        "message": "無政策動作失敗的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_no_violations_with_dependencies": {
+        "message": "此元件及其相依性無政策違規的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_next_non_failing_with_dependencies": {
+        "message": "此元件及其相依性無政策動作失敗的下一個版本",
+        "description": "請參閱 https://help.sonatype.com/en/component-remediation-rest-api.html"
+    },
+    "REMEDIATION_LABEL_": {
+        "message": "請參閱 Sonatype IQ Server",
+        "description": "當 API 不提供修復類型時的備用方案"
+    },
+    "CONNECTED_TO": {
+        "message": "已連線至",
+        "description": "在狀態中用於聲明與 Sonatype IQ 的連線狀態"
+    },
+    "NOT_CONFIGURED": {
+        "message": "未設定",
+        "description": "在狀態中用於解釋未連線至 Sonatype IQ"
+    },
+    "CONFIGURE_EXTENSION": {
+        "message": "設定擴充功能",
+        "description": "側邊面板中齒輪圖示使用的工具提示文字"
+    },
+    "POLICY_VIOLATIONS": {
+        "message": "政策違規",
+        "description": "政策違規摘要指標的標籤"
+    },
+    "BACK_TO_COMPONENT_LINK": {
+        "message": "返回元件",
+        "description": "側邊面板中返回元件的文字連結"
+    },
+    "KEV_STATUS_LABEL": {
+        "message": "KEV 狀態",
+        "description": "側邊面板中 KEV 狀態的標籤"
+    },
+    "KEV_STATUS_FLAGGED": {
+        "message": "已知被利用",
+        "description": "當 KEV === true 時顯示的文字"
+    },
+    "KEV_STATUS_NOT_FLAGGED": {
+        "message": "未知被利用",
+        "description": "當 KEV === false 時顯示的文字"
+    },
+    "VULNERABILITY_SECTION_NVD_DESCRIPTION": {
+        "message": "CVE 描述",
+        "description": "存在時 NVD 描述的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_EXPLANATION": {
+        "message": "Sonatype 解釋",
+        "description": "Sonatype 解釋的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION": {
+        "message": "Sonatype 建議",
+        "description": "Sonatype 建議的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_DETECTION": {
+        "message": "檢測",
+        "description": "檢測詳情的手風琴標題。"
+    },
+    "VULNERABILITY_SECTION_ADVISORIES": {
+        "message": "通告",
+        "description": "通告詳情的手風琴標題。"
+    },
+    "VULNERABILITY_NO_ADVISORIES": {
+        "message": "無通告。",
+        "description": "當沒有通告時在通告手風琴中顯示的文字。"
+    },
+    "VULNERABILITY_SECTION_META": {
+        "message": "其他詳情",
+        "description": "其他詳情 / 中繼資訊的手風琴標題。"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_FAST_TRACK": {
+        "message": "快速通道",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.FAST_TRACK 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_DEEP_DIVE": {
+        "message": "深度分析",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.DEEP_DIVE 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_PUBLIC_RESEARCH": {
+        "message": "公開研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.PUBLIC_RESEARCH 的文字名稱"
+    },
+    "VULNERABILITY_RESEARCH_TYPE_VENDOR_RESEARCH": {
+        "message": "供應商研究",
+        "description": "SecurityVulnerabilityDataDTOResearchTypeEnum.VENDOR_RESEARCH 的文字名稱"
+    },
+    "COMPONENTS_SELECT_COMPONENT": {
+        "message": "選擇元件",
+        "description": "在給定頁面上發現多個元件身分時元件選擇器的標題。"
+    },
+    "COMPONENTS_SELECT_COMPONENT_SUB_LABEL": {
+        "message": "識別出多個元件 - 選擇要檢視詳情的元件",
+        "description": "COMPONENTS_SELECT_COMPONENT 下方的子標籤"
+    },
+    "HEADING_NO_COMPONENTS_IDENTIFIED": {
+        "message": "快要到了...",
+        "description": "檢視受支援的註冊表但可能是沒有元件身分的頁面時側邊面板中的標題。"
+    },
+    "CONTENT_NO_COMPONENTS_IDENTIFIED": {
+        "message": "$REPO_URL$ 是此擴充功能支援的開源註冊表，但您需要導覽至更具體的頁面以取得元件智慧。",
+        "description": "檢視受支援的註冊表但可能是沒有元件身分的頁面時側邊面板中的內容。",
+        "placeholders": {
+            "REPO_URL": {
+                "content": "$1",
+                "example": "https://central.sonatype.com"
+            }
+        }
+    },
+    "HEADING_UNEXPECTED_ERROR": {
+        "message": "真糗...",
+        "description": "發生意外錯誤時側邊面板中的標題。"
+    },
+    "CONTENT_UNEXPECTED_ERROR": {
+        "message": "發生了意外錯誤。嘗試重新載入此頁面；也許檢查您是否可以存取您的 Sonatype IQ Server？最後，您可以嘗試重新載入此擴充功能。",
+        "description": "發生意外錯誤時側邊面板中的內容。"
+    },
+    "HEADING_UNSUPPORTED_REGISTRY": {
+        "message": "目前網站不受此擴充功能支援。",
+        "description": "檢視不是受支援註冊表的頁面時側邊面板中的標題。"
+    },
+    "CONTENT_UNSUPPORTED_REGISTRY": {
+        "message": "我們可能嘗試為您關閉此側邊面板（但您的瀏覽器忽略了我們的請求 😔）- 只需點擊 X（右上角）暫時隱藏此側邊面板。",
+        "description": "檢視不是受支援註冊表的頁面時側邊面板中的內容。"
+    }
+}

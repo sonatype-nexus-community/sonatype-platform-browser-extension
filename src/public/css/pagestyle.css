@@ -1,0 +1,131 @@
+
+
+/*** OLD BELOW ***/
+
+.nx-p {
+    max-width: unset !important;
+}
+
+.sonatype-iq-extension-vuln {
+    padding-right: 15px !important;
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.sonatype-iq-extension-vuln-critical {
+    border: 3px solid #cc0129 !important;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px #cc0129;
+}
+
+.sonatype-iq-extension-vuln-critical:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-critical.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-severe {
+    border: 3px solid #ff8300 !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px #ff8300;
+}
+
+.sonatype-iq-extension-vuln-severe:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-severe.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-moderate {
+    border: 3px solid #ffc233 !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px #ffc233;
+}
+
+.sonatype-iq-extension-vuln-moderate:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-moderate.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-low {
+    border: 3px solid #495ab6 !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px #495ab6;
+}
+
+.sonatype-iq-extension-vuln-low:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-low.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-none {
+    border: 3px solid #02b3fe !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px #02b3fe;
+}
+
+.sonatype-iq-extension-vuln-unspecified:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-unspecified {
+    border: 3px solid black !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px black;
+}
+
+.sonatype-iq-extension-vuln-invalid-config:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-unspecified.png') /
+        'Invalid Extension Configuration';
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-invalid-config {
+    border: 3px solid black !important;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 8px black;
+}
+
+.sonatype-iq-extension-vuln-none:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-icon-none.png');
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.sonatype-iq-extension-vuln-evaluating:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/sonatype-platform-spinning.gif');
+    vertical-align: top;
+    padding-right: 10px;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

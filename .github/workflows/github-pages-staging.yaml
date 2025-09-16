@@ -1,0 +1,50 @@
+# Workflow to deploy dev/v3.x.x branch to GH Pages Staging
+name: GitHub Pages (Staging)
+
+on:
+    push:
+        branches:
+            - dev/v3.x.x
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                ruby-version: '3.0'
+
+            - name: Checkout Code
+              uses: actions/checkout@v5
+                
+            - name: Build Site
+              id: build
+              run: |
+                bundle install
+                jekyll build
+              working-directory: docs
+
+            - name: Upload Generated Site as Artifact
+              id: deployment
+              uses: actions/upload-pages-artifact@v4
+              with:
+                path: docs/_site
+
+    deploy:
+        environment:
+            name: github-pages-staging
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4

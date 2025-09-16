@@ -1,122 +1,78 @@
 {
-    "name": "sonatype-platform-browser-extension",
-    "version": "2.9.1",
-    "description": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
-    "keywords": [
-        "sonatype",
-        "browser",
-        "extension",
-        "shift-left",
-        "sca",
-        "software composition analysis"
-    ],
-    "homepage": "https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/",
-    "bugs": {
-        "url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues"
-    },
-    "license": "Apache-2.0",
-    "author": {
-        "name": "Sonatype Community",
-        "email": "community-group@sonatype.com",
-        "url": "https://github.com/sonatype-nexus-community"
-    },
-    "private": true,
-    "repository": "git@github.com:sonatype-nexus-community/sonatype-platform-browser-extension.git",
-    "module": "es6",
-    "dependencies": {
-        "@agney/react-loading": "^0.1.2",
-        "@fortawesome/free-solid-svg-icons": "^6.3.0",
-        "@sonatype/nexus-iq-api-client": "^0.184.3",
-        "@sonatype/react-shared-components": "12.16.2",
-        "@types/chrome": "^0.0.218",
-        "@types/firefox-webext-browser": "^109.0.0",
-        "cash-dom": "^8.1.0",
-        "classnames": "^2.3.2",
-        "compare-versions": "^6.1.0",
-        "localforage": "^1.10.0",
-        "node-window-polyfill": "^1.0.2",
-        "packageurl-js": "^1.0.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "ts-deepmerge": "^6.1.0",
-        "web-vitals": "^1.1.1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.21.0",
-        "@babel/preset-env": "^7.20.2",
-        "@babel/preset-typescript": "^7.21.0",
-        "@plasmo-corp/ewu": "^0.6.0",
-        "@semantic-release/changelog": "^6.0.3",
-        "@semantic-release/exec": "^6.0.3",
-        "@semantic-release/git": "^10.0.1",
-        "@types/node": "^20.11.25",
-        "@typescript-eslint/eslint-plugin": "^5.54.0",
-        "@typescript-eslint/parser": "^5.54.0",
-        "babel-jest": "^29.4.3",
-        "copy-webpack-plugin": "^11.0.0",
-        "csp-html-webpack-plugin": "^5.1.0",
-        "css-loader": "^6.7.3",
-        "enzyme": "^3.11.0",
-        "eslint": "^8.35.0",
-        "eslint-plugin-import": "^2.27.5",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-react": "^7.23.2",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "file-loader": "^6.2.0",
-        "fork-ts-checker-webpack-plugin": "^6.2.6",
-        "html-webpack-plugin": "^5.5.0",
-        "isomorphic-fetch": "^3.0.0",
-        "jest": "^27.0.0",
-        "jest-chrome": "^0.8.0",
-        "jest-css-modules-transform": "^4.3.0",
-        "jest-svg-transformer": "^1.0.0",
-        "jest-transform-stub": "^2.0.0",
-        "mini-css-extract-plugin": "^2.7.2",
-        "node-polyfill-webpack-plugin": "^2.0.1",
-        "prettier": "^2.8.4",
-        "react-test-renderer": "^18.2.0",
-        "rimraf": "^4.1.2",
-        "sass": "^1.58.3",
-        "sass-loader": "^13.2.0",
-        "semantic-release-chrome": "^3.2.0",
-        "style-loader": "^3.3.1",
-        "svg-inline-loader": "^0.8.2",
-        "ts-jest": "^27.0.4",
-        "ts-loader": "^9.2.4",
-        "typescript": "^4.9.5",
-        "url-loader": "^4.1.1",
-        "watch": "^1.0.2",
-        "webpack": "^5.75.0",
-        "webpack-cli": "^5.0.1"
-    },
-    "scripts": {
-        "big_build": "eslint './src/**/*.{ts,tsx}' --fix && webpack --mode production --env production --progress",
-        "build": "webpack --mode development --progress",
-        "lint": "eslint './src/**/*.{ts,tsx}'",
-        "test": "jest --detectOpenHandles --forceExit"
-    },
-    "jest": {
-        "preset": "ts-jest",
-        "transformIgnorePatterns": [
-            "/node_modules/(?!@sonatype/react-shared-components|pretty-bytes)"
-        ],
-        "transform": {
-            "^.+\\.(ts|tsx)?$": "ts-jest",
-            "^.+\\.(js|jsx)$": "babel-jest",
-            ".+\\.(css|styl|less|sass|scss)$": "jest-css-modules-transform",
-            ".+\\.(png|jpg|ttf|woff|woff2|svg)$": "jest-transform-stub"
-        },
-        "setupFilesAfterEnv": [
-            "./src/setupTests.ts"
-        ],
-        "testEnvironment": "jsdom",
-        "globals": {
-            "ts-jest": {
-                "tsconfig": {
-                    "allowJs": true
-                }
-            }
-        },
-        "verbose": true
-    }
+  "name": "sonatype-platform-browser-extension",
+  "version": "3.0.0",
+  "description": "Shift Security Left with the Sonatype Platform Browser Extension - Scan Open Source Repositories for known Vulnerabilities.",
+  "keywords": [
+    "sonatype",
+    "browser",
+    "extension",
+    "shift-left",
+    "sca",
+    "software composition analysis",
+    "software supply chain",
+    "open source malware detection"
+  ],
+  "homepage": "https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/",
+  "bugs": {
+    "url": "https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Sonatype Community",
+    "email": "community-group@sonatype.com",
+    "url": "https://github.com/sonatype-nexus-community"
+  },
+  "private": true,
+  "repository": "git@github.com:sonatype-nexus-community/sonatype-platform-browser-extension.git",
+  "scripts": {
+    "dev": "webpack --mode development --progress",
+    "dev-watch": "webpack --mode development --progress --watch",
+    "prod": "webpack --mode production",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.27.1",
+    "@eslint/js": "^9.32.0",
+    "@types/chrome": "^0.1.1",
+    "@types/firefox-webext-browser": "^120.0.4",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "copy-webpack-plugin": "^13.0.0",
+    "csp-html-webpack-plugin": "^5.1.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.3.0",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "mini-css-extract-plugin": "^2.9.2",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "ts-jest": "^29.4.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@fortawesome/react-fontawesome": "0.2.2",
+    "@sonatype/nexus-iq-api-client": "^0.193.3",
+    "@sonatype/react-shared-components": "^14.0.7",
+    "cash-dom": "^8.1.5",
+    "compare-versions": "^6.1.1",
+    "packageurl-js": "^2.0.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0"
+  },
+  "peerDependencies": {
+    "@fortawesome/fontawesome-svg-core": "6.7.2",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2"
+  }
 }
