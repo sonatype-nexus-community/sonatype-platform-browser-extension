@@ -7,6 +7,29 @@ menus:
     weight: 999
 ---
 
+## [3.0.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.0...v3.0.1) (2025-09-16)
+
+
+### Bug Fixes
+
+* correct GIT HASH injection into Prod Release ([2c4848e](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/2c4848ed3057d3c49e7c25ff2b908b8aed16d2ea))
+* Edge Webstore publishing ([#220](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/220)) ([9d0e7b0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/9d0e7b00925377ca0ef44aea0273c4e7d8d03d52))
+* handle match state for Components ([#223](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/223)) ([cabd023](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/cabd023a57474de67f55ecfc1b0e39f7909ff09d))
+
+# [3.0.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.21.0...v3.0.0) (2025-09-16)
+
+
+### Features
+
+* Version 3.0.0 of Sonatype Platform Browser Extension ([#171](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/171) via [#168](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/168)) ([225548e](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/225548e868fb796177e627542c3376063b7d4281))
+
+
+### BREAKING CHANGES
+
+* Version 3.0.0 is a major release and somethings have changed. Check out our documentation.
+
+Signed-off-by: Paul Horton <phorton@sonatype.com>
+
 # [2.21.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.20.1...v2.21.0) (2024-11-26)
 
 

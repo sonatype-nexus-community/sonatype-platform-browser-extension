@@ -36,7 +36,6 @@ jobs:
 
             - name: Get latest CHANGELOG
               run: |
-                echo "---\ntitle: Version History\nlayout: default\nmenus:\n  main:\n    title: Changelog\n    weight: 999\n---" > docs/CHANGELOG.md
                 cat CHANGELOG.md >> docs/CHANGELOG.md
                 
             - name: Build Site
