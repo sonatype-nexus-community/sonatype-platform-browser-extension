@@ -1,17 +1,3 @@
-# [3.0.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.21.0...v3.0.0) (2025-09-16)
-
-
-### Features
-
-* Version 3.0.0 of Sonatype Platform Browser Extension ([#171](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/171) via [#168](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/168)) ([225548e](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/225548e868fb796177e627542c3376063b7d4281))
-
-
-### BREAKING CHANGES
-
-* Version 3.0.0 is a major release and somethings have changed. Check out our documentation.
-
-Signed-off-by: Paul Horton <phorton@sonatype.com>
-
 # [2.21.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v2.20.1...v2.21.0) (2024-11-26)
 
 
