@@ -15,38 +15,66 @@
  */
 import $ from 'cash-dom'
 import { PackageURL } from 'packageurl-js'
-import { logger, LogLevel } from "../../../common/logger"
-import { MessageResponseStatus } from "../../../common/message/constants"
-import { MessageRequestAnnotatePageWithComponentStatuses, MessageResponseFunction } from "../../../common/message/types"
+import { logger, LogLevel } from '../../../common/logger'
+import { MessageResponseStatus } from '../../../common/message/constants'
+import { MessageRequestAnnotatePageWithComponentStatuses, MessageResponseFunction } from '../../../common/message/types'
 import { getPurlHash } from '../../../common/purl-utils'
-import { MessageSender } from "../../../common/types"
-import { BaseRuntimeOnMessageHandler } from "./base"
+import { MessageSender } from '../../../common/types'
+import { BaseRuntimeOnMessageHandler } from './base'
 import { PolicyThreatLevelUtil } from '../../../common/policy/policy-util'
 import { DefaultRepoRegistry } from '../../../common/repo-registry'
+import { MATCH_STATE_EXACT, MATCH_STATE_UNKNOWN } from '../../../common/component/constants'
+import { ThreatLevelNumber } from '@sonatype/react-shared-components'
 
 export class AnnotatePageWithComponentStatusesMessageHandler extends BaseRuntimeOnMessageHandler {
-    
-    handleMessage(message: MessageRequestAnnotatePageWithComponentStatuses, sender: MessageSender, sendResponse: MessageResponseFunction): Promise<void> {
+    handleMessage(
+        message: MessageRequestAnnotatePageWithComponentStatuses,
+        sender: MessageSender,
+        sendResponse: MessageResponseFunction
+    ): Promise<void> {
         logger.logContent('Requested to Annotate current Page', LogLevel.DEBUG, message)
         const repoType = DefaultRepoRegistry.getRepoById(message.repoTypeId)
 
         // Annotate Page Title
-        $(repoType.titleSelector).removeClass('sonatype-pending sonatype-policy-violation-critical sonatype-policy-violation-severe sonatype-policy-violation-moderate sonatype-policy-violation-low sonatype-policy-violation-none')
-        $(repoType.titleSelector).addClass(`sonatype-extension sonatype-page-title ${PolicyThreatLevelUtil.getAnnotationCssClassForThreatLevel(message.maxThreatLevel)}`)
-        
+        $(repoType.titleSelector).removeClass(
+            'sonatype-pending sonatype-policy-violation-critical sonatype-policy-violation-severe sonatype-policy-violation-moderate sonatype-policy-violation-low sonatype-policy-violation-none'
+        )
+
+        let atLeastOneMatch = false
+        let maxThreatLevel = 0
+
         // Annotate each Purl / Component
         for (const purl in message.purlsWithThreatLevel) {
             const purlDomSelector = `.purl-${getPurlHash(PackageURL.fromString(purl))}`
             logger.logContent(`Annotating Purl ${purl}`, LogLevel.DEBUG, purlDomSelector)
             const domElementForPurl = $(purlDomSelector)
             domElementForPurl.removeClass('sonatype-pending')
-            domElementForPurl.addClass(PolicyThreatLevelUtil.getAnnotationCssClassForThreatLevel(message.purlsWithThreatLevel[purl]))
+            domElementForPurl.addClass(
+                PolicyThreatLevelUtil.getAnnotationCssClassForMatchStateAndThreatLevel(
+                    message.purlsWithThreatLevel[purl]
+                )
+            )
+
+            if (message.purlsWithThreatLevel[purl].matchState === MATCH_STATE_EXACT) {
+                atLeastOneMatch = true
+            }
+
+            if (message.purlsWithThreatLevel[purl].threatLevel > maxThreatLevel) {
+                maxThreatLevel = message.purlsWithThreatLevel[purl].threatLevel
+            }
         }
 
+        // Annotate Title based on if we have at least one matched component
+        $(repoType.titleSelector).addClass(
+            `sonatype-extension sonatype-page-title ${PolicyThreatLevelUtil.getAnnotationCssClassForMatchStateAndThreatLevel({
+                matchState: atLeastOneMatch ? MATCH_STATE_EXACT : MATCH_STATE_UNKNOWN,
+                threatLevel: maxThreatLevel as ThreatLevelNumber
+            })}`
+        )
+
         sendResponse({
-            status: MessageResponseStatus.SUCCESS
+            status: MessageResponseStatus.SUCCESS,
         })
         return Promise.resolve()
-    } 
-    
+    }
 }

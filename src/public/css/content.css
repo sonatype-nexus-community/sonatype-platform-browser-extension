@@ -27,6 +27,10 @@
     border-color: #02b3fe !important;
 }
 
+.sonatype-extension.sonatype-component-unknown {
+    border-color: #7034ee !important;
+}
+
 .sonatype-extension.sonatype-page-title.sonatype-policy-violation-critical:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-critical:before {
     content: url('chrome-extension://__MSG_@@extension_id__/images/alert-critical.png');
 }
@@ -45,6 +49,10 @@
 
 .sonatype-extension.sonatype-page-title.sonatype-policy-violation-none:before, .sonatype-extension.sonatype-component.sonatype-policy-violation-none:before {
     content: url('chrome-extension://__MSG_@@extension_id__/images/alert-none.png');
+}
+
+.sonatype-extension.sonatype-page-title.sonatype-component-unknown:before, .sonatype-extension.sonatype-component.sonatype-component-unknown:before {
+    content: url('chrome-extension://__MSG_@@extension_id__/images/alert-unknown.png');
 }
 
 /* Page Title Layout */

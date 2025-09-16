@@ -508,5 +508,13 @@
     "CONTENT_UNSUPPORTED_REGISTRY": {
         "message": "아마도 이 사이드 패널을 닫으려고 했지만 (브라우저가 요청을 무시했습니다 😔) - X (오른쪽 위)를 눌러 지금 이 사이드 패널을 숨기세요.",
         "description": "지원되지 않는 레지스트리인 페이지를 볼 때 사이드 패널의 내용."
+    },
+    "HEADING_NO_COMPONENTS_MATCHED": {
+        "message": "어라...",
+        "description": "Heading in Side Panel when a Component that has matchState === unknown."
+    },
+    "CONTENT_NO_COMPONENTS_MATCHED": {
+        "message": "다음 PackageURL을 가진 컴포넌트는 Sonatype에 알려지지 않았습니다.",
+        "description": "Content in Side Panel when a Component that has matchState === unknown."
     }
 }

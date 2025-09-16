@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { MATCH_STATE_EXACT, MATCH_STATE_UNKNOWN } from "../component/constants"
 import { logger, LogLevel } from "../logger"
 import { ExtensionTabsData, ExtensionVulnerabilitiesData } from "./types"
 
@@ -22,6 +23,23 @@ export class ExtensionDataState {
 
     constructor(public tabsData: ExtensionTabsData, public vulnerabilityData: ExtensionVulnerabilitiesData) { 
         logger.logServiceWorker("Loaded ExtensionDataState", LogLevel.DEBUG)
+    }
+
+    public hasExactMatches = (tabId: number): boolean => {
+        let hasExactMatch = false
+        for (const k of Object.keys(this.tabsData.tabs[tabId].components)) {
+            const component = this.tabsData.tabs[tabId].components[k]
+            if (component.componentDetails?.matchState === MATCH_STATE_EXACT) {
+                hasExactMatch = true
+                break
+            }
+        }
+        return hasExactMatch
+    }
+
+    public getMatchState = (tabId: number, purl: string): string => {
+        const component = this.tabsData.tabs[tabId].components[purl]
+        return component.componentDetails?.matchState || MATCH_STATE_UNKNOWN
     }
 
     public getMaxThreatLevel = (tabId: number): number => {

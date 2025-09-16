@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import { ApiComponentDetailsDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { MATCH_STATE_UNKNOWN } from '../component/constants'
+import { PurlWithThreatLevelAndMatchState } from '../message/types'
 
 export interface PolicyThreatLevelSummary {
     criticalCount: number
@@ -23,23 +25,36 @@ export interface PolicyThreatLevelSummary {
 }
 
 export class PolicyThreatLevelUtil {
-    public static getAnnotationCssClassForThreatLevel(threatLevel: number): string {
-      return `sonatype-policy-violation-${categoryByPolicyThreatLevel[threatLevel]}`
+    public static getAnnotationCssClassForMatchStateAndThreatLevel(
+        purlMatchAndThreat: PurlWithThreatLevelAndMatchState
+    ): string {
+        if (purlMatchAndThreat.matchState !== MATCH_STATE_UNKNOWN) {
+            return `sonatype-policy-violation-${categoryByPolicyThreatLevel[purlMatchAndThreat.threatLevel]}`
+        }
+        return `sonatype-component-${purlMatchAndThreat.matchState}`
     }
 
     public static getColorForThreatLevel(threatLevel: number): string {
         switch (categoryByPolicyThreatLevel[threatLevel]) {
             case 'critical':
                 return '#cc0129'
-            case 'severe': 
+            case 'severe':
                 return '#ff8300'
             default:
                 return '#02b3fe'
         }
     }
 
+    public static getColourForComponentsUnknown(): string {
+        return '#7034ee'
+    }
+
     public static getIconForThreatLevel(threatLevel: number): string {
         return `/images/alert-${categoryByPolicyThreatLevel[threatLevel]}.png`
+    }
+
+    public static getIconForComponentsUnknown(): string {
+        return `/images/alert-unknown.png`
     }
 
     public static getThreatLevelSummary(component: ApiComponentDetailsDTOV2): PolicyThreatLevelSummary {
