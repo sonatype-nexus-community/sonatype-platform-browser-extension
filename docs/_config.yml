@@ -22,7 +22,7 @@ title: Sonatype Platform Browser Extension
 email: community-group@sonatype.com
 description: >- 
   The Browser Extension for the Sonatype Platform. Start open-source security left.
-# baseurl: "/sonatype-platform-browser-extension" # the subpath of your site, e.g. /blog
+baseurl: "/sonatype-platform-browser-extension" # the subpath of your site, e.g. /blog
 url: "https://sonatype-nexus-community.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build set#tings
@@ -31,5 +31,5 @@ remote_theme: sonatype-nexus-community/jekyll-theme-sonatype-community@v0.2.1
 github:
   url: https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension
 
-# google_analytics: true
-# google_verify: lgnJ25LK6S9zjSm4ljybhxA6QGZVIvYOKAG0AA4tdnI
+google_analytics: true
+google_verify: lgnJ25LK6S9zjSm4ljybhxA6QGZVIvYOKAG0AA4tdnI
