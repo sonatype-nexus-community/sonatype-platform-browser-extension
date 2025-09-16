@@ -68,7 +68,7 @@ jobs:
               
             - name: Inject Git Commit Hash
               run: |
-                sed -i -r 's|UNSTABLE|${{ github.ref }}|g' src/common/constants.ts
+                sed -i -r 's|UNSTABLE|${{ github.sha }}|g' src/common/constants.ts
 
             - name: Inject Production Google Analytics Configuration
               run: |
