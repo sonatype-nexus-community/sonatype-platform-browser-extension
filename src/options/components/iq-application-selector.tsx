@@ -30,6 +30,7 @@ import { ExtensionConfigurationContext } from '../../common/context/extension-co
 import ExtensionConfigurationStateHelper from '../configuration-state-helper'
 
 interface IqApplicationSelectorProps {
+    checkingConnection: boolean
     reloadApplications: () => void
 }
 
@@ -66,6 +67,10 @@ export default function IQApplicationSelector(props: Readonly<IqApplicationSelec
                 </NxTooltip>
             </p>
         )
+    }
+
+    if (props.checkingConnection) {
+        return (<></>)
     }
 
     if (extensionConfigContext.supportsLifecycle === true || extensionConfigContext.supportsFirewall) {

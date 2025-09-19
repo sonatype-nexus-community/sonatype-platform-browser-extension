@@ -200,7 +200,11 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                 logger.logReact('Runtime Error in IQOptionsSubPage#handleLoginCheck', LogLevel.WARN, lastError)
             }
             logger.logReact('Response to CONNECTIVITY_AND_VERSION_CHECK', LogLevel.DEBUG, msgResponse)
-            setCheckingConnection(false)
+
+             // Small delay to ensure state updates are complete
+            setTimeout(() => {
+                setCheckingConnection(false)
+            }, 250)
         })
     }
 
@@ -373,7 +377,7 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                 </div>
                             )}
                             {hasPermissions && extensionConfigContext.iqAuthenticated === true && (
-                                <IQApplicationSelector reloadApplications={reloadApplications} />
+                                <IQApplicationSelector checkingConnection={checkingConnection} reloadApplications={reloadApplications} />
                             )}
                             {extensionConfigContext.iqAuthenticated === true &&
                                 extensionConfigContext.iqApplicationInternalId != undefined &&
