@@ -1,3 +1,13 @@
+## [3.0.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.1...v3.0.2) (2025-09-19)
+
+
+### Bug Fixes
+
+* Detect licensed Sonatype Solutions correctly and consistently ([#229](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/229)) ([1dccfe7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/1dccfe76f07c42e13d15e3556eb4de80b84b34d0)), closes [#228](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/228)
+* Feedback when there are zero Applications in Sonatype IQ Server ([#230](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/230)) ([2dbadc7](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/2dbadc7ea3c360ed9523dbb60d6bb8ff2a8f7894)), closes [#227](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/227) [#226](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/226) [#225](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/225)
+* Page Annotation did not always respect the new setting being disabled [#231](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/231) ([#232](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/232)) ([1427917](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/14279174a5244589527b0e362a6fa5c8626b4485))
+* Update help link in Options page to point to documentation site, not GitHub repository ([eb52eb3](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/eb52eb32c41afd6aae0fbdcb3b17e20ef221b470))
+
 ## [3.0.1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.0...v3.0.1) (2025-09-16)
 
 
