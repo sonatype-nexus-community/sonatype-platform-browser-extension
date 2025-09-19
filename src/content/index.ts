@@ -17,6 +17,7 @@ import { ThisBrowser } from '../common/constants'
 import { logger, LogLevel } from '../common/logger'
 import { MessageRequestType } from '../common/message/constants'
 import { MessageRequestExtensionConfigurationUpdated } from '../common/message/types'
+import { DefaultPageParserRegistry } from '../common/page-parsing/registry'
 import '../public/css/content.css'
 import { ContentScriptRuntimeOnMessageHandler } from './handlers/runtime-on-message'
 
@@ -36,6 +37,7 @@ ThisBrowser.runtime
     .onMessage.addListener((request: MessageRequestExtensionConfigurationUpdated) => {
         if (request.messageType === MessageRequestType.EXTENSION_CONFIGURATION_UPDATED) {
             logger.setLevel(request.newExtensionConfig.logLevel)
+            DefaultPageParserRegistry.setEnableDomAnnotation(request.newExtensionConfig.enablePageAnnotations)
         }
     }
 )
