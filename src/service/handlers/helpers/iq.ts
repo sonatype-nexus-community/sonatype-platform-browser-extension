@@ -46,17 +46,21 @@ export class IqMessageHelper {
             }
         } catch (err) {
             if (err instanceof ResponseError) {
-                if (err.response.status === 401) {
-                    const responseBody = await err.response.blob()
-                    return {
-                        "status": MessageResponseStatus.AUTH_ERROR,
-                        "iqAuthenticated": false,
-                        "iqLastAuthenticated": new Date(),
-                        "iqLastError": `${err.message}: [${err.response.status}] ${await responseBody.text()}`,
-                        "iqVersion": IQ_VERSION_UNKNOWN,
-                        ...DEFAULT_SONATYPE_SOLUTION_SUPPORT
-                    }
+                const responseBody = await err.response.blob()
+                switch (err.response.status) {
+                    case 401:
+                    case 402:
+                    case 403:
+                        return {
+                            "status": MessageResponseStatus.AUTH_ERROR,
+                            "iqAuthenticated": false,
+                            "iqLastAuthenticated": new Date(),
+                            "iqLastError": `${err.message}: [${err.response.status}] ${await responseBody.text()}`,
+                            "iqVersion": IQ_VERSION_UNKNOWN,
+                            ...DEFAULT_SONATYPE_SOLUTION_SUPPORT
+                        }
                 }
+                
             }
             return {
                 "status": MessageResponseStatus.FAILURE,

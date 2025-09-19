@@ -32,6 +32,7 @@ ThisBrowser.runtime.connect({name: "OPTIONS-PAGE"}).onMessage.addListener((
     request: MessageRequestExtensionConfigurationUpdated
 ) => { 
     if (request.messageType === MessageRequestType.EXTENSION_CONFIGURATION_UPDATED) {
+        logger.setLevel(request.newExtensionConfig.logLevel as number)
         logger.logReact("[OPTIONS] Received new Extension Configuration", LogLevel.DEBUG, request.newExtensionConfig)
         root.render(
             <MyOptionsPage extensionConfiguration={request.newExtensionConfig}/>

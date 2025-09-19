@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { faExternalLink, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import {
     NxButton,
     NxDivider,
     NxFontAwesomeIcon,
     NxFormGroup,
-    NxFormSelect,
     NxGrid,
     NxPageMain,
     NxPageTitle,
@@ -31,20 +32,17 @@ import {
     nxTextInputStateHelpers,
     NxTextInputStateProps,
     NxTextLink,
-    NxTile,
-    NxTooltip,
+    NxTile
 } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { faExternalLink, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import { logger, LogLevel } from '../../common/logger'
-import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
+import { MessageRequestType } from '../../common/message/constants'
 import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { MessageResponseIqConnectivityAndVersionCheck } from '../../common/message/types'
 import ExtensionConfigurationStateHelper from '../configuration-state-helper'
+import IQApplicationSelector from './iq-application-selector'
 import { isHttpUriValidator, nonEmptyValidator } from './validators'
 
 const { initialState, userInput } = nxTextInputStateHelpers
@@ -86,17 +84,21 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
         }
     }, [extensionConfigContext, iqUrl.trimmedValue])
 
+    const reloadApplications = function () {
+        sendRuntimeMessage({
+            messageType: MessageRequestType.LOAD_APPLICATIONS,
+        }).then(() => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in IQOptionsSubPage#reloadApplications', LogLevel.WARN, lastError)
+            }
+        })
+    }
+
     useEffect(() => {
         // IQ is connected - get Applications
         if (extensionConfigContext.iqAuthenticated) {
-            sendRuntimeMessage({
-                messageType: MessageRequestType.LOAD_APPLICATIONS,
-            }).then(() => {
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in IQOptionsSubPage#useEffect-2', LogLevel.WARN, lastError)
-                }
-            })
+            reloadApplications()
         }
     }, [extensionConfigContext.iqAuthenticated])
 
@@ -138,7 +140,11 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                 (granted: boolean) => {
                     const lastError = lastRuntimeError()
                     if (lastError) {
-                        logger.logReact('Runtime Error in IQOptionsSubPage#askForPermissions-2', LogLevel.WARN, lastError)
+                        logger.logReact(
+                            'Runtime Error in IQOptionsSubPage#askForPermissions-2',
+                            LogLevel.WARN,
+                            lastError
+                        )
                     }
                     setHasPermissions(granted)
                 }
@@ -173,14 +179,6 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
         ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
     }
 
-    function handleIqApplicationChange(val: string) {
-        const newExtensionSettings = extensionConfigContext
-        const [iqApplicationInternalId, iqApplicationPublidId] = val.split('|')
-        newExtensionSettings.iqApplicationInternalId = iqApplicationInternalId
-        newExtensionSettings.iqApplicationPublidId = iqApplicationPublidId
-        ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-    }
-
     function handleLoginCheck() {
         setCheckingConnection(true)
 
@@ -201,10 +199,8 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
             if (lastError) {
                 logger.logReact('Runtime Error in IQOptionsSubPage#handleLoginCheck', LogLevel.WARN, lastError)
             }
-
-            if (msgResponse.status === MessageResponseStatus.SUCCESS) {
-                setCheckingConnection(false)
-            }
+            logger.logReact('Response to CONNECTIVITY_AND_VERSION_CHECK', LogLevel.DEBUG, msgResponse)
+            setCheckingConnection(false)
         })
     }
 
@@ -376,80 +372,45 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                     </div>
                                 </div>
                             )}
-                            {hasPermissions &&
-                                extensionConfigContext.iqAuthenticated === true &&
-                                (extensionConfigContext.supportsLifecycle === true || extensionConfigContext.supportsFirewall) &&
-                                extensionConfigContext.iqApplications.length > 0 && (
-                                    <React.Fragment>
-                                        <p className='nx-p'>
-                                            <strong>3)</strong>{' '}
-                                            {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
-                                            <NxTooltip
-                                                title={ThisBrowser.i18n.getMessage(
-                                                    'OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION'
-                                                )}>
-                                                <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
-                                            </NxTooltip>
-                                        </p>
-
-                                        <NxFormGroup
-                                            label={ThisBrowser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')}
-                                            isRequired>
-                                            <NxFormSelect
-                                                defaultValue={`${extensionConfigContext.iqApplicationInternalId}|${extensionConfigContext.iqApplicationPublidId}`}
-                                                onChange={handleIqApplicationChange}
-                                                disabled={!extensionConfigContext.iqAuthenticated}>
-                                                <option value=''>
-                                                    {ThisBrowser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}
-                                                </option>
-                                                {extensionConfigContext.iqApplications.map((app: ApiApplicationDTO) => {
-                                                    return (
-                                                        <option key={app.id} value={`${app.id}|${app.publicId}`}>
-                                                            {app.name}
-                                                        </option>
-                                                    )
-                                                })}
-                                            </NxFormSelect>
-                                    </NxFormGroup>
-                                    {extensionConfigContext.iqAuthenticated === true &&
-                                    extensionConfigContext.iqApplicationInternalId != undefined &&
-                                    extensionConfigContext.iqApplicationPublidId != undefined &&
-                                        hasPermissions && (
-                                        <>
-                                            <a
-                                                href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
-                                                target='_blank'
-                                                className='nx-btn'
-                                                rel='noreferrer'>
-                                                Maven {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                            </a>
-                                            <a
-                                                href='https://www.npmjs.com/package/handlebars/v/4.7.5'
-                                                target='_blank'
-                                                className='nx-btn'
-                                                rel='noreferrer'>
-                                                npmjs {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                            </a>
-                                            <a
-                                                href='https://pypi.org/project/feedparser/6.0.10/'
-                                                target='_blank'
-                                                className='nx-btn'
-                                                rel='noreferrer'>
-                                                PyPI {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
-                                                <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
-                                            </a>
-                                        </>
-                                        )}
-                                    </React.Fragment>
+                            {hasPermissions && extensionConfigContext.iqAuthenticated === true && (
+                                <IQApplicationSelector reloadApplications={reloadApplications} />
+                            )}
+                            {extensionConfigContext.iqAuthenticated === true &&
+                                extensionConfigContext.iqApplicationInternalId != undefined &&
+                                extensionConfigContext.iqApplicationPublidId != undefined &&
+                                hasPermissions && (
+                                    <>
+                                        <a
+                                            href='https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-core/2.12.1'
+                                            target='_blank'
+                                            className='nx-btn'
+                                            rel='noreferrer'>
+                                            Maven {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+                                        <a
+                                            href='https://www.npmjs.com/package/handlebars/v/4.7.5'
+                                            target='_blank'
+                                            className='nx-btn'
+                                            rel='noreferrer'>
+                                            npmjs {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+                                        <a
+                                            href='https://pypi.org/project/feedparser/6.0.10/'
+                                            target='_blank'
+                                            className='nx-btn'
+                                            rel='noreferrer'>
+                                            PyPI {ThisBrowser.i18n.getMessage('EXAMPLE')}{' '}
+                                            <NxFontAwesomeIcon icon={faExternalLink as IconDefinition} />
+                                        </a>
+                                    </>
                                 )}
 
                             {extensionConfigContext.iqAuthenticated === true &&
                                 extensionConfigContext.iqApplicationInternalId != undefined &&
                                 extensionConfigContext.iqApplicationPublidId != undefined &&
-                                hasPermissions &&
-                                (
+                                hasPermissions && (
                                     <NxStatefulSuccessAlert>
                                         {ThisBrowser.i18n.getMessage('OPTIONS_SUCCESS_MESSAGE')}
                                     </NxStatefulSuccessAlert>
