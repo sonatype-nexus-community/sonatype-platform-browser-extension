@@ -37,7 +37,7 @@ export default function HelpSubPage() {
                 <NxTile.Content>
                     <NxP>
                         {ThisBrowser.i18n.getMessage('HELP_TILE_CONTENT_WHERE_TO_GET_HELP')}
-                        <NxTextLink external href={extension.homepage_url}>
+                        <NxTextLink external href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/'>
                             {ThisBrowser.i18n.getMessage('LINK_TEXT_HERE')}
                         </NxTextLink>
                         &nbsp;.
