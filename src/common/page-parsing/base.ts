@@ -21,10 +21,14 @@ import { BaseRepo } from "../repo-type/base"
 
 export abstract class BasePageParser {
 
-    constructor(readonly repoType: BaseRepo, readonly enableDomAnnotation: boolean = true) {
+    constructor(readonly repoType: BaseRepo, protected enableDomAnnotation: boolean = true) {
         if (repoType === undefined) {
             throw new Error("RepoType cannot be undefined")
         }
+    }
+
+    public setEnableDomAnnotation = (enabled: boolean): void => {
+        this.enableDomAnnotation = enabled
     }
 
     annotateDomPageTitle = () => {

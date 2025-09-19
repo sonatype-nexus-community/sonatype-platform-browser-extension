@@ -56,6 +56,12 @@ class PageParserRegistry {
     registerPageParser(pageParser: BasePageParser) {
         this.parsers.set(pageParser.repoType.id, pageParser)
     }
+
+    public setEnableDomAnnotation = (enabled: boolean): void => {
+        for (const k of this.parsers.keys()) {
+            this.parsers.get(k)?.setEnableDomAnnotation(enabled)
+        }
+    }
 }
 
 export const DefaultPageParserRegistry = new PageParserRegistry
