@@ -47,7 +47,7 @@ export interface SonatypeSolutionSupport {
     supportsLifecycleAlp: boolean
 }
 
-export const DEFAULT_SONATYPE_SOLUTION_SUPPORT = {
+export const DEFAULT_SONATYPE_SOLUTION_SUPPORT: SonatypeSolutionSupport = {
     supportsFirewall: false,
     supportsLifecycle: false,
     supportsLifecycleAlp: false,
