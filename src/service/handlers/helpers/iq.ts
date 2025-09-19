@@ -33,7 +33,7 @@ export class IqMessageHelper {
             const tokenCheck = await new UserTokensApi(this.getApiConfiguration()).getUserTokenExistsForCurrentUserRaw()
             const serverHeader = tokenCheck.raw.headers.get('server')
             const iqVersion = this.parseServerHeader(serverHeader || '')
-            const iqCapabilities = await this.determineIqCapabilities()
+            const iqCapabilities = await this.determineIqCapabilities(iqVersion)
             return {
                 "status": MessageResponseStatus.SUCCESS,
                 "iqAuthenticated": true,
@@ -70,12 +70,12 @@ export class IqMessageHelper {
         }
     }
 
-    public async determineIqCapabilities(): Promise<SonatypeSolutionSupport> {
+    public async determineIqCapabilities(iqVersion: number): Promise<SonatypeSolutionSupport> {
         logger.logServiceWorker("Determining IQ capabilities", LogLevel.DEBUG)
-        const sonatypeSolutionSupport = DEFAULT_SONATYPE_SOLUTION_SUPPORT
-        if (this.extensionConfigState.getExtensionConfig().iqVersion >= 192) {
+        const sonatypeSolutionSupport = { ...DEFAULT_SONATYPE_SOLUTION_SUPPORT }
+        if (iqVersion >= 192) {
             // New API available since IQ 192
-            const licensedSolutions = await new SolutionsApi(this.getApiConfiguration()).getLicensedSolutions()
+            const licensedSolutions = await new SolutionsApi(this.getApiConfiguration()).getLicensedSolutions({allowRelativeUrls: true})
             for (const i of licensedSolutions) {
                 switch (i.id) {
                     case SOLUTION_FIREWALL:
@@ -95,6 +95,7 @@ export class IqMessageHelper {
         // Detect ALP
         sonatypeSolutionSupport.supportsLifecycleAlp = await this.detectLifecycleAlpSupport()
 
+        logger.logServiceWorker("Determined IQ capabilities", LogLevel.DEBUG, sonatypeSolutionSupport)
         return sonatypeSolutionSupport
     }
 

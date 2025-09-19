@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { faExternalLink, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import {
     NxButton,
     NxDivider,
     NxFontAwesomeIcon,
     NxFormGroup,
-    NxFormSelect,
     NxGrid,
     NxPageMain,
     NxPageTitle,
@@ -31,13 +32,9 @@ import {
     nxTextInputStateHelpers,
     NxTextInputStateProps,
     NxTextLink,
-    NxTile,
-    NxTooltip,
+    NxTile
 } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { faExternalLink, faQuestionCircle, faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import { logger, LogLevel } from '../../common/logger'
@@ -45,8 +42,8 @@ import { MessageRequestType, MessageResponseStatus } from '../../common/message/
 import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { MessageResponseIqConnectivityAndVersionCheck } from '../../common/message/types'
 import ExtensionConfigurationStateHelper from '../configuration-state-helper'
-import { isHttpUriValidator, nonEmptyValidator } from './validators'
 import IQApplicationSelector from './iq-application-selector'
+import { isHttpUriValidator, nonEmptyValidator } from './validators'
 
 const { initialState, userInput } = nxTextInputStateHelpers
 
@@ -175,14 +172,6 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
     function handleIqUserChange(e) {
         const newExtensionSettings = extensionConfigContext
         newExtensionSettings.user = e as string
-        ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
-    }
-
-    function handleIqApplicationChange(val: string) {
-        const newExtensionSettings = extensionConfigContext
-        const [iqApplicationInternalId, iqApplicationPublidId] = val.split('|')
-        newExtensionSettings.iqApplicationInternalId = iqApplicationInternalId
-        newExtensionSettings.iqApplicationPublidId = iqApplicationPublidId
         ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
     }
 
