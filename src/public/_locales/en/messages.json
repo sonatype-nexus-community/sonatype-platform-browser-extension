@@ -580,5 +580,21 @@
     "CONTENT_NO_COMPONENTS_MATCHED": {
         "message": "The Component with the following PackageURL is not known to Sonatype.",
         "description": "Content in Side Panel when a Component that has matchState === unknown."
+    },
+    "OPTIONS_NO_APPLICATIONS_NXLC": {
+        "message": "There are no Applications available in your Sonatype Lifecycle Server (or you don't have permission to access any). Please speak with your Sonatype Lifecycle Administrator to be granted access or have an Application created.",
+        "description": "Error message displayed when zero Applications returned from IQ, but IQ is licensed for Lifecycle."
+    },
+    "BUTTON_REFRESH_APPLICATIONS": {
+        "message": "Refresh Applications",
+        "description": "Used alongside OPTIONS_NO_APPLICATIONS_NXLC."
+    },
+    "OPTIONS_NO_APPLICATIONS_NXFW_ONLY": {
+        "message": "There are no Applications available in your Sonatype IQ Server, and at least one is required for this Extension to operate. Your Sonatype IQ Administrator can create one following this guide: ",
+        "description": "Error message displayed when zero Applications returned from IQ, but IQ is licensed for Lifecycle."
+    },
+    "OPTIONS_NO_VALID_LICENSE": {
+        "message": "There is no valid license for either Sonatype Repository Firewall or Sonatype Lifecycle installed on your Sonatype IQ Server.",
+        "description": "Error message when IQ is not licensed for either NXFW or NXLC."
     }
 }

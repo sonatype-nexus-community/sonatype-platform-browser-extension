@@ -18,6 +18,7 @@ import { faExternalLink, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import {
     NxButton,
     NxDivider,
+    NxErrorAlert,
     NxFontAwesomeIcon,
     NxFormGroup,
     NxGrid,
@@ -32,7 +33,7 @@ import {
     nxTextInputStateHelpers,
     NxTextInputStateProps,
     NxTextLink,
-    NxTile
+    NxTile,
 } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
 import { ThisBrowser } from '../../common/constants'
@@ -84,17 +85,21 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
         }
     }, [extensionConfigContext, iqUrl.trimmedValue])
 
+    const reloadApplications = function () {
+        sendRuntimeMessage({
+            messageType: MessageRequestType.LOAD_APPLICATIONS,
+        }).then(() => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('Runtime Error in IQOptionsSubPage#reloadApplications', LogLevel.WARN, lastError)
+            }
+        })
+    }
+
     useEffect(() => {
         // IQ is connected - get Applications
         if (extensionConfigContext.iqAuthenticated) {
-            sendRuntimeMessage({
-                messageType: MessageRequestType.LOAD_APPLICATIONS,
-            }).then(() => {
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in IQOptionsSubPage#useEffect-2', LogLevel.WARN, lastError)
-                }
-            })
+            reloadApplications()
         }
     }, [extensionConfigContext.iqAuthenticated])
 
@@ -195,8 +200,11 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
             if (lastError) {
                 logger.logReact('Runtime Error in IQOptionsSubPage#handleLoginCheck', LogLevel.WARN, lastError)
             }
+            logger.logReact('Response to CONNECTIVITY_AND_VERSION_CHECK', LogLevel.DEBUG, msgResponse)
 
             if (msgResponse.status === MessageResponseStatus.SUCCESS) {
+                setCheckingConnection(false)
+            } else {
                 setCheckingConnection(false)
             }
         })
@@ -371,7 +379,7 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                                 </div>
                             )}
                             {hasPermissions && extensionConfigContext.iqAuthenticated === true && (
-                                <IQApplicationSelector />
+                                <IQApplicationSelector reloadApplications={reloadApplications} />
                             )}
                             {extensionConfigContext.iqAuthenticated === true &&
                                 extensionConfigContext.iqApplicationInternalId != undefined &&

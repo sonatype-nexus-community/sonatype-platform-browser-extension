@@ -13,16 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useContext, useEffect, useState } from 'react'
-import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
-import { faQuestionCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faSync, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { ApiApplicationDTO } from '@sonatype/nexus-iq-api-client'
-import { NxTooltip, NxFontAwesomeIcon, NxFormGroup, NxFormSelect } from '@sonatype/react-shared-components'
+import {
+    NxButton,
+    NxErrorAlert,
+    NxFontAwesomeIcon,
+    NxFormGroup,
+    NxFormSelect,
+    NxTextLink,
+    NxTooltip,
+} from '@sonatype/react-shared-components'
+import React, { useContext, useEffect, useState } from 'react'
 import { ThisBrowser } from '../../common/constants'
+import { ExtensionConfigurationContext } from '../../common/context/extension-configuration'
 import ExtensionConfigurationStateHelper from '../configuration-state-helper'
 
-export default function IQApplicationSelector() {
+interface IqApplicationSelectorProps {
+    reloadApplications: () => void
+}
+
+export default function IQApplicationSelector(props: Readonly<IqApplicationSelectorProps>) {
     const extensionConfigContext = useContext(ExtensionConfigurationContext)
+    const [reloadingApplications, setReloadingApplications] = useState<boolean>(false)
+    const [applications, setApplications] = useState<ApiApplicationDTO[]>([])
+
+    useEffect(() => {
+        if (extensionConfigContext.iqApplications.length > 0) {
+            setApplications(extensionConfigContext.iqApplications)
+        }
+    }, [extensionConfigContext.iqApplications])
 
     function handleIqApplicationChange(val: string) {
         const newExtensionSettings = extensionConfigContext
@@ -32,25 +52,35 @@ export default function IQApplicationSelector() {
         ExtensionConfigurationStateHelper.persistExtensionConfiguration(newExtensionSettings)
     }
 
+    const doReloadApplications = function () {
+        setReloadingApplications(true)
+        props.reloadApplications()
+    }
+
+    const preAmble = function () {
+        return (
+            <p className='nx-p'>
+                <strong>3)</strong> {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
+                <NxTooltip title={ThisBrowser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
+                    <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
+                </NxTooltip>
+            </p>
+        )
+    }
+
     if (extensionConfigContext.supportsLifecycle === true || extensionConfigContext.supportsFirewall) {
         if (extensionConfigContext.iqApplications.length > 0) {
             // There are Applications to choose from and there is a key licensed Solution
             return (
                 <>
-                    <p className='nx-p'>
-                        <strong>3)</strong> {ThisBrowser.i18n.getMessage('OPTIONS_PAGE_SONATYPE_POINT_3')}
-                        <NxTooltip title={ThisBrowser.i18n.getMessage('OPTIONS_PAGE_TOOLTIP_WHY_APPLICATION')}>
-                            <NxFontAwesomeIcon icon={faQuestionCircle as IconDefinition} />
-                        </NxTooltip>
-                    </p>
-
+                    {preAmble()}
                     <NxFormGroup label={ThisBrowser.i18n.getMessage('LABEL_SONATYPE_APPLICATION')} isRequired>
                         <NxFormSelect
                             defaultValue={`${extensionConfigContext.iqApplicationInternalId}|${extensionConfigContext.iqApplicationPublidId}`}
                             onChange={handleIqApplicationChange}
                             disabled={!extensionConfigContext.iqAuthenticated}>
                             <option value=''>{ThisBrowser.i18n.getMessage('LABEL_SELECT_AN_APPLICATION')}</option>
-                            {extensionConfigContext.iqApplications.map((app: ApiApplicationDTO) => {
+                            {applications.map((app: ApiApplicationDTO) => {
                                 return (
                                     <option key={app.id} value={`${app.id}|${app.publicId}`}>
                                         {app.name}
@@ -63,13 +93,39 @@ export default function IQApplicationSelector() {
             )
         } else {
             if (!extensionConfigContext.supportsLifecycle) {
-                // No Applications and not licensed for Lifecycle
-
+                // No Applications and NOT licensed for Lifecycle
+                return (
+                    <>
+                        {preAmble()}
+                        <NxErrorAlert>
+                            {ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXFW_ONLY')}
+                            <NxTextLink external href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/faq.html#i-have-sonatype-repository-firewall-and-no-applications'>
+                                here
+                            </NxTextLink>
+                            .
+                        </NxErrorAlert>
+                    </>
+                )
+            } else {
+                // No Applications and licensed for Lifecycle
+                return (
+                    <>
+                        {preAmble()}
+                        <NxErrorAlert>{ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXLC')}</NxErrorAlert>
+                        <NxButton variant='primary' onClick={doReloadApplications}>
+                            <NxFontAwesomeIcon icon={faSync} spin={reloadingApplications} />
+                            <span>{ThisBrowser.i18n.getMessage('BUTTON_REFRESH_APPLICATIONS')}</span>
+                        </NxButton>
+                    </>
+                )
             }
         }
     } else {
         return (
-            <></>
+            <>
+                {preAmble()}
+                {ThisBrowser.i18n.getMessage('OPTIONS_NO_VALID_LICENSE')}
+            </>
         )
     }
 }
