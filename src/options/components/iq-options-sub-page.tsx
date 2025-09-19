@@ -200,12 +200,7 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                 logger.logReact('Runtime Error in IQOptionsSubPage#handleLoginCheck', LogLevel.WARN, lastError)
             }
             logger.logReact('Response to CONNECTIVITY_AND_VERSION_CHECK', LogLevel.DEBUG, msgResponse)
-
-            if (msgResponse.status === MessageResponseStatus.SUCCESS) {
-                setCheckingConnection(false)
-            } else {
-                setCheckingConnection(false)
-            }
+            setCheckingConnection(false)
         })
     }
 
