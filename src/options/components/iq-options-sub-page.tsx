@@ -18,7 +18,6 @@ import { faExternalLink, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import {
     NxButton,
     NxDivider,
-    NxErrorAlert,
     NxFontAwesomeIcon,
     NxFormGroup,
     NxGrid,
@@ -33,7 +32,7 @@ import {
     nxTextInputStateHelpers,
     NxTextInputStateProps,
     NxTextLink,
-    NxTile,
+    NxTile
 } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
 import { ThisBrowser } from '../../common/constants'

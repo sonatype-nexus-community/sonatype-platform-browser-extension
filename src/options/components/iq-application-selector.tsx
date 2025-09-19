@@ -91,34 +91,32 @@ export default function IQApplicationSelector(props: Readonly<IqApplicationSelec
                     </NxFormGroup>
                 </>
             )
+        } else if (!extensionConfigContext.supportsLifecycle) {
+            // No Applications and NOT licensed for Lifecycle
+            return (
+                <>
+                    {preAmble()}
+                    <NxErrorAlert>
+                        {ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXFW_ONLY')}
+                        <NxTextLink external href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/faq.html#i-have-sonatype-repository-firewall-and-no-applications'>
+                            here
+                        </NxTextLink>
+                        .
+                    </NxErrorAlert>
+                </>
+            )
         } else {
-            if (!extensionConfigContext.supportsLifecycle) {
-                // No Applications and NOT licensed for Lifecycle
-                return (
-                    <>
-                        {preAmble()}
-                        <NxErrorAlert>
-                            {ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXFW_ONLY')}
-                            <NxTextLink external href='https://sonatype-nexus-community.github.io/sonatype-platform-browser-extension/faq.html#i-have-sonatype-repository-firewall-and-no-applications'>
-                                here
-                            </NxTextLink>
-                            .
-                        </NxErrorAlert>
-                    </>
-                )
-            } else {
-                // No Applications and licensed for Lifecycle
-                return (
-                    <>
-                        {preAmble()}
-                        <NxErrorAlert>{ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXLC')}</NxErrorAlert>
-                        <NxButton variant='primary' onClick={doReloadApplications}>
-                            <NxFontAwesomeIcon icon={faSync} spin={reloadingApplications} />
-                            <span>{ThisBrowser.i18n.getMessage('BUTTON_REFRESH_APPLICATIONS')}</span>
-                        </NxButton>
-                    </>
-                )
-            }
+            // No Applications and licensed for Lifecycle
+            return (
+                <>
+                    {preAmble()}
+                    <NxErrorAlert>{ThisBrowser.i18n.getMessage('OPTIONS_NO_APPLICATIONS_NXLC')}</NxErrorAlert>
+                    <NxButton variant='primary' onClick={doReloadApplications}>
+                        <NxFontAwesomeIcon icon={faSync} spin={reloadingApplications} />
+                        <span>{ThisBrowser.i18n.getMessage('BUTTON_REFRESH_APPLICATIONS')}</span>
+                    </NxButton>
+                </>
+            )
         }
     } else {
         return (
