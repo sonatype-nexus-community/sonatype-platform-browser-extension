@@ -378,7 +378,7 @@ export default function IQOptionsSubPage(props: Readonly<IqServerOptionsPageInte
                             )}
                             {hasPermissions &&
                                 extensionConfigContext.iqAuthenticated === true &&
-                                extensionConfigContext.supportsLifecycle === true &&
+                                (extensionConfigContext.supportsLifecycle === true || extensionConfigContext.supportsFirewall) &&
                                 extensionConfigContext.iqApplications.length > 0 && (
                                     <React.Fragment>
                                         <p className='nx-p'>
