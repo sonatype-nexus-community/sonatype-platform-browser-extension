@@ -500,5 +500,17 @@
     "CONTENT_NO_COMPONENTS_MATCHED": {
         "message": "El component amb la següent PackageURL no és conegut per Sonatype.",
         "description": "Content in Side Panel when a Component that has matchState === unknown."
+    },
+    "EPSS_SCORE_LABEL": {
+        "message": "Puntuació EPSS",
+        "description": "EPSS Score label"
+    },
+    "UPGRADE_IQ_SERVER": {
+        "message": "Actualitzeu Sonatype IQ Server",
+        "description": "Displayed when a feature / value is not available given the IQ Server version connected to."
+    },
+    "DATA_NOT_AVAILABLE": {
+        "message": "No disponible",
+        "description": "Message when a particular data point is not provided / available."
     }
 }

@@ -1,3 +1,7 @@
 DIV.options-sidebar.open {
     min-width: 285px;
 }
+
+MAIN.release-notes-page-main .nx-h1, MAIN.release-notes-page-main .nx-h2, MAIN.release-notes-page-main .nx-h3, MAIN.release-notes-page-main SPAN {
+    max-width: max-content;
+}

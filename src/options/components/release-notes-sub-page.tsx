@@ -19,12 +19,32 @@ import { ThisBrowser } from '../../common/constants'
 
 export default function ReleaseNotesSubPage() {
     return (
-        <NxPageMain>
+        <NxPageMain className='release-notes-page-main'>
             <h1>
                 <NxPageTitle>
                     {ThisBrowser.i18n.getMessage('EXTENSION_NAME')} {ThisBrowser.i18n.getMessage('RELEASE_NOTES_PAGE_TITLE')}
                 </NxPageTitle>
             </h1>
+            <NxTile>
+                <NxTile.Header>
+                    <NxTile.HeaderTitle>
+                        <NxH2>Release <code>3.1.0</code></NxH2>
+                    </NxTile.HeaderTitle>
+                </NxTile.Header>
+                <NxTile.Content>
+                    <h3 className="nx-h3">Notable Changes</h3>
+                    <ol className="nx-list nx-list--numbered">
+                        <li className="nx-list__item">
+                            <h4>EPSS Scoring</h4>
+                            <span className="nx-list__text">
+                                When viewing Vulnerabilties, and when&nbsp;
+                                <NxTextLink href='https://help.sonatype.com/en/sonatype-iq-server-194-release-notes.html#expanded-risk-data-with-exploit-prediction-scoring-system--epss--integration' target='_blank' external>EPSS Scores</NxTextLink>&nbsp;
+                                are available (and you are running Sonatype IQ Server &gt;= 194), you&quot;ll now see EPSS scores.
+                            </span>
+                        </li>
+                    </ol>
+                </NxTile.Content>
+            </NxTile>
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>

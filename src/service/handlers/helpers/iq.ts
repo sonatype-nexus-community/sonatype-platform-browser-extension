@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2, ApplicationsApi, ComponentsApi, CompositeSourceControlApi, Configuration, FirewallApi, GetSuggestedRemediationForComponent200Response, GetSuggestedRemediationForComponentOwnerTypeEnum, LicenseLegalMetadataTemplatesApi, PolicyEvaluationApi, ResponseError, SolutionsApi, UserTokensApi, VulnerabilityDetailsApi } from "@sonatype/nexus-iq-api-client"
+import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2, ApplicationsApi, ComponentsApi, CompositeSourceControlApi, Configuration, FirewallApi, GetSuggestedRemediationForComponent200Response, GetSuggestedRemediationForComponentOwnerTypeEnum, LicenseLegalMetadataTemplateApi, PolicyEvaluationApi, ResponseError, SolutionsApi, UserTokensApi, VulnerabilityDetailsApi } from "@sonatype/nexus-iq-api-client"
 import { ExtensionConfigurationState } from "../../../common/configuration/extension-configuration"
 import { DEFAULT_SONATYPE_SOLUTION_SUPPORT, SonatypeSolutionSupport } from "../../../common/configuration/types"
 import { IQ_VERSION_UNKNOWN, OWNER_TYPE_ORGANIZATION, ROOT_ORGANIZATION_ID, SOLUTION_FIREWALL, SOLUTION_LIFECYCLE, ThisBrowser } from "../../../common/constants"
@@ -129,7 +129,7 @@ export class IqMessageHelper {
 
     private async detectLifecycleAlpSupport(): Promise<boolean> {
         try {
-            await new LicenseLegalMetadataTemplatesApi(this.getApiConfiguration()).getAllAttributionReportTemplates({ credentials: 'omit' })
+            await new LicenseLegalMetadataTemplateApi(this.getApiConfiguration()).getAllAttributionReportTemplates({ credentials: 'omit' })
             return true
         } catch (err) {
             logger.logServiceWorker("detectLifecycleAlpSupport check failed", LogLevel.DEBUG, err)
@@ -146,7 +146,7 @@ export class IqMessageHelper {
             )
             return promise
         }).catch((err: Error) => {
-            return Promise.reject(err)
+            throw err
         })
     }
 
@@ -161,7 +161,7 @@ export class IqMessageHelper {
                 }
             }, { credentials: 'omit' })
         } catch (err) {
-            return Promise.reject(this.handleIqError(err))
+            throw this.handleIqError(err)
         }
     }
 
@@ -237,7 +237,7 @@ export class IqMessageHelper {
                 }, { credentials: 'omit' }
             )
         } catch (err) {
-            return Promise.reject(this.handleIqError(err))
+             throw this.handleIqError(err)
         }
     }
 
@@ -308,7 +308,7 @@ export class IqMessageHelper {
     protected parseServerHeader(serverHeader: string): number {
         const match = /^NexusIQ\/1\.(?<iqVersion>\d+)\..*$/.exec(serverHeader)
         const iqVersion = match?.groups?.iqVersion
-        return iqVersion ? Number(iqVersion) : NaN
+        return iqVersion ? Number(iqVersion) : Number.NaN
     }
 
     private readonly handleIqError = (err: Error): Error =>  {

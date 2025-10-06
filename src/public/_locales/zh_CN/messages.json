@@ -508,5 +508,17 @@
     "CONTENT_NO_COMPONENTS_MATCHED": {
         "message": "具有以下PackageURL的组件不为Sonatype所知。",
         "description": "Content in Side Panel when a Component that has matchState === unknown."
+    },
+    "EPSS_SCORE_LABEL": {
+        "message": "EPSS评分",
+        "description": "EPSS Score label"
+    },
+    "UPGRADE_IQ_SERVER": {
+        "message": "升级Sonatype IQ Server",
+        "description": "Displayed when a feature / value is not available given the IQ Server version connected to."
+    },
+    "DATA_NOT_AVAILABLE": {
+        "message": "不可用",
+        "description": "Message when a particular data point is not provided / available."
     }
 }
