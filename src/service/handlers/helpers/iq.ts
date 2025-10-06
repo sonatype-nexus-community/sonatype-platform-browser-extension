@@ -146,7 +146,7 @@ export class IqMessageHelper {
             )
             return promise
         }).catch((err: Error) => {
-            return Promise.reject(err)
+            throw err
         })
     }
 
@@ -161,7 +161,7 @@ export class IqMessageHelper {
                 }
             }, { credentials: 'omit' })
         } catch (err) {
-            return Promise.reject(this.handleIqError(err))
+            throw this.handleIqError(err)
         }
     }
 
@@ -237,7 +237,7 @@ export class IqMessageHelper {
                 }, { credentials: 'omit' }
             )
         } catch (err) {
-            return Promise.reject(this.handleIqError(err))
+             throw this.handleIqError(err)
         }
     }
 
@@ -308,7 +308,7 @@ export class IqMessageHelper {
     protected parseServerHeader(serverHeader: string): number {
         const match = /^NexusIQ\/1\.(?<iqVersion>\d+)\..*$/.exec(serverHeader)
         const iqVersion = match?.groups?.iqVersion
-        return iqVersion ? Number(iqVersion) : NaN
+        return iqVersion ? Number(iqVersion) : Number.NaN
     }
 
     private readonly handleIqError = (err: Error): Error =>  {
