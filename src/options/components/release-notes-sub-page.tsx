@@ -42,6 +42,12 @@ export default function ReleaseNotesSubPage() {
                                 are available (and you are running Sonatype IQ Server &gt;= 194), you&quot;ll now see EPSS scores.
                             </span>
                         </li>
+                        <li className="nx-list__item">
+                            <h4>Suppport for Golang</h4>
+                            <span className="nx-list__text">
+                                Resolved issue where most Golang packages on <code>pkg.go.dev</code> return no match. This was due to case sensitivity issues related to PackageURLs.
+                            </span>
+                        </li>
                     </ol>
                 </NxTile.Content>
             </NxTile>
