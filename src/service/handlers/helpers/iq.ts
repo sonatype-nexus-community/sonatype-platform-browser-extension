@@ -21,6 +21,8 @@ import { GeneralConnectivityError, IncompleteConfigurationError, SonatypeIqError
 import { logger, LogLevel } from "../../../common/logger"
 import { MessageResponseStatus } from "../../../common/message/constants"
 import { MessageResponseIqConnectivityAndVersionCheck, MessageResponseLoadApplications, MessageResponseLoadVulnerability } from "../../../common/message/types"
+import { PackageURL } from "packageurl-js"
+import { version } from "os"
 
 const extensionManifest = ThisBrowser.runtime.getManifest()
 
@@ -156,7 +158,20 @@ export class IqMessageHelper {
                 applicationId: this.extensionConfigState.getExtensionConfig().iqApplicationInternalId || '',
                 apiComponentEvaluationRequestDTOV2: {
                     components: componentPurls.map((purl) => {
-                        return { packageUrl: purl }
+                        const p = PackageURL.fromString(purl)
+                        if (p.type === 'golang') {
+                            return {
+                                componentIdentifier: {
+                                    format: "golang",
+                                    coordinates: {
+                                        name: p.namespace + '/' + p.name,
+                                        version: p.version as string
+                                    }
+                                }
+                            }
+                        } else {
+                            return { packageUrl: purl }
+                        }
                     })
                 }
             }, { credentials: 'omit' })
