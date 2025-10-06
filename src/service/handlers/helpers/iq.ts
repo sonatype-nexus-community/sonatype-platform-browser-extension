@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2, ApplicationsApi, ComponentsApi, CompositeSourceControlApi, Configuration, FirewallApi, GetSuggestedRemediationForComponent200Response, GetSuggestedRemediationForComponentOwnerTypeEnum, LicenseLegalMetadataTemplateApi, PolicyEvaluationApi, ResponseError, SolutionsApi, UserTokensApi, VulnerabilityDetailsApi } from "@sonatype/nexus-iq-api-client"
+import { PackageURL } from "packageurl-js"
 import { ExtensionConfigurationState } from "../../../common/configuration/extension-configuration"
 import { DEFAULT_SONATYPE_SOLUTION_SUPPORT, SonatypeSolutionSupport } from "../../../common/configuration/types"
 import { IQ_VERSION_UNKNOWN, OWNER_TYPE_ORGANIZATION, ROOT_ORGANIZATION_ID, SOLUTION_FIREWALL, SOLUTION_LIFECYCLE, ThisBrowser } from "../../../common/constants"
@@ -21,8 +22,6 @@ import { GeneralConnectivityError, IncompleteConfigurationError, SonatypeIqError
 import { logger, LogLevel } from "../../../common/logger"
 import { MessageResponseStatus } from "../../../common/message/constants"
 import { MessageResponseIqConnectivityAndVersionCheck, MessageResponseLoadApplications, MessageResponseLoadVulnerability } from "../../../common/message/types"
-import { PackageURL } from "packageurl-js"
-import { version } from "os"
 
 const extensionManifest = ThisBrowser.runtime.getManifest()
 
