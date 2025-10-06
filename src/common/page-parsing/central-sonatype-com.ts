@@ -18,7 +18,7 @@ import { PackageURL } from 'packageurl-js'
 import { generatePackageURLComplete } from '../purl-utils'
 import { BasePageParser } from './base'
 
-const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war'])
+const PACKAGING_FORMATS_NOT_JAR = new Set<string>(['aar', 'ear', 'war', 'pom'])
 const POM_PACKAGING_REGEX = /<packaging>(?<packaging>(.*))<\/packaging>/
 
 export class CentralSonatypeComPageParser extends BasePageParser {    

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import { describe, expect, it } from '@jest/globals'
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { PackageURL } from 'packageurl-js'
-import { join } from 'path'
+import { join } from 'node:path'
 import { CentralSonatypeComPageParser } from './central-sonatype-com'
 import { CentralSonatypeComRepo } from '../repo-type/central-sonatype-com'
 
@@ -77,7 +77,7 @@ describe('central.sonatype.com Page Parsing', () => {
             url: 'https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1',
             testFile: 'log4j-parent.html',
             expectedPurls: [
-                PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j@3.0.0-alpha1?type=jar')
+                PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j@3.0.0-alpha1?type=pom')
             ]
         },
         {
@@ -115,7 +115,7 @@ describe('central.sonatype.com Page Parsing', () => {
     ])('$name', async ({ url, testFile, expectedPurls }) => {
         if (testFile) {
             const html = readFileSync(join(__dirname, 'testdata', 'central.sonatype.com', testFile))
-            window.document.body.innerHTML = html.toString()
+            globalThis.document.body.innerHTML = html.toString()
         }
             
         const packageURLs = await parser.parsePage(url)
