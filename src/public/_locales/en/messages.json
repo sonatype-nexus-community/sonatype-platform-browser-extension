@@ -596,5 +596,17 @@
     "OPTIONS_NO_VALID_LICENSE": {
         "message": "There is no valid license for either Sonatype Repository Firewall or Sonatype Lifecycle installed on your Sonatype IQ Server.",
         "description": "Error message when IQ is not licensed for either NXFW or NXLC."
+    },
+    "EPSS_SCORE_LABEL": {
+        "message": "EPSS Score",
+        "description": "EPSS Score label"
+    },
+    "UPGRADE_IQ_SERVER": {
+        "message": "Upgrade Sonatype IQ Server",
+        "description": "Displayed when a feature / value is not available given the IQ Server version connected to."
+    },
+    "DATA_NOT_AVAILABLE": {
+        "message": "Not available",
+        "description": "Message when a particular data point is not provided / available."
     }
 }

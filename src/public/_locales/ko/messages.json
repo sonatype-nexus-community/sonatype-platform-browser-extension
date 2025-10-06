@@ -516,5 +516,17 @@
     "CONTENT_NO_COMPONENTS_MATCHED": {
         "message": "다음 PackageURL을 가진 컴포넌트는 Sonatype에 알려지지 않았습니다.",
         "description": "Content in Side Panel when a Component that has matchState === unknown."
+    },
+    "EPSS_SCORE_LABEL": {
+        "message": "EPSS 점수",
+        "description": "EPSS Score label"
+    },
+    "UPGRADE_IQ_SERVER": {
+        "message": "Sonatype IQ Server 업그레이드",
+        "description": "Displayed when a feature / value is not available given the IQ Server version connected to."
+    },
+    "DATA_NOT_AVAILABLE": {
+        "message": "사용할 수 없음",
+        "description": "Message when a particular data point is not provided / available."
     }
 }
