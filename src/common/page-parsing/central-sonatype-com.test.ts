@@ -77,7 +77,7 @@ describe('central.sonatype.com Page Parsing', () => {
             url: 'https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j/3.0.0-alpha1',
             testFile: 'log4j-parent.html',
             expectedPurls: [
-                PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j@3.0.0-alpha1?type=jar')
+                PackageURL.fromString('pkg:maven/org.apache.logging.log4j/log4j@3.0.0-alpha1?type=pom')
             ]
         },
         {
