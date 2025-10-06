@@ -1,3 +1,16 @@
+# [3.1.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.2...v3.1.0) (2025-10-06)
+
+
+### Bug Fixes
+
+* Component Evaluation for Go Packages ([#240](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/240)) ([5b18553](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/5b185532357ca2f148ab717c651d9f5ddfbe5353))
+
+
+### Features
+
+* Accept POM as a packaging format for component identity for central.sonatype.com  ([#239](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/239)) ([5b36faa](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/5b36faa88fb4448ac43ad5d67e6eebc66ebe81c5)), closes [#68](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/68)
+* Display EPSS score ([#238](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/238)) ([f95e9f1](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f95e9f1611bc74270705cf2faadd5654cc4d2b7b))
+
 ## [3.0.2](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.1...v3.0.2) (2025-09-19)
 
 
