@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NxInfoAlert, NxSmallThreatCounter, NxTable } from '@sonatype/react-shared-components'
+import { faTimeline } from '@fortawesome/free-solid-svg-icons'
+import { NxButton, NxFontAwesomeIcon, NxInfoAlert, NxSmallThreatCounter, NxTable } from '@sonatype/react-shared-components'
 import React from 'react'
+import { ComponentLegalUtil } from '../../common/component/component-legal-util'
+import { MATCH_STATE_EXACT } from '../../common/component/constants'
 import { ThisBrowser } from '../../common/constants'
 import { ComponentData } from '../../common/data/types'
 import { formatDate } from '../../common/date'
@@ -23,8 +26,6 @@ import LegalSection from './sections/legal'
 import PolicySection from './sections/policy'
 import RemediationSection from './sections/remediation'
 import SecuritySection from './sections/security'
-import { ComponentLegalUtil } from '../../common/component/component-legal-util'
-import { MATCH_STATE_EXACT } from '../../common/component/constants'
 
 export default function Component(props: Readonly<{ component: ComponentData }>) {
     const legalPolicyUtils = new ComponentLegalUtil(props.component)
@@ -37,11 +38,26 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
         return <>No components identified on the current page.</>
     }
 
+    const viewComponentTimeline = () => {
+        const url = new URL(globalThis.location.href)
+        url.searchParams.set('timeline', '1')
+        url.searchParams.set('component', JSON.stringify(props.component.componentDetails?.component?.componentIdentifier))
+        globalThis.location.href = url.toString()
+    }
+
     return (
         <section className='nx-tile'>
             <header className='nx-tile-header'>
-                <div className='nx-tile-header__title'>
-                    <h3 className='nx-h3'>{props.component.componentDetails?.component?.displayName as string}</h3>
+                <hgroup className="nx-tile-header__headings">
+                    <div className='nx-tile-header__title'>
+                        <h3 className='nx-h3'>{props.component.componentDetails?.component?.displayName as string}</h3>
+                    </div>
+                </hgroup>
+                <div className="nx-tile__actions">
+                    <NxButton onClick={viewComponentTimeline} title={'View Component Version Timeline'}>
+                        <NxFontAwesomeIcon icon={faTimeline}/>
+                        <span>View Timeline</span>
+                    </NxButton>
                 </div>
             </header>
             {props.component.componentDetails?.matchState === MATCH_STATE_EXACT && (

@@ -41,7 +41,8 @@ export enum ComponentStateType {
 
 export enum SIDE_PANEL_MODE {
     COMPONENTS,
-    VULNERABILITY
+    VULNERABILITY,
+    COMPONENT_TIMELINE
 }
 
 export const ThisBrowser = chrome || browser
