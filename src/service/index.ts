@@ -89,6 +89,8 @@ ThisBrowser.runtime.onInstalled.addListener(onInstalledHandler.handleOnInstalled
 // 2 Service Worker Activated
 logger.logServiceWorker('Service Worker Activated', LogLevel.DEBUG)
 
+let broadcastTimer: ReturnType<typeof setTimeout> | undefined
+
 // Load Configuration
 loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) => {
     const extensionConfigurationState = new ExtensionConfigurationStateServiceWorker(settings, analytics)
@@ -107,16 +109,24 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
         } else {
             broadcastClientsExtensionConfiguration.add(port)
         }
-        await broadcastExtensionConfiguration({
-            messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
-            newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
-        })
-        await broadcastAllData({
-            messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
-            extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
-            tabsData: extensionDataState.tabsData,
-            vulnerabilitiesData: extensionDataState.vulnerabilityData,
-        })
+
+        // Send initial snapshot ONLY to this port, not broadcast
+        try {
+            port.postMessage({
+                messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
+                newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
+            })
+            if (allDataClientNames.includes(port.name)) {
+                port.postMessage({
+                    messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
+                    extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
+                    tabsData: extensionDataState.tabsData,
+                    vulnerabilitiesData: extensionDataState.vulnerabilityData,
+                })
+            }
+        } catch (err) {
+            logger.logServiceWorker('Failed to send initial data to port', LogLevel.WARN, err)
+        }
     })
 
     // 2A Message Received
@@ -166,12 +176,18 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
 
             // Broadcast All Data
             if (configChanged || tabsChanged || vulnerabilitiesChanged) {
-                broadcastAllData({
-                    messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
-                    extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
-                    tabsData: extensionDataState.tabsData,
-                    vulnerabilitiesData: extensionDataState.vulnerabilityData
-                })
+                if (broadcastTimer) {
+                    clearTimeout(broadcastTimer)
+                }
+                broadcastTimer = setTimeout(() => {
+                    broadcastTimer = undefined
+                    broadcastAllData({
+                        messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
+                        extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
+                        tabsData: extensionDataState.tabsData,
+                        vulnerabilitiesData: extensionDataState.vulnerabilityData
+                    })
+                }, 100)
             }
         }
     }
