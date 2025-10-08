@@ -36,6 +36,8 @@ import { IqMessageHelper } from './helpers/iq'
 import { NotificationHelper } from './helpers/notification'
 
 export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
+    private inFlightEvaluations = new Map<number, { url: string; timestamp: number }>()
+
     public handleOnActivated = (activeInfo: ActiveInfo) => {
         logger.logServiceWorker(`ServiceWorkerTabOnHandler.handleOnActivated: `, LogLevel.DEBUG, activeInfo)
 
@@ -88,6 +90,12 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
     }
 
     private async processTabForRepo(url: string, tabId: number, repoType: BaseRepo): Promise<void> {
+        const existing = this.inFlightEvaluations.get(tabId)
+    if (existing?.url === url) {
+        logger.logServiceWorker('Evaluation already in progress', LogLevel.DEBUG, tabId, url)
+        return
+    }
+    this.inFlightEvaluations.set(tabId, { url, timestamp: Date.now() })       
         try {
             const msgResponse = await ThisBrowser.tabs
                 .sendMessage(tabId, {
@@ -161,7 +169,9 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 repo_type_url: repoType.baseUrl,
                 error: (error as Error).message,
             })
-        }
+        } finally {
+        this.inFlightEvaluations.delete(tabId)
+    }
     }
 
     private async handleTabError(tabId: number, repoTypeId: string): Promise<void> {
