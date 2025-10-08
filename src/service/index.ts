@@ -89,6 +89,8 @@ ThisBrowser.runtime.onInstalled.addListener(onInstalledHandler.handleOnInstalled
 // 2 Service Worker Activated
 logger.logServiceWorker('Service Worker Activated', LogLevel.DEBUG)
 
+let broadcastTimer: ReturnType<typeof setTimeout> | undefined
+
 // Load Configuration
 loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) => {
     const extensionConfigurationState = new ExtensionConfigurationStateServiceWorker(settings, analytics)
@@ -166,12 +168,18 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
 
             // Broadcast All Data
             if (configChanged || tabsChanged || vulnerabilitiesChanged) {
-                broadcastAllData({
-                    messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
-                    extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
-                    tabsData: extensionDataState.tabsData,
-                    vulnerabilitiesData: extensionDataState.vulnerabilityData
-                })
+                if (broadcastTimer) {
+                    clearTimeout(broadcastTimer)
+                }
+                broadcastTimer = setTimeout(() => {
+                    broadcastTimer = undefined
+                    broadcastAllData({
+                        messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
+                        extensionConfiguration: extensionConfigurationState.getExtensionConfig(),
+                        tabsData: extensionDataState.tabsData,
+                        vulnerabilitiesData: extensionDataState.vulnerabilityData
+                    })
+                }, 100)
             }
         }
     }
