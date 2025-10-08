@@ -116,7 +116,7 @@ ThisBrowser.runtime
                 <React.StrictMode>
                     <ExtensionConfigurationContext.Provider value={request.extensionConfiguration}>
                         <MySidePanelApp
-                            tabsData={request.tabsData}
+                            tabsData={request.tabsData as ExtensionTabsData}
                             vulnerabilityData={request.vulnerabilitiesData}
                         />
                     </ExtensionConfigurationContext.Provider>
@@ -156,10 +156,12 @@ function MySidePanelApp(
     }, [props.vulnerabilityData])
 
     useEffect(() => {
+        logger.logReact("Side Panel useEffect:", LogLevel.DEBUG, extensionTabsData)
         if (tabId !== undefined && Object.hasOwn(extensionTabsData.tabs, tabId)) {
             setExtensionTabData(extensionTabsData.tabs[tabId])
+            logger.logReact('Set ExtensionTabDataContext to Tab', LogLevel.DEBUG, tabId)
         } else if (tabId !== undefined && !Object.hasOwn(extensionTabsData.tabs, tabId) && !hasClosedRef.current) {
-            logger.logReact("Auto Closing Side Panel", LogLevel.INFO, tabId, Object.hasOwn(extensionTabsData.tabs, tabId), extensionTabsData.tabs)
+            logger.logReact("Auto Closing Side Panel", LogLevel.INFO, tabId, Object.hasOwn(extensionTabsData.tabs, tabId), extensionTabsData)
             hasClosedRef.current = true
             
             // Small delay to ensure state updates are complete

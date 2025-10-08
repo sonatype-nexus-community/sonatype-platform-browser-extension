@@ -168,6 +168,7 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
 
             // Broadcast Extension Config only
             if (configChanged) {
+                onMessageHandler.setExtensionConfigurationState(extensionConfigurationState)
                 broadcastExtensionConfiguration({
                     messageType: MessageRequestType.EXTENSION_CONFIGURATION_UPDATED,
                     newExtensionConfig: extensionConfigurationState.getExtensionConfig(),
@@ -187,6 +188,8 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
                         tabsData: extensionDataState.tabsData,
                         vulnerabilitiesData: extensionDataState.vulnerabilityData
                     })
+                    onMessageHandler.setExtensionConfigurationState(extensionConfigurationState)
+                    onMessageHandler.setExtensionDataState(extensionDataState)
                 }, 100)
             }
         }

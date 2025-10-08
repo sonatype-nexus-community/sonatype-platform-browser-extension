@@ -14,63 +14,103 @@
  * limitations under the License.
  */
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { ApiComponentOrPurlIdentifierDTOV2 } from '@sonatype/nexus-iq-api-client'
-import {
-    NxFontAwesomeIcon,
-    NxLoadingSpinner
-} from '@sonatype/react-shared-components'
+import { ApiComponentDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { getUniqueId, NxFontAwesomeIcon, NxLoadingSpinner } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
 import { Analytics } from '../../common/analytics/analytics'
 import { ThisBrowser } from '../../common/constants'
-import { ExtensionVulnerabilityDataContext } from '../../common/context/extension-vulnerability-data'
+import { ExtensionTabDataContext } from '../../common/context/extension-tab-data'
+import { ComponentDataAllVersions } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
+import { MessageRequestType } from '../../common/message/constants'
+import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
+import { MessageResponse } from '../../common/message/types'
 
-export default function VersionTimeline(props: Readonly<{ componentIdentifier?: ApiComponentOrPurlIdentifierDTOV2 }>) {
+export default function VersionTimeline(props: Readonly<{ component?: ApiComponentDTOV2; tabId?: number }>) {
     const analytics = new Analytics()
-    
-    const extensionVulnerabilityDataContext = useContext(ExtensionVulnerabilityDataContext)
 
+    const extensionTabDataContext = useContext(ExtensionTabDataContext)
+
+    const [lastLoadedKey, setLastLoadedKey] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
-    const [componentIdentifier, setComponentIdentifier] = useState<ApiComponentOrPurlIdentifierDTOV2 | undefined>(undefined)
-    const [componentVersions, setComponentVersions] = useState<Array<string> | undefined>(undefined)
+    const [component, setComponent] = useState<ApiComponentDTOV2 | undefined>(undefined)
+    const [componentVersions, setComponentVersions] = useState<ComponentDataAllVersions | undefined>(undefined)
 
     useEffect(() => {
-        if (!loading) {
-            logger.logReact('Requesting Component Versions', LogLevel.DEBUG, props.componentIdentifier)
-            setLoading(true)
-            setComponentIdentifier(props.componentIdentifier)
-            // sendRuntimeMessage({
-            //     messageType: MessageRequestType.LOAD_VULNERABILITY,
-            //     vulnerabilityReference: props.vulnerabilityReference as string,
-            // }).then((msgResponse) => {
-            //     const lastError = lastRuntimeError()
-            //     if (lastError) {
-            //         logger.logReact('Runtime Error in VulnerabilityPanel.useEffect', LogLevel.WARN, lastError)
-            //     }
+        if (props.component !== undefined && props.tabId !== undefined) {
+            const loadKey = `${props.tabId}-${props.component.packageUrl}`
 
-            //     logger.logReact(
-            //         'Response',
-            //         LogLevel.DEBUG,
-            //         msgResponse,
-            //         extensionVulnerabilityDataContext.vulnerabilities
-            //     )
-            // })
+            // Only run if this combination hasn't been loaded yet
+            if (loadKey === lastLoadedKey) return
+
+            logger.logReact('Requesting Component Versions', LogLevel.DEBUG, props.tabId, props.component)
+            setLoading(true)
+            setComponent(props.component)
+            setLastLoadedKey(loadKey)
+
+            sendRuntimeMessage({
+                messageType: MessageRequestType.LOAD_COMPONENT_VERSIONS,
+                componentIdentifier: props.component,
+                tabId: props.tabId,
+            }).then((msgResponse: MessageResponse) => {
+                const lastError = lastRuntimeError()
+                if (lastError) {
+                    logger.logReact('Runtime Error in VersionTimeline.useEffect', LogLevel.WARN, lastError)
+                }
+
+                logger.logReact('Response for load Component Versions', LogLevel.DEBUG, msgResponse)
+                // setComponentVersions(msgResponse.versions)
+            })
             analytics.firePageViewEvent(
-                `Side Panel Version Timeline: ${props.componentIdentifier?.packageUrl as string}`,
-                globalThis.location.href,
+                `Side Panel Component Version Timeline: ${props.component?.packageUrl as string}`,
+                globalThis.location.href
             )
         }
-    }, [props.componentIdentifier])
+    }, [props.component, props.tabId, lastLoadedKey])
 
-    // useEffect(() => {
-    //     logger.logReact('Vulnerability Data updated', LogLevel.DEBUG, extensionVulnerabilityDataContext.vulnerabilities)
-    //     if (Object.keys(extensionVulnerabilityDataContext.vulnerabilities).includes(vulnerabilityReference)) {
-    //         setVulnerability(extensionVulnerabilityDataContext.vulnerabilities[vulnerabilityReference])
-    //         setLoading(false)
-    //     }
-    // }, [extensionVulnerabilityDataContext.vulnerabilities, vulnerabilityReference])
+    useEffect(() => {
+        logger.logReact('VERSION TIMELINE Component Data updated', LogLevel.DEBUG, extensionTabDataContext.components)
+        if (component?.packageUrl !== undefined) {
+            if (Object.keys(extensionTabDataContext.components).includes(component.packageUrl)) {
+                setComponentVersions(extensionTabDataContext.components[component.packageUrl].allComponentVersions)
+                setLoading(false)
+            }
+        }
+    }, [extensionTabDataContext.components, component])
 
-    if (componentVersions === undefined) {
+    if (!loading) {
+        logger.logReact("Rending Component Version Timeline", LogLevel.DEBUG, componentVersions)
+        return (
+            <>
+                <header className='nx-global-header'>
+                    <div className='nx-back-button tm-back-button'>
+                        <a className='nx-text-link' onClick={() => globalThis.history.back()} role='button'>
+                            <NxFontAwesomeIcon icon={faArrowLeft} />
+                            <span>{ThisBrowser.i18n.getMessage('BACK_TO_COMPONENT_LINK')}</span>
+                        </a>
+                    </div>
+                </header>
+                <section className='nx-tile'>
+                    <header className='nx-tile-header'>
+                        <div className='nx-tile-header__title'>
+                            <h2 className='nx-h2'>Version History</h2>
+                        </div>
+                    </header>
+                    <div className='nx-tile-content'>
+                        {componentVersions !== undefined && (
+                            <ul>
+                                {Object.entries(componentVersions).map(([version, component]) => (
+                                    <li key={getUniqueId('component-version')}>{version}</li>
+                                ))}
+                            </ul>
+                        ) || (
+                            <em>No versions?</em>
+                        )}
+                    </div>
+                </section>
+            </>
+        )
+    } else {
         return (
             <>
                 <header className='nx-global-header'>
@@ -94,204 +134,4 @@ export default function VersionTimeline(props: Readonly<{ componentIdentifier?: 
             </>
         )
     }
-
-    return (
-        <>
-            {/* <header className='nx-global-header'>
-                <div className='nx-back-button tm-back-button'>
-                    <a className='nx-text-link' onClick={() => globalThis.history.back()} role='button'>
-                        <NxFontAwesomeIcon icon={faArrowLeft} />
-                        <span>{ThisBrowser.i18n.getMessage('BACK_TO_COMPONENT_LINK')}</span>
-                    </a>
-                </div>
-            </header>
-            <section className='nx-tile'>
-                <header className='nx-tile-header'>
-                    <div className='nx-tile-header__title'>
-                        <h2 className='nx-h2'>{vulnerabilityReference}</h2>
-                    </div>
-                    <div className='nx-tile__tags'>
-                        <VulnerabilityResearchType
-                            type={vulnerability.data.researchType as SecurityVulnerabilityDataDTOResearchTypeEnum}
-                        />
-                    </div>
-                    <div className='nx-tile__actions'>
-                        {vulnerabilityReference.startsWith('CVE-') && (
-                            <NxTextLink
-                                href={`https://nvd.nist.gov/vuln/detail/${vulnerabilityReference}`}
-                                external={true}
-                                newTab={true}>
-                                NVD
-                            </NxTextLink>
-                        )}
-                    </div>
-                </header>
-                <div className='nx-tile-content'>
-                    {loading || (vulnerability === undefined && <NxLoadingSpinner />) || (
-                        <div className='nx-tile-content nx-tile-content--accordion-container'>
-                            <NxDescriptionList>
-                                <NxDescriptionList.Item>
-                                    <NxDescriptionList.Term style={{ width: '145px' }}>
-                                        {vulnerability.data.mainSeverity?.sourceLabel}
-                                    </NxDescriptionList.Term>
-                                    <NxDescriptionList.Description>
-                                        <NxVulnerabilityIndicator
-                                            score={vulnerability.data.mainSeverity?.score as number}
-                                        />
-                                        <span className='nx-vulnerability-score'>
-                                            {formatVulnerabilityScore(vulnerability.data.mainSeverity?.score as number)}
-                                        </span>
-                                    </NxDescriptionList.Description>
-                                </NxDescriptionList.Item>
-                                {vulnerability.data.severityScores?.map((score) => {
-                                    return (
-                                        <NxDescriptionList.Item key={getUniqueId('severity-score')}>
-                                            <NxDescriptionList.Term style={{ width: '145px' }}>
-                                                {score.sourceLabel}
-                                            </NxDescriptionList.Term>
-                                            <NxDescriptionList.Description>
-                                                <NxVulnerabilityIndicator score={score.score as number} />
-                                                <span className='nx-vulnerability-score'>
-                                                    {formatVulnerabilityScore(score.score as number)}
-                                                </span>
-                                            </NxDescriptionList.Description>
-                                        </NxDescriptionList.Item>
-                                    )
-                                })}
-                                <NxDescriptionList.Item>
-                                    <NxDescriptionList.Term style={{ width: '145px' }}>
-                                        {ThisBrowser.i18n.getMessage('KEV_STATUS_LABEL')}
-                                    </NxDescriptionList.Term>
-                                    <NxDescriptionList.Description>
-                                        {(vulnerability.data.kevData?.isKev === true && (
-                                            <NxTag color='red'>
-                                                {ThisBrowser.i18n.getMessage('KEV_STATUS_FLAGGED')}
-                                            </NxTag>
-                                        )) || <NxTag>{ThisBrowser.i18n.getMessage('KEV_STATUS_NOT_FLAGGED')}</NxTag>}
-                                    </NxDescriptionList.Description>
-                                </NxDescriptionList.Item>
-                                <NxDescriptionList.Item>
-                                    <NxDescriptionList.Term style={{ width: '145px' }}>
-                                        <NxTextLink href='https://help.sonatype.com/en/sonatype-iq-server-194-release-notes.html#expanded-risk-data-with-exploit-prediction-scoring-system--epss--integration' target='_blank' external>
-                                            {ThisBrowser.i18n.getMessage('EPSS_SCORE_LABEL')}
-                                        </NxTextLink>
-                                    </NxDescriptionList.Term>
-                                    <NxDescriptionList.Description>
-                                        <EpssScore epssData={vulnerability.data.epssData} />
-                                    </NxDescriptionList.Description>
-                                </NxDescriptionList.Item>
-                            </NxDescriptionList>
-
-                            {vulnerability.data.description && (
-                                <NxStatefulAccordion>
-                                    <NxAccordion.Header>
-                                        <NxAccordion.Title>
-                                            <NxTooltip
-                                                title={ThisBrowser.i18n.getMessage(
-                                                    'VULNERABILITY_SECTION_NVD_DESCRIPTION'
-                                                )}>
-                                                <span>
-                                                    {ThisBrowser.i18n.getMessage(
-                                                        'VULNERABILITY_SECTION_NVD_DESCRIPTION'
-                                                    )}
-                                                </span>
-                                            </NxTooltip>
-                                        </NxAccordion.Title>
-                                    </NxAccordion.Header>
-                                    <p className='nx-p'>{vulnerability.data.description}</p>
-                                </NxStatefulAccordion>
-                            )}
-
-                            {vulnerability.data.explanationMarkdown && (
-                                <NxStatefulAccordion>
-                                    <NxAccordion.Header>
-                                        <NxAccordion.Title>
-                                            <NxTooltip
-                                                title={ThisBrowser.i18n.getMessage(
-                                                    'VULNERABILITY_SECTION_SONATYPE_EXPLANATION'
-                                                )}>
-                                                <span>
-                                                    {ThisBrowser.i18n.getMessage(
-                                                        'VULNERABILITY_SECTION_SONATYPE_EXPLANATION'
-                                                    )}
-                                                </span>
-                                            </NxTooltip>
-                                        </NxAccordion.Title>
-                                    </NxAccordion.Header>
-                                    <Markdown>{vulnerability.data.explanationMarkdown}</Markdown>
-                                </NxStatefulAccordion>
-                            )}
-
-                            {vulnerability.data.recommendationMarkdown && (
-                                <NxStatefulAccordion>
-                                    <NxAccordion.Header>
-                                        <NxAccordion.Title>
-                                            <NxTooltip
-                                                title={ThisBrowser.i18n.getMessage(
-                                                    'VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION'
-                                                )}>
-                                                <span>
-                                                    {ThisBrowser.i18n.getMessage(
-                                                        'VULNERABILITY_SECTION_SONATYPE_RECOMMENDATION'
-                                                    )}
-                                                </span>
-                                            </NxTooltip>
-                                        </NxAccordion.Title>
-                                    </NxAccordion.Header>
-                                    <Markdown>{vulnerability.data.recommendationMarkdown}</Markdown>
-                                </NxStatefulAccordion>
-                            )}
-
-                            {vulnerability.data.detectionMarkdown && (
-                                <NxStatefulAccordion>
-                                    <NxAccordion.Header>
-                                        <NxAccordion.Title>
-                                            <NxTooltip
-                                                title={ThisBrowser.i18n.getMessage('VULNERABILITY_SECTION_DETECTION')}>
-                                                <span>
-                                                    {ThisBrowser.i18n.getMessage('VULNERABILITY_SECTION_DETECTION')}
-                                                </span>
-                                            </NxTooltip>
-                                        </NxAccordion.Title>
-                                    </NxAccordion.Header>
-                                    <Markdown>{vulnerability.data.detectionMarkdown}</Markdown>
-                                </NxStatefulAccordion>
-                            )}
-
-                            <NxStatefulAccordion>
-                                <NxAccordion.Header>
-                                    <NxAccordion.Title>
-                                        <NxTooltip
-                                            title={ThisBrowser.i18n.getMessage('VULNERABILITY_SECTION_ADVISORIES')}>
-                                            <span>
-                                                {ThisBrowser.i18n.getMessage('VULNERABILITY_SECTION_ADVISORIES')}
-                                            </span>
-                                        </NxTooltip>
-                                    </NxAccordion.Title>
-                                </NxAccordion.Header>
-                                {(vulnerability.data.advisories && vulnerability.data.advisories.length > 0 && (
-                                    <ul className='nx-lis nx-list--bulleted'>
-                                        {vulnerability.data.advisories?.map((advisory) => {
-                                            return (
-                                                <li className='nx-list__item' key={getUniqueId('advisory')}>
-                                                    <span className='nx-list__text'>
-                                                        {advisory.referenceType}:{' '}
-                                                        <NxTextLink external href={advisory.url} newTab={true}>
-                                                            {advisory.url}
-                                                        </NxTextLink>
-                                                    </span>
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
-                                )) || <em>{ThisBrowser.i18n.getMessage('VULNERABILITY_NO_ADVISORIES')}</em>}
-                            </NxStatefulAccordion>
-
-                            <VulnerabilityMetaDataSection vulnerabilityData={vulnerability.data} />
-                        </div>
-                    )}
-                </div>
-            </section> */}
-        </>
-    )
 }

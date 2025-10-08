@@ -26,6 +26,7 @@ import { IqMessageHelper } from './helpers/iq'
 import { BaseRuntimeOnMessageHandler } from './runtime-on-message/base'
 import { ConnectivityAndVersionCheckMessageHandler } from './runtime-on-message/connectivity-version-check'
 import { LoadApplicationsMessageHandler } from './runtime-on-message/load-applications'
+import { LoadComponentVersionsMessageHandler } from './runtime-on-message/load-component-versions'
 import { LoadVulnerabilityMessageHandler } from './runtime-on-message/load-vulnerability'
 import { PersistExtensionConfigurationMessageHandler } from './runtime-on-message/persist-extension-configuration'
 import { RequestNewExternalRepositoryManagerMessageHandler } from './runtime-on-message/request-new-external-repository-manager'
@@ -36,11 +37,19 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
 
     constructor(
         protected readonly analytics: Analytics,
-        protected readonly extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
-        protected readonly extensionDataState: ExtensionDataState
+        protected extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
+        protected extensionDataState: ExtensionDataState
     ) {
         super(analytics, extensionConfigurationState, extensionDataState)
         this.iqMessageHelper = new IqMessageHelper(this.extensionConfigurationState)
+    }
+
+    public setExtensionConfigurationState = (state: ExtensionConfigurationStateServiceWorker) => {
+        this.extensionConfigurationState = state
+    }
+
+    public setExtensionDataState = (state: ExtensionDataState) => {
+        this.extensionDataState = state
     }
 
     public handleOnMessage = (
@@ -70,6 +79,14 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
                     this.extensionConfigurationState,
                     this.iqMessageHelper,
                     this.analytics
+                )
+                break
+            case MessageRequestType.LOAD_COMPONENT_VERSIONS:
+                messageHandler = new LoadComponentVersionsMessageHandler(
+                    this.extensionConfigurationState,
+                    this.iqMessageHelper,
+                    this.analytics,
+                    this.extensionDataState
                 )
                 break
             case MessageRequestType.LOAD_VULNERABILITY:

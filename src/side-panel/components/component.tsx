@@ -41,7 +41,7 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
     const viewComponentTimeline = () => {
         const url = new URL(globalThis.location.href)
         url.searchParams.set('timeline', '1')
-        url.searchParams.set('component', JSON.stringify(props.component.componentDetails?.component?.componentIdentifier))
+        url.searchParams.set('component', JSON.stringify(props.component.componentDetails?.component))
         globalThis.location.href = url.toString()
     }
 

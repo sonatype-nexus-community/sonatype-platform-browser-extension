@@ -20,8 +20,12 @@ import {
     SecurityVulnerabilityDataDTO,
 } from '@sonatype/nexus-iq-api-client'
 
+export interface ComponentDataAllVersions {
+    [version: string]: ApiComponentDetailsDTOV2 | undefined
+}
+
 export interface ComponentData {
-    allComponentVersions: Array<ApiComponentDetailsDTOV2>
+    allComponentVersions: ComponentDataAllVersions | undefined
     componentDetails: ApiComponentDetailsDTOV2 | undefined
     componentEvaluationDateTime: string
     componentLegalDegtails: Array<ApiLicenseLegalMetadataDTO>

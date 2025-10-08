@@ -35,6 +35,9 @@ export enum MessageRequestType {
     // Request to load Applications from IQ Server
     LOAD_APPLICATIONS,
 
+    // Request to load all versions for a Component
+    LOAD_COMPONENT_VERSIONS,
+
     // Request to load a Vulnerability from IQ Server
     LOAD_VULNERABILITY,
 
