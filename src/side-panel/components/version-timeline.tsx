@@ -69,10 +69,24 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
     }, [props.component, props.tabId, lastLoadedKey])
 
     useEffect(() => {
+        if (extensionTabDataContext.components) {
+            console.warn('[VERSION TIMELINE] Context components changed', {
+                componentPackageUrl: component?.packageUrl,
+                componentsInContext: Object.keys(extensionTabDataContext.components),
+                hasOurComponent: component?.packageUrl ? Object.keys(extensionTabDataContext.components).includes(component.packageUrl) : false
+            })
+        }
         logger.logReact('VERSION TIMELINE Component Data updated', LogLevel.DEBUG, extensionTabDataContext.components)
         if (component?.packageUrl !== undefined) {
             if (Object.keys(extensionTabDataContext.components).includes(component.packageUrl)) {
-                setComponentVersions(extensionTabDataContext.components[component.packageUrl].allComponentVersions)
+                // setComponentVersions(extensionTabDataContext.components[component.packageUrl].allComponentVersions)
+                const versions = extensionTabDataContext.components[component.packageUrl].allComponentVersions
+                console.warn('[VERSION TIMELINE] Setting component versions', {
+                    packageUrl: component.packageUrl,
+                    versionCount: versions ? Object.keys(versions).length : 0,
+                    versionsUndefined: versions === undefined
+                })
+                setComponentVersions(versions)
                 setLoading(false)
             }
         }

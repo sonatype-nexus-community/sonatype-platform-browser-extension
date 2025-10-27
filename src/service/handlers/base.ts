@@ -19,10 +19,14 @@ import { STORAGE_KEY_TABS, ThisBrowser } from '../../common/constants'
 import { ExtensionDataState } from '../../common/data/extension-data'
 import { ExtensionTabsData } from '../../common/data/types'
 import { ExtensionError, UserAuthenticationError } from '../../common/error'
+import { logger, LogLevel } from '../../common/logger'
 import { MessageResponseStatus } from '../../common/message/constants'
 import { MessageResponse } from '../../common/message/types'
+import { Mutex, deepCopy } from '../../common/utils'
 
 export class BaseServiceWorkerHandler {
+    private static readonly storageMutex = new Mutex();
+
     constructor(
         protected readonly analytics: Analytics,
         protected readonly extensionConfigurationState: ExtensionConfigurationStateServiceWorker,
@@ -46,17 +50,35 @@ export class BaseServiceWorkerHandler {
     }
 
     protected updateExtensionTabData = async (newExtensionData: ExtensionTabsData): Promise<MessageResponse> => {
+        const unlock = await BaseServiceWorkerHandler.storageMutex.acquire();
         try {
-            await ThisBrowser.storage.local.set({ [STORAGE_KEY_TABS]: newExtensionData })
+            // Create a deep copy to avoid mutations during storage
+            const dataToStore = deepCopy(newExtensionData);
+
+            await ThisBrowser.storage.local.set({ [STORAGE_KEY_TABS]: dataToStore })
+
+            // Only update in-memory state after successful storage
+            this.extensionDataState.tabsData = dataToStore;
+
+            logger.logServiceWorker('updateExtensionTabData 2 Completed', LogLevel.WARN, {
+                newExtensionData: dataToStore,
+            })
             return {
                 status: MessageResponseStatus.SUCCESS,
             }
         } catch (err) {
+            logger.logServiceWorker(
+                'Failed to update extension tab data in BaseServiceWorkerHandler',
+                LogLevel.ERROR,
+                err
+            )
             return {
                 status: MessageResponseStatus.FAILURE,
                 status_detail: err.message,
                 status_error: err,
             }
+        } finally {
+            unlock();
         }
     }
 }

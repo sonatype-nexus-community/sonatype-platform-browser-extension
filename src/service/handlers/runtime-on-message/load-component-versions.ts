@@ -16,11 +16,12 @@
 import { Analytics } from '../../../common/analytics/analytics'
 import { ExtensionConfigurationState } from '../../../common/configuration/extension-configuration'
 import { ExtensionDataState } from '../../../common/data/extension-data'
-import { ComponentDataAllVersions } from '../../../common/data/types'
+import { ComponentDataAllVersions, TabDataStatus } from '../../../common/data/types'
 import { logger, LogLevel } from '../../../common/logger'
 import { MessageResponseStatus } from '../../../common/message/constants'
 import { MessageRequestLoadComponentVersions, MessageResponseFunction } from '../../../common/message/types'
 import { MessageSender } from '../../../common/types'
+import { deepCopy } from '../../../common/utils'
 import { IqMessageHelper } from '../helpers/iq'
 import { BaseRuntimeOnMessageHandler } from './base'
 
@@ -31,7 +32,7 @@ export class LoadComponentVersionsMessageHandler extends BaseRuntimeOnMessageHan
         protected readonly analytics: Analytics,
         protected readonly extensionDataState: ExtensionDataState
     ) {
-        super(extensionConfigurationState, iqMessageHelper, analytics)
+        super(extensionConfigurationState, iqMessageHelper, analytics, extensionDataState)
     }
 
     async handleMessage(
@@ -47,21 +48,43 @@ export class LoadComponentVersionsMessageHandler extends BaseRuntimeOnMessageHan
         )
         const allComponentVersions = await this.iqMessageHelper.getComponentVersions(message.componentIdentifier)
 
-        const newExtensionTabsData = this.extensionDataState.tabsData
         const componentVersions: ComponentDataAllVersions = Object.fromEntries(
             allComponentVersions.map((key) => [key, undefined])
         )
         logger.logServiceWorker('   Component Versions --> ', LogLevel.DEBUG, allComponentVersions, componentVersions)
-        newExtensionTabsData.tabs[message.tabId].components[message.componentIdentifier.packageUrl as string].allComponentVersions = componentVersions
 
-        await this.updateExtensionTabData(newExtensionTabsData)
-        // if (storageUpdateResponse.status === MessageResponseStatus.SUCCESS) {
-            sendResponse({
-                status: MessageResponseStatus.SUCCESS,
-                // versions: componentVersions,
-            })
-        // } else {
-        //     sendResponse(storageUpdateResponse)
-        // }
+        // Create a deep copy of the current tabs data to avoid mutating the original
+        const newExtensionTabsData = deepCopy(this.extensionDataState.tabsData)
+
+        // Ensure the tab exists with proper structure
+        if (!newExtensionTabsData.tabs[message.tabId]) {
+            newExtensionTabsData.tabs[message.tabId] = {
+                tabId: message.tabId,
+                repoTypeId: '',
+                status: TabDataStatus.EVALUATING,
+                components: {}
+            }
+        }
+
+        const packageUrl = message.componentIdentifier.packageUrl as string
+
+        // Ensure the component exists with proper structure
+        if (!newExtensionTabsData.tabs[message.tabId].components[packageUrl]) {
+            newExtensionTabsData.tabs[message.tabId].components[packageUrl] = {
+                allComponentVersions: undefined,
+                componentDetails: undefined,
+                componentEvaluationDateTime: '',
+                componentLegalDegtails: [],
+                componentRemediationDetails: undefined
+            }
+        }
+
+        // Apply the change to the copied data
+        newExtensionTabsData.tabs[message.tabId].components[packageUrl].allComponentVersions = componentVersions
+
+        const updateResult = await this.updateExtensionTabData(newExtensionTabsData)
+
+        // In-memory state is now updated within updateExtensionTabData after successful storage
+        sendResponse(updateResult)
     }
 }

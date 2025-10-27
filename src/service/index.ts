@@ -145,7 +145,9 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
 
     // 2C Storage Changed
     const storageHandler = (changes: { [key: string]: browser.storage.StorageChange }, areaName: string) => {
+        logger.logServiceWorker("Storage Changes Detected", LogLevel.DEBUG, {changes: changes, area: areaName})
         if (areaName == 'local') {
+            logger.logServiceWorker("Storage Changes Detected", LogLevel.DEBUG, {changes: changes})
             let configChanged = false
             let tabsChanged = false
             let vulnerabilitiesChanged = false
@@ -182,6 +184,16 @@ loadExtensionDataAndSettings().then(({ settings, tabsData, vulnerabilityData }) 
                 }
                 broadcastTimer = setTimeout(() => {
                     broadcastTimer = undefined
+                    logger.logServiceWorker(
+                        'Broadcasting Extension Data after storage change (debounced)',
+                        LogLevel.WARN,
+                        {
+                            configChanged,
+                            tabsChanged,
+                            vulnerabilitiesChanged,
+                            clientCount: broadcastClientsAllData.size
+                        }
+                    )
                     broadcastAllData({
                         messageType: MessageRequestType.EXTENSION_DATA_UPDATED,
                         extensionConfiguration: extensionConfigurationState.getExtensionConfig(),

@@ -94,6 +94,7 @@ export class ServiceWorkerRuntimeOnMessageHandler extends BaseServiceWorkerHandl
                     this.extensionConfigurationState,
                     this.iqMessageHelper,
                     this.analytics,
+                    this.extensionDataState,
                     this.extensionDataState.vulnerabilityData
                 )
                 break
