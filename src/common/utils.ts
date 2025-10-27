@@ -15,11 +15,11 @@
  */
 
 /**
- * Creates a deep copy of an object using JSON serialization.
- * This is a simple deep copy implementation that works for most extension data structures.
+ * Creates a deep copy of an object using structured cloning.
+ * This is a reliable deep copy implementation that works for most extension data structures.
  */
 export function deepCopy<T>(obj: T): T {
-  return JSON.parse(JSON.stringify(obj))
+  return structuredClone(obj)
 }
 
 /**
@@ -27,18 +27,18 @@ export function deepCopy<T>(obj: T): T {
  */
 export class Mutex {
   private locked = false
-  private waiting: Array<() => void> = []
+  private readonly waiting: Array<() => void> = []
 
   async acquire(): Promise<() => void> {
     return new Promise((resolve) => {
-      if (!this.locked) {
-        this.locked = true
-        resolve(() => this.release())
-      } else {
+      if (this.locked) {
         this.waiting.push(() => {
           this.locked = true
           resolve(() => this.release())
         })
+      } else {
+        this.locked = true
+        resolve(() => this.release())
       }
     })
   }
