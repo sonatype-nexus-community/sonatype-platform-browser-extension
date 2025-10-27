@@ -44,18 +44,33 @@ export enum ANALYTICS_EVENT_TYPES {
 const extension = ThisBrowser.runtime.getManifest()
 
 export class Analytics {
+    private clientIdPromise: Promise<string> | null = null;
+
     // Returns the client id, or creates a new one if one doesn't exist.
     // Stores client id in local storage to keep the same client id as long as
     // the extension is installed.
-    async getOrCreateClientId() {
-        let { clientId } = await ThisBrowser.storage.local.get('clientId')
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!clientId) {
-            // Generate a unique client ID, the actual value is not relevant
-            clientId = self.crypto.randomUUID()
-            await ThisBrowser.storage.local.set({ clientId })
+    async getOrCreateClientId(): Promise<string> {
+        // If we're already in the process of creating/getting a client ID, wait for that
+        if (this.clientIdPromise) {
+            return this.clientIdPromise;
         }
-        return clientId
+
+        this.clientIdPromise = (async () => {
+            try {
+                let { clientId } = await ThisBrowser.storage.local.get('clientId')
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                if (!clientId) {
+                    // Generate a unique client ID, the actual value is not relevant
+                    clientId = self.crypto.randomUUID()
+                    await ThisBrowser.storage.local.set({ clientId })
+                }
+                return clientId
+            } finally {
+                this.clientIdPromise = null;
+            }
+        })();
+
+        return this.clientIdPromise;
     }
 
     // Returns the current session id, or creates a new one if one doesn't exist or
