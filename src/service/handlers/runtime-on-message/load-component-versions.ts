@@ -40,51 +40,100 @@ export class LoadComponentVersionsMessageHandler extends BaseRuntimeOnMessageHan
         sender: MessageSender,
         sendResponse: MessageResponseFunction
     ): Promise<void> {
-        logger.logServiceWorker(
-            'Request to load Component Versions',
-            LogLevel.DEBUG,
-            message.componentIdentifier,
-            message.tabId
-        )
-        const allComponentVersions = await this.iqMessageHelper.getComponentVersions(message.componentIdentifier)
+        console.warn('[LOAD-COMPONENT-VERSIONS] handleMessage START', {
+            packageUrl: message.componentIdentifier.packageUrl,
+            tabId: message.tabId
+        })
+        
+        try {
+            logger.logServiceWorker(
+                'Request to load Component Versions',
+                LogLevel.DEBUG,
+                message.componentIdentifier,
+                message.tabId
+            )
+            const allComponentVersions = await this.iqMessageHelper.getComponentVersions(message.componentIdentifier)
+            console.warn('[LOAD-COMPONENT-VERSIONS] API returned versions', {
+                versionCount: allComponentVersions.length,
+                firstFew: allComponentVersions.slice(0, 3)
+            })
 
-        const componentVersions: ComponentDataAllVersions = Object.fromEntries(
-            allComponentVersions.map((key) => [key, undefined])
-        )
-        logger.logServiceWorker('   Component Versions --> ', LogLevel.DEBUG, allComponentVersions, componentVersions)
+            // CRITICAL: Use null instead of undefined - Chrome messaging strips undefined values!
+            const componentVersions: ComponentDataAllVersions = Object.fromEntries(
+                allComponentVersions.map((key) => [key, null as any])
+            )
+            console.warn('[LOAD-COMPONENT-VERSIONS] Created componentVersions object', {
+                versionCount: allComponentVersions.length,
+                versionKeys: Object.keys(componentVersions),
+                componentVersions
+            })
+            logger.logServiceWorker('   Component Versions --> ', LogLevel.DEBUG, allComponentVersions, componentVersions)
 
-        // Create a deep copy of the current tabs data to avoid mutating the original
-        const newExtensionTabsData = deepCopy(this.extensionDataState.tabsData)
+            const response = {
+                    status: MessageResponseStatus.SUCCESS,
+                    versions: componentVersions
+                }
+                console.warn('[LOAD-COMPONENT-VERSIONS] About to sendResponse', {
+                    versionCount: Object.keys(componentVersions).length,
+                    response
+                })
+                sendResponse(response)
+                console.warn('[LOAD-COMPONENT-VERSIONS] sendResponse CALLED')
 
-        // Ensure the tab exists with proper structure
-        if (!newExtensionTabsData.tabs[message.tabId]) {
-            newExtensionTabsData.tabs[message.tabId] = {
-                tabId: message.tabId,
-                repoTypeId: '',
-                status: TabDataStatus.EVALUATING,
-                components: {}
-            }
+        //     // Create a deep copy of the current tabs data to avoid mutating the original
+        //     const newExtensionTabsData = deepCopy(this.extensionDataState.tabsData)
+
+        //     // Ensure the tab exists with proper structure
+        //     if (!newExtensionTabsData.tabs[message.tabId]) {
+        //         newExtensionTabsData.tabs[message.tabId] = {
+        //             tabId: message.tabId,
+        //             repoTypeId: '',
+        //             status: TabDataStatus.EVALUATING,
+        //             components: {}
+        //         }
+        // }
+
+        //     const packageUrl = message.componentIdentifier.packageUrl as string
+
+        //     // Ensure the component exists with proper structure
+        //     if (!newExtensionTabsData.tabs[message.tabId].components[packageUrl]) {
+        //         newExtensionTabsData.tabs[message.tabId].components[packageUrl] = {
+        //             allComponentVersions: undefined,
+        //             componentDetails: undefined,
+        //             componentEvaluationDateTime: '',
+        //             componentLegalDegtails: [],
+        //             componentRemediationDetails: undefined
+        //         }
+        //     }
+
+        //     // Apply the change to the copied data
+        //     newExtensionTabsData.tabs[message.tabId].components[packageUrl].allComponentVersions = componentVersions
+
+        //     const updateResult = await this.updateExtensionTabData(newExtensionTabsData)
+
+        //     // Return versions directly in response for immediate UI update
+        //     if (updateResult.status === MessageResponseStatus.SUCCESS) {
+        //         const response = {
+        //             status: MessageResponseStatus.SUCCESS,
+        //             versions: componentVersions
+        //         }
+        //         console.warn('[LOAD-COMPONENT-VERSIONS] About to sendResponse', {
+        //             versionCount: Object.keys(componentVersions).length,
+        //             response
+        //         })
+        //         sendResponse(response)
+        //         console.warn('[LOAD-COMPONENT-VERSIONS] sendResponse CALLED')
+        //     } else {
+        //         console.error('[LOAD-COMPONENT-VERSIONS] Storage update failed', updateResult)
+        //         sendResponse(updateResult)
+        //     }
+        } catch (error) {
+            console.error('[LOAD-COMPONENT-VERSIONS] Exception in handleMessage', error)
+            sendResponse({
+                status: MessageResponseStatus.FAILURE,
+                status_detail: error.message,
+                status_error: error
+            })
         }
-
-        const packageUrl = message.componentIdentifier.packageUrl as string
-
-        // Ensure the component exists with proper structure
-        if (!newExtensionTabsData.tabs[message.tabId].components[packageUrl]) {
-            newExtensionTabsData.tabs[message.tabId].components[packageUrl] = {
-                allComponentVersions: undefined,
-                componentDetails: undefined,
-                componentEvaluationDateTime: '',
-                componentLegalDegtails: [],
-                componentRemediationDetails: undefined
-            }
-        }
-
-        // Apply the change to the copied data
-        newExtensionTabsData.tabs[message.tabId].components[packageUrl].allComponentVersions = componentVersions
-
-        const updateResult = await this.updateExtensionTabData(newExtensionTabsData)
-
-        // In-memory state is now updated within updateExtensionTabData after successful storage
-        sendResponse(updateResult)
     }
 }

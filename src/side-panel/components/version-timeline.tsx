@@ -22,9 +22,9 @@ import { ThisBrowser } from '../../common/constants'
 import { ExtensionTabDataContext } from '../../common/context/extension-tab-data'
 import { ComponentDataAllVersions } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
-import { MessageRequestType } from '../../common/message/constants'
+import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
 import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
-import { MessageResponse } from '../../common/message/types'
+import { MessageResponse, MessageResponseLoadComponentVersions } from '../../common/message/types'
 
 export default function VersionTimeline(props: Readonly<{ component?: ApiComponentDTOV2; tabId?: number }>) {
     const analytics = new Analytics()
@@ -37,36 +37,85 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
     const [componentVersions, setComponentVersions] = useState<ComponentDataAllVersions | undefined>(undefined)
 
     useEffect(() => {
-        if (props.component !== undefined && props.tabId !== undefined) {
-            const loadKey = `${props.tabId}-${props.component.packageUrl}`
+        console.warn('[VERSION TIMELINE] useEffect fired', { 
+            hasComponent: props.component !== undefined, 
+            hasTabId: props.tabId !== undefined,
+            packageUrl: props.component?.packageUrl,
+            tabId: props.tabId,
+            lastLoadedKey 
+        })
 
-            // Only run if this combination hasn't been loaded yet
-            if (loadKey === lastLoadedKey) return
-
-            logger.logReact('Requesting Component Versions', LogLevel.DEBUG, props.tabId, props.component)
-            setLoading(true)
-            setComponent(props.component)
-            setLastLoadedKey(loadKey)
-
-            sendRuntimeMessage({
-                messageType: MessageRequestType.LOAD_COMPONENT_VERSIONS,
-                componentIdentifier: props.component,
-                tabId: props.tabId,
-            }).then((msgResponse: MessageResponse) => {
-                const lastError = lastRuntimeError()
-                if (lastError) {
-                    logger.logReact('Runtime Error in VersionTimeline.useEffect', LogLevel.WARN, lastError)
-                }
-
-                logger.logReact('Response for load Component Versions', LogLevel.DEBUG, msgResponse)
-                // setComponentVersions(msgResponse.versions)
-            })
-            analytics.firePageViewEvent(
-                `Side Panel Component Version Timeline: ${props.component?.packageUrl as string}`,
-                globalThis.location.href
-            )
+        if (props.component === undefined || props.tabId === undefined) {
+            console.warn('[VERSION TIMELINE] Missing props - cannot load versions')
+            return
         }
-    }, [props.component, props.tabId, lastLoadedKey])
+
+        const loadKey = `${props.tabId}-${props.component.packageUrl}`
+
+        // Only run if this combination hasn't been loaded yet
+        if (loadKey === lastLoadedKey) {
+            console.warn('[VERSION TIMELINE] Skipping - already loaded', loadKey)
+            return
+        }
+
+        logger.logReact('Requesting Component Versions', LogLevel.DEBUG, props.tabId, props.component)
+        console.warn('[VERSION TIMELINE] Loading versions', loadKey)
+        
+        setLoading(true)
+        setComponent(props.component)
+        setLastLoadedKey(loadKey)
+
+        sendRuntimeMessage({
+            messageType: MessageRequestType.LOAD_COMPONENT_VERSIONS,
+            componentIdentifier: props.component,
+            tabId: props.tabId,
+        }).then((msgResponse: MessageResponse) => {
+            const lastError = lastRuntimeError()
+            if (lastError) {
+                logger.logReact('[VERSION TIMELINE] Runtime Error in VersionTimeline.useEffect', LogLevel.WARN, lastError)
+                console.error('[VERSION TIMELINE] Runtime error', lastError)
+                setLoading(false)
+                return
+            }
+
+            console.warn('[VERSION TIMELINE] Raw msgResponse received', {
+                msgResponse,
+                hasVersionsProperty: 'versions' in msgResponse,
+                status: msgResponse.status,
+                keys: Object.keys(msgResponse),
+                msgResponseType: typeof msgResponse
+            })
+            
+            // Set versions directly from response for immediate update
+            const versionResponse = msgResponse as MessageResponseLoadComponentVersions
+            console.warn('[VERSION TIMELINE] After cast to MessageResponseLoadComponentVersions', {
+                hasVersions: versionResponse.versions !== undefined,
+                versionsIsNull: versionResponse.versions === null,
+                versionsIsEmpty: versionResponse.versions ? Object.keys(versionResponse.versions).length === 0 : true,
+                versionCount: versionResponse.versions ? Object.keys(versionResponse.versions).length : 0,
+                versions: versionResponse.versions
+            })
+            
+            if (versionResponse.versions && Object.keys(versionResponse.versions).length > 0) {
+                setComponentVersions(versionResponse.versions)
+                setLoading(false)
+                console.warn('[VERSION TIMELINE] Versions set successfully', {
+                    count: Object.keys(versionResponse.versions).length,
+                    firstFew: Object.keys(versionResponse.versions).slice(0, 3)
+                })
+            } else {
+                console.error('[VERSION TIMELINE] No versions or empty versions object', {
+                    hasVersions: versionResponse.versions !== undefined,
+                    versionCount: versionResponse.versions ? Object.keys(versionResponse.versions).length : 0
+                })
+                setLoading(false)
+            }
+        })
+        analytics.firePageViewEvent(
+            `Side Panel Component Version Timeline: ${props.component?.packageUrl as string}`,
+            globalThis.location.href
+        )
+    }, [props.component, props.tabId])
 
     useEffect(() => {
         if (extensionTabDataContext.components) {
@@ -79,15 +128,17 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
         logger.logReact('VERSION TIMELINE Component Data updated', LogLevel.DEBUG, extensionTabDataContext.components)
         if (component?.packageUrl !== undefined) {
             if (Object.keys(extensionTabDataContext.components).includes(component.packageUrl)) {
-                // setComponentVersions(extensionTabDataContext.components[component.packageUrl].allComponentVersions)
                 const versions = extensionTabDataContext.components[component.packageUrl].allComponentVersions
-                console.warn('[VERSION TIMELINE] Setting component versions', {
+                console.warn('[VERSION TIMELINE] Setting component versions from context', {
                     packageUrl: component.packageUrl,
                     versionCount: versions ? Object.keys(versions).length : 0,
                     versionsUndefined: versions === undefined
                 })
-                setComponentVersions(versions)
-                setLoading(false)
+                // Only update if we don't already have versions (backup mechanism)
+                if (!componentVersions && versions) {
+                    setComponentVersions(versions)
+                    setLoading(false)
+                }
             }
         }
     }, [extensionTabDataContext.components, component])
