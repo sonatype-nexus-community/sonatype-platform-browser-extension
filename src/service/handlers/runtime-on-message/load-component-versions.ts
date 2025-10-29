@@ -24,7 +24,7 @@ import { MessageSender } from '../../../common/types'
 import { deepCopy } from '../../../common/utils'
 import { IqMessageHelper } from '../helpers/iq'
 import { BaseRuntimeOnMessageHandler } from './base'
-import { ApiComponentDetailsDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { PackageURL } from 'packageurl-js'
 
 export class LoadComponentVersionsMessageHandler extends BaseRuntimeOnMessageHandler {
     constructor(
@@ -50,9 +50,19 @@ export class LoadComponentVersionsMessageHandler extends BaseRuntimeOnMessageHan
             )
             const allComponentVersions = await this.iqMessageHelper.getComponentVersions(message.componentIdentifier)
 
+            // Evaluate each version
+            const basePurl = PackageURL.fromString(message.componentIdentifier.packageUrl as string)
+            const versionedPurls = allComponentVersions.map(version =>
+                new PackageURL(basePurl.type, basePurl.namespace, basePurl.name, version, basePurl.qualifiers, basePurl.subpath).toString()
+            )
+            const evaluationResults = await this.iqMessageHelper.evaluateComponents(versionedPurls)
+
             // CRITICAL: Use null instead of undefined - Chrome messaging strips undefined values!
             const componentVersions: ComponentDataAllVersions = Object.fromEntries(
-                allComponentVersions.map((key) => [key, {} as ApiComponentDetailsDTOV2])
+                evaluationResults.results?.filter(result => result.component?.packageUrl).map(result => {
+                    const version = PackageURL.fromString(result.component!.packageUrl!).version as string
+                    return [version, result]
+                }) || []
             )
             logger.logServiceWorker(
                 '   Component Versions --> ',
