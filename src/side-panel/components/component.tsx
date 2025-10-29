@@ -54,9 +54,9 @@ export default function Component(props: Readonly<{ component: ComponentData }>)
                     </div>
                 </hgroup>
                 <div className="nx-tile__actions">
-                    <NxButton onClick={viewComponentTimeline} title={'View Component Version Timeline'}>
+                    <NxButton onClick={viewComponentTimeline} title={ThisBrowser.i18n.getMessage('VERSION_TIMELINE')}>
                         <NxFontAwesomeIcon icon={faTimeline}/>
-                        <span>View Timeline</span>
+                        <span>{ThisBrowser.i18n.getMessage('TIMELINE')}</span>
                     </NxButton>
                 </div>
             </header>

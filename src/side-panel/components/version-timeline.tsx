@@ -159,7 +159,7 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                 <NxTile>
                     <header className='nx-tile-header'>
                         <div className='nx-tile-header__title'>
-                            <h2 className='nx-h2'>Version History</h2>
+                            <h2 className='nx-h2'>{ThisBrowser.i18n.getMessage('VERSION_TIMELINE')}</h2>
                         </div>
                     </header>
                     <div className='nx-tile-content'>
