@@ -14,17 +14,27 @@
  * limitations under the License.
  */
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { ApiComponentDTOV2 } from '@sonatype/nexus-iq-api-client'
-import { getUniqueId, NxFontAwesomeIcon, NxLoadingSpinner } from '@sonatype/react-shared-components'
+import { ApiComponentDTOV2, ApiComponentDetailsDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { compareVersions } from 'compare-versions'
+import {
+    getUniqueId,
+    NxFontAwesomeIcon,
+    NxLoadingSpinner,
+    NxPolicyViolationIndicator,
+    NxTile,
+} from '@sonatype/react-shared-components'
+import { ThreatLevelNumber } from '@sonatype/react-shared-components'
 import React, { useContext, useEffect, useState } from 'react'
 import { Analytics } from '../../common/analytics/analytics'
 import { ThisBrowser } from '../../common/constants'
 import { ExtensionTabDataContext } from '../../common/context/extension-tab-data'
 import { ComponentDataAllVersions } from '../../common/data/types'
 import { logger, LogLevel } from '../../common/logger'
-import { MessageRequestType, MessageResponseStatus } from '../../common/message/constants'
+import { MessageRequestType } from '../../common/message/constants'
 import { lastRuntimeError, sendRuntimeMessage } from '../../common/message/helpers'
 import { MessageResponse, MessageResponseLoadComponentVersions } from '../../common/message/types'
+import { PolicyThreatLevelUtil } from '../../common/policy/policy-util'
+import './version-timeline.css'
 
 export default function VersionTimeline(props: Readonly<{ component?: ApiComponentDTOV2; tabId?: number }>) {
     const analytics = new Analytics()
@@ -32,21 +42,12 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
     const extensionTabDataContext = useContext(ExtensionTabDataContext)
 
     const [lastLoadedKey, setLastLoadedKey] = useState<string>('')
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
     const [component, setComponent] = useState<ApiComponentDTOV2 | undefined>(undefined)
     const [componentVersions, setComponentVersions] = useState<ComponentDataAllVersions | undefined>(undefined)
 
     useEffect(() => {
-        console.warn('[VERSION TIMELINE] useEffect fired', { 
-            hasComponent: props.component !== undefined, 
-            hasTabId: props.tabId !== undefined,
-            packageUrl: props.component?.packageUrl,
-            tabId: props.tabId,
-            lastLoadedKey 
-        })
-
         if (props.component === undefined || props.tabId === undefined) {
-            console.warn('[VERSION TIMELINE] Missing props - cannot load versions')
             return
         }
 
@@ -54,13 +55,11 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
 
         // Only run if this combination hasn't been loaded yet
         if (loadKey === lastLoadedKey) {
-            console.warn('[VERSION TIMELINE] Skipping - already loaded', loadKey)
             return
         }
 
         logger.logReact('Requesting Component Versions', LogLevel.DEBUG, props.tabId, props.component)
-        console.warn('[VERSION TIMELINE] Loading versions', loadKey)
-        
+
         setLoading(true)
         setComponent(props.component)
         setLastLoadedKey(loadKey)
@@ -72,42 +71,22 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
         }).then((msgResponse: MessageResponse) => {
             const lastError = lastRuntimeError()
             if (lastError) {
-                logger.logReact('[VERSION TIMELINE] Runtime Error in VersionTimeline.useEffect', LogLevel.WARN, lastError)
-                console.error('[VERSION TIMELINE] Runtime error', lastError)
+                logger.logReact(
+                    '[VERSION TIMELINE] Runtime Error in VersionTimeline.useEffect',
+                    LogLevel.WARN,
+                    lastError
+                )
                 setLoading(false)
                 return
             }
 
-            console.warn('[VERSION TIMELINE] Raw msgResponse received', {
-                msgResponse,
-                hasVersionsProperty: 'versions' in msgResponse,
-                status: msgResponse.status,
-                keys: Object.keys(msgResponse),
-                msgResponseType: typeof msgResponse
-            })
-            
             // Set versions directly from response for immediate update
             const versionResponse = msgResponse as MessageResponseLoadComponentVersions
-            console.warn('[VERSION TIMELINE] After cast to MessageResponseLoadComponentVersions', {
-                hasVersions: versionResponse.versions !== undefined,
-                versionsIsNull: versionResponse.versions === null,
-                versionsIsEmpty: versionResponse.versions ? Object.keys(versionResponse.versions).length === 0 : true,
-                versionCount: versionResponse.versions ? Object.keys(versionResponse.versions).length : 0,
-                versions: versionResponse.versions
-            })
-            
+
             if (versionResponse.versions && Object.keys(versionResponse.versions).length > 0) {
                 setComponentVersions(versionResponse.versions)
                 setLoading(false)
-                console.warn('[VERSION TIMELINE] Versions set successfully', {
-                    count: Object.keys(versionResponse.versions).length,
-                    firstFew: Object.keys(versionResponse.versions).slice(0, 3)
-                })
             } else {
-                console.error('[VERSION TIMELINE] No versions or empty versions object', {
-                    hasVersions: versionResponse.versions !== undefined,
-                    versionCount: versionResponse.versions ? Object.keys(versionResponse.versions).length : 0
-                })
                 setLoading(false)
             }
         })
@@ -118,22 +97,10 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
     }, [props.component, props.tabId])
 
     useEffect(() => {
-        if (extensionTabDataContext.components) {
-            console.warn('[VERSION TIMELINE] Context components changed', {
-                componentPackageUrl: component?.packageUrl,
-                componentsInContext: Object.keys(extensionTabDataContext.components),
-                hasOurComponent: component?.packageUrl ? Object.keys(extensionTabDataContext.components).includes(component.packageUrl) : false
-            })
-        }
         logger.logReact('VERSION TIMELINE Component Data updated', LogLevel.DEBUG, extensionTabDataContext.components)
         if (component?.packageUrl !== undefined) {
             if (Object.keys(extensionTabDataContext.components).includes(component.packageUrl)) {
                 const versions = extensionTabDataContext.components[component.packageUrl].allComponentVersions
-                console.warn('[VERSION TIMELINE] Setting component versions from context', {
-                    packageUrl: component.packageUrl,
-                    versionCount: versions ? Object.keys(versions).length : 0,
-                    versionsUndefined: versions === undefined
-                })
                 // Only update if we don't already have versions (backup mechanism)
                 if (!componentVersions && versions) {
                     setComponentVersions(versions)
@@ -143,8 +110,49 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
         }
     }, [extensionTabDataContext.components, component])
 
+    // Helper function to get the highest threat level from policy violations
+    const getHighestThreatLevel = (component: ApiComponentDetailsDTOV2 | undefined): ThreatLevelNumber => {
+        if (!component?.policyData?.policyViolations || component.policyData.policyViolations.length === 0) return 0
+        const threatLevels = component.policyData.policyViolations
+            .map((pv) => pv.threatLevel)
+            .filter((level): level is number => typeof level === 'number')
+        return (threatLevels.length > 0 ? Math.max(...threatLevels) : 0) as ThreatLevelNumber
+    }
+
+    // Sort versions with newest first
+    const sortedVersions = componentVersions
+        ? Object.entries(componentVersions)
+              .filter(([, component]) => component !== undefined)
+              .sort(([versionA], [versionB]) => {
+                  try {
+                      return compareVersions(versionB, versionA) // Reverse order for newest first
+                  } catch {
+                      // Fallback to string comparison if versions aren't semver
+                      return versionB.localeCompare(versionA)
+                  }
+              })
+        : []
+
+    // Get current component version for auto-scroll
+    const currentVersion =
+        componentVersions && props.component?.packageUrl
+            ? Object.entries(componentVersions).find(
+                  ([, comp]) => comp?.component?.packageUrl === props.component?.packageUrl
+              )?.[0] || ''
+            : ''
+
+    // Auto-scroll to current version when timeline renders
+    useEffect(() => {
+        if (!loading && sortedVersions.length > 0 && currentVersion) {
+            const currentVersionElement = document.getElementById(`version-${currentVersion}`)
+            if (currentVersionElement) {
+                currentVersionElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+        }
+    }, [loading, sortedVersions, currentVersion])
+
     if (!loading) {
-        logger.logReact("Rending Component Version Timeline", LogLevel.DEBUG, componentVersions)
+        logger.logReact('Rending Component Version Timeline', LogLevel.DEBUG, componentVersions)
         return (
             <>
                 <header className='nx-global-header'>
@@ -155,24 +163,76 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                         </a>
                     </div>
                 </header>
-                <section className='nx-tile'>
+                <NxTile>
                     <header className='nx-tile-header'>
                         <div className='nx-tile-header__title'>
                             <h2 className='nx-h2'>Version History</h2>
                         </div>
                     </header>
                     <div className='nx-tile-content'>
-                        {componentVersions !== undefined && (
-                            <ul>
-                                {Object.entries(componentVersions).map(([version, component]) => (
-                                    <li key={getUniqueId('component-version')}>{version}</li>
-                                ))}
-                            </ul>
-                        ) || (
-                            <em>No versions?</em>
+                        {sortedVersions.length > 0 ? (
+                            <div className='version-timeline'>
+                                {sortedVersions.map(([version, component], index) => {
+                                    const isLeft = index % 2 === 0
+                                    const highestThreatLevel = getHighestThreatLevel(component)
+                                    const threatSummary = component
+                                        ? PolicyThreatLevelUtil.getThreatLevelSummary(component)
+                                        : null
+
+                                    return (
+                                        <div
+                                            key={getUniqueId('timeline-item')}
+                                            id={`version-${version}`}
+                                            className={`timeline-container ${isLeft ? 'left' : 'right'} ${
+                                                version === currentVersion ? 'current-version' : ''
+                                            }`}>
+                                            <div className='timeline-content'>
+                                                <div className='version-header'>
+                                                    <h3 className='nx-h3'>{version}</h3>
+                                                    {highestThreatLevel > 0 && (
+                                                        <NxPolicyViolationIndicator
+                                                            policyThreatLevel={highestThreatLevel}
+                                                        />
+                                                    )}
+                                                </div>
+                                                {threatSummary &&
+                                                    (threatSummary.criticalCount > 0 ||
+                                                        threatSummary.severeCount > 0 ||
+                                                        threatSummary.moderateCount > 0 ||
+                                                        threatSummary.lowCount > 0) && (
+                                                        <div className='policy-summary'>
+                                                            {threatSummary.criticalCount > 0 && (
+                                                                <span className='policy-count critical'>
+                                                                    {threatSummary.criticalCount} Critical
+                                                                </span>
+                                                            )}
+                                                            {threatSummary.severeCount > 0 && (
+                                                                <span className='policy-count severe'>
+                                                                    {threatSummary.severeCount} Severe
+                                                                </span>
+                                                            )}
+                                                            {threatSummary.moderateCount > 0 && (
+                                                                <span className='policy-count moderate'>
+                                                                    {threatSummary.moderateCount} Moderate
+                                                                </span>
+                                                            )}
+                                                            {threatSummary.lowCount > 0 && (
+                                                                <span className='policy-count low'>
+                                                                    {threatSummary.lowCount} Low
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        ) : (
+                            <NxLoadingSpinner />
                         )}
                     </div>
-                </section>
+                </NxTile>
             </>
         )
     } else {
@@ -186,7 +246,7 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                         </a>
                     </div>
                 </header>
-                <section className='nx-tile'>
+                <NxTile>
                     <header className='nx-tile-header'>
                         <div className='nx-tile-header__title'>
                             <h2 className='nx-h2'>Version History</h2>
@@ -195,7 +255,7 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                     <div className='nx-tile-content'>
                         <NxLoadingSpinner />
                     </div>
-                </section>
+                </NxTile>
             </>
         )
     }
