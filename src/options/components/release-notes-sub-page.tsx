@@ -28,6 +28,30 @@ export default function ReleaseNotesSubPage() {
             <NxTile>
                 <NxTile.Header>
                     <NxTile.HeaderTitle>
+                        <NxH2>Release <code>3.2.0</code></NxH2>
+                    </NxTile.HeaderTitle>
+                </NxTile.Header>
+                <NxTile.Content>
+                    <h3 className="nx-h3">Notable Changes</h3>
+                    <ol className="nx-list nx-list--numbered">
+                        <li className="nx-list__item">
+                            <h4>Version Timeline</h4>
+                            <span className="nx-list__text">
+                                When viewing a Component, you can now view the Version Timeline.
+                            </span>
+                        </li>
+                        <li className="nx-list__item">
+                            <h4>Under the covers...</h4>
+                            <span className="nx-list__text">
+                                We&apos;ve made a bunch of changes under the hood to improve performance and reliability.
+                            </span>
+                        </li>
+                    </ol>
+                </NxTile.Content>
+            </NxTile>
+            <NxTile>
+                <NxTile.Header>
+                    <NxTile.HeaderTitle>
                         <NxH2>Release <code>3.1.0</code></NxH2>
                     </NxTile.HeaderTitle>
                 </NxTile.Header>
