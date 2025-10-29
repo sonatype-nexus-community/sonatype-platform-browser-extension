@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { ApiComponentDTOV2, ApiComponentDetailsDTOV2 } from '@sonatype/nexus-iq-api-client'
+import { ApiComponentDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { compareVersions } from 'compare-versions'
 import {
     getUniqueId,
     NxFontAwesomeIcon,
     NxLoadingSpinner,
-    NxPolicyViolationIndicator,
+    NxSmallThreatCounter,
     NxTile,
 } from '@sonatype/react-shared-components'
-import { ThreatLevelNumber } from '@sonatype/react-shared-components'
+
 import React, { useContext, useEffect, useState } from 'react'
 import { Analytics } from '../../common/analytics/analytics'
 import { ThisBrowser } from '../../common/constants'
@@ -110,14 +110,7 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
         }
     }, [extensionTabDataContext.components, component])
 
-    // Helper function to get the highest threat level from policy violations
-    const getHighestThreatLevel = (component: ApiComponentDetailsDTOV2 | undefined): ThreatLevelNumber => {
-        if (!component?.policyData?.policyViolations || component.policyData.policyViolations.length === 0) return 0
-        const threatLevels = component.policyData.policyViolations
-            .map((pv) => pv.threatLevel)
-            .filter((level): level is number => typeof level === 'number')
-        return (threatLevels.length > 0 ? Math.max(...threatLevels) : 0) as ThreatLevelNumber
-    }
+
 
     // Sort versions with newest first
     const sortedVersions = componentVersions
@@ -172,9 +165,7 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                     <div className='nx-tile-content'>
                         {sortedVersions.length > 0 ? (
                             <div className='version-timeline'>
-                                {sortedVersions.map(([version, component], index) => {
-                                    const isLeft = index % 2 === 0
-                                    const highestThreatLevel = getHighestThreatLevel(component)
+                                {sortedVersions.map(([version, component]) => {
                                     const threatSummary = component
                                         ? PolicyThreatLevelUtil.getThreatLevelSummary(component)
                                         : null
@@ -183,46 +174,29 @@ export default function VersionTimeline(props: Readonly<{ component?: ApiCompone
                                         <div
                                             key={getUniqueId('timeline-item')}
                                             id={`version-${version}`}
-                                            className={`timeline-container ${isLeft ? 'left' : 'right'} ${
+                                            className={`timeline-container left ${
                                                 version === currentVersion ? 'current-version' : ''
                                             }`}>
                                             <div className='timeline-content'>
                                                 <div className='version-header'>
                                                     <h3 className='nx-h3'>{version}</h3>
-                                                    {highestThreatLevel > 0 && (
-                                                        <NxPolicyViolationIndicator
-                                                            policyThreatLevel={highestThreatLevel}
-                                                        />
-                                                    )}
+                                                    <NxSmallThreatCounter
+                                                        criticalCount={threatSummary?.criticalCount}
+                                                        severeCount={threatSummary?.severeCount}
+                                                        moderateCount={threatSummary?.moderateCount}
+                                                        lowCount={threatSummary?.lowCount}
+                                                    />
                                                 </div>
-                                                {threatSummary &&
-                                                    (threatSummary.criticalCount > 0 ||
-                                                        threatSummary.severeCount > 0 ||
-                                                        threatSummary.moderateCount > 0 ||
-                                                        threatSummary.lowCount > 0) && (
-                                                        <div className='policy-summary'>
-                                                            {threatSummary.criticalCount > 0 && (
-                                                                <span className='policy-count critical'>
-                                                                    {threatSummary.criticalCount} Critical
-                                                                </span>
-                                                            )}
-                                                            {threatSummary.severeCount > 0 && (
-                                                                <span className='policy-count severe'>
-                                                                    {threatSummary.severeCount} Severe
-                                                                </span>
-                                                            )}
-                                                            {threatSummary.moderateCount > 0 && (
-                                                                <span className='policy-count moderate'>
-                                                                    {threatSummary.moderateCount} Moderate
-                                                                </span>
-                                                            )}
-                                                            {threatSummary.lowCount > 0 && (
-                                                                <span className='policy-count low'>
-                                                                    {threatSummary.lowCount} Low
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                    )}
+                                                {component?.catalogDate && (
+                                                    <div className='catalog-date'>
+                                                        {ThisBrowser.i18n.getMessage('CATALOG_DATE')}:&nbsp;
+                                                        {new Date(component.catalogDate).toLocaleDateString(ThisBrowser.i18n.getUILanguage(), {
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                            year: 'numeric'
+                                                        })}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     )
