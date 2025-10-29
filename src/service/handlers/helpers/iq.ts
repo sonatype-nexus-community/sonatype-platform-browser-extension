@@ -21,7 +21,7 @@ import { IQ_VERSION_UNKNOWN, OWNER_TYPE_ORGANIZATION, ROOT_ORGANIZATION_ID, SOLU
 import { GeneralConnectivityError, IncompleteConfigurationError, SonatypeIqError, UserAuthenticationError } from "../../../common/error"
 import { logger, LogLevel } from "../../../common/logger"
 import { MessageResponseStatus } from "../../../common/message/constants"
-import { MessageResponseIqConnectivityAndVersionCheck, MessageResponseLoadApplications, MessageResponseLoadComponentVersions, MessageResponseLoadVulnerability } from "../../../common/message/types"
+import { MessageResponseIqConnectivityAndVersionCheck, MessageResponseLoadApplications, MessageResponseLoadVulnerability } from "../../../common/message/types"
 
 const extensionManifest = ThisBrowser.runtime.getManifest()
 

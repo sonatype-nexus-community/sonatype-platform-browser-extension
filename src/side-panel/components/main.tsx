@@ -40,9 +40,7 @@ export default function MainSidePanel() {
                         setMode(SIDE_PANEL_MODE.COMPONENT_TIMELINE)
                         setComponent(JSON.parse(pageParams.get('component') as string))
                     }
-                } else {
-                    if (mode != SIDE_PANEL_MODE.COMPONENTS) setMode(SIDE_PANEL_MODE.COMPONENTS)
-                }
+                } else if (mode != SIDE_PANEL_MODE.COMPONENTS) setMode(SIDE_PANEL_MODE.COMPONENTS)
             }
         }
         if (pageParams.has('vulnerabilityReference')) {
