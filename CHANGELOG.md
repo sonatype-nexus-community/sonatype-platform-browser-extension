@@ -1,3 +1,17 @@
+# [3.2.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.1.0...v3.2.0) (2025-10-29)
+
+
+### Bug Fixes
+
+* Improvement: Multiple rapid storage updates triggered immediate broadcasts for each change, causing CPU/network churn ([#245](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/245)) ([f9f9615](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/f9f9615a49d17a40c327a5af5bca1f8298d3c82e))
+
+
+### Features
+
+* Improvement to guard against duplicate Component Evaluation calls to Sonatype IQ which may occur ([#242](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/242)) ([98e458f](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/98e458fa77ef8edc8d5ffe7ca5f4d1935fb68732))
+* Improvement to not broadcast state to all clients when a new client connects ([#244](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/244)) ([be62324](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/be62324a1ace2627ed14b3ac00a0de91efccf066))
+* Introduce a Timeline view for Component Versions ([#249](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/249)) ([c1fef32](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/commit/c1fef32287ea4e621d27acea0f0067aadd1af18f)), closes [#247](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/issues/247)
+
 # [3.1.0](https://github.com/sonatype-nexus-community/sonatype-platform-browser-extension/compare/v3.0.2...v3.1.0) (2025-10-06)
 
 
