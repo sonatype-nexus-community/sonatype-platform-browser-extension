@@ -13,26 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ApiComponentDTOV2 } from '@sonatype/nexus-iq-api-client'
 import { NxGlobalFooter2, NxPageMain } from '@sonatype/react-shared-components'
 import React, { useEffect, useState } from 'react'
 import { GIT_COMMIT_HASH, SIDE_PANEL_MODE, ThisBrowser } from '../../common/constants'
 import { logger, LogLevel } from '../../common/logger'
 import Components from './components'
+import VersionTimeline from './version-timeline'
 import VulnerabilityPanel from './vulnerability'
 
 export default function MainSidePanel() {
     const [mode, setMode] = useState<SIDE_PANEL_MODE>()
     const [tabId, setTabId] = useState<number | undefined>(undefined)
+    const [component, setComponent] = useState<ApiComponentDTOV2 | undefined>(undefined)
     const [vulnerabilityReference, setVulnerabilityReference] = useState<string | undefined>(undefined)
-    const pageParams = new URLSearchParams(window.location.search)
+    const pageParams = new URLSearchParams(globalThis.location.search)
 
     useEffect(() => {
         logger.logReact("Page Params changed", LogLevel.DEBUG, pageParams)
         if (pageParams.has('tabId')) {
             const newTabId = Number(pageParams.get('tabId') || 0)
             if (newTabId > 0) {
-                if (mode != SIDE_PANEL_MODE.COMPONENTS) setMode(SIDE_PANEL_MODE.COMPONENTS)
                 if (tabId != newTabId) setTabId(newTabId)
+                if (pageParams.has('timeline')) {   
+                    if (mode != SIDE_PANEL_MODE.COMPONENT_TIMELINE) {
+                        setMode(SIDE_PANEL_MODE.COMPONENT_TIMELINE)
+                        setComponent(JSON.parse(pageParams.get('component') as string))
+                    }
+                } else if (mode != SIDE_PANEL_MODE.COMPONENTS) setMode(SIDE_PANEL_MODE.COMPONENTS)
             }
         }
         if (pageParams.has('vulnerabilityReference')) {
@@ -53,6 +61,10 @@ export default function MainSidePanel() {
             case SIDE_PANEL_MODE.VULNERABILITY:
                 return (
                     <VulnerabilityPanel vulnerabilityReference={vulnerabilityReference} />
+                )
+            case SIDE_PANEL_MODE.COMPONENT_TIMELINE:
+                return (
+                    <VersionTimeline component={component} tabId={tabId} />
                 )
         }
     }

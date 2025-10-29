@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2, ApplicationsApi, ComponentsApi, CompositeSourceControlApi, Configuration, FirewallApi, GetSuggestedRemediationForComponent200Response, GetSuggestedRemediationForComponentOwnerTypeEnum, LicenseLegalMetadataTemplateApi, PolicyEvaluationApi, ResponseError, SolutionsApi, UserTokensApi, VulnerabilityDetailsApi } from "@sonatype/nexus-iq-api-client"
+import { ApiComponentEvaluationResultDTOV2, ApiComponentEvaluationTicketDTOV2, ApiComponentOrPurlIdentifierDTOV2, ApplicationsApi, ComponentsApi, CompositeSourceControlApi, Configuration, FirewallApi, GetSuggestedRemediationForComponent200Response, GetSuggestedRemediationForComponentOwnerTypeEnum, LicenseLegalMetadataTemplateApi, PolicyEvaluationApi, ResponseError, SolutionsApi, UserTokensApi, VulnerabilityDetailsApi } from "@sonatype/nexus-iq-api-client"
 import { PackageURL } from "packageurl-js"
 import { ExtensionConfigurationState } from "../../../common/configuration/extension-configuration"
 import { DEFAULT_SONATYPE_SOLUTION_SUPPORT, SonatypeSolutionSupport } from "../../../common/configuration/types"
@@ -255,6 +255,18 @@ export class IqMessageHelper {
         }
     }
 
+    public async getComponentVersions(componentIdentifier: ApiComponentOrPurlIdentifierDTOV2): Promise<Array<string>> {
+        try {
+            return await new ComponentsApi(this.getApiConfiguration()).getComponentVersions(
+                {
+                    apiComponentOrPurlIdentifierDTOV2: componentIdentifier
+                }, { credentials: 'omit' }
+            )
+        } catch (err) {
+            throw this.handleIqError(err)
+        }
+    }
+
     public async getApplications(): Promise<MessageResponseLoadApplications> {
         try {
             const applications = await new ApplicationsApi(this.getApiConfiguration()).getApplications()
@@ -273,7 +285,7 @@ export class IqMessageHelper {
 
     public async getVulnerability(vulnerabilityReference: string): Promise<MessageResponseLoadVulnerability> {
         try {
-            const vulnerability = await new VulnerabilityDetailsApi(this.getApiConfiguration()).getSecurityVulnerabilityDetails({
+            const vulnerability = await new VulnerabilityDetailsApi(this.getApiConfiguration()).getSecurityVulnerabilityDetails1({
                 refId: vulnerabilityReference
             })
             return {

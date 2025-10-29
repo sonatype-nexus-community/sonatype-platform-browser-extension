@@ -18,8 +18,16 @@
         }
     },
     "ALL_VERSIONS": {
-        "message": "Toutes Versions",
-        "description": "The list of all the available component versions"
+    "message": "Toutes Versions",
+    "description": "The list of all the available component versions"
+    },
+    "VERSION_TIMELINE": {
+    "message": "Historique des Versions",
+    "description": "Label for the button to view the component version timeline"
+    },
+    "TIMELINE": {
+        "message": "Chronologie",
+        "description": "The word 'Timeline' used in various contexts"
     },
     "CATALOG_DATE": {
         "message": "Date du catalogue",

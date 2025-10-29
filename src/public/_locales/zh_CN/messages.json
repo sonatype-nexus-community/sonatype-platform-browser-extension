@@ -18,8 +18,16 @@
         }
     },
     "ALL_VERSIONS": {
-        "message": "全部版本",
-        "description": "The list of all the available component versions"
+    "message": "全部版本",
+    "description": "The list of all the available component versions"
+    },
+    "VERSION_TIMELINE": {
+    "message": "版本时间线",
+    "description": "Label for the button to view the component version timeline"
+    },
+    "TIMELINE": {
+        "message": "时间线",
+        "description": "The word 'Timeline' used in various contexts"
     },
     "CATALOG_DATE": {
         "message": "发布日期",

@@ -200,7 +200,7 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
         await this.updateExtensionTabData(newExtensionTabsData)
     }
 
-    private async handleComponentsFound(tabId: number, repoTypeId: string, componentIdentities: any[]): Promise<void> {
+    private async handleComponentsFound(tabId: number, repoTypeId: string, componentIdentities: string[]): Promise<void> {
         const newExtensionTabsData = this.extensionDataState.tabsData
 
         // Set initial evaluating state
@@ -233,7 +233,7 @@ export class ServiceWorkerTabOnHandler extends BaseServiceWorkerHandler {
                 tabsData.tabs[tabId].components[result.component.packageUrl] = {
                     componentDetails: ApiComponentDetailsDTOV2ToJSON(result),
                     componentEvaluationDateTime: evaluationResults.evaluationDate?.toISOString() || '',
-                    allComponentVersions: [],
+                    allComponentVersions: {},
                     componentLegalDegtails: [], // Note: keeping original typo for compatibility
                     componentRemediationDetails: undefined,
                 }

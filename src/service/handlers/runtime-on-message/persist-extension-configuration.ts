@@ -26,7 +26,7 @@ export class PersistExtensionConfigurationMessageHandler extends BaseRuntimeOnMe
     ): Promise<void> {
         logger.logServiceWorker('Persisting new Extension Configuration', LogLevel.DEBUG, message.newExtensionConfig)
         return this.updateExtensionConfiguration(message.newExtensionConfig).then((msgResp) => {
-            this.extensionConfigurationState.setExtensionConfig(message.newExtensionConfig)
+            // In-memory state is now updated within updateExtensionConfiguration after successful storage
             sendResponse(msgResp)
         })
     }

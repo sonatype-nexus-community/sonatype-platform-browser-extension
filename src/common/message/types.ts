@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ApiApplicationDTO, SecurityVulnerabilityDataDTO } from "@sonatype/nexus-iq-api-client"
+import { ApiApplicationDTO, ApiComponentOrPurlIdentifierDTOV2, SecurityVulnerabilityDataDTO } from "@sonatype/nexus-iq-api-client"
 import { ExtensionConfiguration, ExternalRepositoryManager, SonatypeSolutionSupport } from "../configuration/types"
 import { ComponentStateType } from "../constants"
-import { ExtensionTabsData, ExtensionVulnerabilitiesData } from "../data/types"
+import { ComponentDataAllVersions, ExtensionTabsData, ExtensionVulnerabilitiesData } from "../data/types"
 import { MessageRequestType, MessageResponseStatus } from "./constants"
 import { ThreatLevelNumber } from "@sonatype/react-shared-components"
 
@@ -70,6 +70,12 @@ export interface MessageRequestLoadApplications extends MessageRequest {
     messageType: MessageRequestType.LOAD_APPLICATIONS
 }
 
+export interface MessageRequestLoadComponentVersions extends MessageRequest {
+    messageType: MessageRequestType.LOAD_COMPONENT_VERSIONS
+    componentIdentifier: ApiComponentOrPurlIdentifierDTOV2
+    tabId: number
+}
+
 export interface MessageRequestLoadVulnerability extends MessageRequest {
     messageType: MessageRequestType.LOAD_VULNERABILITY,
     vulnerabilityReference: string
@@ -118,6 +124,7 @@ export type AnyMessageRequest = MessageRequestAnnotatePageWithComponentStatuses
     | MessageRequestExtensionTabDataUpdated
     | MessageRequestExtensionVulnerabilityDataUpdated
     | MessageRequestLoadApplications
+    | MessageRequestLoadComponentVersions
     | MessageRequestLoadVulnerability
     | MessageRequestPageComponentIdentitiesParsed
     | MessageRequestRequestComponentIdentitiesFromPage
@@ -150,6 +157,10 @@ export interface MessageResponseLoadApplications extends MessageResponse {
     applications: Array<ApiApplicationDTO>
 }
 
+export interface MessageResponseLoadComponentVersions extends MessageResponse {
+    versions: ComponentDataAllVersions
+}
+
 export interface MessageResponseLoadVulnerability extends MessageResponse {
     vulnerability: SecurityVulnerabilityDataDTO | undefined
 }
@@ -161,6 +172,7 @@ export interface MessageResponsePageComponentIdentitiesParsed extends MessageRes
 export type AnyResponse = MessageResponseExtensionConfigurationUpdated
     | MessageResponseIqConnectivityAndVersionCheck
     | MessageResponseLoadApplications
+    | MessageResponseLoadComponentVersions
     | MessageResponseLoadVulnerability
     | MessageResponsePageComponentIdentitiesParsed
     | MessageResponse
