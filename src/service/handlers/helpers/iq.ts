@@ -285,7 +285,7 @@ export class IqMessageHelper {
 
     public async getVulnerability(vulnerabilityReference: string): Promise<MessageResponseLoadVulnerability> {
         try {
-            const vulnerability = await new VulnerabilityDetailsApi(this.getApiConfiguration()).getSecurityVulnerabilityDetails({
+            const vulnerability = await new VulnerabilityDetailsApi(this.getApiConfiguration()).getSecurityVulnerabilityDetails1({
                 refId: vulnerabilityReference
             })
             return {
