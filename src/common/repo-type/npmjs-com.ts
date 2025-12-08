@@ -27,7 +27,7 @@ export class NpmJsComRepo extends BaseRepo {
 
     readonly purlType: string = PURL_TYPE_NPM
 
-    readonly titleSelector: string = '#top > div > h2 > span'
+    readonly titleSelector: string = '#top > div > h1 > span'
 
     readonly versionPath: string = '{groupAndArtifactId}/v/{version}'
 
