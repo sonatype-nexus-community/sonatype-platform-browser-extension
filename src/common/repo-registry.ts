@@ -19,6 +19,7 @@ import { logger, LogLevel } from './logger'
 // import { AlpineLinuxOrgRepo } from './repo-type/alpine'
 import { BaseRepo } from './repo-type/base'
 import { CentralSonatypeComRepo } from './repo-type/central-sonatype-com'
+import { GuideSonatypeComRepo } from './repo-type/guide-sonatype-com'
 import { CocoaPodsOrgRepo } from './repo-type/cocoa-pods-org'
 import { ConanIoRepo } from './repo-type/conan-io'
 import { CranRProjectOrg } from './repo-type/cran-r-project-org'
@@ -90,6 +91,7 @@ export const DefaultRepoRegistry = new RepoRegistry()
 // Register all standard repositories
 // DefaultRepoRegistry.registerRepo(new AlpineLinuxOrgRepo())
 DefaultRepoRegistry.registerRepo(new CentralSonatypeComRepo())
+DefaultRepoRegistry.registerRepo(new GuideSonatypeComRepo())
 DefaultRepoRegistry.registerRepo(new CocoaPodsOrgRepo())
 DefaultRepoRegistry.registerRepo(new ConanIoRepo())
 DefaultRepoRegistry.registerRepo(new CranRProjectOrg())

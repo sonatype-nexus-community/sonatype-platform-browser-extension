@@ -18,6 +18,7 @@ import { RepositoryId } from "../repo-type/types"
 // import { AlpineLinuxOrgPageParser } from "./alpinelinux-org"
 import { BasePageParser } from "./base"
 import { CentralSonatypeComPageParser } from "./central-sonatype-com"
+import { GuideSonatypeComPageParser } from "./guide-sonatype-com"
 import { CocoaPodsOrgPageParser } from "./cocoapods-org"
 import { ConanIoPageParser } from "./conan-io"
 import { CranRPageParser } from "./cran-r-project-org"
@@ -72,6 +73,9 @@ export const DefaultPageParserRegistry = new PageParserRegistry
 // )
 DefaultPageParserRegistry.registerPageParser(
     new CentralSonatypeComPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.CENTRAL_SONATYPE_COM))
+)
+DefaultPageParserRegistry.registerPageParser(
+    new GuideSonatypeComPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.GUIDE_SONATYPE_COM))
 )
 DefaultPageParserRegistry.registerPageParser(
     new CocoaPodsOrgPageParser(DefaultRepoRegistry.getRepoById(RepositoryId.COCOAPODS_ORG))

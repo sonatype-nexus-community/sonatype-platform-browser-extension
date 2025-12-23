@@ -72,7 +72,8 @@ In all cases, Sonatype IQ Server versions 150 and newer have been confirmed as s
 | NuGet Gallery          | .NET                | ✅      | `https://www.nuget.org/`         | ✅                              |
 | Packagist              | PHP                 | ✅      | `https://packagist.org/`         | ✅                              |
 | PyPI                   | Python              | ✅ ^2   | `https://pypi.org/`              | ✅                              |
-| RubGems                | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
+| RubyGems               | Ruby                | ✅      | `https://rubygems.org/`          | ✅                              |
+| Sonatype Guide         | Multiple            | ✅      | `https://guide.sonatype.com/`    | ✅                              |
 | Spring.io              | Java                | ❌ ^1   | `https://repo.spring.io/list/`   | N/A                             |
 
 _Notes:_
@@ -216,7 +217,7 @@ The "Security" tab allows you to understand what known security issues affect th
 
 The "Legal" tab allows you to understand what open source licenses apply or might apply to the component you are viewing.
 
-![Known Security Issues](./docs/images/extension-open-05.png)
+![Open Source License(s)](./docs/images/extension-open-05.png)
 
 ## Additional Feature Support
 
