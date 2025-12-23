@@ -196,8 +196,6 @@ When you acess the Sonatype Platform Browser Extension, you'll be shown the info
 
 Accessing the "Remediation" tab will provide easy access to recommended versions along with a timeline of all known versions and how they stack up against your organisations policies in your Sonatype IQ Server.
 
-![Remediation Information](./docs/images/extension-open-02.png)
-
 For Open Source Registries that support navigation to specific versions, you can click on the Remediation or Version to have your browser navigate to that version easily.
 See [this table](#public-registries) to see which Registries we have support for this.
 
@@ -205,19 +203,13 @@ See [this table](#public-registries) to see which Registries we have support for
 
 The "Policy" tab allows you to understand why your Organisational policies were violated - i.e. what caused the violations.
 
-![Policy Violation(s) Details](./docs/images/extension-open-03.png)
-
 ### Known Security Issues
 
 The "Security" tab allows you to understand what known security issues affect the component you are viewing.
 
-![Known Security Issues](./docs/images/extension-open-04.png)
-
 ### Open Source License(s)
 
 The "Legal" tab allows you to understand what open source licenses apply or might apply to the component you are viewing.
-
-![Open Source License(s)](./docs/images/extension-open-05.png)
 
 ## Additional Feature Support
 
