@@ -57,7 +57,7 @@ export class Analytics {
 
         this.clientIdPromise = (async () => {
             try {
-                let { clientId } = await ThisBrowser.storage.local.get('clientId')
+                let { clientId } = (await ThisBrowser.storage.local.get('clientId')) as { clientId?: string }
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (!clientId) {
                     // Generate a unique client ID, the actual value is not relevant
@@ -77,7 +77,9 @@ export class Analytics {
     // the previous one has expired.
     async getOrCreateSessionId() {
         // Use storage.session because it is only in memory
-        let { sessionData } = await ThisBrowser.storage.session.get('sessionData')
+        let { sessionData } = (await ThisBrowser.storage.session.get('sessionData')) as {
+            sessionData?: { session_id: string; timestamp: number }
+        }
         const currentTimeInMs = Date.now()
         // Check if session exists and is still valid
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -87,7 +89,7 @@ export class Analytics {
             // Check if last update lays past the session expiration threshold
             if (durationInMin > SESSION_EXPIRATION_IN_MIN) {
                 // Clear old session id to start a new session
-                sessionData = null
+                sessionData = undefined
             } else {
                 // Update timestamp to keep session alive
                 sessionData.timestamp = currentTimeInMs
@@ -99,7 +101,7 @@ export class Analytics {
             // Create and store a new session
             sessionData = {
                 session_id: currentTimeInMs.toString(),
-                timestamp: currentTimeInMs.toString(),
+                timestamp: currentTimeInMs,
             }
             await ThisBrowser.storage.session.set({ sessionData })
         }
@@ -117,7 +119,7 @@ export class Analytics {
         if (!('engagement_time_msec' in params)) {
             params['engagement_time_msec'] = DEFAULT_ENGAGEMENT_TIME_MSEC
         }
-        
+
         // Load in Extension Version
         params['extension_version'] = extension.version
         params['extension_version_git'] = GIT_COMMIT_HASH
