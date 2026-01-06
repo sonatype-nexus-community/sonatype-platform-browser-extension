@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import { describe, expect, test } from '@jest/globals'
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { PackageURL } from 'packageurl-js'
-import { join } from 'path'
+import { join } from 'node:path'
 
 import { GuideSonatypeComRepo } from '../repo-type/guide-sonatype-com'
 import { GuideSonatypeComPageParser } from './guide-sonatype-com'
@@ -26,7 +26,7 @@ const parser = new GuideSonatypeComPageParser(new GuideSonatypeComRepo())
 async function assertPageParsing(url: string, domFile: string | undefined, expected: PackageURL[] | undefined) {
     if (domFile) {
         const html = readFileSync(join(__dirname, 'testdata', domFile))
-        window.document.body.innerHTML = html.toString()
+        globalThis.document.body.innerHTML = html.toString()
     }
 
     const packageURLs = await parser.parsePage(url)
