@@ -55,7 +55,7 @@ export class Analytics {
             return this.clientIdPromise;
         }
 
-        this.clientIdPromise = (async () => {
+        this.clientIdPromise = (async (): Promise<string> => {
             try {
                 let { clientId } = await ThisBrowser.storage.local.get('clientId')
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -64,7 +64,7 @@ export class Analytics {
                     clientId = self.crypto.randomUUID()
                     await ThisBrowser.storage.local.set({ clientId })
                 }
-                return clientId
+                return clientId as string
             } finally {
                 this.clientIdPromise = null;
             }
@@ -76,21 +76,28 @@ export class Analytics {
     // Returns the current session id, or creates a new one if one doesn't exist or
     // the previous one has expired.
     async getOrCreateSessionId() {
+        type SessionData = {
+            session_id: string
+            timestamp: number | string
+        }
         // Use storage.session because it is only in memory
         let { sessionData } = await ThisBrowser.storage.session.get('sessionData')
         const currentTimeInMs = Date.now()
         // Check if session exists and is still valid
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (sessionData?.timestamp) {
+        if ((sessionData as SessionData)?.timestamp) {
             // Calculate how long ago the session was last updated
-            const durationInMin = (currentTimeInMs - sessionData.timestamp) / 60000
+            const lastTimestamp = typeof (sessionData as SessionData).timestamp === 'string'
+                ? parseInt((sessionData as SessionData).timestamp as string)
+                : (sessionData as SessionData).timestamp
+            const durationInMin = (currentTimeInMs - Number(lastTimestamp)) / 60000
             // Check if last update lays past the session expiration threshold
             if (durationInMin > SESSION_EXPIRATION_IN_MIN) {
                 // Clear old session id to start a new session
                 sessionData = null
             } else {
                 // Update timestamp to keep session alive
-                sessionData.timestamp = currentTimeInMs
+                ;(sessionData as SessionData).timestamp = currentTimeInMs
                 await ThisBrowser.storage.session.set({ sessionData })
             }
         }
@@ -99,11 +106,11 @@ export class Analytics {
             // Create and store a new session
             sessionData = {
                 session_id: currentTimeInMs.toString(),
-                timestamp: currentTimeInMs.toString(),
+                timestamp: currentTimeInMs,
             }
             await ThisBrowser.storage.session.set({ sessionData })
         }
-        return sessionData.session_id
+        return (sessionData as SessionData).session_id
     }
 
     // Fires an event with optional params. Event names must only include letters and underscores.
