@@ -79,5 +79,8 @@
     "@fortawesome/fontawesome-svg-core": "6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2"
+  },
+  "overrides": {
+    "mdast-util-to-hast": "13.2.1"
   }
 }
